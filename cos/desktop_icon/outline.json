@@ -1,0 +1,21 @@
+{
+ "app": "cos",
+ "creation": "2025-12-22 20:19:24.230556",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon_type": "App",
+ "idx": 96,
+ "label": "Outline",
+ "link": "/desk/external-link/Outline#jump",
+ "link_to": "",
+ "link_type": "External",
+ "logo_url": "/assets/cos/images/outline-app-logo.svg",
+ "modified": "2025-12-29 03:03:57.738859",
+ "modified_by": "Administrator",
+ "name": "Outline",
+ "owner": "Administrator",
+ "parent_icon": "",
+ "roles": [],
+ "standard": 1
+}

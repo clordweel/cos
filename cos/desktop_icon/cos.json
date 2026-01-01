@@ -1,0 +1,19 @@
+{
+ "app": "cos",
+ "creation": "2026-01-02 05:36:31.863331",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon_type": "App",
+ "idx": 99,
+ "label": "COS",
+ "link": "/cos",
+ "link_type": "External",
+ "logo_url": "/assets/cos/images/junhai_logo.svg",
+ "modified": "2026-01-02 06:00:18.005164",
+ "modified_by": "Administrator",
+ "name": "COS",
+ "owner": "Administrator",
+ "roles": [],
+ "standard": 1
+}

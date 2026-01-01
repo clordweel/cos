@@ -11,15 +11,15 @@ app_license = "mit"
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "cos",
-# 		"logo": "/assets/cos/logo.png",
-# 		"title": "COS",
-# 		"route": "/cos",
-# 		"has_permission": "cos.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "cos",
+		"logo": "/assets/cos/images/junhai_logo.svg",
+		"title": "COS",
+		"route": "/cos",
+		"has_permission": "cos.cos.check_app_permission"
+	}
+]
 
 # Includes in <head>
 # ------------------
