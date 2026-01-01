@@ -85,13 +85,13 @@ app_license = "mit"
 # Installation
 # ------------
 
-# before_install = "cos.install.before_install"
+before_install = ["cos.chart_of_accounts.manager.copy_custom_charts"]
 # after_install = "cos.install.after_install"
 
 # Uninstallation
 # ------------
 
-# before_uninstall = "cos.uninstall.before_uninstall"
+before_uninstall = ["cos.chart_of_accounts.manager.remove_custom_charts"]
 # after_uninstall = "cos.uninstall.after_uninstall"
 
 # Integration Setup
@@ -249,4 +249,3 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
