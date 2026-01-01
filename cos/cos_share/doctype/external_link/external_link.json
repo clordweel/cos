@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:link_title",
+ "creation": "2025-12-22 20:34:10.178431",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "link_title",
+  "target_link",
+  "link_type",
+  "description",
+  "column_break_gvwl",
+  "module",
+  "image",
+  "new_tab",
+  "return_to_previous"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "target_link",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Target Link",
+   "length": 500,
+   "options": "URL",
+   "placeholder": "https://example.com",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "bold": 1,
+   "fieldname": "link_title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "1",
+   "fieldname": "new_tab",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "New Tab"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "return_to_previous",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Return to Previous"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "module",
+   "fieldtype": "Link",
+   "label": "Module (for export)",
+   "options": "Module Def"
+  },
+  {
+   "fieldname": "column_break_gvwl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Other Link",
+   "fieldname": "link_type",
+   "fieldtype": "Link",
+   "label": "Link Type",
+   "link_filters": "[[\"Source Type\",\"related_doctype\",\"=\",\"External Link\"]]",
+   "options": "Source Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "make_attachments_public": 1,
+ "modified": "2025-12-23 20:31:14.982404",
+ "modified_by": "Administrator",
+ "module": "COS Share",
+ "name": "External Link",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "link_title"
+}

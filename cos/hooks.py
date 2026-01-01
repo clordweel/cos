@@ -25,8 +25,14 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/cos/css/cos.css"
-# app_include_js = "/assets/cos/js/cos.js"
+app_include_css = [
+    "/assets/cos/css/standard_styles.css",
+    "/assets/cos/css/v16_patching_styles.css",
+]
+app_include_js = [
+    "/assets/cos/js/v16_link_hotfix.js",
+    "/assets/cos/js/code_field_custom.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/cos/css/cos.css"
@@ -43,7 +49,9 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "Item Group": "public/js/doctype/item_group.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -86,7 +94,7 @@ app_license = "mit"
 # ------------
 
 before_install = ["cos.chart_of_accounts.manager.copy_custom_charts"]
-# after_install = "cos.install.after_install"
+after_install = "cos.setup.uom_setup.setup_uom_data"
 
 # Uninstallation
 # ------------
@@ -132,13 +140,15 @@ before_uninstall = ["cos.chart_of_accounts.manager.remove_custom_charts"]
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "New Item Request": {
+        "before_save": "cos.cos_stock.utils.new_item_request.calculate_parameters_hash",
+    },
+    "Item": {
+        "before_insert": "cos.cos_stock.utils.item.auto_set_item_code",
+        "validate": "cos.cos_accounts.utils.tax_logic.update_item_tax_data",
+    },
+}
 
 # Scheduled Tasks
 # ---------------
@@ -170,16 +180,24 @@ before_uninstall = ["cos.chart_of_accounts.manager.remove_custom_charts"]
 # ------------------------------
 #
 # Specify custom mixins to extend the standard doctype controller.
-# extend_doctype_class = {
-# 	"Task": "cos.custom.task.CustomTaskMixin"
-# }
+extend_doctype_class = {
+    "Purchase Order": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Purchase Invoice": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Purchase Receipt": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Material Request": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Sales Order": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Sales Invoice": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Delivery Note": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Payment Entry": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+    "Subcontracting Receipt": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+}
 
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "cos.event.get_events"
-# }
+override_whitelisted_methods = {
+    "frappe.desk.search.search_link": "cos.cos_share.api.search.custom_search_link",
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -249,3 +267,77 @@ before_uninstall = ["cos.chart_of_accounts.manager.remove_custom_charts"]
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
+
+fixtures = [
+    {"dt": "Report", "filters": [
+        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {"dt": "Client Script", "filters": [
+        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {"dt": "Server Script", "filters": [
+        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {"dt": "Translation", "filters": []},
+    {"dt": "Source Type", "filters": [["module", "=", "COS Share"]]},
+    {"dt": "Item Parameter Template", "filters": [
+        ["module", "=", "COS Stock"]]},
+    {"dt": "External Link", "filters": [["module", "=", "COS Share"]]},
+    {"dt": "Currency", "filters": [["name", "in", ["CNY"]]]},
+    {"dt": "Print Format", "filters": [
+        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {"dt": "Print Style", "filters": [["name", "in", ["COS Standard"]]]},
+    {
+        "dt": "Property Setter",
+        "filters": [
+            [
+                "doc_type",
+                "in",
+                [
+                    "New Item Request",
+                    "Item Parameter Template",
+                    "Item Group",
+                    "Item",
+                    "UOM",
+                    "Material Request Item",
+                    "Purchase Order Item",
+                    "Purchase Receipt Item",
+                    "Purchase Invoice Item",
+                    "Supplier Quotation Item",
+                    "Quotation Item",
+                    "Sales Order Item",
+                    "Delivery Note Item",
+                    "Sales Invoice Item",
+                    "Stock Entry Detail",
+                    "BOM Item",
+                    "BOM Explosion Item",
+                ],
+            ],
+        ],
+    },
+    {"dt": "Custom Field", "filters": [
+        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {
+        "dt": "UOM",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "件",
+                    "张",
+                    "台",
+                    "根",
+                    "卷",
+                    "箱",
+                    "支",
+                    "片",
+                    "组",
+                    "桶",
+                    "袋",
+                    "块",
+                    "只",
+                    "百/件",
+                    "千/件",
+                ],
+            ]
+        ],
+    },
+]

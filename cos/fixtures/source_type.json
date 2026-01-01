@@ -1,0 +1,72 @@
+[
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:26:36.049555",
+  "module": "COS Share",
+  "name": "外协",
+  "related_doctype": "Item",
+  "source_name": "外协"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:27:41.771581",
+  "module": "COS Share",
+  "name": "官方网站",
+  "related_doctype": "External Link",
+  "source_name": "官方网站"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:27:54.991577",
+  "module": "COS Share",
+  "name": "网页应用",
+  "related_doctype": "External Link",
+  "source_name": "网页应用"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:28:17.555188",
+  "module": "COS Share",
+  "name": "其它链接",
+  "related_doctype": "External Link",
+  "source_name": "其它链接"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:28:53.151828",
+  "module": "COS Share",
+  "name": "网购链接",
+  "related_doctype": "External Link",
+  "source_name": "网购链接"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:26:17.668132",
+  "module": "COS Share",
+  "name": "自制",
+  "related_doctype": "Item",
+  "source_name": "自制"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "modified": "2025-12-23 20:26:29.419753",
+  "module": "COS Share",
+  "name": "采购",
+  "related_doctype": "Item",
+  "source_name": "采购"
+ }
+]

@@ -22,6 +22,15 @@ def copy_custom_charts():
     # 获取自定义 App 目录下的所有 json 文件
     files = [f for f in os.listdir(SOURCE_DIR) if f.endswith(".json")]
 
+    if not files:
+        print("[科目表迁移] 未找到需要复制的 JSON 文件")
+        return
+
+    print(f"[科目表迁移] 开始复制自定义科目表文件，共 {len(files)} 个文件...")
+
+    success_count = 0
+    failed_count = 0
+
     for file_name in files:
         src = os.path.join(SOURCE_DIR, file_name)
         dst = os.path.join(TARGET_DIR, file_name)
@@ -30,18 +39,24 @@ def copy_custom_charts():
             # --- 核心修改：安装前判断并删除已存在的目标文件 ---
             if os.path.exists(dst):
                 os.remove(dst)
-                # 使用 frappe.logger 记录，方便在 bench 终端看到
-                print(f"Existing file {file_name} removed from target.")
+                print(f"  ✓ 已删除旧文件: {file_name}")
 
             # 执行复制
             shutil.copy2(src, dst)
-            print(f"Successfully copied {file_name} to {TARGET_DIR}")
+            print(f"  ✓ 已复制: {file_name} -> {TARGET_DIR}")
+            success_count += 1
 
         except Exception as e:
+            print(f"  ✗ 复制失败: {file_name} - {str(e)}")
+            failed_count += 1
             frappe.log_error(
                 f"Failed to process {file_name} during install: {str(e)}",
                 "Chart Migration Error",
             )
+
+    # 输出总结
+    print(
+        f"[科目表迁移] 完成！成功: {success_count}, 失败: {failed_count}, 总计: {len(files)}")
 
 
 def remove_custom_charts():
@@ -51,14 +66,34 @@ def remove_custom_charts():
 
     files = [f for f in os.listdir(SOURCE_DIR) if f.endswith(".json")]
 
+    if not files:
+        print("[科目表清理] 未找到需要清理的 JSON 文件")
+        return
+
+    print(f"[科目表清理] 开始清理自定义科目表文件，共 {len(files)} 个文件...")
+
+    removed_count = 0
+    not_found_count = 0
+    failed_count = 0
+
     for file_name in files:
         dst = os.path.join(TARGET_DIR, file_name)
 
         if os.path.exists(dst):
             try:
                 os.remove(dst)
-                print(f"Successfully removed {file_name} from {TARGET_DIR}")
+                print(f"  ✓ 已删除: {file_name}")
+                removed_count += 1
             except Exception as e:
+                print(f"  ✗ 删除失败: {file_name} - {str(e)}")
+                failed_count += 1
                 frappe.log_error(
                     f"Failed to remove {file_name}: {str(e)}", "Chart Removal Error"
                 )
+        else:
+            print(f"  - 文件不存在（已跳过）: {file_name}")
+            not_found_count += 1
+
+    # 输出总结
+    print(
+        f"[科目表清理] 完成！已删除: {removed_count}, 不存在: {not_found_count}, 失败: {failed_count}, 总计: {len(files)}")

@@ -1,0 +1,170 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-12-12 12:21:18.546034",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "template",
+  "item_group",
+  "image",
+  "column_break_uhke",
+  "reason",
+  "section_break_jwac",
+  "parameters",
+  "section_break_ztck",
+  "uoms",
+  "section_break_ypqq",
+  "unique_code",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ypqq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "New Item Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Item Parameter Template",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jwac",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "NEW-ITEM-.YYYY.-"
+  },
+  {
+   "fieldname": "column_break_uhke",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "link_filters": "[[\"Item Group\",\"custom_code\",\"is\",\"set\"]]",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
+  },
+  {
+   "description": "\u4ece\u5173\u952e\u53c2\u6570\u8ba1\u7b97\u51fa MD5 \u552f\u4e00\u7801",
+   "fieldname": "unique_code",
+   "fieldtype": "Data",
+   "label": "Unique Code"
+  },
+  {
+   "fieldname": "section_break_ztck",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "\u5982\u679c\u7269\u6599\u53c2\u6570\u5b50\u8868\u4e2d\u8bbe\u8ba1\u4e86\u9884\u586b\u5145\u7684\u9ed8\u8ba4\u5355\u4f4d\u5b57\u6bb5(stock_uom)\uff0c\u5219\u6b64\u5904\u9996\u884c\u5355\u4f4d\u5fc5\u987b\u662f\u76f8\u540c\u7684\u5355\u4f4d\u3002",
+   "fieldname": "uoms",
+   "fieldtype": "Table",
+   "label": "UOMs",
+   "options": "UOM Conversion Detail"
+  },
+  {
+   "fieldname": "parameters",
+   "fieldtype": "Table",
+   "label": "Parameters",
+   "options": "Item Parameter Definition"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Connections",
+   "link_doctype": "Item",
+   "link_fieldname": "custom_new_item_request"
+  }
+ ],
+ "make_attachments_public": 1,
+ "modified": "2025-12-29 03:35:40.168170",
+ "modified_by": "Administrator",
+ "module": "COS Stock",
+ "name": "New Item Request",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

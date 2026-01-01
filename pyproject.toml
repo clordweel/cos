@@ -9,6 +9,9 @@ readme = "README.md"
 dynamic = ["version"]
 dependencies = [
     # "frappe~=16.0.0" # Installed and managed by bench.
+    "cn2an>=0.5.22",
+    "pandas>=2.3.3",
+    "unidecode>=1.4.0"
 ]
 
 [build-system]
