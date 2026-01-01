@@ -275,7 +275,6 @@ fixtures = [
         ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
     {"dt": "Server Script", "filters": [
         ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
-    {"dt": "Translation", "filters": []},
     {"dt": "Source Type", "filters": [["module", "=", "COS Share"]]},
     {"dt": "Item Parameter Template", "filters": [
         ["module", "=", "COS Stock"]]},

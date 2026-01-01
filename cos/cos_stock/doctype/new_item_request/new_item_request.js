@@ -51,15 +51,15 @@ frappe.ui.form.on('New Item Request', {
     refresh(frm) {
         frm._is_system_updating = false;
         if (!frm.is_new()) {
-            frm.add_custom_button(__('检查参数重复'), () => run_duplicate_check(frm));
+            frm.add_custom_button(__('Check Parameter Duplicates'), () => run_duplicate_check(frm));
         }
 
         if (frm.doc.docstatus === 1) {
             frappe.db.get_value('Item', { 'custom_new_item_request': frm.doc.name }, 'name', (r) => {
                 if (r && r.name) {
-                    frm.add_custom_button(__('查看已建物料'), () => frappe.set_route('Form', 'Item', r.name));
+                    frm.add_custom_button(__('View Created Item'), () => frappe.set_route('Form', 'Item', r.name));
                 } else {
-                    frm.add_custom_button(__('创建物料 (复核)'), function () {
+                    frm.add_custom_button(__('Create Item (Review)'), function () {
                         run_duplicate_check(frm, function () {
                             frappe.call({
                                 method: 'cos.cos_stock.api.new_item_request.generate_item_data_dict',
@@ -157,7 +157,7 @@ function run_duplicate_check(frm, callback) {
         args: { unique_code: frm.doc.unique_code, current_docname: frm.doc.name },
         callback(r) {
             if (r.message && r.message.duplicate) {
-                frappe.throw({ title: __('发现重复'), message: r.message.message, indicator: 'red' });
+                frappe.throw({ title: __('Duplicate Found'), message: r.message.message, indicator: 'red' });
             } else {
                 frappe.show_alert({ message: r.message.message, indicator: 'green' });
                 if (callback) callback();

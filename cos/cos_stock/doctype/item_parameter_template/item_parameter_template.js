@@ -4,7 +4,7 @@
 frappe.ui.form.on('Item Parameter Template', {
     refresh: function (frm) {
         if (!frm.doc.__islocal) {
-            frm.add_custom_button(__('创建物料申请单'), function () {
+            frm.add_custom_button(__('Create Item Request'), function () {
 
                 const template_name = frm.doc.name;
 
@@ -24,7 +24,7 @@ frappe.ui.form.on('Item Parameter Template', {
                     frappe.set_route('Form', 'New Item Request', new_request_doc.name);
                 });
 
-            }, __('操作'));
+            }, __('Action'));
         }
     }
 });

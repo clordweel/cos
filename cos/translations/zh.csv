@@ -1,0 +1,111 @@
+Source Type,来源类型
+External Link,外部链接
+Executive Standard,执行标准
+New Item Request,新物料申请
+Item Parameter Template,物料参数模板
+Item Color,物料颜色
+Item Material,物料材质
+Item Surface,物料表面处理
+Item Base Name,物料基础名称
+Item Parameter Definition,物料参数定义
+Item Parameter Template Definition,物料参数模板定义
+Related Doctype,关联文档类型
+Name,名称
+Description,描述
+Module (for export),模块（用于导出）
+Target Link,目标链接
+Title,标题
+New Tab,新标签页
+Return to Previous,返回上一页
+Link Type,链接类型
+Image,图片
+Standard Code,标准代码
+Standard Name,标准名称
+Revision Year,修订年份
+Reference Standard,参考标准
+Type,类型
+Status,状态
+Attachment (PDF),附件（PDF）
+Product Standard,产品标准
+Method Standard,方法标准
+Material Standard,材料标准
+Dimension Standard,尺寸标准
+Current,现行
+Abolition,废止
+Coming,即将实施
+Template,模板
+Item Group,物料组
+Reason,原因
+Unique Code,唯一代码
+UOMs,单位
+Parameters,参数
+Amended From,修订自
+Series,序列
+Template Name,模板名称
+Disabled,已禁用
+Color Name,颜色名称
+Color Code,颜色代码
+Hex Color,十六进制颜色
+Standard,标准
+Material Name,材质名称
+Material Code,材质代码
+Base Name,基础名称
+Parent,父级
+Is Group,是否分组
+Value,值
+Constraint Type,约束类型
+Integer,整数
+Float,浮点数
+Format,格式
+Doctype,文档类型
+Data,数据
+From Template,来自模板
+Readonly Value,只读值
+Binding Field,绑定字段
+Target Field,目标字段
+Join To Hash,加入哈希
+Doctype Value,文档类型值
+Doctype Selector,文档类型选择器
+Default Value,默认值
+COS,COS
+COS Share,COS 共享
+COS Stock,COS 库存
+COS Accounts,COS 财务
+Code,代码
+Standard Tax Rate,标准税率
+Drawing Number,图号
+Tech Standard Number,技术标准号
+Specification,规格
+Manufacturer Part Number,制造商零件号
+Surface Treatment,表面处理
+Body Material,主体材质
+Body Color,主体颜色
+Standard Cost,标准成本
+Virtual Item Flag,虚拟物料标志
+New Item Request,新物料申请
+Left,左
+Right,右
+Old Parent,旧父级
+Jump To,跳转到
+Frappe School,Frappe 学校
+NEW-ITEM-.YY..MM.-,新物料-.年.月.-
+Calculate MD5 unique code from key parameters,从关键参数计算出 MD5 唯一码
+Create Item (Review),创建物料 (复核)
+Create Item Request,创建物料申请单
+Join To Hash,加入 MD5 计算参数
+Duplicate Found,发现重复
+Sync to Child Items,同步至下属物料
+"If the item parameter child table has a pre-filled default unit field (stock_uom), the first row unit here must be the same unit.",如果物料参数子表中设计了预填充的默认单位字段(stock_uom)，则此处首行单位必须是相同的单位。
+Security Verification,安全验证
+Execute Cleanup,执行清理
+Action,操作
+Legacy Template Cleanup Completed,旧版模板清理完成
+View Created Item,查看已建物料
+Check Parameter Duplicates,检查参数重复
+"Syncing, please wait...",正在同步，请稍候...
+Configuring jump...,正在执行跳转配置...
+Cleanup Legacy Templates (Global),清理旧版模板 (全局)
+Are you sure you want to sync the current tax rate {0}% to all items in this group and its child groups?,确定要根据当前税率 {0}% 同步至该组及其子组的所有物料吗？
+Tax Tools,税务工具
+Please save the current item group changes before syncing.,请先保存当前物料组的修改，再执行同步。
+"<b>Dangerous Operation:</b> This will globally delete all legacy templates with titles containing ""(Output)"" or ""(Input)"" and force unbind items. Are you sure?","<b>危险操作：</b>此功能将全局删除所有标题含""(销项)""或""(进项)""的旧版模板并强制解绑物料。确定执行吗？"

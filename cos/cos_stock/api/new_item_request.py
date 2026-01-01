@@ -9,7 +9,7 @@ from frappe.utils import flt
 def check_duplicate_request(unique_code, current_docname):
     """检查是否存在相同参数指纹的已提交申请"""
     if not unique_code:
-        return {"duplicate": False, "message": "指纹为空，无法查重。"}
+        return {"duplicate": False, "message": "Fingerprint is empty, cannot check for duplicates."}
 
     duplicate_name = frappe.db.get_value(
         "New Item Request",
@@ -26,9 +26,9 @@ def check_duplicate_request(unique_code, current_docname):
         return {
             "duplicate": True,
             "name": duplicate_name,
-            "message": f"发现重复的物料参数组合！重复单据：{duplicate_name}。",
+            "message": f"Duplicate item parameter combination found! Duplicate document: {duplicate_name}.",
         }
-    return {"duplicate": False, "message": "当前参数组合未发现重复。"}
+    return {"duplicate": False, "message": "No duplicate found for current parameter combination."}
 
 
 @frappe.whitelist()
@@ -78,7 +78,7 @@ def preview_parameters(parameters, context=None):
                 if p_name:
                     safe_context[p_name] = rendered_value
             except Exception as e:
-                result[row.get("name")] = f"渲染错误: {str(e)}"
+                result[row.get("name")] = f"Rendering error: {str(e)}"
         else:
             # 非 Format 类型，确保上下文中的值是最新的
             if p_name:
@@ -106,7 +106,7 @@ def generate_item_data_dict(doc):
         doc = frappe.get_doc(doc)
 
     if doc.docstatus != 1:
-        frappe.throw("只能对已提交的单据执行操作。")
+        frappe.throw("This operation can only be performed on submitted documents.")
 
     # 1. 收集 UOM
     unit_conversions = []

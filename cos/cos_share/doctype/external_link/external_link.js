@@ -7,7 +7,7 @@ frappe.ui.form.on('External Link', {
         if (current_hash.includes('jump') && frm.doc.target_link) {
 
             frappe.show_alert({
-                message: __("正在执行跳转配置..."),
+                message: __("Configuring jump..."),
                 indicator: 'blue'
             });
 

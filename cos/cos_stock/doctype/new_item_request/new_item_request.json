@@ -73,7 +73,7 @@
    "label": "Reason"
   },
   {
-   "description": "\u4ece\u5173\u952e\u53c2\u6570\u8ba1\u7b97\u51fa MD5 \u552f\u4e00\u7801",
+   "description": "Calculate MD5 unique code from key parameters",
    "fieldname": "unique_code",
    "fieldtype": "Data",
    "label": "Unique Code"
@@ -83,7 +83,7 @@
    "fieldtype": "Section Break"
   },
   {
-   "description": "\u5982\u679c\u7269\u6599\u53c2\u6570\u5b50\u8868\u4e2d\u8bbe\u8ba1\u4e86\u9884\u586b\u5145\u7684\u9ed8\u8ba4\u5355\u4f4d\u5b57\u6bb5(stock_uom)\uff0c\u5219\u6b64\u5904\u9996\u884c\u5355\u4f4d\u5fc5\u987b\u662f\u76f8\u540c\u7684\u5355\u4f4d\u3002",
+   "description": "If the item parameter child table has a pre-filled default unit field (stock_uom), the first row unit here must be the same unit.",
    "fieldname": "uoms",
    "fieldtype": "Table",
    "label": "UOMs",

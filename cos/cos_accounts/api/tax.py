@@ -29,11 +29,11 @@ def sync_group_taxes_to_items(item_group):
             frappe.db.commit()
 
     frappe.db.commit()
-    return {"message": f"成功更新了 {count} 个物料的进/销项税率数据"}
+    return {"message": f"Successfully updated tax rate data for {count} items"}
 
 
 @frappe.whitelist()
-def bulk_cleanup_tax_templates(keyword="(销项)"):
+def bulk_cleanup_tax_templates(keyword="(Output)"):
     """
     修正版：一键清理所有标题包含特定关键字的旧版模板。
     Item Tax 表在数据库中同时服务于 Item 和 Item Group 的税率关联。
@@ -58,4 +58,4 @@ def bulk_cleanup_tax_templates(keyword="(销项)"):
         count += 1
 
     frappe.db.commit()
-    return {"message": f"成功清理了 {count} 个旧版模板及所有（物料/物料组）关联引用。"}
+    return {"message": f"Successfully cleaned up {count} legacy templates and all (Item/Item Group) associated references."}
