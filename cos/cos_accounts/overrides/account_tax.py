@@ -10,16 +10,16 @@ original_setup_taxes = company_module.setup_taxes_and_charges
 
 def patched_setup_taxes_and_charges(company_name, country):
     """
-    君海智造强化补丁：适配公司初始化时的税费模板创建
+    强化补丁：适配公司初始化时的税费模板创建
     """
     if country == "China":
         # 记录开始执行
         frappe.logger().info(
-            f"--- 君海补丁：开始为 {company_name} 配置中国税率体系 ---"
+            f"--- 补丁：开始为 {company_name} 配置中国税率体系 ---"
         )
 
         # 调用创建函数
-        create_junhai_standard_taxes(company_name)
+        create_standard_taxes(company_name)
 
         # 拦截成功
         return
@@ -27,7 +27,7 @@ def patched_setup_taxes_and_charges(company_name, country):
     return original_setup_taxes(company_name, country)
 
 
-def create_junhai_standard_taxes(company_name):
+def create_standard_taxes(company_name):
     tax_configs = [
         {"title": "13%", "rate": 13.0, "is_default": 1},
         {"title": "9%", "rate": 9.0, "is_default": 0},
@@ -86,7 +86,7 @@ def _make_idempotent_template(
 
     if not account_head:
         frappe.logger().error(
-            f"君海补丁错误：公司 {company} 找不到科目 {account_number} 或 {backup_name}"
+            f"补丁错误：公司 {company} 找不到科目 {account_number} 或 {backup_name}"
         )
         return
 

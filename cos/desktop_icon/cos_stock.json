@@ -1,0 +1,20 @@
+{
+ "app": "cos",
+ "creation": "2026-01-02 06:03:24.496401",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "stock",
+ "icon_type": "App",
+ "idx": 0,
+ "label": "COS Stock",
+ "link_to": "Stock",
+ "link_type": "Workspace",
+ "modified": "2026-01-02 06:03:24.496401",
+ "modified_by": "Administrator",
+ "name": "COS Stock",
+ "owner": "Administrator",
+ "parent_icon": "COS",
+ "roles": [],
+ "standard": 1
+}

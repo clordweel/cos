@@ -14,7 +14,7 @@ app_license = "mit"
 add_to_apps_screen = [
 	{
 		"name": "cos",
-		"logo": "/assets/cos/images/junhai_logo.svg",
+		"logo": "/assets/cos/images/cos_logo_light_t.svg",
 		"title": "COS",
 		"route": "/cos",
 		"has_permission": "cos.cos.check_app_permission"
