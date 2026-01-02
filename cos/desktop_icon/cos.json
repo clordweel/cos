@@ -7,13 +7,15 @@
  "icon_type": "App",
  "idx": 99,
  "label": "COS",
- "link": "/cos",
- "link_type": "External",
+ "link": "",
+ "link_to": "COS",
+ "link_type": "Workspace",
  "logo_url": "/assets/cos/images/cos_logo_light_t.svg",
- "modified": "2026-01-02 06:00:18.005164",
+ "modified": "2026-01-02 13:49:04.422722",
  "modified_by": "Administrator",
  "name": "COS",
  "owner": "Administrator",
  "roles": [],
+ "sidebar": "",
  "standard": 1
 }

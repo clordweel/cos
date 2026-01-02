@@ -1,0 +1,39 @@
+{
+ "app": "cos",
+ "creation": "2026-01-02 13:31:22.531988",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "idx": 0,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "audio-waveform",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Home",
+   "link_to": "COS",
+   "link_type": "Workspace",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "external-link",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "External Link",
+   "link_to": "External Link",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-02 13:51:52.311667",
+ "modified_by": "Administrator",
+ "module": "COS Share",
+ "name": "COS",
+ "owner": "Administrator",
+ "title": "COS"
+}

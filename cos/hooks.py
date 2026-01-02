@@ -16,7 +16,7 @@ add_to_apps_screen = [
 		"name": "cos",
 		"logo": "/assets/cos/images/cos_logo_light_t.svg",
 		"title": "COS",
-		"route": "/cos",
+		"route": "/app/cos",
 		"has_permission": "cos.cos.check_app_permission"
 	}
 ]

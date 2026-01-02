@@ -1,0 +1,62 @@
+{
+ "app": "cos",
+ "charts": [],
+ "content": "[{\"id\":\"1pIc1yYEPx\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 16px;\\\">\u7269\u6599\u6570\u636e\u6269\u5c55</span>\",\"col\":12}},{\"id\":\"xoB2QhpSYm\",\"type\":\"card\",\"data\":{\"card_name\":\"Extended Item Tools\",\"col\":4}}]",
+ "creation": "2026-01-02 13:16:32.015884",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "grid",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "COS",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Extended Item Tools",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u7269\u6599\u53c2\u6570\u6a21\u677f",
+   "link_count": 0,
+   "link_to": "Item Parameter Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u65b0\u7269\u6599\u7533\u8bf7",
+   "link_count": 0,
+   "link_to": "New Item Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-02 13:28:20.622796",
+ "modified_by": "Administrator",
+ "module": "COS Share",
+ "name": "COS",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 28.0,
+ "shortcuts": [],
+ "title": "COS",
+ "type": "Workspace"
+}
