@@ -278,6 +278,7 @@ fixtures = [
     {"dt": "Item Parameter Template", "filters": [["module", "=", "COS Stock"]]},
     {"dt": "External Link", "filters": [["module", "=", "COS Share"]]},
     {"dt": "Currency", "filters": [["name", "in", ["CNY"]]]},
+    {"dt": "Financial Report Template", "filters": [["module", "in", ["COS Accounts"]]]},
     {
         "dt": "Print Format",
         "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
