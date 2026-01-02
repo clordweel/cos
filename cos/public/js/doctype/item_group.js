@@ -26,11 +26,11 @@ function handle_cleanup(frm) {
         ], (data) => {
             if (data.confirm === 'CLEANUP') {
                 frappe.call({
-                    method: "cos.cos_accounts.api.tax.bulk_cleanup_tax_templates",
+                    method: "cos.cos_accounts.controllers.tax.bulk_cleanup_tax_templates",
                     args: { keyword: "(Output)" },
                     callback: function () {
                         frappe.call({
-                            method: "cos.cos_accounts.api.tax.bulk_cleanup_tax_templates",
+                            method: "cos.cos_accounts.controllers.tax.bulk_cleanup_tax_templates",
                             args: { keyword: "(Input)" },
                             callback: function (r) {
                                 frappe.show_alert({ message: __('Legacy Template Cleanup Completed'), indicator: 'green' });
@@ -52,7 +52,7 @@ function handle_sync(frm) {
     frappe.confirm(__('Are you sure you want to sync the current tax rate {0}% to all items in this group and its child groups?', [frm.doc.custom_standard_tax_rate]), () => {
         frappe.show_alert({ message: __('Syncing, please wait...'), indicator: 'blue' });
         frappe.call({
-            method: "cos.cos_accounts.api.tax.sync_group_taxes_to_items",
+            method: "cos.cos_accounts.controllers.tax.sync_group_taxes_to_items",
             args: { item_group: frm.doc.name },
             callback: function (r) {
                 if (r.message) {

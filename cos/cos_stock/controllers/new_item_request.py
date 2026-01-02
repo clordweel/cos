@@ -165,3 +165,4 @@ def generate_item_data_dict(doc):
             item_fields[rule["target_field"]] = val
 
     return item_fields
+

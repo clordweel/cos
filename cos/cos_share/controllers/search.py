@@ -22,3 +22,4 @@ def custom_search_link(doctype, txt, **kwargs):
 
     # 4. 调用原始方法
     return original_search_link(doctype, txt, **sanitized_kwargs)
+

@@ -21,7 +21,7 @@ const trigger_preview_calculation = frappe.utils.debounce((frm) => {
     if (!has_format) return;
 
     frappe.call({
-        method: 'cos.cos_stock.api.new_item_request.preview_parameters',
+        method: 'cos.cos_stock.controllers.new_item_request.preview_parameters',
         args: {
             parameters: frm.doc.parameters,
             context: context_data
@@ -62,7 +62,7 @@ frappe.ui.form.on('New Item Request', {
                     frm.add_custom_button(__('Create Item (Review)'), function () {
                         run_duplicate_check(frm, function () {
                             frappe.call({
-                                method: 'cos.cos_stock.api.new_item_request.generate_item_data_dict',
+                                method: 'cos.cos_stock.controllers.new_item_request.generate_item_data_dict',
                                 args: { doc: frm.doc },
                                 freeze: true,
                                 callback(res) {
@@ -153,7 +153,7 @@ function sync_value(frm, cdt, cdn, field) {
 
 function run_duplicate_check(frm, callback) {
     frappe.call({
-        method: 'cos.cos_stock.api.new_item_request.check_duplicate_request',
+        method: 'cos.cos_stock.controllers.new_item_request.check_duplicate_request',
         args: { unique_code: frm.doc.unique_code, current_docname: frm.doc.name },
         callback(r) {
             if (r.message && r.message.duplicate) {

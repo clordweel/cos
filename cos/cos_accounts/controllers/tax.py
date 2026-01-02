@@ -59,3 +59,4 @@ def bulk_cleanup_tax_templates(keyword="(Output)"):
 
     frappe.db.commit()
     return {"message": f"Successfully cleaned up {count} legacy templates and all (Item/Item Group) associated references."}
+

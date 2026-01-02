@@ -198,7 +198,7 @@ extend_doctype_class = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-    "frappe.desk.search.search_link": "cos.cos_share.api.search.custom_search_link",
+    "frappe.desk.search.search_link": "cos.cos_share.controllers.search.custom_search_link",
 }
 #
 # each overriding function accepts a `data` argument;
