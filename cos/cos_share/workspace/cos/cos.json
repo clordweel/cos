@@ -1,7 +1,7 @@
 {
  "app": "cos",
  "charts": [],
- "content": "[{\"id\":\"1pIc1yYEPx\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 16px;\\\">\u7269\u6599\u6570\u636e\u6269\u5c55</span>\",\"col\":12}},{\"id\":\"xoB2QhpSYm\",\"type\":\"card\",\"data\":{\"card_name\":\"Extended Item Tools\",\"col\":4}}]",
+ "content": "[{\"id\":\"xoB2QhpSYm\",\"type\":\"card\",\"data\":{\"card_name\":\"Extended Item Tools\",\"col\":4}}]",
  "creation": "2026-01-02 13:16:32.015884",
  "custom_blocks": [],
  "docstatus": 0,
@@ -9,7 +9,7 @@
  "for_user": "",
  "hide_custom": 0,
  "icon": "grid",
- "idx": 0,
+ "idx": 2,
  "indicator_color": "green",
  "is_hidden": 0,
  "label": "COS",
@@ -45,7 +45,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-01-02 13:28:20.622796",
+ "modified": "2026-01-02 14:18:32.324421",
  "modified_by": "Administrator",
  "module": "COS Share",
  "name": "COS",

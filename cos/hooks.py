@@ -12,13 +12,13 @@ app_license = "mit"
 
 # Each item in the list will be shown as an app in the apps page
 add_to_apps_screen = [
-	{
-		"name": "cos",
-		"logo": "/assets/cos/images/cos_logo_light_t.svg",
-		"title": "COS",
-		"route": "/app/cos",
-		"has_permission": "cos.cos.check_app_permission"
-	}
+    {
+        "name": "cos",
+        "logo": "/assets/cos/images/cos_logo_light_t.svg",
+                "title": "COS",
+                "route": "/app/cos",
+                "has_permission": "cos.cos.check_app_permission"
+    }
 ]
 
 # Includes in <head>
@@ -93,13 +93,14 @@ doctype_js = {
 # Installation
 # ------------
 
-before_install = ["cos.chart_of_accounts.manager.copy_custom_charts"]
-after_install = "cos.setup.uom_setup.setup_uom_data"
+before_install = ["cos.setup.coa_setup.copy_custom_charts"]
+after_install = ["cos.setup.uom_setup.setup_uom_data"]
 
 # Uninstallation
 # ------------
 
-before_uninstall = ["cos.chart_of_accounts.manager.remove_custom_charts"]
+before_uninstall = [
+    "cos.setup.coa_setup.remove_custom_charts"]
 # after_uninstall = "cos.uninstall.after_uninstall"
 
 # Integration Setup
