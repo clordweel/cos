@@ -15,9 +15,9 @@ add_to_apps_screen = [
     {
         "name": "cos",
         "logo": "/assets/cos/images/cos_logo_light_t.svg",
-                "title": "COS",
-                "route": "/app/cos",
-                "has_permission": "cos.cos.check_app_permission"
+        "title": "COS",
+        "route": "/app/cos",
+        "has_permission": "cos.cos.check_app_permission",
     }
 ]
 
@@ -100,8 +100,7 @@ after_install = ["cos.setup.uom_setup.setup_uom_data"]
 # Uninstallation
 # ------------
 
-before_uninstall = [
-    "cos.setup.coa_setup.remove_custom_charts"]
+before_uninstall = ["cos.setup.coa_setup.remove_custom_charts"]
 # after_uninstall = "cos.uninstall.after_uninstall"
 
 # Integration Setup
@@ -182,17 +181,9 @@ doc_events = {
 # ------------------------------
 #
 # Specify custom mixins to extend the standard doctype controller.
-extend_doctype_class = {
-    "Purchase Order": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Purchase Invoice": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Purchase Receipt": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Material Request": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Sales Order": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Sales Invoice": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Delivery Note": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Payment Entry": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-    "Subcontracting Receipt": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
-}
+# extend_doctype_class = {
+#     # "Purchase Order": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
+# }
 
 # Overriding Methods
 # ------------------------------
@@ -271,19 +262,26 @@ override_whitelisted_methods = {
 # ignore_translatable_strings_from = []
 
 fixtures = [
-    {"dt": "Report", "filters": [
-        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
-    {"dt": "Client Script", "filters": [
-        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
-    {"dt": "Server Script", "filters": [
-        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {
+        "dt": "Report",
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+    },
+    {
+        "dt": "Client Script",
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+    },
+    {
+        "dt": "Server Script",
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+    },
     {"dt": "Source Type", "filters": [["module", "=", "COS Share"]]},
-    {"dt": "Item Parameter Template", "filters": [
-        ["module", "=", "COS Stock"]]},
+    {"dt": "Item Parameter Template", "filters": [["module", "=", "COS Stock"]]},
     {"dt": "External Link", "filters": [["module", "=", "COS Share"]]},
     {"dt": "Currency", "filters": [["name", "in", ["CNY"]]]},
-    {"dt": "Print Format", "filters": [
-        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {
+        "dt": "Print Format",
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+    },
     {"dt": "Print Style", "filters": [["name", "in", ["COS Standard"]]]},
     {
         "dt": "Property Setter",
@@ -313,8 +311,10 @@ fixtures = [
             ],
         ],
     },
-    {"dt": "Custom Field", "filters": [
-        ["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]},
+    {
+        "dt": "Custom Field",
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+    },
     {
         "dt": "UOM",
         "filters": [
