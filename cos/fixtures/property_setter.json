@@ -1,6 +1,22 @@
 [
  {
   "default_value": null,
+  "doc_type": "Item",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2025-12-13 21:42:55.835814",
+  "module": null,
+  "name": "Item-main-search_fields",
+  "property": "search_fields",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "item_name,description,item_group,customer_code,custom_drawing_number"
+ },
+ {
+  "default_value": null,
   "doc_type": "Sales Invoice Item",
   "docstatus": 0,
   "doctype": "Property Setter",
