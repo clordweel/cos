@@ -8,14 +8,28 @@ def update_item_tax_data(doc, method=None):
     更新物料税率逻辑：增加多公司适配和科目存在性筛选
     """
     if not doc.item_group:
+        frappe.log_error(
+            f"Item {doc.name} has no item_group, skipping tax update",
+            "Tax Update Warning"
+        )
         return False
 
     tax_rate = get_tax_rate_hierarchy(doc.item_group)
     if tax_rate is None:
+        frappe.log_error(
+            f"Item {doc.name} (item_group: {doc.item_group}) has no tax rate in hierarchy",
+            "Tax Update Warning"
+        )
         return False
 
     # 获取所有非集团公司
     companies = frappe.get_all("Company", filters={"is_group": 0})
+    if not companies:
+        frappe.log_error(
+            f"No companies found for tax template creation",
+            "Tax Update Warning"
+        )
+        return False
 
     target_templates = []
     for c in companies:
@@ -23,6 +37,15 @@ def update_item_tax_data(doc, method=None):
         template_name = ensure_combined_tax_template(c.name, tax_rate)
         if template_name:
             target_templates.append(template_name)
+
+    # 如果没有找到任何模板，记录错误
+    if not target_templates:
+        frappe.log_error(
+            f"Item {doc.name} (item_group: {doc.item_group}, rate: {tax_rate}%): "
+            f"No tax templates found for any company. Companies checked: {[c.name for c in companies]}",
+            "Tax Update Error"
+        )
+        return False
 
     # 性能优化：检查当前物料的税率表是否已符合目标
     current_templates = [d.item_tax_template for d in doc.get("taxes")]
@@ -59,19 +82,26 @@ def ensure_combined_tax_template(company, rate):
     # 2. 核心改进：预先校验该公司是否有对应的进销项科目
     # 使用科目编号查找（针对您的 CSV 结构）
     sales_account = frappe.db.get_value(
-        "Account", {"account_number": "22210108", "company": company}
+        "Account", {"account_number": "22210012", "company": company}
     )
     purchase_account = frappe.db.get_value(
-        "Account", {"account_number": "22210101", "company": company}
+        "Account", {"account_number": "22210011", "company": company}
     )
 
     # 如果该公司不具备这两个科目，直接跳过，不为此公司生成模板
     if not sales_account or not purchase_account:
-        # 可选：如果是调试阶段，可以取消下面注释查看哪些公司缺科目
-        # frappe.msgprint(_("公司 {0} 缺少指定的进销项税科目，跳过自动税率分配。").format(company))
+        missing = []
+        if not sales_account:
+            missing.append("销售税科目 (22210012)")
+        if not purchase_account:
+            missing.append("采购税科目 (22210011)")
+        frappe.log_error(
+            f"Company {company} missing tax accounts: {', '.join(missing)}",
+            "Tax Template Creation Warning"
+        )
         return None
 
-    # 3. 校验科目类型（防止报错“科目类型须为税项”）
+    # 3. 校验科目类型（防止报错"科目类型须为税项"）
     for acc in [sales_account, purchase_account]:
         acc_type = frappe.db.get_value("Account", acc, "account_type")
         if acc_type not in ["Tax", "Income", "Expense"]:
@@ -98,7 +128,10 @@ def ensure_combined_tax_template(company, rate):
         new_template.insert(ignore_permissions=True, ignore_if_duplicate=True)
         return new_template.name
     except Exception as e:
-        frappe.log_error(f"Company {company} template creation failed: {str(e)}")
+        frappe.log_error(
+            f"Company {company} template creation failed: {str(e)}",
+            "Tax Template Creation Error"
+        )
         return None
 
 

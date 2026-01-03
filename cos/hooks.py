@@ -51,6 +51,7 @@ app_include_js = [
 # include js in doctype views
 doctype_js = {
     "Item Group": "public/js/doctype/item_group.js",
+    "Item": "public/js/doctype/item.js",
     "Company": "cos_accounts/public/js/doctype/company.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}

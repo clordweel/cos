@@ -11,9 +11,6 @@ frappe.ui.form.on('Item Group', {
                 // 执行同步逻辑
                 handle_sync(frm);
             }, __('Tax Tools'));
-
-            // 将菜单加粗或变色，突出显示
-            frm.page.set_inner_btn_group_dot(__('Tax Tools'), 'orange');
         }
     }
 });
@@ -49,15 +46,40 @@ function handle_sync(frm) {
         frappe.msgprint(__('Please save the current item group changes before syncing.'));
         return;
     }
+    
+    // 检查税率是否已设置
+    if (!frm.doc.custom_standard_tax_rate) {
+        frappe.msgprint(__('Please set the tax rate (custom_standard_tax_rate) for this item group before syncing.'));
+        return;
+    }
+    
     frappe.confirm(__('Are you sure you want to sync the current tax rate {0}% to all items in this group and its child groups?', [frm.doc.custom_standard_tax_rate]), () => {
         frappe.show_alert({ message: __('Syncing, please wait...'), indicator: 'blue' });
         frappe.call({
             method: "cos.cos_accounts.controllers.tax.sync_group_taxes_to_items",
             args: { item_group: frm.doc.name },
             callback: function (r) {
-                if (r.message) {
-                    frappe.msgprint(r.message.message);
+                if (r.exc) {
+                    frappe.msgprint({
+                        title: __('Error'),
+                        message: __('An error occurred during sync: {0}', [r.exc]),
+                        indicator: 'red'
+                    });
+                } else if (r.message) {
+                    frappe.show_alert({ 
+                        message: r.message.message || __('Sync completed successfully'), 
+                        indicator: 'green' 
+                    });
+                    // 刷新表单以显示最新状态
+                    frm.reload_doc();
                 }
+            },
+            error: function(r) {
+                frappe.msgprint({
+                    title: __('Error'),
+                    message: __('Failed to sync tax rates. Please check the error logs.'),
+                    indicator: 'red'
+                });
             }
         });
     });

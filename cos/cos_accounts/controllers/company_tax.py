@@ -245,7 +245,7 @@ def create_standard_taxes(company_name):
             company_name,
             "Sales Taxes and Charges Template",
             f"中国增值税 - {item['title']} (销项)",
-            "22210108",  # 销项编号
+            "22210012",  # 销项编号
             "销项税额",  # 备份名称
             item["rate"],
             item["is_default"],
@@ -265,7 +265,7 @@ def create_standard_taxes(company_name):
             company_name,
             "Purchase Taxes and Charges Template",
             f"中国增值税 - {item['title']} (进项)",
-            "22210101",  # 进项编号
+            "22210011",  # 进项编号
             "进项税额",  # 备份名称
             item["rate"],
             item["is_default"],
