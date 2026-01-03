@@ -5,18 +5,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-15 11:01:37.508821",
-  "must_be_whole_number": 0,
-  "name": "台",
-  "symbol": "unit",
-  "uom_name": "台"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2025-12-23 23:48:20.321389",
   "must_be_whole_number": 0,
   "name": "百/件",
@@ -125,18 +113,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-24 13:17:52.724104",
-  "must_be_whole_number": 0,
-  "name": "根",
-  "symbol": null,
-  "uom_name": "根"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2025-12-25 05:29:51.852997",
   "must_be_whole_number": 0,
   "name": "片",
@@ -178,5 +154,41 @@
   "name": "件",
   "symbol": "pc",
   "uom_name": "件"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2026-01-03 21:45:44.768822",
+  "must_be_whole_number": 0,
+  "name": "盒",
+  "symbol": null,
+  "uom_name": "盒"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-24 13:17:52.724104",
+  "must_be_whole_number": 0,
+  "name": "根",
+  "symbol": null,
+  "uom_name": "根"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-15 11:01:37.508821",
+  "must_be_whole_number": 0,
+  "name": "台",
+  "symbol": "unit",
+  "uom_name": "台"
  }
 ]

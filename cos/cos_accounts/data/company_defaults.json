@@ -28,6 +28,8 @@
     "book_advance_payments_in_separate_party_account": 1,
     "default_advance_received_account": ["account", "预收款项"],
     "default_advance_paid_account": ["account", "预付账款"],
+    "custom_buying_tax_account": ["account", "进项税额"],
+    "custom_selling_tax_account": ["account", "销项税额"],
     "reconcile_on_advance_payment_date": 1,
     "reconciliation_takes_effect_on": "Oldest Of Invoice Or Advance",
     "enable_perpetual_inventory": 1,

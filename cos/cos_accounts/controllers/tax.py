@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from cos.cos_accounts.utils.tax_logic import update_item_tax_data, get_tax_rate_hierarchy, ensure_combined_tax_template
 
 
@@ -24,8 +25,10 @@ def sync_group_taxes_to_items(item_group):
         )
 
         count = 0
+        updated_count = 0
         error_count = 0
         errors = []
+        missing_account_warnings = []
         
         for i in items:
             try:
@@ -33,9 +36,19 @@ def sync_group_taxes_to_items(item_group):
                 # 只在税率数据需要更新时才保存
                 if update_item_tax_data(doc):
                     doc.save(ignore_permissions=True)
+                    updated_count += 1
                 count += 1
                 if count % 100 == 0:
                     frappe.db.commit()
+            except frappe.ValidationError as e:
+                # 如果是字段缺失错误，记录警告但继续处理
+                if "税费科目字段未设置" in str(e):
+                    missing_account_warnings.append(f"Item {i.name}: {str(e)}")
+                else:
+                    error_count += 1
+                    error_msg = f"Item {i.name}: {str(e)}"
+                    errors.append(error_msg)
+                frappe.log_error(f"Error updating tax for item {i.name}: {str(e)}")
             except Exception as e:
                 error_count += 1
                 error_msg = f"Item {i.name}: {str(e)}"
@@ -45,13 +58,17 @@ def sync_group_taxes_to_items(item_group):
 
         frappe.db.commit()
         
-        message = f"Successfully updated tax rate data for {count} items"
+        message = f"处理了 {count} 个物料，成功更新 {updated_count} 个物料的税率模板"
+        if missing_account_warnings:
+            message += f"\n警告：{len(missing_account_warnings)} 个物料因公司缺少税费科目字段而跳过"
+            if len(missing_account_warnings) <= 3:
+                message += "：" + "；".join(missing_account_warnings[:3])
         if error_count > 0:
-            message += f". {error_count} items failed to update."
+            message += f"\n错误：{error_count} 个物料更新失败"
             if len(errors) <= 5:  # 只显示前5个错误
-                message += " Errors: " + "; ".join(errors[:5])
+                message += "：" + "；".join(errors[:5])
         
-        return {"message": message}
+        return {"message": message, "updated": updated_count, "total": count, "errors": error_count}
     except Exception as e:
         frappe.log_error(f"Error in sync_group_taxes_to_items: {str(e)}")
         frappe.throw(f"Failed to sync tax rates: {str(e)}")
@@ -97,12 +114,16 @@ def update_single_item_tax(item_code):
         if updated:
             doc.save(ignore_permissions=True)
             frappe.db.commit()
-            return {"message": f"Successfully updated tax templates for item {item_code}"}
+            return {"message": f"成功更新物料 {item_code} 的税率模板"}
         else:
-            return {"message": f"No changes needed for item {item_code}"}
+            return {"message": f"物料 {item_code} 的税率模板无需更新"}
+    except frappe.ValidationError as e:
+        # 如果是字段缺失错误，直接抛出给用户
+        frappe.log_error(f"Error updating tax for item {item_code}: {str(e)}")
+        frappe.throw(str(e), title=_("税费科目字段未设置"))
     except Exception as e:
         frappe.log_error(f"Error updating tax for item {item_code}: {str(e)}")
-        frappe.throw(f"Failed to update tax templates: {str(e)}")
+        frappe.throw(f"更新税率模板失败: {str(e)}")
 
 
 @frappe.whitelist()
@@ -164,13 +185,10 @@ def diagnose_item_tax(item_code):
                 "template_name": None
             }
             
-            # 检查科目
-            sales_account = frappe.db.get_value(
-                "Account", {"account_number": "22210012", "company": c.name}
-            )
-            purchase_account = frappe.db.get_value(
-                "Account", {"account_number": "22210011", "company": c.name}
-            )
+            # 从公司文档获取科目
+            company_doc = frappe.get_cached_doc("Company", c.name)
+            sales_account = company_doc.get("custom_selling_tax_account")
+            purchase_account = company_doc.get("custom_buying_tax_account")
             
             company_info["has_sales_account"] = bool(sales_account)
             company_info["has_purchase_account"] = bool(purchase_account)
@@ -183,29 +201,48 @@ def diagnose_item_tax(item_code):
                     target_templates.append(template_name)
             else:
                 missing = []
+                missing_fields = []
                 if not sales_account:
-                    missing.append("销售税科目 (22210012)")
+                    missing.append("销售税科目 (Selling Tax Account)")
+                    missing_fields.append("custom_selling_tax_account")
                 if not purchase_account:
-                    missing.append("采购税科目 (22210011)")
+                    missing.append("采购税科目 (Buying Tax Account)")
+                    missing_fields.append("custom_buying_tax_account")
                 company_info["missing_accounts"] = missing
+                company_info["missing_fields"] = missing_fields
+                company_info["error_message"] = f"公司 {c.name} 未设置税费科目字段，请在公司文档中设置：{'、'.join(missing)}"
             
             result["companies"].append(company_info)
         
         result["target_templates"] = target_templates
         result["expected_taxes"] = [{"template": t, "category": ""} for t in target_templates]
         
+        # 检查是否有公司缺少科目字段
+        companies_with_missing_fields = [
+            c for c in result["companies"] 
+            if c.get("missing_fields")
+        ]
+        if companies_with_missing_fields:
+            missing_companies = [c["name"] for c in companies_with_missing_fields]
+            result["diagnosis"].append({
+                "level": "error",
+                "message": f"以下公司未设置税费科目字段：{', '.join(missing_companies)}。请在公司文档中设置相应的科目字段。"
+            })
+        
         # 比较当前和目标
         current_templates = [d.item_tax_template for d in doc.get("taxes")]
         if set(target_templates) != set(current_templates):
-            result["diagnosis"].append({
-                "level": "warning",
-                "message": f"物料的税率模板不匹配。当前: {current_templates}, 期望: {target_templates}"
-            })
+            if not companies_with_missing_fields:  # 只有在没有科目字段缺失的情况下才显示模板不匹配警告
+                result["diagnosis"].append({
+                    "level": "warning",
+                    "message": f"物料的税率模板不匹配。当前: {current_templates}, 期望: {target_templates}"
+                })
         else:
-            result["diagnosis"].append({
-                "level": "success",
-                "message": "物料的税率模板设置正确"
-            })
+            if target_templates:  # 只有在有目标模板的情况下才显示成功消息
+                result["diagnosis"].append({
+                    "level": "success",
+                    "message": "物料的税率模板设置正确"
+                })
         
         return result
     except Exception as e:
