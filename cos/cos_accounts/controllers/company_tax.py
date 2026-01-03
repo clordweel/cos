@@ -153,15 +153,15 @@ def _make_idempotent_template(
                 account_exists_anywhere = frappe.db.exists("Account", account_head)
                 if account_exists_anywhere:
                     account_company = frappe.db.get_value("Account", account_head, "company")
-                    error_msg = f"科目 {account_head} 不属于公司 {company}（属于公司: {account_company}）。请检查公司文档中的 {backup_name} 字段是否正确设置。"
+                    warning_msg = f"科目 {account_head} 不属于公司 {company}（属于公司: {account_company}）。请检查公司文档中的 {backup_name} 字段是否正确设置。"
                 else:
-                    error_msg = f"科目不存在: {account_head} (公司: {company})。请检查公司文档中的 {backup_name} 字段是否正确设置。"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company}")
+                    warning_msg = f"科目不存在: {account_head} (公司: {company})。请检查公司文档中的 {backup_name} 字段是否正确设置。"
+                frappe.logger().warning(warning_msg)
                 account_head = None
 
     if not account_head:
-        error_msg = f"找不到科目: 公司 {company}, 科目名称 {backup_name}。请检查公司文档中的 {backup_name} 字段是否正确设置，确保选择的科目属于该公司。"
-        frappe.log_error(error_msg, f"税费模板创建失败 - {company}")
+        warning_msg = f"找不到科目: 公司 {company}, 科目名称 {backup_name}。请检查公司文档中的 {backup_name} 字段是否正确设置，确保选择的科目属于该公司。"
+        frappe.logger().warning(warning_msg)
         return (False, None)
 
     # 2. 检查模板是否已存在
@@ -307,9 +307,8 @@ def create_standard_taxes(company_name):
         error_message = _("公司 {0} 未设置税费科目字段，请在公司文档中设置：{1}").format(
             company_name, "、".join(missing)
         )
-        frappe.log_error(
-            f"公司 {company_name} 缺少税费科目字段: {', '.join(missing_fields)}. {error_message}",
-            f"税费模板初始化失败 - {company_name}"
+        frappe.logger().warning(
+            f"公司 {company_name} 缺少税费科目字段: {', '.join(missing_fields)}. {error_message}"
         )
         return {
             "created": 0,
@@ -354,10 +353,7 @@ def create_standard_taxes(company_name):
         error_message = _("公司 {0} 的税费科目字段设置有误：{1}。请在公司文档中重新选择属于该公司的科目。").format(
             company_name, "；".join(error_details)
         )
-        frappe.log_error(
-            error_message,
-            f"税费模板初始化失败 - {company_name}"
-        )
+        frappe.logger().warning(error_message)
         return {
             "created": 0,
             "skipped": 0,
@@ -421,14 +417,14 @@ def create_standard_taxes(company_name):
             error_count += 1
             # 检查是否是科目验证失败
             if not sales_account:
-                error_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 缺少销售税科目 (custom_selling_tax_account)"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company_name}")
+                warning_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 缺少销售税科目 (custom_selling_tax_account)"
+                frappe.logger().warning(warning_msg)
             elif sales_account and not frappe.db.exists("Account", sales_account):
-                error_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 销售税科目 {sales_account} 不存在"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company_name}")
+                warning_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 销售税科目 {sales_account} 不存在"
+                frappe.logger().warning(warning_msg)
             else:
-                error_msg = f"创建/更新模板失败: {template_title} (公司: {company_name})"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company_name}")
+                warning_msg = f"创建/更新模板失败: {template_title} (公司: {company_name})"
+                frappe.logger().warning(warning_msg)
 
         # 进项模板
         template_title = f"中国增值税 - {item['title']} (进项)"
@@ -466,14 +462,14 @@ def create_standard_taxes(company_name):
             error_count += 1
             # 检查是否是科目验证失败
             if not purchase_account:
-                error_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 缺少采购税科目 (custom_buying_tax_account)"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company_name}")
+                warning_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 缺少采购税科目 (custom_buying_tax_account)"
+                frappe.logger().warning(warning_msg)
             elif purchase_account and not frappe.db.exists("Account", purchase_account):
-                error_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 采购税科目 {purchase_account} 不存在"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company_name}")
+                warning_msg = f"创建模板失败: {template_title} (公司: {company_name}) - 采购税科目 {purchase_account} 不存在"
+                frappe.logger().warning(warning_msg)
             else:
-                error_msg = f"创建/更新模板失败: {template_title} (公司: {company_name})"
-                frappe.log_error(error_msg, f"税费模板创建失败 - {company_name}")
+                warning_msg = f"创建/更新模板失败: {template_title} (公司: {company_name})"
+                frappe.logger().warning(warning_msg)
 
     return {
         "created": created_count,
@@ -523,15 +519,37 @@ def initialize_tax_templates(company):
         create_result = create_standard_taxes(company)
         
         # 检查是否有科目字段未设置或科目不属于当前公司的错误
+        # 如果有错误，跳过创建，返回成功但提示用户
         if create_result.get("error_message"):
+            warning_message = create_result["error_message"]
+            # 查询现有的模板数量
+            sales_templates = frappe.db.get_all(
+                "Sales Taxes and Charges Template",
+                filters={"company": company, "title": ["like", "中国增值税%"]},
+                fields=["name", "title"]
+            )
+            purchase_templates = frappe.db.get_all(
+                "Purchase Taxes and Charges Template",
+                filters={"company": company, "title": ["like", "中国增值税%"]},
+                fields=["name", "title"]
+            )
+            total_count = len(sales_templates) + len(purchase_templates)
+            
+            message = warning_message
+            if delete_result["count"] > 0:
+                message = _("删除系统默认模板 {0} 个，").format(delete_result["count"]) + message
+            message += _("（当前共有 {0} 个税费模板）").format(total_count)
+            
             return {
-                "success": False,
-                "message": create_result["error_message"],
-                "count": 0,
+                "success": True,
+                "message": message,
+                "count": total_count,
                 "details": {
                     "deleted": delete_result,
                     "missing_fields": create_result.get("missing_fields", []),
-                    "invalid_accounts": create_result.get("invalid_accounts", [])
+                    "invalid_accounts": create_result.get("invalid_accounts", []),
+                    "skipped": True,
+                    "skipped_reason": create_result.get("error_message")
                 }
             }
         

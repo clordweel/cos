@@ -118,9 +118,10 @@ def update_single_item_tax(item_code):
         else:
             return {"message": f"物料 {item_code} 的税率模板无需更新"}
     except frappe.ValidationError as e:
-        # 如果是字段缺失错误，直接抛出给用户
-        frappe.log_error(f"Error updating tax for item {item_code}: {str(e)}")
-        frappe.throw(str(e), title=_("税费科目字段未设置"))
+        # 如果是字段缺失错误，记录警告但不抛出异常
+        warning_msg = f"更新物料 {item_code} 的税率模板时：{str(e)}"
+        frappe.logger().warning(warning_msg)
+        return {"message": warning_msg, "warning": True}
     except Exception as e:
         frappe.log_error(f"Error updating tax for item {item_code}: {str(e)}")
         frappe.throw(f"更新税率模板失败: {str(e)}")

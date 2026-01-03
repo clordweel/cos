@@ -32,27 +32,22 @@ def update_item_tax_data(doc, method=None):
         return False
 
     target_templates = []
-    missing_companies = []
+    skipped_companies = []
     for c in companies:
-        try:
-            template_name = ensure_combined_tax_template(c.name, tax_rate)
-            if template_name:
-                target_templates.append(template_name)
-        except frappe.ValidationError as e:
-            # 捕获字段缺失的错误，记录但继续处理其他公司
-            missing_companies.append(f"{c.name}: {str(e)}")
-            frappe.log_error(
-                f"Company {c.name} missing tax account fields: {str(e)}",
-                "Tax Update Warning"
-            )
+        template_name = ensure_combined_tax_template(c.name, tax_rate)
+        if template_name:
+            target_templates.append(template_name)
+        else:
+            # 记录跳过的公司（可能是字段未设置或其他原因）
+            skipped_companies.append(c.name)
 
-    # 如果没有找到任何模板，记录错误
+    # 如果没有找到任何模板，记录警告
     if not target_templates:
-        error_msg = f"Item {doc.name} (item_group: {doc.item_group}, rate: {tax_rate}%): "
-        error_msg += f"No tax templates found for any company. Companies checked: {[c.name for c in companies]}"
-        if missing_companies:
-            error_msg += f"\nMissing account fields: {'; '.join(missing_companies)}"
-        frappe.log_error(error_msg, "Tax Update Error")
+        warning_msg = f"Item {doc.name} (item_group: {doc.item_group}, rate: {tax_rate}%): "
+        warning_msg += f"No tax templates found for any company. Companies checked: {[c.name for c in companies]}"
+        if skipped_companies:
+            warning_msg += f"\nSkipped companies (missing tax account fields): {', '.join(skipped_companies)}"
+        frappe.logger().warning(warning_msg)
         return False
 
     # 性能优化：检查当前物料的税率表是否已符合目标
@@ -104,14 +99,14 @@ def ensure_combined_tax_template(company, rate):
             missing.append(_("采购税科目 (Buying Tax Account)"))
             missing_fields.append("custom_buying_tax_account")
         
-        error_msg = _("公司 {0} 未设置税费科目字段，请在公司文档中设置：{1}").format(
+        warning_msg = _("公司 {0} 未设置税费科目字段，请在公司文档中设置：{1}").format(
             company, "、".join(missing)
         )
-        frappe.log_error(
-            f"Company {company} missing tax accounts: {', '.join(missing_fields)}. {error_msg}",
-            "Tax Template Creation Warning"
+        frappe.logger().warning(
+            f"Company {company} missing tax accounts: {', '.join(missing_fields)}. {warning_msg}"
         )
-        frappe.throw(error_msg, title=_("税费科目字段未设置"))
+        # 跳过该公司的模板创建
+        return None
 
     # 3. 校验科目类型（防止报错"科目类型须为税项"）
     for acc in [sales_account, purchase_account]:
