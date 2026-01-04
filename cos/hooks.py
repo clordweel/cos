@@ -246,6 +246,9 @@ override_whitelisted_methods = {
 # Authentication and authorization
 # --------------------------------
 
+on_login = ["cos.cos_share.controllers.oauth2_login.on_login"]
+on_session_creation = ["cos.cos_share.controllers.oauth2_login.on_login"]
+
 # auth_hooks = [
 # 	"cos.auth.validate"
 # ]
@@ -279,7 +282,10 @@ fixtures = [
     {"dt": "Item Parameter Template", "filters": [["module", "=", "COS Stock"]]},
     {"dt": "External Link", "filters": [["module", "=", "COS Share"]]},
     {"dt": "Currency", "filters": [["name", "in", ["CNY"]]]},
-    {"dt": "Financial Report Template", "filters": [["module", "in", ["COS Accounts"]]]},
+    {
+        "dt": "Financial Report Template",
+        "filters": [["module", "in", ["COS Accounts"]]],
+    },
     {
         "dt": "Print Format",
         "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
@@ -316,6 +322,10 @@ fixtures = [
     {
         "dt": "Custom Field",
         "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+    },
+    {
+        "dt": "Role",
+        "filters": [["name", "in", ["Logto User"]]],
     },
     {
         "dt": "UOM",
