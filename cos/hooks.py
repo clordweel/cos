@@ -287,6 +287,10 @@ fixtures = [
         "filters": [["module", "in", ["COS Accounts"]]],
     },
     {
+        "dt": "Letter Head",
+        "filters": [["name", "in", ["COS Standard"]]],
+    },
+    {
         "dt": "Print Format",
         "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
     },
