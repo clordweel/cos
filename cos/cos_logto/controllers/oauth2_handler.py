@@ -76,3 +76,4 @@ def _bind_logto_user_role(user):
 			f"绑定 Logto User 角色失败: {str(e)}\nUser: {user}",
 			"Logto User Role Binding Error"
 		)
+

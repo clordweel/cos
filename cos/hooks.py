@@ -246,8 +246,8 @@ override_whitelisted_methods = {
 # Authentication and authorization
 # --------------------------------
 
-on_login = ["cos.cos_share.controllers.oauth2_login.on_login"]
-on_session_creation = ["cos.cos_share.controllers.oauth2_login.on_login"]
+on_login = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
+on_session_creation = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
 
 # auth_hooks = [
 # 	"cos.auth.validate"

@@ -2,3 +2,4 @@ COS
 COS Share
 COS Stock
 COS Accounts
+COS Logto
