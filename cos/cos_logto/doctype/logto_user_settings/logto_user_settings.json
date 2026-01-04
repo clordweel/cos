@@ -55,6 +55,7 @@
    "label": "Update Password"
   },
   {
+   "collapsible": 1,
    "fieldname": "logto_connection_section",
    "fieldtype": "Section Break",
    "label": "Logto M2M"
@@ -113,7 +114,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-04 12:46:06.586266",
+ "modified": "2026-01-04 13:34:15.340826",
  "modified_by": "Administrator",
  "module": "COS Logto",
  "name": "Logto User Settings",

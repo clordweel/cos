@@ -328,6 +328,10 @@ fixtures = [
         "filters": [["name", "in", ["Logto User"]]],
     },
     {
+        "dt": "Custom DocPerm",
+        "filters": [["role", "in", ["Logto User"]]],
+    },
+    {
         "dt": "UOM",
         "filters": [
             [
