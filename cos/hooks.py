@@ -30,7 +30,7 @@ app_include_css = [
     "/assets/cos/css/v16_patching_styles.css",
 ]
 app_include_js = [
-    "/assets/cos/js/v16_link_hotfix.js",
+    # "/assets/cos/js/v16_link_hotfix.js",
     "/assets/cos/js/code_field_custom.js",
 ]
 
@@ -352,6 +352,7 @@ fixtures = [
                     "袋",
                     "块",
                     "只",
+                    "次",
                     "百/件",
                     "千/件",
                 ],
