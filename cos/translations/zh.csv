@@ -111,3 +111,5 @@ Please save the current item group changes before syncing.,请先保存当前物
 "<b>Dangerous Operation:</b> This will globally delete all legacy templates with titles containing ""(Output)"" or ""(Input)"" and force unbind items. Are you sure?","<b>危险操作：</b>此功能将全局删除所有标题含""(销项)""或""(进项)""的旧版模板并强制解绑物料。确定执行吗？"
 Diagnose Item Tax Settings,诊断物料税费设置
 Update Item Tax Templates,更新物料税费模板
+Logto User Settings,Logto 用户设置
+Extended Item Tools,物料扩展工具
