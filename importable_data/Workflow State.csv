@@ -1,0 +1,6 @@
+"workflow_state_name","style","icon"
+"Cancelled","",""
+"Draft","Danger",""
+"Rejected","Danger","remove"
+"Approved","Success","ok-sign"
+"Pending","Info","question-sign"
