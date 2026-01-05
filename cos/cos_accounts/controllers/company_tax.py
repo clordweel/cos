@@ -486,6 +486,7 @@ def create_standard_taxes(company_name):
 def initialize_tax_templates(company):
     """
     初始化公司的进销项税费模板
+    仅系统管理员可以访问
     
     功能：
     1. 删除系统默认创建的 China Tax 模板
@@ -497,6 +498,10 @@ def initialize_tax_templates(company):
     Returns:
         dict: 设置结果，包含成功创建的模板数量和详细信息
     """
+    # 权限检查：仅系统管理员
+    if not frappe.has_permission("Company", "write"):
+        frappe.throw(_("权限不足：只有系统管理员可以执行此操作"), frappe.PermissionError)
+    
     try:
         # 验证公司是否存在
         if not frappe.db.exists("Company", company):

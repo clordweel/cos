@@ -1,6 +1,6 @@
 {
     "_meta": {
-        "title": "定制企业会计准则 - 默认配置",
+        "title": "一般企业会计准则(2024) - 默认配置",
         "description": "适用于使用一般企业会计准则(2024)的公司默认配置"
     },
     "default_bank_account": ["account", "银行存款"],

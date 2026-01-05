@@ -52,7 +52,7 @@ app_include_js = [
 doctype_js = {
     "Item Group": "public/js/doctype/item_group.js",
     "Item": "public/js/doctype/item.js",
-    "Company": "cos_accounts/public/js/doctype/company.js",
+    "Company": "public/js/doctype/company.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
