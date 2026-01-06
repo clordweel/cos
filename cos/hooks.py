@@ -148,7 +148,7 @@ doc_events = {
     },
     "Item": {
         "before_insert": "cos.cos_stock.utils.item.auto_set_item_code",
-        "validate": "cos.cos_accounts.utils.tax_logic.update_item_tax_data",
+        # "validate": "cos.cos_accounts.utils.tax_logic.update_item_tax_data",
     },
 }
 
