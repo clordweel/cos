@@ -12,7 +12,7 @@
             "银行存款": {
                 "account_number": 1002,
                 "account_type": "Bank",
-                "中国银行": {
+                "银行存款-中国银行": {
                     "account_number": 100201,
                     "account_type": "Bank"
                 }
@@ -32,11 +32,11 @@
             "应收票据": {
                 "account_number": 1121,
                 "account_type": "Receivable",
-                "银行承兑汇票": {
+                "应收票据-银行承兑汇票": {
                     "account_number": 112101,
                     "account_type": "Receivable"
                 },
-                "商业承兑汇票": {
+                "应收票据-商业承兑汇票": {
                     "account_number": 112102,
                     "account_type": "Receivable"
                 }
@@ -56,25 +56,29 @@
             "其他应收款": {
                 "account_number": 1221,
                 "account_type": "Receivable",
-                "员工预支": {
+                "其他应收款-员工预支": {
                     "account_number": 122101,
                     "account_type": "Receivable"
                 },
-                "单位往来": {
+                "其他应收款-单位往来": {
                     "account_number": 122102,
                     "account_type": "Payable"
                 },
-                "其他个人借款": {
+                "其他应收款-其他个人借款": {
                     "account_number": 122103,
                     "account_type": "Receivable"
                 },
-                "内部": {
+                "其他应收款-内部": {
                     "account_number": 122104,
                     "account_type": "Receivable",
-                    "社会统筹": {
+                    "其他应收款-内部-社会统筹": {
                         "account_number": 12210401,
                         "account_type": "Receivable"
                     }
+                },
+                "其他应收款-内部往来": {
+                    "account_number": 122105,
+                    "account_type": "Receivable"
                 }
             },
             "坏账准备": {
@@ -176,23 +180,23 @@
             "固定资产": {
                 "account_number": 1601,
                 "account_type": "Fixed Asset",
-                "房屋建筑": {
+                "固定资产-房屋建筑": {
                     "account_number": 160101,
                     "account_type": "Fixed Asset"
                 },
-                "电子设备": {
+                "固定资产-电子设备": {
                     "account_number": 160102,
                     "account_type": "Fixed Asset"
                 },
-                "机械设备": {
+                "固定资产-机械设备": {
                     "account_number": 160103,
                     "account_type": "Fixed Asset"
                 },
-                "运输设备": {
+                "固定资产-运输设备": {
                     "account_number": 160104,
                     "account_type": "Fixed Asset"
                 },
-                "工具器具": {
+                "固定资产-工具器具": {
                     "account_number": 160105,
                     "account_type": "Fixed Asset"
                 }
@@ -200,23 +204,23 @@
             "累计折旧": {
                 "account_number": 1602,
                 "account_type": "Accumulated Depreciation",
-                "房屋建筑": {
+                "累计折旧-房屋建筑": {
                     "account_number": 160201,
                     "account_type": "Accumulated Depreciation"
                 },
-                "电子设备": {
+                "累计折旧-电子设备": {
                     "account_number": 160202,
                     "account_type": "Accumulated Depreciation"
                 },
-                "机械设备": {
+                "累计折旧-机械设备": {
                     "account_number": 160203,
                     "account_type": "Accumulated Depreciation"
                 },
-                "运输设备": {
+                "累计折旧-运输设备": {
                     "account_number": 160204,
                     "account_type": "Accumulated Depreciation"
                 },
-                "工具器具": {
+                "累计折旧-工具器具": {
                     "account_number": 160205,
                     "account_type": "Accumulated Depreciation"
                 }
@@ -271,7 +275,15 @@
             },
             "应收账款": {
                 "account_number": 1122,
-                "account_type": "Receivable"
+                "account_type": "Receivable",
+                "应收账款-正式": {
+                    "account_number": 112201,
+                    "account_type": "Receivable"
+                },
+                "应收账款-暂估": {
+                    "account_number": 112202,
+                    "account_type": "Receivable"
+                }
             }
         },
         "负债": {
@@ -385,7 +397,15 @@
                     },
                     "应交税费-应交增值税-销项税额": {
                         "account_number": 22210108,
-                        "account_type": "Tax"
+                        "account_type": "Tax",
+                        "应交税费-应交增值税-销项税额-已开票": {
+                            "account_number": 222101081,
+                            "account_type": "Tax"
+                        },
+                        "应交税费-应交增值税-销项税额-未开票": {
+                            "account_number": 222101082,
+                            "account_type": "Tax"
+                        }
                     },
                     "应交税费-应交增值税-出口退税": {
                         "account_number": 22210109,
@@ -484,8 +504,12 @@
             "其他应付款": {
                 "account_number": 2241,
                 "account_type": "Payable",
-                "员工报销": {
+                "其他应付款-员工报销": {
                     "account_number": 224101,
+                    "account_type": "Payable"
+                },
+                "其他应付款-内部往来": {
+                    "account_number": 224102,
                     "account_type": "Payable"
                 }
             },
@@ -500,11 +524,11 @@
             "应付债券": {
                 "account_number": 2502,
                 "account_type": "Payable",
-                "优先股": {
+                "应付债券-优先股": {
                     "account_number": 250201,
                     "account_type": "Payable"
                 },
-                "永续股": {
+                "应付债券-永续股": {
                     "account_number": 250202,
                     "account_type": "Payable"
                 }
@@ -856,7 +880,7 @@
                     "account_number": 660305,
                     "account_type": "Expense Account"
                 },
-                "精度尾差调整": {
+                "财务费用-精度尾差调整": {
                     "account_number": 660306,
                     "account_type": "Round Off"
                 }
@@ -947,7 +971,11 @@
             },
             "其他业务收入": {
                 "account_number": 6051,
-                "account_type": "Income Account"
+                "account_type": "Income Account",
+                "其他业务收入-其他": {
+                    "account_number": 605101,
+                    "account_type": "Income Account"
+                }
             },
             "汇兑损益": {
                 "account_number": 6061,
