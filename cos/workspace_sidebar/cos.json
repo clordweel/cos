@@ -20,11 +20,11 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "layout-template",
+   "icon": "newspaper",
    "indent": 0,
    "keep_closed": 0,
-   "label": "Item Parameter Template",
-   "link_to": "Item Parameter Template",
+   "label": "New Item Request",
+   "link_to": "New Item Request",
    "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
@@ -32,11 +32,11 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "newspaper",
+   "icon": "layout-template",
    "indent": 0,
    "keep_closed": 0,
-   "label": "New Item Request",
-   "link_to": "New Item Request",
+   "label": "Item Parameter Template",
+   "link_to": "Item Parameter Template",
    "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
@@ -150,7 +150,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-01-06 19:30:01.666396",
+ "modified": "2026-01-06 19:48:17.040342",
  "modified_by": "Administrator",
  "module": "COS Share",
  "name": "COS",
