@@ -6,7 +6,7 @@
     "default_bank_account": ["account", "银行存款-中国银行"],
     "default_cash_account": ["account", "库存现金"],
     "default_payable_account": ["account", "应付账款-供应商款"],
-    "default_receivable_account": ["account", "预收账款"],
+    "default_receivable_account": ["account", "应收账款"],
     "round_off_account": ["account", "财务费用-精度尾差调整"],
     "write_off_account": ["account", "营业外支出-坏账损失"],
     "exchange_gain_loss_account": ["account", "汇兑损益"],
