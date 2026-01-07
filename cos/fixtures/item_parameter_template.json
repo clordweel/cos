@@ -8276,7 +8276,7 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "机加工件",
-  "modified": "2026-01-05 07:28:04.091119",
+  "modified": "2026-01-07 18:35:52.736131",
   "module": "COS Stock",
   "name": "机械自制件模板 - 小齿轮",
   "parameters": [
@@ -8296,7 +8296,7 @@
     "value_integer": 0
    },
    {
-    "binding_field": 0,
+    "binding_field": 1,
     "constraint_type": "Data",
     "description": "唯一标识，必填。如 M2400-05-01。",
     "doctype_selector": null,
@@ -8304,7 +8304,7 @@
     "parameter_default_value": "",
     "parameter_name": "图号",
     "readonly_value": 0,
-    "target_field": null,
+    "target_field": "custom_drawing_number",
     "value_doctype": null,
     "value_float": 0.0,
     "value_format": null,
