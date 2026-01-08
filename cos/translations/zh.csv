@@ -122,4 +122,3 @@ Reference Project,引用项目
 Reset to Default,重置为默认
 Item Tool,物料工具
 Allowed Data,允许的数据
-"Options [OptA, OptB, ...] or Regex /^[x_-]$/ supported",支持选项模式 [OptA, OptB, ...] 或正则模式 /^[x_-]$/
