@@ -1,1 +1,125 @@
-[]
+[
+ {
+  "add_total_row": 0,
+  "add_translate_data": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [
+   {
+    "default": null,
+    "fieldname": "company",
+    "fieldtype": "Link",
+    "label": "公司",
+    "mandatory": 1,
+    "options": "Company",
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "from_fiscal_year",
+    "fieldtype": "Link",
+    "label": "起始会计年度",
+    "mandatory": 0,
+    "options": "Fiscal Year",
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "to_fiscal_year",
+    "fieldtype": "link",
+    "label": "结束会计年度",
+    "mandatory": 0,
+    "options": "Fiscal Year",
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "period_start_date",
+    "fieldtype": "Date",
+    "label": "起始日期",
+    "mandatory": 0,
+    "options": null,
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "period_end_date",
+    "fieldtype": "Date",
+    "label": "结束日期",
+    "mandatory": 0,
+    "options": null,
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "filter_based_on",
+    "fieldtype": "Select",
+    "label": "筛选依据",
+    "mandatory": 0,
+    "options": "Fiscal Year\nDate Range",
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "periodicity",
+    "fieldtype": "Select",
+    "label": "期间",
+    "mandatory": 0,
+    "options": "Yearly\nHalf-Yearly\nQuarterly\nMonthly",
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "accumulated_values",
+    "fieldtype": "Check",
+    "label": "累计值",
+    "mandatory": 0,
+    "options": null,
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "ignore_closing_entries",
+    "fieldtype": "Check",
+    "label": "忽略结账分录",
+    "mandatory": 0,
+    "options": null,
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "ignore_accumulated_values_for_fy",
+    "fieldtype": "Check",
+    "label": "忽略会计年度累计值",
+    "mandatory": 0,
+    "options": null,
+    "wildcard_filter": 0
+   }
+  ],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "",
+  "letter_head": null,
+  "modified": "2026-01-03 10:00:00",
+  "module": "COS Accounts",
+  "name": "Balance Sheet (China Audit)",
+  "prepared_report": 0,
+  "query": "",
+  "ref_doctype": "Company",
+  "reference_report": null,
+  "report_name": "Balance Sheet (China Audit)",
+  "report_script": "# 使用 frappe.get_attr 获取 execute 函数（safe_exec 环境不允许 import）\nexecute = frappe.get_attr('cos.cos_accounts.reports.balance_sheet_china_audit.balance_sheet_china_audit.execute')\ncolumns, data, message, chart = execute(filters)\n\n# 设置返回结果\n# execute_script 会检查 loc['data']，如果存在则返回它；否则返回 (self.get_columns(), loc['result'])\n# 我们设置 data 为 (columns, data)，这样 execute_script 会直接返回它\ndata = columns, data",
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "role": "Accounts Manager"
+   },
+   {
+    "role": "Accounts User"
+   }
+  ],
+  "timeout": 0
+ }
+]

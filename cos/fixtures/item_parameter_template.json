@@ -11,6 +11,7 @@
   "name": "电气元件模板 - 微型断路器(MCB)",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -26,6 +27,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "品牌决定了系列号，如 施耐德/正泰/西门子。",
@@ -41,6 +43,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Data",
     "description": "厂家的唯一订货Ref号，如: A9F18216。",
@@ -56,6 +59,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如: iC65N, DZ47, 5SY6。",
@@ -71,6 +75,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "选项: 1P, 2P, 3P, 4P, 1P+N。",
@@ -86,6 +91,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "C型(配电), D型(动力), B型(电子)。",
@@ -101,6 +107,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: A (如 10, 16, 32, 63)。",
@@ -116,6 +123,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: kA。如 6kA, 10kA (默认6)。",
@@ -131,6 +139,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "默认 Purchased。",
@@ -146,6 +155,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -161,6 +171,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -176,6 +187,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+系列+极数+脱扣+电流。",
@@ -191,6 +203,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "纯型号：系列 极数 脱扣+电流",
@@ -206,6 +219,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "包含分断能力等详细参数。",
@@ -221,6 +235,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -256,6 +271,7 @@
   "name": "传动部件模板 - 轴承 - 深沟球轴承",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -271,6 +287,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "轴承品牌决定寿命和价格，如 SKF/FAG/NSK/HRB。",
@@ -286,6 +303,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "仅填写数字部分，如 6205, 6310。",
@@ -301,6 +319,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如: 开式(无), 2Z(铁盖), 2RS1(胶盖)。",
@@ -316,6 +335,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "普通级留空(CN)。高温/高速请填 C3, C4。",
@@ -331,6 +351,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "内径 d (mm)",
@@ -346,6 +367,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "外径 D (mm)",
@@ -361,6 +383,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "宽度 B (mm)",
@@ -376,6 +399,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "选项：采购 / 自制 / 外协",
@@ -391,6 +415,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -406,6 +431,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -421,6 +447,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+型号+后缀(密封/游隙)",
@@ -436,6 +463,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号-后缀",
@@ -451,6 +479,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含详细尺寸以便测绘核对。",
@@ -466,6 +495,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -501,6 +531,7 @@
   "name": "传动部件模板 - 轴承 - 带座轴承",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -516,6 +547,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 FYH, NSK, ASAHI, TR, LK。",
@@ -531,6 +563,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "UC(顶丝固定-最常用), UK(紧定套), HC(偏心套), SA, SB。",
@@ -546,6 +579,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "P(立式), F(方均), FL(菱形), T/K(滑块/张紧), PA(短座)。",
@@ -561,6 +595,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 205, 210, 312。",
@@ -576,6 +611,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "对应轴的直径(d)，单位: mm。如 210对应50mm。",
@@ -591,6 +627,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "默认 HT200 (灰铸铁)。重载/抗冲击可选 QT450 (球墨铸铁) 或 不锈钢。",
@@ -606,6 +643,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "选项：采购 / 自制 / 外协",
@@ -621,6 +659,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -636,6 +675,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -651,6 +691,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+组合型号(前缀+座+尺寸)",
@@ -666,6 +707,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "组合型号",
@@ -681,6 +723,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含轴径提示。",
@@ -696,6 +739,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -731,6 +775,7 @@
   "name": "传动部件模板 - 普通V带",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -746,6 +791,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "普通: A, B, C, D, Z; 窄V: SPA, SPB, SPC, XPZ。",
@@ -761,6 +807,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "Ld/Lw (mm)。皮带背面的数字。",
@@ -776,6 +823,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "通常为 橡胶(CR/EPDM)。",
@@ -791,6 +839,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Gates(盖茨), Optibelt(欧皮特), Sanlux(三力士)。",
@@ -806,6 +855,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "选项：采购 / 自制 / 外协",
@@ -821,6 +871,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -836,6 +887,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -851,6 +903,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+型号+长度",
@@ -866,6 +919,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+长度",
@@ -881,6 +935,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "明确长度定义。",
@@ -896,6 +951,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -931,6 +987,7 @@
   "name": "电气辅材模板 - 阻燃电缆",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -946,6 +1003,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 远东, 上上, 江南, 起帆。",
@@ -961,6 +1019,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "留空(普), ZR(阻燃), NH(耐火), WDZ(低烟无卤)。",
@@ -976,6 +1035,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 YJV, YJV22, RVV, BVR, BV。",
@@ -991,6 +1051,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "如 1, 2, 3, 4, 5。",
@@ -1006,6 +1067,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm²。如 1.5, 2.5, 10, 240。",
@@ -1021,6 +1083,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "N线/PE线数量。无辅芯请填0或留空。",
@@ -1036,6 +1099,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "辅芯截面(mm²)。无辅芯请填0。",
@@ -1051,6 +1115,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 300/500V, 450/750V, 0.6/1kV。",
@@ -1066,6 +1131,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "选项：采购 / 自制 / 外协",
@@ -1081,6 +1147,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1096,6 +1163,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1111,6 +1179,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "阻燃+型号+规格+电压",
@@ -1126,6 +1195,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "纯规格字符串",
@@ -1141,6 +1211,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -1156,6 +1227,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -1191,6 +1263,7 @@
   "name": "型材模板 - 扁钢",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -1206,6 +1279,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1221,6 +1295,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm",
@@ -1236,6 +1311,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm",
@@ -1251,6 +1327,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 6000。",
@@ -1266,6 +1343,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算 (kg/m)。",
@@ -1281,6 +1359,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算 (kg/根)。",
@@ -1296,6 +1375,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1311,6 +1391,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1326,6 +1407,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1341,6 +1423,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -1356,6 +1439,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -1371,6 +1455,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "引用自动计算的重量参数。",
@@ -1386,6 +1471,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -1429,6 +1515,7 @@
   "name": "型材模板 - 角/槽/工/H",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 角钢, 槽钢, 工字钢, H型钢。",
@@ -1444,6 +1531,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1459,6 +1547,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "角钢(边x边x厚); 槽工(型号); H型钢(HW/HM/HN+尺寸)。",
@@ -1474,6 +1563,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 6000。",
@@ -1489,6 +1579,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "【必填】查手册填入 (kg/m)。",
@@ -1504,6 +1595,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算 (kg/根)。",
@@ -1519,6 +1611,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1534,6 +1627,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1549,6 +1643,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1564,6 +1659,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -1579,6 +1675,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -1594,6 +1691,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "引用独立参数。",
@@ -1609,6 +1707,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -1652,6 +1751,7 @@
   "name": "紧固件模板 - 六角头螺栓",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "已锁定。",
@@ -1667,6 +1767,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "",
@@ -1682,6 +1783,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Q235B, 45#, 35CrMo, 304。",
@@ -1697,6 +1799,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 4.8级, 8.8级, 10.9级, A2-70。",
@@ -1712,6 +1815,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "螺纹大径 M (mm)。如 6, 8, 10, 12, 16。",
@@ -1727,6 +1831,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "螺杆长度 L (mm)。",
@@ -1742,6 +1847,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "粗牙留空。细牙请填写(如 1.0, 1.25)。",
@@ -1757,6 +1863,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "",
@@ -1772,6 +1879,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg/个。非必填，仅作参考。",
@@ -1787,6 +1895,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1802,6 +1911,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1817,6 +1927,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -1832,6 +1943,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "核心逻辑定义处 (Mxx x L)",
@@ -1847,6 +1959,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "直接引用[规格型号]",
@@ -1862,6 +1975,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "直接引用[规格型号]",
@@ -1877,6 +1991,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -1916,6 +2031,7 @@
   "name": "紧固件模板 - 六角头螺栓 GB/T 5783",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "已锁定。",
@@ -1931,6 +2047,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "",
@@ -1946,6 +2063,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Q235B, 45#, 35CrMo, 304。",
@@ -1961,6 +2079,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 4.8级, 8.8级, 10.9级, A2-70。",
@@ -1976,6 +2095,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "螺纹大径 M (mm)。如 6, 8, 10, 12, 16。",
@@ -1991,6 +2111,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "螺杆长度 L (mm)。",
@@ -2006,6 +2127,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "粗牙留空。细牙请填写(如 1.0, 1.25)。",
@@ -2021,6 +2143,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "",
@@ -2036,6 +2159,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg/个。非必填，仅作参考。",
@@ -2051,6 +2175,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2066,6 +2191,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2081,6 +2207,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2096,6 +2223,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "核心逻辑定义处 (Mxx x L)",
@@ -2111,6 +2239,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "直接引用[规格型号]",
@@ -2126,6 +2255,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "直接引用[规格型号]",
@@ -2141,6 +2271,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -2180,6 +2311,7 @@
   "name": "紧固件模板 - 螺母/垫圈",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 I型六角螺母, 尼龙防松螺母, 平垫圈, 弹簧垫圈。",
@@ -2195,6 +2327,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "螺母: GB/T 6170(1型), DIN 985(防松); 垫圈: GB/T 97.1(平), GB/T 93(弹)。",
@@ -2210,6 +2343,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "螺母: Q235B, 45#, 35CrMo; 弹垫: 65Mn; 平垫: Q235B, 304。",
@@ -2225,6 +2359,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "螺母填: 8级, 10级; 垫圈填硬度: 140HV, 200HV; 弹垫留空或填标准。",
@@ -2240,6 +2375,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "适配螺栓直径 (mm)。如 6, 8, 10, 12, 16, 20。",
@@ -2255,6 +2391,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "仅螺母细牙时填写(如 1.0, 1.5)。垫圈/粗牙螺母请留空。",
@@ -2270,6 +2407,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "请选择 Item Surface 单据。如 镀锌, 发黑, 达克罗。",
@@ -2285,6 +2423,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg/千个 或 g/个。非必填。",
@@ -2300,6 +2439,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2315,6 +2455,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2330,6 +2471,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2345,6 +2487,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "核心逻辑: Mxx",
@@ -2360,6 +2503,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "引用规格型号",
@@ -2375,6 +2519,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "引用规格型号",
@@ -2390,6 +2535,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -2429,6 +2575,7 @@
   "name": "传动部件模板 - 轴承",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 调心滚子轴承, 深沟球轴承, 圆锥滚子轴承, 推力球轴承。",
@@ -2444,6 +2591,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 SKF, FAG, NSK, TIMKEN, ZWZ(瓦轴), HRB(哈轴)。",
@@ -2459,6 +2607,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "纯数字部分。如 23052, 6204, 32210。",
@@ -2474,6 +2623,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "后缀1。如 CA, CC, M, E, MB (定义保持架和加强型)。",
@@ -2489,6 +2639,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "后缀2。如 K(锥孔), W33(油槽), 2RS(胶封), ZZ(铁封)。",
@@ -2504,6 +2655,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "后缀3。留空(标准), C3(大游隙), C4(特大), C2(小)。高温设备必填C3/C4。",
@@ -2519,6 +2671,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。辅助核对用。",
@@ -2534,6 +2687,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。",
@@ -2549,6 +2703,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。",
@@ -2564,6 +2719,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2579,6 +2735,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2594,6 +2751,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2609,6 +2767,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+型号+后缀组合",
@@ -2624,6 +2783,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+后缀",
@@ -2639,6 +2799,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含尺寸参数便于测绘核对。",
@@ -2654,6 +2815,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -2693,6 +2855,7 @@
   "name": "传动部件模板 - 轴承紧定套",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 紧定套, 退卸套。",
@@ -2708,6 +2871,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 SKF, FAG, ZWZ, HRB。建议与轴承品牌一致。",
@@ -2723,6 +2887,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 H210, H3152, HE2310, AH3152。",
@@ -2738,6 +2903,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。紧定套内孔直径。如 50, 240。",
@@ -2753,6 +2919,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "通常为碳钢。",
@@ -2768,6 +2935,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2783,6 +2951,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2798,6 +2967,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2813,6 +2983,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -2828,6 +2999,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -2843,6 +3015,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "备注适用轴径，方便核对。",
@@ -2858,6 +3031,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -2897,6 +3071,7 @@
   "name": "密封件模板 - 非标",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 密封条, 毛毡圈, 密封垫, 盘根, 石墨密封块。",
@@ -2912,6 +3087,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 羊毛毡, 橡胶, 石棉, 柔性石墨, 四氟(PTFE)。",
@@ -2927,6 +3103,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "自由格式。如: 20x30, 20x30x2000, δ3mm, DN100法兰用。",
@@ -2942,6 +3119,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "定制件必填。如 M2024-05-01。通用件留空。",
@@ -2957,6 +3135,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2972,6 +3151,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -2987,6 +3167,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3002,6 +3183,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+规格+图号",
@@ -3017,6 +3199,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "规格+图号",
@@ -3032,6 +3215,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整信息。",
@@ -3047,6 +3231,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -3094,6 +3279,7 @@
   "name": "焊接耗材模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 电焊条, 实心焊丝, 药芯焊丝, 埋弧焊丝。",
@@ -3109,6 +3295,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 大西洋, 金桥, 铁锚, 天泰。",
@@ -3124,6 +3311,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "行业俗称。如 J422, J507, J607。",
@@ -3139,6 +3327,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "GB/T 5117定义的型号。如 E4303, E5015, E5016。",
@@ -3154,6 +3343,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。如 2.5, 3.2, 4.0, 5.0。",
@@ -3169,6 +3359,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3184,6 +3375,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3199,6 +3391,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3214,6 +3407,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+牌号(国标)+直径",
@@ -3229,6 +3423,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "牌号+直径",
@@ -3244,6 +3439,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整信息。",
@@ -3259,6 +3455,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -3302,6 +3499,7 @@
   "name": "板材模板 - 钢板",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 钢板, 花纹板, 锰板, 耐磨板。",
@@ -3317,6 +3515,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Q235B, Q345B, Q345R, NM400, 304。",
@@ -3332,6 +3531,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。",
@@ -3347,6 +3547,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。",
@@ -3362,6 +3563,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。",
@@ -3377,6 +3579,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "g/cm³。碳钢7.85, 304不锈钢7.93, 铝2.7。",
@@ -3392,6 +3595,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算 (kg/m)。公式: 厚x宽x密度/1000。",
@@ -3407,6 +3611,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算 (kg/张)。公式: 米重x长/1000。",
@@ -3422,6 +3627,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3437,6 +3643,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3452,6 +3659,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3467,6 +3675,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -3482,6 +3691,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -3497,6 +3707,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "引用计算参数。",
@@ -3512,6 +3723,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -3559,6 +3771,7 @@
   "name": "密封件模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 O型圈, 骨架油封, 密封圈, V型圈, 格莱圈。",
@@ -3574,6 +3787,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "关键! NBR(丁腈-耐油), FKM(氟胶-耐高温), VMQ(硅胶), PTFE(聚四氟)。",
@@ -3589,6 +3803,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "油封填: TC(双唇), SC(单唇); O型圈: G系列, P系列 (或留空)。",
@@ -3604,6 +3819,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。轴径/内孔直径。",
@@ -3619,6 +3835,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。O型圈请留空。",
@@ -3634,6 +3851,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。油封的高度 或 O型圈的粗细(CS)。",
@@ -3649,6 +3867,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3664,6 +3883,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3679,6 +3899,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3694,6 +3915,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+结构+尺寸",
@@ -3709,6 +3931,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "尺寸串",
@@ -3724,6 +3947,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -3739,6 +3963,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -3774,6 +3999,7 @@
   "name": "行政用品模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -3789,6 +4015,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3804,6 +4031,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "具体的数字或型号，如：0.5mm、A4。",
@@ -3819,6 +4047,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3834,6 +4063,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3849,6 +4079,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3864,6 +4095,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -3879,6 +4111,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Float",
     "description": null,
@@ -3894,6 +4127,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Float",
     "description": null,
@@ -3909,6 +4143,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -3924,6 +4159,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -3939,6 +4175,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -3954,6 +4191,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -3984,6 +4222,7 @@
   "name": "传动部件模板 - 联轴器",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 联轴器, 弹性柱销联轴器, 齿式联轴器, 膜片联轴器。",
@@ -3999,6 +4238,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 HT200(铸铁), 45#(钢), 40Cr。",
@@ -4014,6 +4254,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "标准型号。如 HL4, TL6, GIICL5, ML3。",
@@ -4029,6 +4270,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。电机侧轴孔直径。",
@@ -4044,6 +4286,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。设备侧轴孔直径。",
@@ -4059,6 +4302,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "非标改制孔请填图号。标准底孔留空。",
@@ -4074,6 +4318,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4089,6 +4334,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4104,6 +4350,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4119,6 +4366,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "基础名+型号+孔径",
@@ -4134,6 +4382,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+孔径",
@@ -4149,6 +4398,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -4164,6 +4414,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -4199,6 +4450,7 @@
   "name": "动力设备模板 - 电机",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 三相异步电动机, 变频电机, 绕线电机, 高压电机, 直流电机。",
@@ -4214,6 +4466,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 卧龙(Wolong), 湘潭(XEMC), 佳木斯, 西门子(Siemens), 皖南。",
@@ -4229,6 +4482,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 YE3(通用), YRKK(高压绕线), YKK(高压鼠笼), YVP(变频), Z4(直流)。",
@@ -4244,6 +4498,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kW。如 5.5, 30, 110, 800。",
@@ -4259,6 +4514,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "决定转速。如 2P(3000), 4P(1500), 6P(1000), 8P(750), 10P, 12P。",
@@ -4274,6 +4530,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 380V, 660V, 6kV, 10kV。",
@@ -4289,6 +4546,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 B3(卧式脚座), B5(立式法兰), B35(脚座+法兰)。",
@@ -4304,6 +4562,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助核对尺寸。如 132M, 315L, 450。",
@@ -4319,6 +4578,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4334,6 +4594,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4349,6 +4610,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4364,6 +4626,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+功率+极数+电压+系列",
@@ -4379,6 +4642,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "系列+功率+极数+电压+安装",
@@ -4394,6 +4658,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含机座号信息。",
@@ -4409,6 +4674,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -4444,6 +4710,7 @@
   "name": "传动部件模板 - 橡胶输送带",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 输送带, 环形输送带, 挡边输送带, 提升机皮带。",
@@ -4459,6 +4726,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "核心强度指标。如 EP200(聚酯), NN200(尼龙), ST1000(钢丝), CC-56(棉帆), PVG。",
@@ -4474,6 +4742,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 500, 650, 800, 1000, 1200, 1400。",
@@ -4489,6 +4758,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "织物带必填(如 3, 4, 5, 6)。钢丝绳带(ST)请留空。",
@@ -4504,6 +4774,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "上胶+下胶厚度。如 3.0+1.5, 4.5+1.5, 6.0+2.0。",
@@ -4519,6 +4790,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 普通, 耐热(T2), 耐油, 阻燃, 耐寒。",
@@ -4534,6 +4806,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4549,6 +4822,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4564,6 +4838,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4579,6 +4854,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "骨架+带宽+层数+胶面",
@@ -4594,6 +4870,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "技术规格串",
@@ -4609,6 +4886,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含性能备注。",
@@ -4624,6 +4902,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -4663,6 +4942,7 @@
   "name": "传动部件模板 - 托辊",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 托辊, 挡轮, 立辊。",
@@ -4678,6 +4958,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 槽型上托辊, 平行下托辊, 缓冲托辊, 摩擦调心托辊, 锥形调心托辊, 梳形托辊。",
@@ -4693,6 +4974,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 89, 108, 133, 159, 194。",
@@ -4708,6 +4990,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。托辊筒体长度(不含轴头)。如 240, 315, 380, 950, 1150。",
@@ -4723,6 +5006,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。轴头扁位直径，决定能否放入支架。如 20, 25, 30, 40。",
@@ -4738,6 +5022,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助参考。如 B800, B1000, B1200。",
@@ -4753,6 +5038,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "普通钢, 橡胶圈(缓冲用), 高分子(尼龙), 不锈钢。",
@@ -4768,6 +5054,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4783,6 +5070,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4798,6 +5086,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -4813,6 +5102,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "类型+尺寸+轴径",
@@ -4828,6 +5118,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "尺寸+带宽备注",
@@ -4843,6 +5134,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -4858,6 +5150,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -4897,6 +5190,7 @@
   "name": "传动部件模板 - 滚筒",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 传动滚筒, 改向滚筒, 电动滚筒。",
@@ -4912,6 +5206,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 500, 630, 800, 1000, 1250。",
@@ -4927,6 +5222,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。滚筒总宽，通常比带宽大100-150mm。",
@@ -4942,6 +5238,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 光面, 菱形包胶, 人字形包胶, 平面包胶, 陶瓷包胶。",
@@ -4957,6 +5254,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助参考。如 B800, B1000, B1400。",
@@ -4972,6 +5270,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "自制件必填。如 DTII-04-01。",
@@ -4987,6 +5286,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "通常为 自制 或 外协(包胶)。",
@@ -5002,6 +5302,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5017,6 +5318,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "基础名+尺寸+表面+图号",
@@ -5032,6 +5334,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "尺寸+图号",
@@ -5047,6 +5350,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -5062,6 +5366,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -5097,6 +5402,7 @@
   "name": "板材模板 - 衬板",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 筒体衬板, 端盖衬板, 盲板, 篦板, 隔仓板。",
@@ -5112,6 +5418,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Mn13Cr2(高锰钢), Cr15Mo3(高铬), Cr26, ZG45, 橡胶。",
@@ -5127,6 +5434,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "唯一生产依据。如 M3200-11-05。",
@@ -5142,6 +5450,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 阶梯型, 波纹型, 平型, 分级型, 沟槽型。",
@@ -5157,6 +5466,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg。用于核算吨位和运费。",
@@ -5172,6 +5482,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助信息。如 Φ3.2x13m磨机。",
@@ -5187,6 +5498,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "通常为 自制(铸造车间) 或 外协。",
@@ -5202,6 +5514,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5217,6 +5530,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5232,6 +5546,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+结构+图号",
@@ -5247,6 +5562,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "图号+重量",
@@ -5262,6 +5578,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含重量信息。",
@@ -5277,6 +5594,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -5316,6 +5634,7 @@
   "name": "研磨介质模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 钢球, 钢段, 陶瓷球, 研磨棒。",
@@ -5331,6 +5650,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 低铬合金(Cr2), 中铬合金(Cr5), 高铬合金(Cr15), 锻钢(65Mn), 氧化铝陶瓷。",
@@ -5346,6 +5666,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 30, 40, 60, 80, 100。",
@@ -5361,6 +5682,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。仅[钢段]需要填写，钢球请留空。",
@@ -5376,6 +5698,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 HRC≥45, HRC≥60。辅助质量检验。",
@@ -5391,6 +5714,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "采购 / 自制(铸造)。",
@@ -5406,6 +5730,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5421,6 +5746,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5436,6 +5762,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+规格",
@@ -5451,6 +5778,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "尺寸规格",
@@ -5466,6 +5794,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含硬度指标。",
@@ -5481,6 +5810,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -5520,6 +5850,7 @@
   "name": "液压管路模板 - 高压胶管总成",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 高压胶管总成, 测压软管, 树脂管, 进油管, 回油管。",
@@ -5535,6 +5866,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "1SN(1层钢丝), 2SN(2层-常用), 4SP(4层-超高压), HF(高流量)。",
@@ -5550,6 +5882,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 6, 10, 12, 19, 25, 32, 51。",
@@ -5565,6 +5898,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。含接头的总长度。",
@@ -5580,6 +5914,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "关键! 如 M20x1.5, G1/2, M30x2, NPT1/4。",
@@ -5595,6 +5930,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "描述两端。如 直/直, 直/90度弯, 直/45度弯, 90度/90度。",
@@ -5610,6 +5946,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 剥胶(H型), 不剥胶(A型), 扣压式。",
@@ -5625,6 +5962,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "通常为 采购 或 自制(如果有扣压机)。",
@@ -5640,6 +5978,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5655,6 +5994,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5670,6 +6010,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "类型+基础名+DN+长度",
@@ -5685,6 +6026,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整技术规格",
@@ -5700,6 +6042,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -5715,6 +6058,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -5750,6 +6094,7 @@
   "name": "液压管路模板 - 阀门",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 球阀, 截止阀, 止回阀, 蝶阀, 闸阀, 高压球阀。",
@@ -5765,6 +6110,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 铸钢(WCB), 不锈钢(304), 铸铁(HT200), 黄铜, 碳钢。",
@@ -5780,6 +6126,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 15, 25, 50, 80, 100, 200。",
@@ -5795,6 +6142,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: MPa。水路1.0/1.6, 润滑油1.6/2.5, 液压16/31.5。",
@@ -5810,6 +6158,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 法兰, 内螺纹, 外螺纹, 对夹, 焊接, 卡套。",
@@ -5825,6 +6174,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助信息。如 Q41F-16C, H76X-10, KHB-M27。",
@@ -5840,6 +6190,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5855,6 +6206,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5870,6 +6222,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -5885,6 +6238,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "基础名+DN+PN+连接+材质",
@@ -5900,6 +6254,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "DN+PN+连接",
@@ -5915,6 +6270,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -5930,6 +6286,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -5969,6 +6326,7 @@
   "name": "管材模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 无缝钢管, 焊管, 不锈钢管, 镀锌管, 方管。",
@@ -5984,6 +6342,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 20#, 45#, Q235B, 304, 316L。",
@@ -5999,6 +6358,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 32, 57, 89, 108, 133。",
@@ -6014,6 +6374,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。如 3, 4, 4.5, 6, 10。",
@@ -6029,6 +6390,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg/m。重要！用于转换库存单位。如 Φ89x4=8.38。",
@@ -6044,6 +6406,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 6000, 9000。不定尺留空。",
@@ -6059,6 +6422,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6074,6 +6438,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6089,6 +6454,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6104,6 +6470,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+规格",
@@ -6119,6 +6486,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "外径x壁厚",
@@ -6134,6 +6502,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -6149,6 +6518,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -6192,6 +6562,7 @@
   "name": "油漆涂料模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 底漆, 面漆, 中间漆, 固化剂, 稀释剂。",
@@ -6207,6 +6578,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 佐敦(Jotun), 宣伟(Sherwin), 湘江, 开林。",
@@ -6222,6 +6594,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 环氧富锌, 环氧云铁, 聚氨酯, 丙烯酸聚氨酯, 醇酸。",
@@ -6237,6 +6610,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "面漆必填! 如 RAL 5015, RAL 7035。底漆/辅料可填 灰色/透明。",
@@ -6252,6 +6626,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "仅作参考。如 20kg/桶, 4kg/桶, 200L/桶。",
@@ -6267,6 +6642,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6282,6 +6658,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6297,6 +6674,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6312,6 +6690,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+漆基+基础名+颜色",
@@ -6327,6 +6706,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "漆基+颜色",
@@ -6342,6 +6722,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含包装信息。",
@@ -6357,6 +6738,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -6400,6 +6782,7 @@
   "name": "化工耗材模板 - 润滑油脂与胶",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6415,6 +6798,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 抗磨液压油, 工业齿轮油, 锂基脂, 螺纹锁固剂, 密封硅胶。",
@@ -6430,6 +6814,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 美孚(Mobil), 壳牌(Shell), 长城(Sinopec), 乐泰(Loctite), 回天。",
@@ -6445,6 +6830,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "厂商特定型号。如 Tellus S2 M, Mobilgear 600 XP, 243, 587。",
@@ -6460,6 +6846,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "油品填粘度(32, 46, 220); 脂填稠度(2#, 3#); 胶留空。",
@@ -6475,6 +6862,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 170kg/桶, 18L/桶, 50ml/支, 300ml/支。",
@@ -6490,6 +6878,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6505,6 +6894,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6520,6 +6910,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6535,6 +6926,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+型号+牌号+基础名",
@@ -6550,6 +6942,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+粘度",
@@ -6565,6 +6958,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含包装信息。",
@@ -6580,6 +6974,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -6627,6 +7022,7 @@
   "name": "基础材料模板 - 通用板材",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如: 板材, 有色金属材料, 橡胶制品。",
@@ -6642,6 +7038,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 钢板, 卷板, 扁钢带, 铝板。",
@@ -6657,6 +7054,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Q235B, 304, T2, 1060。",
@@ -6672,6 +7070,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: mm。",
@@ -6687,6 +7086,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。",
@@ -6702,6 +7102,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。卷材/不定尺请留空。",
@@ -6717,6 +7118,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "g/cm³。钢7.85, 铝2.7, 铜8.9。",
@@ -6732,6 +7134,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算: kg/m。公式: 厚x宽x密度/1000",
@@ -6747,6 +7150,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Format",
     "description": "自动计算: kg/件。公式: 米重x长/1000",
@@ -6762,6 +7166,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6777,6 +7182,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6792,6 +7198,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -6807,6 +7214,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+规格",
@@ -6822,6 +7230,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "厚度+幅面",
@@ -6837,6 +7246,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "直接引用计算结果。",
@@ -6852,6 +7262,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -6895,6 +7306,7 @@
   "name": "基础材料模板 - 通用型材",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "关键！决定物料归属。如: 型材, 有色金属材料, 铸锻件毛坯。",
@@ -6910,6 +7322,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 角钢, 槽钢, 工字钢, 圆钢, 扁钢, 铜排, 铝型材。",
@@ -6925,6 +7338,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 Q235B, 45#, 304, T2(紫铜), 6063(铝)。",
@@ -6940,6 +7354,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "格式: 50x50x5(角钢), 10(圆钢), 100x48x5.3(槽钢), 50x5(扁钢/铜排)。",
@@ -6955,6 +7370,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg/m。用于按米领用时的重量换算。",
@@ -6970,6 +7386,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。如 6000, 9000。不定尺留空。",
@@ -6985,6 +7402,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7000,6 +7418,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7015,6 +7434,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7030,6 +7450,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+基础名+规格",
@@ -7045,6 +7466,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "截面规格",
@@ -7060,6 +7482,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -7075,6 +7498,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -7118,6 +7542,7 @@
   "name": "原材料模板 - 耐火材料",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7133,6 +7558,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 耐火砖, 浇注料, 耐火泥, 硅酸铝纤维棉, 锚固件。",
@@ -7148,6 +7574,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 硅莫1680, 镁铝尖晶石, 高铝, 粘土, 抗结皮。",
@@ -7163,6 +7590,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "定型砖必填。如 B320, B620, C1, VDZ-B, ISO-1。",
@@ -7178,6 +7606,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "砖: 长x宽x厚(如 198x102x70/65); 浇注料: 包装规格(如 50kg/袋)。",
@@ -7193,6 +7622,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助信息。如 Al2O3≥70%, 耐温1700℃。",
@@ -7208,6 +7638,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg。砖按块、浇注料按袋填重量。",
@@ -7223,6 +7654,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7238,6 +7670,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7253,6 +7686,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7268,6 +7702,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "材质+砖型+基础名",
@@ -7283,6 +7718,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "代号+尺寸",
@@ -7298,6 +7734,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -7313,6 +7750,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -7360,6 +7798,7 @@
   "name": "外购结构件 - 箱体与柜体",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如: 箱体与柜体, 柜体附件, 机械标准件。",
@@ -7375,6 +7814,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 控制柜, 接线盒, 操作箱, 悬臂箱, 琴台柜。",
@@ -7390,6 +7830,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 威图(Rittal), 仿威图, 宜科(Elco), 维纳尔(Wohner), 自制。",
@@ -7405,6 +7846,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Data",
     "description": "标准柜填订货号(如 AE1050.500); 非标柜填图号。",
@@ -7420,6 +7862,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "单位: mm。格式: 2000x800x600 (HxWxD)。",
@@ -7435,6 +7878,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 碳钢喷塑, 304不锈钢, 316L, ABS塑料, 铝合金。",
@@ -7450,6 +7894,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -7465,6 +7910,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 RAL7035(电脑灰), RAL7032, 不锈钢本色。",
@@ -7480,6 +7926,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 IP55, IP65, IP66, IP20。",
@@ -7495,6 +7942,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7510,6 +7958,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7525,6 +7974,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7540,6 +7990,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+订货号+基础名",
@@ -7555,6 +8006,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "订货号+尺寸",
@@ -7570,6 +8022,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -7585,6 +8038,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -7624,6 +8078,7 @@
   "name": "机械自制件模板 - 轴类",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 小齿轮轴, 传动轴, 托轮轴, 销轴, 滚筒轴。",
@@ -7639,6 +8094,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 45#, 40Cr, 42CrMo, 35CrMo。",
@@ -7654,6 +8110,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。轴身最大处直径，便于找料。",
@@ -7669,6 +8126,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: mm。轴的总长。",
@@ -7684,6 +8142,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "唯一标识。如 M2400-02-05。",
@@ -7699,6 +8158,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 调质, 高频淬火, 渗碳, 正火。",
@@ -7714,6 +8174,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg。锻件采购重量，用于成本核算。",
@@ -7729,6 +8190,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "自制 / 外协 / 采购。",
@@ -7744,6 +8206,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7759,6 +8222,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "基础名+尺寸+图号",
@@ -7774,6 +8238,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "尺寸+图号",
@@ -7789,6 +8254,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含热处理和毛坯重。",
@@ -7804,6 +8270,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -7843,6 +8310,7 @@
   "name": "动力设备模板 - 减速机",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 减速机, 硬齿面减速机, 边缘传动减速机, 摆线针轮减速机。",
@@ -7858,6 +8326,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 南高齿(NGC), 国茂(Guomao), 通力(Tongli), SEW, Flender。",
@@ -7873,6 +8342,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 ZDY, ZLY, ZSY, MBY(磨机专用), ZQ(软齿), K系列。",
@@ -7888,6 +8358,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "中心距或机座号。如 180, 280, 560, 710。",
@@ -7903,6 +8374,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "Ratio. 极为关键! 如 31.5, 4, 5, 45。",
@@ -7918,6 +8390,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "轴系布置。如 I型(左), II型(右), S(三轴), N(逆止器)。",
@@ -7933,6 +8406,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "单位: rpm。通常为 1500, 1000, 750。",
@@ -7948,6 +8422,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7963,6 +8438,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7978,6 +8454,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -7993,6 +8470,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+系列+规格+速比+装配",
@@ -8008,6 +8486,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+速比+装配",
@@ -8023,6 +8502,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -8038,6 +8518,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -8073,6 +8554,7 @@
   "name": "切削刀具模板 - 通用",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 数控刀片, 麻花钻, 立铣刀, 丝锥, 中心钻。",
@@ -8088,6 +8570,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 株洲(ZCC.CT), 山特维克(Sandvik), 克洛伊(Korloy), 上工。",
@@ -8103,6 +8586,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "刀片填ISO代码(如 WNMG080408-PM); 钻头填规格(如 d10.5)。",
@@ -8118,6 +8602,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "关键! 如 YBC251(钢), YBD151(铸铁), 4225, HSS(高速钢)。",
@@ -8133,6 +8618,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "辅助辨识。如 P(钢件), K(铸铁), M(不锈钢), 通用。",
@@ -8148,6 +8634,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8163,6 +8650,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8178,6 +8666,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8193,6 +8682,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+型号+牌号+基础名",
@@ -8208,6 +8698,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+牌号",
@@ -8223,6 +8714,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含加工对象备注。",
@@ -8238,6 +8730,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -8281,6 +8774,7 @@
   "name": "机械自制件模板 - 小齿轮",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": null,
@@ -8296,6 +8790,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Data",
     "description": "唯一标识，必填。如 M2400-05-01。",
@@ -8311,6 +8806,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": null,
@@ -8326,6 +8822,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": null,
@@ -8341,6 +8838,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "直齿, 左旋, 右旋。",
@@ -8356,6 +8854,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "原“厚度”。单位: mm。",
@@ -8371,6 +8870,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
     "description": "原“内径”。单位: mm。",
@@ -8386,6 +8886,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "格式: 宽x深。如 20x12。",
@@ -8401,6 +8902,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8416,6 +8918,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8431,6 +8934,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8446,6 +8950,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "基础名+参数+图号",
@@ -8461,6 +8966,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "参数+图号",
@@ -8476,6 +8982,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "含键槽细节，便于仓库核对。",
@@ -8511,6 +9018,7 @@
   "name": "生产服务模板 - 委外加工费",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "建议归类于[生产服务]组。",
@@ -8526,6 +9034,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "固定为: 委外加工费。",
@@ -8541,6 +9050,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 机加工, 焊接, 热处理, 表面处理, 装配。\n\nTODO: 之后改为 工序 单据类型。",
@@ -8556,6 +9066,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 按件, 按重量(kg), 按工时(小时), 按批次。",
@@ -8571,6 +9082,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 江苏徐马。",
@@ -8586,6 +9098,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "固定为 Purchase(采购)，因为服务是买进来的。",
@@ -8601,6 +9114,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8616,6 +9130,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "基础名+工序类型",
@@ -8631,6 +9146,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "工序+计价",
@@ -8646,6 +9162,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": null,
@@ -8661,6 +9178,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": "必须为0 (非库存)。",
@@ -8695,11 +9213,12 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "电气辅材",
-  "modified": "2026-01-07 00:05:33.119173",
+  "modified": "2026-01-08 16:12:05.763141",
   "module": "COS Stock",
   "name": "电气辅材模板 - 电线电缆",
   "parameters": [
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "如 电线, 电缆, 控制电缆, 屏蔽电缆。",
@@ -8715,6 +9234,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": "如 起帆, 远东, 江南, 熊猫。",
@@ -8730,6 +9250,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": "[BVR, BV, RVV, YJV, KVV]",
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 BVR(软线), BV(硬线), RVV, YJV, KVV。",
@@ -8745,6 +9266,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": "/^[\\d.x+]+$/",
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "单芯填数字(如 1.5, 2.5); 多芯填组合(如 3x10+1x6)。",
@@ -8760,6 +9282,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Doctype",
     "description": "单芯线必填: 红, 黄, 蓝, 绿, 黄绿, 黑。多芯电缆填: 黑色。",
@@ -8775,6 +9298,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
     "description": "如 450/750V, 0.6/1kV。",
@@ -8790,6 +9314,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Float",
     "description": "单位: kg/m。辅助运费核算，非必填。",
@@ -8805,6 +9330,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8820,6 +9346,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8835,6 +9362,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Doctype",
     "description": null,
@@ -8850,6 +9378,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "品牌+型号+规格+颜色+基础名",
@@ -8865,6 +9394,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "型号+规格",
@@ -8880,6 +9410,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
     "description": "完整参数。",
@@ -8895,6 +9426,7 @@
     "value_integer": 0
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
@@ -8910,6 +9442,7 @@
     "value_integer": 1
    },
    {
+    "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Integer",
     "description": null,
