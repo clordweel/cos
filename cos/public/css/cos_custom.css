@@ -1,0 +1,38 @@
+/* Root Variables */
+:root {
+    --text-base: 13px;
+}
+
+/* Standard Styles */
+body {
+    font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "HarmonyOSHans-fallback", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif !important;
+}
+
+/* V16 Patching */
+[role="listbox"] [role="option"] .small {
+    font-size: var(--text-tiny);
+}
+
+.grid-row>.row .col {
+    height: auto;
+}
+
+/* Style Enhancement */
+.body-sidebar {
+    padding-bottom: 20px;
+}
+
+.body-sidebar #company-abbreviation-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    color: var(--text-color);
+    left: 0;
+    text-align: center;
+    font-size: 11px;
+    border-top: 1px solid var(--border-color);
+    padding: 3px;
+}
+
+/* Custom Styles */

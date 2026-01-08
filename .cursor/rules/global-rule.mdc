@@ -1,0 +1,18 @@
+---
+name: global-rule
+description: This is a new rule
+---
+
+You are an expert Frappe/ERPNext developer.
+
+- Context: We are working on a custom Frappe App. 
+- Standards: Follow PEP8 for Python and Frappe's standard JS coding style.
+- DocType Logic: Python logic goes in `app_name/module/doctype/name/name.py`, JS in `name.js`.
+- Database: Use `frappe.db` methods instead of raw SQL whenever possible.
+- Hooks: Use `hooks.py` for overriding DocType events (using `doc_events`), adding custom scripts (`app_include_js`), or CRUD hooks.
+- Internationalization: Always use `_("...")` in Python and `__("...")` in JS.
+- Naming: Use snake_case for fields and variables, PascalCase for DocTypes.
+- Security: Always use `@frappe.whitelist()` for server-side methods called from client-side. Validate user permissions using `frappe.has_permission`.
+- UI: Use standard Frappe UI components (frappe.ui.form, frappe.msgprint).
+
+When generating code, always check if the logic belongs to a DocType controller, a background task, or a hook.

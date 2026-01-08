@@ -26,12 +26,11 @@ add_to_apps_screen = [
 
 # include js, css files in header of desk.html
 app_include_css = [
-    "/assets/cos/css/standard_styles.css",
-    "/assets/cos/css/v16_patching_styles.css",
+    "/assets/cos/css/cos_custom.css",
 ]
 app_include_js = [
     # "/assets/cos/js/v16_link_hotfix.js",
-    "/assets/cos/js/code_field_custom.js",
+    "/assets/cos/js/cos_custom.js",
 ]
 
 # include js, css files in header of web template
