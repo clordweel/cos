@@ -41,18 +41,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-15 11:00:06.313919",
-  "must_be_whole_number": 0,
-  "name": "张",
-  "symbol": "sht",
-  "uom_name": "张"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2025-12-25 10:41:29.001021",
   "must_be_whole_number": 0,
   "name": "组",
@@ -173,18 +161,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-15 11:01:37.508821",
-  "must_be_whole_number": 0,
-  "name": "台",
-  "symbol": "unit",
-  "uom_name": "台"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2026-01-04 13:38:21.345529",
   "must_be_whole_number": 0,
   "name": "次",
@@ -202,5 +178,29 @@
   "name": "件",
   "symbol": "pc",
   "uom_name": "件"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-15 11:00:06.313919",
+  "must_be_whole_number": 0,
+  "name": "张",
+  "symbol": "sht",
+  "uom_name": "张"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-15 11:01:37.508821",
+  "must_be_whole_number": 0,
+  "name": "台",
+  "symbol": "unit",
+  "uom_name": "台"
  }
 ]

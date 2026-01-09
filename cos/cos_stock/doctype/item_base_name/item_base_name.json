@@ -10,7 +10,7 @@
   "base_name",
   "description",
   "column_break_bzvv",
-  "parent",
+  "parent_item_base_name",
   "is_group",
   "disabled",
   "lft",
@@ -57,14 +57,6 @@
    "options": "Item Base Name"
   },
   {
-   "allow_in_quick_entry": 1,
-   "fieldname": "parent",
-   "fieldtype": "Link",
-   "ignore_user_permissions": 1,
-   "label": "Parent",
-   "options": "Item Base Name"
-  },
-  {
    "fieldname": "column_break_bzvv",
    "fieldtype": "Column Break"
   },
@@ -80,6 +72,14 @@
    "fieldtype": "Check",
    "label": "Disabled",
    "search_index": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "parent_item_base_name",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent",
+   "options": "Item Base Name"
   }
  ],
  "grid_page_length": 50,
@@ -87,12 +87,12 @@
  "is_tree": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-12-23 12:03:45.260709",
+ "modified": "2026-01-08 23:48:04.966920",
  "modified_by": "Administrator",
  "module": "COS Stock",
  "name": "Item Base Name",
  "naming_rule": "By fieldname",
- "nsm_parent_field": "parent",
+ "nsm_parent_field": "parent_item_base_name",
  "owner": "Administrator",
  "permissions": [
   {
