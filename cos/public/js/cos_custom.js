@@ -14,7 +14,8 @@ const get_company_abbreviation = () => {
             $('body').attr('data-company', abbr);
 
             // 注入公司缩写标签
-            const companyBadge = $('<div>')
+            const companyBadge = $('<a>')
+                .attr('onclick', `return frappe.ui.toolbar.setup_session_defaults()`)
                 .attr('id', 'company-abbreviation-badge')
                 .text(`${company} (${abbr})`);
 
