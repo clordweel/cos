@@ -22,7 +22,8 @@
   "column_break_tots",
   "from_template",
   "readonly_value",
-  "join_to_hash"
+  "join_to_hash",
+  "optional"
  ],
  "fields": [
   {
@@ -72,8 +73,7 @@
    "in_list_view": 1,
    "label": "Value",
    "length": 500,
-   "read_only_depends_on": "eval:doc.readonly_value||doc.constraint_type!=\"Data\"",
-   "reqd": 1
+   "mandatory_depends_on": "eval:!doc.optional"
   },
   {
    "default": "0",
@@ -97,7 +97,7 @@
    "fieldtype": "Check",
    "label": "Readonly Value",
    "read_only": 1,
-   "read_only_depends_on": "eval:doc.from_template==true"
+   "read_only_depends_on": "eval:doc.from_template"
   },
   {
    "fieldname": "column_break_tots",
@@ -156,13 +156,20 @@
    "fieldtype": "Data",
    "label": "Allowed Data",
    "read_only_depends_on": "eval:doc.from_template"
+  },
+  {
+   "default": "0",
+   "fieldname": "optional",
+   "fieldtype": "Check",
+   "label": "Optional",
+   "read_only_depends_on": "eval:doc.from_template"
   }
  ],
  "grid_page_length": 20,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-10 16:09:42.977485",
+ "modified": "2026-01-11 05:41:44.002841",
  "modified_by": "Administrator",
  "module": "COS Stock",
  "name": "Item Parameter Definition",

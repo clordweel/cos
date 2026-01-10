@@ -194,7 +194,8 @@ frappe.ui.form.on('New Item Request', {
                         value_integer: row.value_integer,
                         value_doctype: row.value_doctype,
                         parameter_value: row.parameter_default_value,
-                        allowed_data: row.allowed_data
+                        allowed_data: row.allowed_data,
+                        optional: row.optional
                     });
                 });
                 frm.clear_table('uoms');
