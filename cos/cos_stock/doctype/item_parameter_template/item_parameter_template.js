@@ -26,6 +26,8 @@ frappe.ui.form.on('Item Parameter Template', {
 
             }, __('Action'));
         }
+        
+        // JSON 上传下载功能已通过全局脚本 sub_form_json_tools.js 自动应用到所有子表
     }
 });
 
@@ -72,3 +74,6 @@ function sync_value(frm, cdt, cdn, source_field) {
 
     frm.refresh_field('parameters');
 }
+
+// JSON 上传下载功能已通过全局脚本 sub_form_json_tools.js 实现
+// 该功能会自动应用到所有带有 allow_bulk_edit 的子表

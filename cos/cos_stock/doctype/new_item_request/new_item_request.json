@@ -90,6 +90,7 @@
    "options": "UOM Conversion Detail"
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "parameters",
    "fieldtype": "Table",
    "label": "Parameters",
@@ -113,7 +114,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2025-12-29 03:35:40.168170",
+ "modified": "2026-01-10 10:38:01.153636",
  "modified_by": "Administrator",
  "module": "COS Stock",
  "name": "New Item Request",
