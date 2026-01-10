@@ -11,6 +11,16 @@ frappe.ui.form.on('Item', {
                 handle_update_tax(frm);
             }, __('Tax Tools'));
         }
+        
+        // 绑定按钮字段的点击事件
+        if (frm.fields_dict.custom_sync_from_new_item_request) {
+            // 先移除之前的绑定，避免重复绑定
+            frm.fields_dict.custom_sync_from_new_item_request.$input.off('click');
+            // 绑定新的点击事件
+            frm.fields_dict.custom_sync_from_new_item_request.$input.on('click', function() {
+                handle_sync_from_new_item_request(frm);
+            });
+        }
     }
 });
 
@@ -131,5 +141,92 @@ function handle_update_tax(frm) {
             }
         });
     });
+}
+
+// --- 从 New Item Request 同步绑定字段 ---
+function handle_sync_from_new_item_request(frm) {
+    // 检查是否有关联的 New Item Request
+    if (!frm.doc.custom_new_item_request) {
+        frappe.msgprint({
+            title: __('错误'),
+            message: __('此物料未关联到 New Item Request。'),
+            indicator: 'red'
+        });
+        return;
+    }
+    
+    // 确认对话框
+    frappe.confirm(
+        __('确定要从 New Item Request 同步绑定字段数据吗？<br><br>此操作将只覆盖在 New Item Request 中定义为绑定字段的字段。'),
+        function() {
+            // 确认后执行同步
+            frappe.call({
+                method: 'cos.cos_stock.controllers.new_item_request.get_binding_fields_from_request',
+                args: {
+                    item_name: frm.doc.name
+                },
+                freeze: true,
+                callback: function(r) {
+                    if (r.message) {
+                        let binding_fields = r.message.binding_fields || {};
+                        let fields_count = r.message.fields_count || 0;
+                        
+                        if (fields_count === 0) {
+                            frappe.msgprint({
+                                title: __('提示'),
+                                message: __('New Item Request 中未定义任何绑定字段。'),
+                                indicator: 'blue'
+                            });
+                            return;
+                        }
+                        
+                        // 显示将要更新的字段列表
+                        let fields_list = Object.keys(binding_fields).map(field => {
+                            let value = binding_fields[field];
+                            // 截断过长的值
+                            let display_value = value;
+                            if (display_value && display_value.length > 50) {
+                                display_value = display_value.substring(0, 50) + '...';
+                            }
+                            return `<li><b>${field}:</b> ${display_value || '(空)'}</li>`;
+                        }).join('');
+                        
+                        frappe.confirm(
+                            __('将更新以下 {0} 个绑定字段：<br><ul>{1}</ul>是否继续？', [fields_count, fields_list]),
+                            function() {
+                                // 更新字段
+                                let updated_count = 0;
+                                for (let field_name in binding_fields) {
+                                    if (frm.doc[field_name] !== binding_fields[field_name]) {
+                                        frm.set_value(field_name, binding_fields[field_name]);
+                                        updated_count++;
+                                    }
+                                }
+                                
+                                if (updated_count > 0) {
+                                    frappe.show_alert({
+                                        message: __('已更新 {0} 个字段', [updated_count]),
+                                        indicator: 'green'
+                                    }, 3);
+                                } else {
+                                    frappe.show_alert({
+                                        message: __('所有字段已是最新值，无需更新'),
+                                        indicator: 'blue'
+                                    }, 3);
+                                }
+                            }
+                        );
+                    }
+                },
+                error: function(r) {
+                    frappe.msgprint({
+                        title: __('错误'),
+                        message: r.message || __('同步失败，请检查错误日志。'),
+                        indicator: 'red'
+                    });
+                }
+            });
+        }
+    );
 }
 

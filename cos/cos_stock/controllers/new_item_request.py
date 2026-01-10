@@ -105,8 +105,10 @@ def generate_item_data_dict(doc):
     elif isinstance(doc, dict):
         doc = frappe.get_doc(doc)
 
+    # 允许 Administrator 在草稿模式下执行，其他用户只能在已提交状态下执行
     if doc.docstatus != 1:
-        frappe.throw("This operation can only be performed on submitted documents.")
+        if frappe.session.user != "Administrator":
+            frappe.throw("This operation can only be performed on submitted documents.")
 
     # 1. 收集 UOM
     unit_conversions = []
@@ -165,4 +167,68 @@ def generate_item_data_dict(doc):
             item_fields[rule["target_field"]] = val
 
     return item_fields
+
+
+@frappe.whitelist()
+def get_binding_fields_from_request(item_name):
+    """从关联的 New Item Request 获取绑定字段数据，仅返回绑定字段"""
+    if not item_name:
+        frappe.throw("Item name is required.")
+    
+    # 获取 Item 文档
+    item = frappe.get_doc("Item", item_name)
+    
+    # 检查是否有关联的 New Item Request
+    if not item.custom_new_item_request:
+        frappe.throw("This item is not linked to a New Item Request.")
+    
+    # 获取 New Item Request 文档
+    request_doc = frappe.get_doc("New Item Request", item.custom_new_item_request)
+    
+    # 允许 Administrator 在草稿模式下执行，其他用户只能在已提交状态下执行
+    if request_doc.docstatus != 1:
+        if frappe.session.user != "Administrator":
+            frappe.throw("This operation can only be performed on submitted New Item Request documents.")
+    
+    # 顺序处理参数，构建最终 Context
+    final_context = {}
+    assignment_rules = []
+    sorted_parameters = sorted(request_doc.parameters, key=lambda x: x.idx)
+    
+    for row in sorted_parameters:
+        p_name = row.parameter_name
+        if row.constraint_type != "Format":
+            final_context[p_name] = row.parameter_value
+        else:
+            template_str = (
+                row.parameter_value or row.value_format or row.parameter_default_value
+            )
+            if template_str:
+                try:
+                    rendered = frappe.render_template(
+                        html.unescape(template_str), final_context
+                    )
+                    rendered = re.sub(r"\s+", " ", rendered).strip()
+                    final_context[p_name] = rendered
+                except:
+                    final_context[p_name] = ""
+        
+        # 收集需要绑定到 Item 字段的规则（只收集绑定字段）
+        if row.binding_field == 1 and row.target_field:
+            assignment_rules.append(
+                {"target_field": row.target_field, "parameter_name": p_name}
+            )
+    
+    # 只返回绑定字段的数据
+    binding_fields = {}
+    for rule in assignment_rules:
+        val = final_context.get(rule["parameter_name"])
+        if val is not None:
+            binding_fields[rule["target_field"]] = val
+    
+    return {
+        "binding_fields": binding_fields,
+        "request_name": request_doc.name,
+        "fields_count": len(binding_fields)
+    }
 

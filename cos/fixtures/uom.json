@@ -89,18 +89,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-28 09:22:34.770090",
-  "must_be_whole_number": 0,
-  "name": "卷",
-  "symbol": "roll",
-  "uom_name": "卷"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2025-12-25 05:29:51.852997",
   "must_be_whole_number": 0,
   "name": "片",
@@ -202,5 +190,17 @@
   "name": "台",
   "symbol": "unit",
   "uom_name": "台"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-28 09:22:34.770090",
+  "must_be_whole_number": 0,
+  "name": "卷",
+  "symbol": "roll",
+  "uom_name": "卷"
  }
 ]

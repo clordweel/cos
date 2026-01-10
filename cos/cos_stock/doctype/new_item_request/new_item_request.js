@@ -54,6 +54,36 @@ frappe.ui.form.on('New Item Request', {
             frm.add_custom_button(__('Check Parameter Duplicates'), () => run_duplicate_check(frm));
         }
 
+        // 草稿模式下，仅 Administrator 用户可见的创建物料按钮
+        if (frm.doc.docstatus === 0 && frappe.user.name === 'Administrator') {
+            frappe.db.get_value('Item', { 'custom_new_item_request': frm.doc.name }, 'name', (r) => {
+                if (r && r.name) {
+                    frm.add_custom_button(__('View Created Item'), () => frappe.set_route('Form', 'Item', r.name));
+                } else {
+                    frm.add_custom_button(__('Create Item (Draft)'), function () {
+                        frappe.confirm(
+                            __('您正在草稿模式下创建物料。此操作仅限管理员使用。是否继续？'),
+                            function() {
+                                frappe.call({
+                                    method: 'cos.cos_stock.controllers.new_item_request.generate_item_data_dict',
+                                    args: { doc: frm.doc },
+                                    freeze: true,
+                                    callback(res) {
+                                        if (res.message) {
+                                            let new_item = frappe.model.get_new_doc('Item');
+                                            $.extend(new_item, res.message);
+                                            new_item.custom_new_item_request = frm.doc.name;
+                                            frappe.set_route('Form', 'Item', new_item.name);
+                                        }
+                                    }
+                                });
+                            }
+                        );
+                    });
+                }
+            });
+        }
+
         if (frm.doc.docstatus === 1) {
             frappe.db.get_value('Item', { 'custom_new_item_request': frm.doc.name }, 'name', (r) => {
                 if (r && r.name) {
