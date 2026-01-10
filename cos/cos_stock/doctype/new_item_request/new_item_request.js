@@ -20,8 +20,9 @@ const trigger_preview_calculation = frappe.utils.debounce((frm) => {
 
     if (!has_format) return;
 
-    frappe.call({
-        method: 'cos.cos_stock.controllers.new_item_request.preview_parameters',
+    frm.call({
+        doc: frm.doc,
+        method: 'preview_parameters',
         args: {
             parameters: frm.doc.parameters,
             context: context_data
@@ -61,12 +62,12 @@ frappe.ui.form.on('New Item Request', {
                     frm.add_custom_button(__('View Created Item'), () => frappe.set_route('Form', 'Item', r.name));
                 } else {
                     frm.add_custom_button(__('Create Item (Draft)'), function () {
-                        frappe.confirm(
+                            frappe.confirm(
                             __('您正在草稿模式下创建物料。此操作仅限管理员使用。是否继续？'),
                             function() {
-                                frappe.call({
-                                    method: 'cos.cos_stock.controllers.new_item_request.generate_item_data_dict',
-                                    args: { doc: frm.doc },
+                                frm.call({
+                                    doc: frm.doc,
+                                    method: 'generate_item_data_dict',
                                     freeze: true,
                                     callback(res) {
                                         if (res.message) {
@@ -91,9 +92,9 @@ frappe.ui.form.on('New Item Request', {
                 } else {
                     frm.add_custom_button(__('Create Item (Review)'), function () {
                         run_duplicate_check(frm, function () {
-                            frappe.call({
-                                method: 'cos.cos_stock.controllers.new_item_request.generate_item_data_dict',
-                                args: { doc: frm.doc },
+                            frm.call({
+                                doc: frm.doc,
+                                method: 'generate_item_data_dict',
                                 freeze: true,
                                 callback(res) {
                                     if (res.message) {
@@ -491,9 +492,13 @@ function setup_parameter_delete_listener(frm) {
 }
 
 function run_duplicate_check(frm, callback) {
+    // 使用控制器方法调用，避免文档状态检查（允许对已取消的文档进行检查）
     frappe.call({
         method: 'cos.cos_stock.controllers.new_item_request.check_duplicate_request',
-        args: { unique_code: frm.doc.unique_code, current_docname: frm.doc.name },
+        args: {
+            unique_code: frm.doc.unique_code,
+            current_docname: frm.doc.name
+        },
         callback(r) {
             if (r.message && r.message.duplicate) {
                 frappe.throw({ title: __('发现重复'), message: r.message.message, indicator: 'red' });

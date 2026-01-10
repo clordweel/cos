@@ -160,11 +160,11 @@ function handle_sync_from_new_item_request(frm) {
         __('确定要从 New Item Request 同步绑定字段数据吗？<br><br>此操作将只覆盖在 New Item Request 中定义为绑定字段的字段。'),
         function() {
             // 确认后执行同步
-            frappe.call({
-                method: 'cos.cos_stock.controllers.new_item_request.get_binding_fields_from_request',
-                args: {
-                    item_name: frm.doc.name
-                },
+                frappe.call({
+                    method: 'cos.cos_stock.controllers.new_item_request.get_binding_fields_from_request',
+                    args: {
+                        item_name: frm.doc.name
+                    },
                 freeze: true,
                 callback: function(r) {
                     if (r.message) {
