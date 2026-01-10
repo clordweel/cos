@@ -39,6 +39,8 @@
   {
    "fieldname": "template",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Template",
    "options": "Item Parameter Template",
    "reqd": 1
@@ -114,7 +116,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2026-01-10 10:38:01.153636",
+ "modified": "2026-01-10 19:01:49.653250",
  "modified_by": "Administrator",
  "module": "COS Stock",
  "name": "New Item Request",
@@ -165,6 +167,7 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "search_fields": "template,item_group",
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": []

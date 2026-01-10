@@ -137,18 +137,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-24 13:17:52.724104",
-  "must_be_whole_number": 0,
-  "name": "根",
-  "symbol": null,
-  "uom_name": "根"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2026-01-04 13:38:21.345529",
   "must_be_whole_number": 0,
   "name": "次",
@@ -190,6 +178,18 @@
   "name": "台",
   "symbol": "unit",
   "uom_name": "台"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-24 13:17:52.724104",
+  "must_be_whole_number": 0,
+  "name": "根",
+  "symbol": null,
+  "uom_name": "根"
  },
  {
   "common_code": null,

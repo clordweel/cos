@@ -35,8 +35,30 @@ frappe.ui.form.on('Item Parameter Template Definition', { // 监听子表事件 
     // 监听所有动态输入字段的变动
     value_float(frm, cdt, cdn) { sync_value(frm, cdt, cdn, 'value_float'); },
     value_integer(frm, cdt, cdn) { sync_value(frm, cdt, cdn, 'value_integer'); },
-    value_doctype(frm, cdt, cdn) { sync_value(frm, cdt, cdn, 'value_doctype'); },
+    value_doctype(frm, cdt, cdn) { 
+        var row = locals[cdt][cdn];
+        // 验证：如果设置了 value_doctype，必须先设置 doctype_selector
+        if (row.constraint_type === 'Doctype' && row.value_doctype && !row.doctype_selector) {
+            frappe.msgprint({
+                title: __('验证错误'),
+                message: __('文档类型选择器必须首先设置。'),
+                indicator: 'red'
+            });
+            // 清空 value_doctype
+            frappe.model.set_value(cdt, cdn, 'value_doctype', null);
+            return;
+        }
+        sync_value(frm, cdt, cdn, 'value_doctype'); 
+    },
     value_format(frm, cdt, cdn) { sync_value(frm, cdt, cdn, 'value_format'); },
+    
+    // 监听 doctype_selector 变化，如果清空则同时清空 value_doctype
+    doctype_selector(frm, cdt, cdn) {
+        var row = locals[cdt][cdn];
+        if (!row.doctype_selector && row.value_doctype) {
+            frappe.model.set_value(cdt, cdn, 'value_doctype', null);
+        }
+    },
 
     // 监听约束类型变化，用于清空不相关的字段 (防脏数据)
     constraint_type(frm, cdt, cdn) {
@@ -52,6 +74,21 @@ frappe.ui.form.on('Item Parameter Template Definition', { // 监听子表事件 
                 frappe.model.set_value(cdt, cdn, fieldname, null);
             }
         });
+        
+        // 如果约束类型不是 Doctype，清空 doctype_selector 和 value_doctype
+        if (row.constraint_type !== 'Doctype') {
+            if (row.doctype_selector) {
+                frappe.model.set_value(cdt, cdn, 'doctype_selector', null);
+            }
+            if (row.value_doctype) {
+                frappe.model.set_value(cdt, cdn, 'value_doctype', null);
+            }
+        } else {
+            // 如果约束类型是 Doctype，但 doctype_selector 未设置，清空 value_doctype
+            if (!row.doctype_selector && row.value_doctype) {
+                frappe.model.set_value(cdt, cdn, 'value_doctype', null);
+            }
+        }
 
         frappe.model.set_value(cdt, cdn, 'parameter_default_value', null);
     }

@@ -109,6 +109,27 @@ frappe.ui.form.on('New Item Request', {
                 }
             });
         }
+        
+        // 监听参数表的行删除事件，触发预览计算更新
+        // 延迟执行，确保 grid 已完全初始化
+        setTimeout(() => {
+            setup_parameter_delete_listener(frm);
+        }, 500);
+    },
+    
+    parameters: function(frm) {
+        // 当参数表发生变化时（包括删除行），触发预览计算
+        // 使用 debounce 避免频繁触发
+        if (!frm._is_system_updating) {
+            // 清除之前的定时器
+            if (frm._parameter_change_timeout) {
+                clearTimeout(frm._parameter_change_timeout);
+            }
+            frm._parameter_change_timeout = setTimeout(() => {
+                frm._parameter_change_timeout = null;
+                trigger_preview_calculation(frm);
+            }, 300);
+        }
     },
 
     validate(frm) {
@@ -324,8 +345,32 @@ function set_field_error(frm, cdt, cdn, fieldname, message) {
         let grid = frm.fields_dict.parameters?.grid;
         if (!grid) return;
         
-        let row_idx = grid.get_row_index(cdn);
-        if (row_idx === -1) return;
+        // 安全地获取行索引
+        let row_idx = -1;
+        if (typeof grid.get_row_index === 'function') {
+            row_idx = grid.get_row_index(cdn);
+        } else if (grid.grid_rows) {
+            // 备用方法：遍历查找
+            for (let i = 0; i < grid.grid_rows.length; i++) {
+                if (grid.grid_rows[i] && grid.grid_rows[i].doc && grid.grid_rows[i].doc.name === cdn) {
+                    row_idx = i;
+                    break;
+                }
+            }
+        }
+        
+        if (row_idx === -1) {
+            // 如果找不到行，尝试直接通过 DOM 查找
+            let row_wrapper = grid.wrapper.find(`[data-name="${cdn}"]`);
+            if (row_wrapper.length) {
+                let input = row_wrapper.find(`[data-fieldname="${fieldname}"] input`);
+                if (input && input.length) {
+                    input.addClass('error');
+                    input.attr('title', message);
+                }
+            }
+            return;
+        }
         
         let grid_row = grid.grid_rows[row_idx];
         if (!grid_row) return;
@@ -357,8 +402,32 @@ function clear_field_error(frm, cdt, cdn, fieldname) {
         let grid = frm.fields_dict.parameters?.grid;
         if (!grid) return;
         
-        let row_idx = grid.get_row_index(cdn);
-        if (row_idx === -1) return;
+        // 安全地获取行索引
+        let row_idx = -1;
+        if (typeof grid.get_row_index === 'function') {
+            row_idx = grid.get_row_index(cdn);
+        } else if (grid.grid_rows) {
+            // 备用方法：遍历查找
+            for (let i = 0; i < grid.grid_rows.length; i++) {
+                if (grid.grid_rows[i] && grid.grid_rows[i].doc && grid.grid_rows[i].doc.name === cdn) {
+                    row_idx = i;
+                    break;
+                }
+            }
+        }
+        
+        if (row_idx === -1) {
+            // 如果找不到行，尝试直接通过 DOM 查找
+            let row_wrapper = grid.wrapper.find(`[data-name="${cdn}"]`);
+            if (row_wrapper.length) {
+                let input = row_wrapper.find(`[data-fieldname="${fieldname}"] input`);
+                if (input && input.length) {
+                    input.removeClass('error');
+                    input.removeAttr('title');
+                }
+            }
+            return;
+        }
         
         let grid_row = grid.grid_rows[row_idx];
         if (!grid_row) return;
@@ -378,13 +447,56 @@ function clear_field_error(frm, cdt, cdn, fieldname) {
     }, 100);
 }
 
+// 设置参数删除监听器
+function setup_parameter_delete_listener(frm) {
+    if (!frm.fields_dict.parameters || !frm.fields_dict.parameters.grid) {
+        return;
+    }
+    
+    let grid = frm.fields_dict.parameters.grid;
+    
+    // 清除之前的定时器
+    if (frm._parameter_delete_check_interval) {
+        clearInterval(frm._parameter_delete_check_interval);
+    }
+    
+    let last_row_count = (frm.doc.parameters || []).length;
+    
+    // 方法1: 直接在 grid wrapper 上监听删除按钮点击（使用事件委托）
+    grid.wrapper.on('click', '.grid-delete-row', function(e) {
+        // 记录删除前的行数
+        let before_count = (frm.doc.parameters || []).length;
+        // 延迟检查，确保删除操作完成
+        setTimeout(() => {
+            let after_count = (frm.doc.parameters || []).length;
+            if (after_count < before_count && !frm._is_system_updating) {
+                console.log('检测到删除行，触发预览计算', { before: before_count, after: after_count });
+                trigger_preview_calculation(frm);
+            }
+        }, 500);
+    });
+    
+    // 方法2: 定期检查行数变化（作为备用方案，确保不会遗漏）
+    frm._parameter_delete_check_interval = setInterval(function() {
+        let current_row_count = (frm.doc.parameters || []).length;
+        if (current_row_count < last_row_count && !frm._is_system_updating) {
+            // 行数减少，说明有行被删除
+            console.log('定期检查发现行数减少，触发预览计算', { before: last_row_count, after: current_row_count });
+            setTimeout(() => {
+                trigger_preview_calculation(frm);
+            }, 200);
+        }
+        last_row_count = current_row_count;
+    }, 400);
+}
+
 function run_duplicate_check(frm, callback) {
     frappe.call({
         method: 'cos.cos_stock.controllers.new_item_request.check_duplicate_request',
         args: { unique_code: frm.doc.unique_code, current_docname: frm.doc.name },
         callback(r) {
             if (r.message && r.message.duplicate) {
-                frappe.throw({ title: __('Duplicate Found'), message: r.message.message, indicator: 'red' });
+                frappe.throw({ title: __('发现重复'), message: r.message.message, indicator: 'red' });
             } else {
                 frappe.show_alert({ message: r.message.message, indicator: 'green' });
                 if (callback) callback();

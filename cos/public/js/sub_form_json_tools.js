@@ -393,6 +393,34 @@ function import_table_data(frm, fieldname, data, format) {
                         new_row[fieldname_mapped] = value;
                     }
                 });
+                
+                // 数据清理：根据 constraint_type 清理不相关的字段
+                if (new_row.constraint_type !== 'Doctype') {
+                    // 如果不是 Doctype 类型，清空 doctype_selector 和 value_doctype
+                    if (new_row.doctype_selector) {
+                        new_row.doctype_selector = null;
+                    }
+                    if (new_row.value_doctype) {
+                        new_row.value_doctype = null;
+                    }
+                } else {
+                    // 如果是 Doctype 类型，验证 doctype_selector 是否设置
+                    if (new_row.value_doctype && !new_row.doctype_selector) {
+                        // 如果 value_doctype 有值但 doctype_selector 未设置，清空 value_doctype
+                        new_row.value_doctype = null;
+                    }
+                }
+                
+                // 清理其他类型不相关的字段
+                if (new_row.constraint_type !== 'Float' && new_row.value_float) {
+                    new_row.value_float = null;
+                }
+                if (new_row.constraint_type !== 'Integer' && new_row.value_integer) {
+                    new_row.value_integer = null;
+                }
+                if (new_row.constraint_type !== 'Format' && new_row.value_format) {
+                    new_row.value_format = null;
+                }
             });
             
             frm.refresh_field(fieldname);

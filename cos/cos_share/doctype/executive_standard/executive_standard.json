@@ -23,6 +23,7 @@
    "fieldname": "standard_code",
    "fieldtype": "Data",
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Standard Code",
    "reqd": 1,
@@ -42,6 +43,7 @@
   {
    "fieldname": "standard_name",
    "fieldtype": "Data",
+   "in_preview": 1,
    "label": "Standard Name",
    "search_index": 1
   },
@@ -54,6 +56,7 @@
    "default": "Current",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "Current\nAbolition\nComing"
   },
@@ -61,6 +64,8 @@
    "default": "Product Standard",
    "fieldname": "standard_type",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Type",
    "options": "Product Standard\nMethod Standard\nMaterial Standard\nDimension Standard"
   },
@@ -71,12 +76,14 @@
   {
    "fieldname": "reference_standard",
    "fieldtype": "Link",
+   "in_preview": 1,
    "label": "Reference Standard",
    "options": "Executive Standard"
   },
   {
    "fieldname": "description",
    "fieldtype": "Small Text",
+   "in_preview": 1,
    "label": "Description"
   }
  ],
@@ -90,7 +97,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2025-12-25 03:35:24.598891",
+ "modified": "2026-01-10 19:05:29.445891",
  "modified_by": "Administrator",
  "module": "COS Share",
  "name": "Executive Standard",
@@ -112,6 +119,7 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "show_preview_popup": 1,
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
