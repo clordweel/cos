@@ -93,26 +93,40 @@ class NewItemRequest(Document):
 		# 1. 收集 UOM
 		unit_conversions = []
 		for row in doc.uoms or []:
+			if not row or not hasattr(row, 'uom'):
+				continue
 			unit_conversions.append(
 				{
 					"doctype": "Item Unit Conversion",
-					"uom": row.uom,
-					"conversion_factor": flt(row.conversion_factor),
+					"uom": getattr(row, 'uom', None),
+					"conversion_factor": flt(getattr(row, 'conversion_factor', 1)),
 				}
 			)
 
 		# 2. 顺序处理参数，构建最终 Context
 		final_context = {}
 		assignment_rules = []
-		sorted_parameters = sorted(doc.parameters, key=lambda x: x.idx)
+		# 过滤掉 None 值，并安全排序
+		parameters_list = [row for row in (doc.parameters or []) if row is not None]
+		sorted_parameters = sorted(parameters_list, key=lambda x: getattr(x, 'idx', 0) or 0)
 
 		for row in sorted_parameters:
-			p_name = row.parameter_name
-			if row.constraint_type != "Format":
-				final_context[p_name] = row.parameter_value
+			if not row or not hasattr(row, 'parameter_name'):
+				continue
+				
+			p_name = getattr(row, 'parameter_name', None)
+			if not p_name:
+				continue
+				
+			constraint_type = getattr(row, 'constraint_type', None)
+			if constraint_type != "Format":
+				parameter_value = getattr(row, 'parameter_value', None)
+				final_context[p_name] = parameter_value
 			else:
 				template_str = (
-					row.parameter_value or row.value_format or row.parameter_default_value
+					getattr(row, 'parameter_value', None) or 
+					getattr(row, 'value_format', None) or 
+					getattr(row, 'parameter_default_value', None)
 				)
 				if template_str:
 					try:
@@ -125,9 +139,11 @@ class NewItemRequest(Document):
 						final_context[p_name] = ""
 
 			# 收集需要绑定到 Item 字段的规则
-			if row.binding_field == 1 and row.target_field:
+			binding_field = getattr(row, 'binding_field', 0)
+			target_field = getattr(row, 'target_field', None)
+			if binding_field == 1 and target_field:
 				assignment_rules.append(
-					{"target_field": row.target_field, "parameter_name": p_name}
+					{"target_field": target_field, "parameter_name": p_name}
 				)
 
 		# 3. 映射到 Item 字段
