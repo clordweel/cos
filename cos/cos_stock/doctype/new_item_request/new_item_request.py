@@ -84,6 +84,38 @@ class NewItemRequest(Document):
 		"""正式生成 Item 数据字典：支持级联引用"""
 		# 使用当前文档实例
 		doc = self
+		
+		# 如果 self 为 None 或文档未正确加载，尝试从请求数据中重新加载
+		if doc is None or not hasattr(doc, 'docstatus'):
+			# 尝试从请求参数中获取文档数据
+			docs_param = frappe.form_dict.get('docs')
+			if docs_param:
+				if isinstance(docs_param, str):
+					try:
+						doc_data = json.loads(docs_param)
+						doc_name = doc_data.get('name')
+						if doc_name:
+							# 尝试重新加载文档
+							try:
+								doc = frappe.get_doc("New Item Request", doc_name)
+							except frappe.DoesNotExistError:
+								# 如果文档不存在，可能是新文档，尝试从数据创建临时文档对象
+								doc = frappe.get_doc(doc_data)
+					except (json.JSONDecodeError, Exception) as e:
+						frappe.log_error(f"Error loading document: {str(e)}", "NewItemRequest.generate_item_data_dict")
+						frappe.throw("Document not properly loaded. Please refresh the page and try again.")
+				elif isinstance(docs_param, dict):
+					# 如果已经是字典，直接使用
+					doc_name = docs_param.get('name')
+					if doc_name:
+						try:
+							doc = frappe.get_doc("New Item Request", doc_name)
+						except frappe.DoesNotExistError:
+							doc = frappe.get_doc(docs_param)
+		
+		# 确保文档已正确加载
+		if doc is None or not hasattr(doc, 'docstatus'):
+			frappe.throw("Document not properly loaded. Please refresh the page and try again.")
 
 		# 允许 Administrator 在草稿模式下执行，其他用户只能在已提交状态下执行
 		if doc.docstatus != 1:
