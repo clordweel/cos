@@ -281,7 +281,8 @@ function show_upload_dialog(frm, fieldname) {
                     <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
                         <strong>${__('提示')}:</strong><br>
                         ${__('JSON 格式')}: ${__('直接粘贴 JSON 数组，例如: [{"field1": "value1", "field2": "value2"}]')}<br>
-                        ${__('上传文件')}: ${__('选择 JSON 文件后，内容会自动填充到粘贴框中，您可以编辑后再导入')}
+                        ${__('上传文件')}: ${__('选择 JSON 文件后，内容会自动填充到粘贴框中，您可以编辑后再导入')}<br>
+                        ${__('合并更新')}: ${__('合并更新会根据 parameter_name 字段匹配现有记录，匹配到则更新，否则添加为新记录')}
                     </div>
                 `
             }
@@ -291,15 +292,57 @@ function show_upload_dialog(frm, fieldname) {
             let json_data;
             
             try {
+                // 优先使用从文件读取的数据
                 if (json_data_to_import) {
-                    // 使用从文件读取的数据
                     json_data = json_data_to_import;
                 } else {
-                    // 使用粘贴的数据
-                    json_data = JSON.parse(values.json_content);
+                    // 尝试从粘贴框获取数据（即使字段被隐藏，也应该能获取值）
+                    let json_content = values.json_content || dialog.get_value('json_content');
+                    if (!json_content) {
+                        frappe.msgprint({
+                            title: __('错误'),
+                            message: __('请先上传文件或粘贴 JSON 数据'),
+                            indicator: 'red'
+                        });
+                        return;
+                    }
+                    json_data = JSON.parse(json_content);
                 }
                 
-                import_table_data(frm, fieldname, json_data, 'json');
+                import_table_data(frm, fieldname, json_data, 'json', false);
+                dialog.hide();
+            } catch (error) {
+                frappe.msgprint({
+                    title: __('错误'),
+                    message: __('数据格式错误: {0}', [error.message]),
+                    indicator: 'red'
+                });
+            }
+        },
+        secondary_action_label: __('合并更新'),
+        secondary_action: function(values) {
+            let json_data;
+            
+            try {
+                // 优先使用从文件读取的数据
+                if (json_data_to_import) {
+                    json_data = json_data_to_import;
+                } else {
+                    // 尝试从粘贴框获取数据（即使字段被隐藏，也应该能获取值）
+                    let json_content = values.json_content || dialog.get_value('json_content');
+                    if (!json_content) {
+                        frappe.msgprint({
+                            title: __('错误'),
+                            message: __('请先上传文件或粘贴 JSON 数据'),
+                            indicator: 'red'
+                        });
+                        return;
+                    }
+                    json_data = JSON.parse(json_content);
+                }
+                
+                // 显示字段选择对话框
+                show_match_field_dialog(frm, fieldname, json_data);
                 dialog.hide();
             } catch (error) {
                 frappe.msgprint({
@@ -351,8 +394,87 @@ function show_upload_dialog(frm, fieldname) {
     }, 100);
 }
 
+// 显示匹配字段选择对话框（合并更新时使用）
+function show_match_field_dialog(frm, fieldname, data) {
+    let meta = frappe.get_meta(frm.fields_dict[fieldname].grid.doctype);
+    
+    // 获取所有可用字段（排除系统字段和只读字段）
+    let available_fields = [];
+    meta.fields.forEach(function(field) {
+        // 排除系统字段、只读字段、按钮等
+        if (field.fieldname && 
+            field.fieldtype !== 'Section Break' && 
+            field.fieldtype !== 'Column Break' &&
+            field.fieldtype !== 'Tab Break' &&
+            field.fieldtype !== 'HTML' &&
+            field.fieldtype !== 'Button' &&
+            !field.read_only &&
+            field.fieldname !== 'idx' &&
+            field.fieldname !== 'parent' &&
+            field.fieldname !== 'parenttype' &&
+            field.fieldname !== 'parentfield') {
+            let label = field.label || field.fieldname;
+            available_fields.push({
+                fieldname: field.fieldname,
+                label: label
+            });
+        }
+    });
+    
+    if (available_fields.length === 0) {
+        frappe.msgprint({
+            title: __('错误'),
+            message: __('没有可用的匹配字段'),
+            indicator: 'red'
+        });
+        return;
+    }
+    
+    // 构建字段选项（只使用字段名）
+    let field_options = available_fields.map(function(f) {
+        return f.fieldname;
+    }).join('\n');
+    
+    // 默认选择第一个字段
+    let default_field = available_fields[0].fieldname;
+    
+    let match_dialog = new frappe.ui.Dialog({
+        title: __('选择匹配字段'),
+        fields: [
+            {
+                fieldtype: 'Select',
+                fieldname: 'match_field',
+                label: __('标识符字段'),
+                options: field_options,
+                default: default_field,
+                reqd: 1,
+                description: __('选择用于匹配现有记录的字段，匹配到的记录将被更新，未匹配到的将添加为新记录')
+            },
+            {
+                fieldtype: 'HTML',
+                fieldname: 'info',
+                options: `
+                    <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                        <strong>${__('提示')}:</strong><br>
+                        ${__('将合并更新 {0} 条记录', [data.length])}<br>
+                        ${__('请选择用于匹配的唯一标识字段')}
+                    </div>
+                `
+            }
+        ],
+        primary_action_label: __('确认'),
+        primary_action: function(values) {
+            let match_field = values.match_field;
+            match_dialog.hide();
+            import_table_data(frm, fieldname, data, 'json', true, match_field);
+        }
+    });
+    
+    match_dialog.show();
+}
+
 // 导入表格数据
-function import_table_data(frm, fieldname, data, format) {
+function import_table_data(frm, fieldname, data, format, is_merge_mode, match_field) {
     if (!Array.isArray(data) || data.length === 0) {
         frappe.msgprint(__('数据为空或格式不正确'));
         return;
@@ -371,17 +493,73 @@ function import_table_data(frm, fieldname, data, format) {
         }
     });
     
+    // 如果是合并模式，需要验证匹配字段
+    if (is_merge_mode) {
+        // 如果没有指定匹配字段，使用默认逻辑
+        if (!match_field) {
+            // 合并模式：优先使用 parameter_name，否则使用 name
+            match_field = meta.fields.find(f => f.fieldname === 'parameter_name') ? 'parameter_name' : 'name';
+        }
+        
+        // 验证匹配字段是否存在
+        if (!meta.fields.find(f => f.fieldname === match_field)) {
+            frappe.msgprint({
+                title: __('错误'),
+                message: __('匹配字段 {0} 不存在', [match_field]),
+                indicator: 'red'
+            });
+            return;
+        }
+    }
+    
+    let confirm_message = is_merge_mode 
+        ? __('将合并更新 {0} 条记录（根据 {1} 字段匹配），是否继续？', [data.length, match_field])
+        : __('将导入 {0} 条记录（将替换现有数据），是否继续？', [data.length]);
+    
     frappe.confirm(
-        __('将导入 {0} 条记录，是否继续？', [data.length]),
+        confirm_message,
         function() {
-            // 清空现有数据
-            frm.clear_table(fieldname);
+            let existing_data = frm.doc[fieldname] || [];
+            let existing_map = {};
+            let updated_count = 0;
+            let added_count = 0;
             
-            // 导入新数据
+            // 如果是合并模式，构建现有数据的映射（使用 parameter_name 或 name 字段作为唯一标识）
+            if (is_merge_mode && existing_data.length > 0) {
+                existing_data.forEach(function(row) {
+                    let match_value = row[match_field];
+                    if (match_value) {
+                        existing_map[match_value] = row;
+                    }
+                });
+            } else {
+                // 替换模式：清空现有数据
+                frm.clear_table(fieldname);
+            }
+            
+            // 处理每条导入的数据
             data.forEach(function(row_data) {
-                let new_row = frm.add_child(fieldname);
+                let target_row = null;
+                let is_update = false;
                 
-                // 映射字段
+                // 合并模式：尝试匹配现有记录
+                if (is_merge_mode) {
+                    // 尝试通过匹配字段匹配
+                    let match_value = row_data[match_field] || row_data[field_map[match_field]];
+                    if (match_value && existing_map[match_value]) {
+                        target_row = existing_map[match_value];
+                        is_update = true;
+                        updated_count++;
+                    }
+                }
+                
+                // 如果没有匹配到现有记录，创建新记录
+                if (!target_row) {
+                    target_row = frm.add_child(fieldname);
+                    added_count++;
+                }
+                
+                // 映射字段并设置值
                 Object.keys(row_data).forEach(function(key) {
                     let fieldname_mapped = field_map[key] || key;
                     if (meta.fields.find(f => f.fieldname === fieldname_mapped)) {
@@ -390,43 +568,55 @@ function import_table_data(frm, fieldname, data, format) {
                         if (value === '' || value === null || value === undefined) {
                             value = null;
                         }
-                        new_row[fieldname_mapped] = value;
+                        // 如果是更新模式且字段是 name，跳过（name 是系统字段，不应更新）
+                        if (is_update && fieldname_mapped === 'name') {
+                            return;
+                        }
+                        target_row[fieldname_mapped] = value;
                     }
                 });
                 
                 // 数据清理：根据 constraint_type 清理不相关的字段
-                if (new_row.constraint_type !== 'Doctype') {
+                if (target_row.constraint_type !== 'Doctype') {
                     // 如果不是 Doctype 类型，清空 doctype_selector 和 value_doctype
-                    if (new_row.doctype_selector) {
-                        new_row.doctype_selector = null;
+                    if (target_row.doctype_selector) {
+                        target_row.doctype_selector = null;
                     }
-                    if (new_row.value_doctype) {
-                        new_row.value_doctype = null;
+                    if (target_row.value_doctype) {
+                        target_row.value_doctype = null;
                     }
                 } else {
                     // 如果是 Doctype 类型，验证 doctype_selector 是否设置
-                    if (new_row.value_doctype && !new_row.doctype_selector) {
+                    if (target_row.value_doctype && !target_row.doctype_selector) {
                         // 如果 value_doctype 有值但 doctype_selector 未设置，清空 value_doctype
-                        new_row.value_doctype = null;
+                        target_row.value_doctype = null;
                     }
                 }
                 
                 // 清理其他类型不相关的字段
-                if (new_row.constraint_type !== 'Float' && new_row.value_float) {
-                    new_row.value_float = null;
+                if (target_row.constraint_type !== 'Float' && target_row.value_float) {
+                    target_row.value_float = null;
                 }
-                if (new_row.constraint_type !== 'Integer' && new_row.value_integer) {
-                    new_row.value_integer = null;
+                if (target_row.constraint_type !== 'Integer' && target_row.value_integer) {
+                    target_row.value_integer = null;
                 }
-                if (new_row.constraint_type !== 'Format' && new_row.value_format) {
-                    new_row.value_format = null;
+                if (target_row.constraint_type !== 'Format' && target_row.value_format) {
+                    target_row.value_format = null;
                 }
             });
             
             frm.refresh_field(fieldname);
             
+            // 显示导入结果
+            let result_message;
+            if (is_merge_mode) {
+                result_message = __('合并更新完成：更新 {0} 条，新增 {1} 条', [updated_count, added_count]);
+            } else {
+                result_message = __('已导入 {0} 条记录', [data.length]);
+            }
+            
             frappe.show_alert({
-                message: __('已导入 {0} 条记录', [data.length]),
+                message: result_message,
                 indicator: 'green'
             }, 3);
         }
