@@ -161,6 +161,7 @@
    "default": "0",
    "fieldname": "optional",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Optional",
    "read_only_depends_on": "eval:doc.from_template"
   }
@@ -169,7 +170,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-11 05:41:44.002841",
+ "modified": "2026-01-11 13:11:49.131171",
  "modified_by": "Administrator",
  "module": "COS Stock",
  "name": "Item Parameter Definition",
