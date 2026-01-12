@@ -8,7 +8,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 02:24:06.042639",
   "module": "COS Stock",
-  "name": "传动部件模板 - 轴承 - 深沟球轴承",
+  "name": "标准模板 - 轴承 - 深沟球轴承",
   "parameters": [
    {
     "allowed_data": null,
@@ -266,7 +266,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 轴承 - 深沟球轴承",
+  "template_name": "标准模板 - 轴承 - 深沟球轴承",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -283,7 +283,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-24 11:30:08.056713",
   "module": "COS Stock",
-  "name": "传动部件模板 - 轴承 - 带座轴承",
+  "name": "标准模板 - 轴承 - 带座轴承",
   "parameters": [
    {
     "allowed_data": null,
@@ -524,7 +524,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 轴承 - 带座轴承",
+  "template_name": "标准模板 - 轴承 - 带座轴承",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -541,7 +541,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-24 13:18:47.292330",
   "module": "COS Stock",
-  "name": "传动部件模板 - 普通V带",
+  "name": "标准模板 - 普通V带",
   "parameters": [
    {
     "allowed_data": null,
@@ -748,7 +748,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 普通V带",
+  "template_name": "标准模板 - 普通V带",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -765,7 +765,7 @@
   "item_group": "电气辅材",
   "modified": "2025-12-24 13:41:43.165240",
   "module": "COS Stock",
-  "name": "电气辅材模板 - 阻燃电缆",
+  "name": "标准模板 - 阻燃电缆",
   "parameters": [
    {
     "allowed_data": null,
@@ -1040,7 +1040,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "电气辅材模板 - 阻燃电缆",
+  "template_name": "标准模板 - 阻燃电缆",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -1057,7 +1057,7 @@
   "item_group": "型材",
   "modified": "2025-12-24 15:03:07.506368",
   "module": "COS Stock",
-  "name": "型材模板 - 扁钢",
+  "name": "标准模板 - 扁钢",
   "parameters": [
    {
     "allowed_data": null,
@@ -1298,7 +1298,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "型材模板 - 扁钢",
+  "template_name": "标准模板 - 扁钢",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -1323,7 +1323,7 @@
   "item_group": "型材",
   "modified": "2025-12-24 16:08:57.272127",
   "module": "COS Stock",
-  "name": "型材模板 - 角/槽/工/H",
+  "name": "标准模板 - 角/槽/工/H",
   "parameters": [
    {
     "allowed_data": null,
@@ -1547,7 +1547,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "型材模板 - 角/槽/工/H",
+  "template_name": "标准模板 - 角/槽/工/H",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -1572,7 +1572,7 @@
   "item_group": "紧固件",
   "modified": "2025-12-25 02:21:15.823781",
   "module": "COS Stock",
-  "name": "紧固件模板 - 六角头螺栓",
+  "name": "标准模板 - 六角头螺栓",
   "parameters": [
    {
     "allowed_data": null,
@@ -1847,7 +1847,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "紧固件模板 - 六角头螺栓",
+  "template_name": "标准模板 - 六角头螺栓",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -1868,7 +1868,7 @@
   "item_group": "紧固件",
   "modified": "2025-12-25 02:21:36.626614",
   "module": "COS Stock",
-  "name": "紧固件模板 - 六角头螺栓 GB/T 5783",
+  "name": "标准模板 - 六角头螺栓 GB/T 5783",
   "parameters": [
    {
     "allowed_data": null,
@@ -2143,7 +2143,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "紧固件模板 - 六角头螺栓 GB/T 5783",
+  "template_name": "标准模板 - 六角头螺栓 GB/T 5783",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -2164,7 +2164,7 @@
   "item_group": "紧固件",
   "modified": "2025-12-25 04:11:07.711119",
   "module": "COS Stock",
-  "name": "紧固件模板 - 螺母/垫圈",
+  "name": "标准模板 - 螺母/垫圈",
   "parameters": [
    {
     "allowed_data": null,
@@ -2422,7 +2422,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "紧固件模板 - 螺母/垫圈",
+  "template_name": "标准模板 - 螺母/垫圈",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -2443,7 +2443,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 02:36:58.113065",
   "module": "COS Stock",
-  "name": "传动部件模板 - 轴承",
+  "name": "标准模板 - 轴承",
   "parameters": [
    {
     "allowed_data": null,
@@ -2718,7 +2718,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 轴承",
+  "template_name": "标准模板 - 轴承",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -2739,7 +2739,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 04:11:42.279641",
   "module": "COS Stock",
-  "name": "传动部件模板 - 轴承紧定套",
+  "name": "标准模板 - 轴承紧定套",
   "parameters": [
    {
     "allowed_data": null,
@@ -2946,7 +2946,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 轴承紧定套",
+  "template_name": "标准模板 - 轴承紧定套",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -2967,7 +2967,7 @@
   "item_group": "密封件",
   "modified": "2025-12-25 04:10:51.160310",
   "module": "COS Stock",
-  "name": "密封件模板 - 非标",
+  "name": "标准模板 - 非标",
   "parameters": [
    {
     "allowed_data": null,
@@ -3157,7 +3157,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "密封件模板 - 非标",
+  "template_name": "标准模板 - 非标",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -3186,7 +3186,7 @@
   "item_group": "焊接与磨具",
   "modified": "2025-12-25 03:48:21.363490",
   "module": "COS Stock",
-  "name": "焊接耗材模板 - 通用",
+  "name": "标准模板 - 焊条焊丝",
   "parameters": [
    {
     "allowed_data": null,
@@ -3393,7 +3393,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "焊接耗材模板 - 通用",
+  "template_name": "标准模板 - 焊条焊丝",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -3418,7 +3418,7 @@
   "item_group": "板材",
   "modified": "2025-12-30 14:21:00.578390",
   "module": "COS Stock",
-  "name": "板材模板 - 钢板",
+  "name": "标准模板 - 钢板",
   "parameters": [
    {
     "allowed_data": null,
@@ -3676,7 +3676,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "板材模板 - 钢板",
+  "template_name": "标准模板 - 钢板",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -3705,7 +3705,7 @@
   "item_group": "密封件",
   "modified": "2025-12-25 04:11:26.671930",
   "module": "COS Stock",
-  "name": "密封件模板 - 通用",
+  "name": "标准模板 - 密封圈",
   "parameters": [
    {
     "allowed_data": null,
@@ -3929,7 +3929,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "密封件模板 - 通用",
+  "template_name": "标准模板 - 密封圈",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -3946,7 +3946,7 @@
   "item_group": "行政与包装",
   "modified": "2025-12-25 02:23:53.060211",
   "module": "COS Stock",
-  "name": "行政用品模板 - 通用",
+  "name": "标准模板 - 行政用品",
   "parameters": [
    {
     "allowed_data": null,
@@ -4170,7 +4170,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "行政用品模板 - 通用",
+  "template_name": "标准模板 - 行政用品",
   "uoms": []
  },
  {
@@ -4182,7 +4182,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 04:10:20.001113",
   "module": "COS Stock",
-  "name": "传动部件模板 - 联轴器",
+  "name": "标准模板 - 联轴器",
   "parameters": [
    {
     "allowed_data": null,
@@ -4406,7 +4406,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 联轴器",
+  "template_name": "标准模板 - 联轴器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -4423,7 +4423,7 @@
   "item_group": "动力与传动",
   "modified": "2025-12-25 04:31:17.154510",
   "module": "COS Stock",
-  "name": "动力设备模板 - 电机",
+  "name": "标准模板 - 电机",
   "parameters": [
    {
     "allowed_data": null,
@@ -4681,7 +4681,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "动力设备模板 - 电机",
+  "template_name": "标准模板 - 电机",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -4698,7 +4698,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 04:40:24.905678",
   "module": "COS Stock",
-  "name": "传动部件模板 - 橡胶输送带",
+  "name": "标准模板 - 橡胶输送带",
   "parameters": [
    {
     "allowed_data": null,
@@ -4922,7 +4922,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 橡胶输送带",
+  "template_name": "标准模板 - 橡胶输送带",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -4943,7 +4943,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 05:28:19.886611",
   "module": "COS Stock",
-  "name": "传动部件模板 - 托辊",
+  "name": "标准模板 - 托辊",
   "parameters": [
    {
     "allowed_data": null,
@@ -5184,7 +5184,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 托辊",
+  "template_name": "标准模板 - 托辊",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -5205,7 +5205,7 @@
   "item_group": "传动部件",
   "modified": "2025-12-25 04:45:32.707455",
   "module": "COS Stock",
-  "name": "传动部件模板 - 滚筒",
+  "name": "标准模板 - 滚筒",
   "parameters": [
    {
     "allowed_data": null,
@@ -5412,7 +5412,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "传动部件模板 - 滚筒",
+  "template_name": "标准模板 - 滚筒",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -5429,7 +5429,7 @@
   "item_group": "板材",
   "modified": "2025-12-25 04:52:04.560221",
   "module": "COS Stock",
-  "name": "板材模板 - 衬板",
+  "name": "标准模板 - 衬板",
   "parameters": [
    {
     "allowed_data": null,
@@ -5653,7 +5653,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "板材模板 - 衬板",
+  "template_name": "标准模板 - 衬板",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -5674,7 +5674,7 @@
   "item_group": "研磨介质",
   "modified": "2025-12-25 05:07:14.704679",
   "module": "COS Stock",
-  "name": "研磨介质模板 - 通用",
+  "name": "标准模板 - 研磨介质",
   "parameters": [
    {
     "allowed_data": null,
@@ -5881,7 +5881,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "研磨介质模板 - 通用",
+  "template_name": "标准模板 - 研磨介质",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -5902,7 +5902,7 @@
   "item_group": "液压气动",
   "modified": "2025-12-25 05:11:57.387661",
   "module": "COS Stock",
-  "name": "液压管路模板 - 高压胶管总成",
+  "name": "标准模板 - 高压胶管总成",
   "parameters": [
    {
     "allowed_data": null,
@@ -6143,7 +6143,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "液压管路模板 - 高压胶管总成",
+  "template_name": "标准模板 - 高压胶管总成",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -6160,7 +6160,7 @@
   "item_group": "液压气动",
   "modified": "2025-12-25 05:16:21.350780",
   "module": "COS Stock",
-  "name": "液压管路模板 - 阀门",
+  "name": "标准模板 - 阀门",
   "parameters": [
    {
     "allowed_data": null,
@@ -6384,7 +6384,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "液压管路模板 - 阀门",
+  "template_name": "标准模板 - 阀门",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -6405,7 +6405,7 @@
   "item_group": "管材",
   "modified": "2025-12-25 10:33:10.678206",
   "module": "COS Stock",
-  "name": "管材模板 - 通用",
+  "name": "标准模板 - 管材",
   "parameters": [
    {
     "allowed_data": null,
@@ -6629,7 +6629,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "管材模板 - 通用",
+  "template_name": "标准模板 - 管材",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -6654,7 +6654,7 @@
   "item_group": "油漆涂料",
   "modified": "2025-12-25 10:41:33.831707",
   "module": "COS Stock",
-  "name": "油漆涂料模板 - 通用",
+  "name": "标准模板 - 油漆涂料",
   "parameters": [
    {
     "allowed_data": null,
@@ -6861,7 +6861,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "油漆涂料模板 - 通用",
+  "template_name": "标准模板 - 油漆涂料",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -6886,7 +6886,7 @@
   "item_group": "化工与辅料",
   "modified": "2025-12-26 11:47:08.542174",
   "module": "COS Stock",
-  "name": "化工耗材模板 - 润滑油脂与胶",
+  "name": "标准模板 - 润滑油脂与胶",
   "parameters": [
    {
     "allowed_data": null,
@@ -7110,7 +7110,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "化工耗材模板 - 润滑油脂与胶",
+  "template_name": "标准模板 - 润滑油脂与胶",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -7139,7 +7139,7 @@
   "item_group": "基础材料",
   "modified": "2025-12-25 11:03:06.018107",
   "module": "COS Stock",
-  "name": "基础材料模板 - 通用板材",
+  "name": "标准模板 - 通用板材",
   "parameters": [
    {
     "allowed_data": null,
@@ -7414,7 +7414,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "基础材料模板 - 通用板材",
+  "template_name": "标准模板 - 通用板材",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -7439,7 +7439,7 @@
   "item_group": "基础材料",
   "modified": "2025-12-25 11:12:46.925321",
   "module": "COS Stock",
-  "name": "基础材料模板 - 通用型材",
+  "name": "标准模板 - 通用型材",
   "parameters": [
    {
     "allowed_data": null,
@@ -7663,7 +7663,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "基础材料模板 - 通用型材",
+  "template_name": "标准模板 - 通用型材",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -7688,7 +7688,7 @@
   "item_group": "耐火材料",
   "modified": "2025-12-25 11:21:46.805799",
   "module": "COS Stock",
-  "name": "原材料模板 - 耐火材料",
+  "name": "标准模板 - 耐火材料",
   "parameters": [
    {
     "allowed_data": null,
@@ -7929,7 +7929,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "原材料模板 - 耐火材料",
+  "template_name": "标准模板 - 耐火材料",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -7955,28 +7955,11 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "外购结构件",
-  "modified": "2025-12-25 11:54:13.482887",
+  "item_group": "箱体与柜体",
+  "modified": "2026-01-11 15:18:42.109520",
   "module": "COS Stock",
-  "name": "外购结构件 - 箱体与柜体",
+  "name": "标准模板 - 箱体与柜体",
   "parameters": [
-   {
-    "allowed_data": null,
-    "binding_field": 1,
-    "constraint_type": "Doctype",
-    "description": "如: 箱体与柜体, 柜体附件, 机械标准件。",
-    "doctype_selector": "Item Group",
-    "join_to_hash": 0,
-    "optional": 0,
-    "parameter_default_value": "箱体与柜体",
-    "parameter_name": "所属分类",
-    "readonly_value": 0,
-    "target_field": "item_group",
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
    {
     "allowed_data": null,
     "binding_field": 0,
@@ -8214,26 +8197,9 @@
     "value_float": 0.0,
     "value_format": "规格: {{ 尺寸_高宽深 }} | 型号: {{ 图号 }} | 材质: {{ 材质 }} | 表面: {{ 表面 }} | 颜色: {{ 颜色 }} | 防护: {{ 防护等级 }} | 品牌: {{ 品牌 }} || 供应: {{ 供应类型 }}",
     "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 1,
-    "constraint_type": "Integer",
-    "description": null,
-    "doctype_selector": null,
-    "join_to_hash": 0,
-    "optional": 0,
-    "parameter_default_value": "1",
-    "parameter_name": "库存属性",
-    "readonly_value": 1,
-    "target_field": "is_stock_item",
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 1
    }
   ],
-  "template_name": "外购结构件 - 箱体与柜体",
+  "template_name": "标准模板 - 箱体与柜体",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -8254,7 +8220,7 @@
   "item_group": "机加工件",
   "modified": "2025-12-25 04:26:17.226158",
   "module": "COS Stock",
-  "name": "机械自制件模板 - 轴类",
+  "name": "标准模板 - 轴类",
   "parameters": [
    {
     "allowed_data": null,
@@ -8478,7 +8444,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "机械自制件模板 - 轴类",
+  "template_name": "标准模板 - 轴类",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -8496,10 +8462,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "动力与传动",
-  "modified": "2025-12-25 04:36:08.159249",
+  "item_group": "传动部件",
+  "modified": "2026-01-11 15:02:36.460397",
   "module": "COS Stock",
-  "name": "动力设备模板 - 减速机",
+  "name": "标准模板 - 减速机",
   "parameters": [
    {
     "allowed_data": null,
@@ -8740,7 +8706,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "动力设备模板 - 减速机",
+  "template_name": "标准模板 - 减速机",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -8757,7 +8723,7 @@
   "item_group": "切削刀具",
   "modified": "2025-12-25 05:31:14.570599",
   "module": "COS Stock",
-  "name": "切削刀具模板 - 通用",
+  "name": "标准模板 - 钻头、刀具",
   "parameters": [
    {
     "allowed_data": null,
@@ -8964,7 +8930,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "切削刀具模板 - 通用",
+  "template_name": "标准模板 - 钻头、刀具",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -8989,7 +8955,7 @@
   "item_group": "机加工件",
   "modified": "2026-01-07 18:35:52.736131",
   "module": "COS Stock",
-  "name": "机械自制件模板 - 小齿轮",
+  "name": "标准模板 - 小齿轮",
   "parameters": [
    {
     "allowed_data": null,
@@ -9230,7 +9196,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "机械自制件模板 - 小齿轮",
+  "template_name": "标准模板 - 小齿轮",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -9247,7 +9213,7 @@
   "item_group": "委外加工服务",
   "modified": "2025-12-30 14:10:00.086458",
   "module": "COS Stock",
-  "name": "生产服务模板 - 委外加工费",
+  "name": "标准模板 - 委外加工费",
   "parameters": [
    {
     "allowed_data": null,
@@ -9437,7 +9403,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "生产服务模板 - 委外加工费",
+  "template_name": "标准模板 - 委外加工费",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -9458,7 +9424,7 @@
   "item_group": "球磨机系列",
   "modified": "2026-01-09 00:08:47.220264",
   "module": "COS Stock",
-  "name": "产成品模板 - 球磨机",
+  "name": "标准模板 - 球磨机",
   "parameters": [
    {
     "allowed_data": null,
@@ -9699,7 +9665,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "产成品模板 - 球磨机",
+  "template_name": "标准模板 - 球磨机",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -9720,7 +9686,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 04:15:15.169802",
   "module": "COS Stock",
-  "name": "电气元件模板 - 隔离变压器",
+  "name": "标准模板 - 隔离变压器",
   "parameters": [
    {
     "allowed_data": null,
@@ -9927,7 +9893,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 隔离变压器",
+  "template_name": "标准模板 - 隔离变压器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -9948,7 +9914,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 04:17:36.137288",
   "module": "COS Stock",
-  "name": "电气元件模板 - 塑壳断路器",
+  "name": "标准模板 - 塑壳断路器",
   "parameters": [
    {
     "allowed_data": null,
@@ -10138,7 +10104,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 塑壳断路器",
+  "template_name": "标准模板 - 塑壳断路器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -10159,7 +10125,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 04:39:03.369808",
   "module": "COS Stock",
-  "name": "电气元件模板 - 熔断器底座",
+  "name": "标准模板 - 熔断器底座",
   "parameters": [
    {
     "allowed_data": null,
@@ -10349,7 +10315,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 熔断器底座",
+  "template_name": "标准模板 - 熔断器底座",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -10366,7 +10332,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:01.060005",
   "module": "COS Stock",
-  "name": "电气元件模板 - 浪涌保护器",
+  "name": "标准模板 - 浪涌保护器",
   "parameters": [
    {
     "allowed_data": null,
@@ -10556,7 +10522,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 浪涌保护器",
+  "template_name": "标准模板 - 浪涌保护器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -10573,7 +10539,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:01.113791",
   "module": "COS Stock",
-  "name": "电气元件模板 - 浪涌保护器专用保护装置",
+  "name": "标准模板 - 浪涌保护器专用保护装置",
   "parameters": [
    {
     "allowed_data": null,
@@ -10746,7 +10712,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 浪涌保护器专用保护装置",
+  "template_name": "标准模板 - 浪涌保护器专用保护装置",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -10763,7 +10729,7 @@
   "item_group": "成套辅材",
   "modified": "2026-01-11 07:02:00.724382",
   "module": "COS Stock",
-  "name": "成套辅材模板 - 隔弧板",
+  "name": "标准模板 - 隔弧板",
   "parameters": [
    {
     "allowed_data": null,
@@ -10919,7 +10885,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "成套辅材模板 - 隔弧板",
+  "template_name": "标准模板 - 隔弧板",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -10936,7 +10902,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:01.222231",
   "module": "COS Stock",
-  "name": "电气元件模板 - 漏电保护器",
+  "name": "标准模板 - 漏电保护器",
   "parameters": [
    {
     "allowed_data": null,
@@ -11160,7 +11126,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 漏电保护器",
+  "template_name": "标准模板 - 漏电保护器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -11177,7 +11143,7 @@
   "item_group": "成套辅材",
   "modified": "2026-01-11 07:02:00.624436",
   "module": "COS Stock",
-  "name": "成套辅材模板 - 短接条",
+  "name": "标准模板 - 短接条",
   "parameters": [
    {
     "allowed_data": null,
@@ -11367,7 +11333,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "成套辅材模板 - 短接条",
+  "template_name": "标准模板 - 短接条",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -11384,7 +11350,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:00.830086",
   "module": "COS Stock",
-  "name": "电气元件模板 - 保险丝",
+  "name": "标准模板 - 保险丝",
   "parameters": [
    {
     "allowed_data": null,
@@ -11557,7 +11523,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 保险丝",
+  "template_name": "标准模板 - 保险丝",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -11575,10 +11541,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气辅材",
-  "modified": "2026-01-11 07:02:17.273443",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.691845",
   "module": "COS Stock",
-  "name": "电气元件模板 - 赫兹表",
+  "name": "标准模板 - 赫兹表",
   "parameters": [
    {
     "allowed_data": null,
@@ -11785,7 +11751,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 赫兹表",
+  "template_name": "标准模板 - 赫兹表",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -11799,10 +11765,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气辅材",
-  "modified": "2026-01-11 07:02:01.165121",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.634788",
   "module": "COS Stock",
-  "name": "电气元件模板 - 温控仪表",
+  "name": "标准模板 - 温控仪表",
   "parameters": [
    {
     "allowed_data": null,
@@ -12026,7 +11992,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 温控仪表",
+  "template_name": "标准模板 - 温控仪表",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -12043,7 +12009,7 @@
   "item_group": "动力与传动",
   "modified": "2026-01-11 07:02:00.774966",
   "module": "COS Stock",
-  "name": "电气元件模板 - 交流接触器",
+  "name": "标准模板 - 交流接触器",
   "parameters": [
    {
     "allowed_data": null,
@@ -12250,7 +12216,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 交流接触器",
+  "template_name": "标准模板 - 交流接触器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -12267,7 +12233,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:00.941245",
   "module": "COS Stock",
-  "name": "电气元件模板 - 时间继电器",
+  "name": "标准模板 - 时间继电器",
   "parameters": [
    {
     "allowed_data": null,
@@ -12491,7 +12457,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 时间继电器",
+  "template_name": "标准模板 - 时间继电器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -12512,7 +12478,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:01.002535",
   "module": "COS Stock",
-  "name": "电气元件模板 - 时间继电器底座",
+  "name": "标准模板 - 时间继电器底座",
   "parameters": [
    {
     "allowed_data": null,
@@ -12736,7 +12702,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 时间继电器底座",
+  "template_name": "标准模板 - 时间继电器底座",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -12754,10 +12720,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气辅材",
-  "modified": "2026-01-11 06:58:19.413623",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:05:37.602745",
   "module": "COS Stock",
-  "name": "电气元件模板 - 控制变压器",
+  "name": "标准模板 - 控制变压器",
   "parameters": [
    {
     "allowed_data": null,
@@ -12981,7 +12947,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 控制变压器",
+  "template_name": "标准模板 - 控制变压器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -13002,7 +12968,7 @@
   "item_group": "动力与传动",
   "modified": "2026-01-11 07:02:00.883803",
   "module": "COS Stock",
-  "name": "电气元件模板 - 接触器辅助触点模块",
+  "name": "标准模板 - 接触器辅助触点模块",
   "parameters": [
    {
     "allowed_data": null,
@@ -13209,7 +13175,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 接触器辅助触点模块",
+  "template_name": "标准模板 - 接触器辅助触点模块",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -13230,7 +13196,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:27:31.775215",
   "module": "COS Stock",
-  "name": "电气元件模板 - 热过载继电器",
+  "name": "标准模板 - 热过载继电器",
   "parameters": [
    {
     "allowed_data": null,
@@ -13454,7 +13420,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 热过载继电器",
+  "template_name": "标准模板 - 热过载继电器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -13472,10 +13438,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气辅材",
-  "modified": "2026-01-11 07:28:47.035686",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.582884",
   "module": "COS Stock",
-  "name": "电气元件模板 - 电压表",
+  "name": "标准模板 - 电压表",
   "parameters": [
    {
     "allowed_data": null,
@@ -13665,7 +13631,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 电压表",
+  "template_name": "标准模板 - 电压表",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -13682,7 +13648,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:48:10.981284",
   "module": "COS Stock",
-  "name": "电气元件模板 - 电动机保护器",
+  "name": "标准模板 - 电动机保护器",
   "parameters": [
    {
     "allowed_data": null,
@@ -13923,7 +13889,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 电动机保护器",
+  "template_name": "标准模板 - 电动机保护器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -13940,7 +13906,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:52:04.133616",
   "module": "COS Stock",
-  "name": "电气元件模板 - 电流互感器",
+  "name": "标准模板 - 电流互感器",
   "parameters": [
    {
     "allowed_data": null,
@@ -14181,7 +14147,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 电流互感器",
+  "template_name": "标准模板 - 电流互感器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -14195,10 +14161,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气辅材",
-  "modified": "2026-01-11 07:53:44.146560",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.525123",
   "module": "COS Stock",
-  "name": "电气元件模板 - 电表",
+  "name": "标准模板 - 电表",
   "parameters": [
    {
     "allowed_data": null,
@@ -14439,7 +14405,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 电表",
+  "template_name": "标准模板 - 电表",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -14456,7 +14422,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:59:29.870899",
   "module": "COS Stock",
-  "name": "电气元件模板 - 浪涌抑制器",
+  "name": "标准模板 - 浪涌抑制器",
   "parameters": [
    {
     "allowed_data": null,
@@ -14680,7 +14646,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 浪涌抑制器",
+  "template_name": "标准模板 - 浪涌抑制器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -14697,7 +14663,7 @@
   "item_group": "成套辅材",
   "modified": "2026-01-11 08:03:09.485686",
   "module": "COS Stock",
-  "name": "电气元件模板 - 零线排/地线排",
+  "name": "标准模板 - 零线排/地线排",
   "parameters": [
    {
     "allowed_data": "[零线排, 地线排]",
@@ -14904,7 +14870,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 零线排/地线排",
+  "template_name": "标准模板 - 零线排/地线排",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -14921,7 +14887,7 @@
   "item_group": "加热元件",
   "modified": "2026-01-11 10:35:18.087174",
   "module": "COS Stock",
-  "name": "电气元件模板 - 加热管",
+  "name": "标准模板 - 加热管",
   "parameters": [
    {
     "allowed_data": null,
@@ -15162,7 +15128,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 加热管",
+  "template_name": "标准模板 - 加热管",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -15177,9 +15143,9 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "成套辅材",
-  "modified": "2026-01-11 10:42:21.258950",
+  "modified": "2026-01-12 12:10:50.806455",
   "module": "COS Stock",
-  "name": "成套辅材模板 - 冷压端子",
+  "name": "标准模板 - 冷压端子",
   "parameters": [
    {
     "allowed_data": null,
@@ -15206,114 +15172,12 @@
     "doctype_selector": "Brand",
     "join_to_hash": 1,
     "optional": 1,
-    "parameter_default_value": "通用",
+    "parameter_default_value": "乐清牛时",
     "parameter_name": "品牌",
     "readonly_value": 0,
     "target_field": "brand",
-    "value_doctype": "通用",
+    "value_doctype": "乐清牛时",
     "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": "[OT, UT, RV, SV, SC, GTY]",
-    "binding_field": 0,
-    "constraint_type": "Data",
-    "description": "如 OT (圆环形), UT (叉形), RV, SV。",
-    "doctype_selector": null,
-    "join_to_hash": 1,
-    "optional": 0,
-    "parameter_default_value": "OT",
-    "parameter_name": "端子类型",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 0,
-    "constraint_type": "Integer",
-    "description": "导线横截面积。单位: mm²。",
-    "doctype_selector": null,
-    "join_to_hash": 1,
-    "optional": 0,
-    "parameter_default_value": "240",
-    "parameter_name": "适配截面",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 240
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 0,
-    "constraint_type": "Integer",
-    "description": "数值。如 12 代表 M12。单位: mm。",
-    "doctype_selector": null,
-    "join_to_hash": 1,
-    "optional": 0,
-    "parameter_default_value": "12",
-    "parameter_name": "螺栓孔径",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 12
-   },
-   {
-    "allowed_data": "[紫铜镀锡, 铜铝, 铝, 黄铜]",
-    "binding_field": 1,
-    "constraint_type": "Doctype",
-    "description": null,
-    "doctype_selector": "Item Material",
-    "join_to_hash": 1,
-    "optional": 0,
-    "parameter_default_value": "T2",
-    "parameter_name": "材质",
-    "readonly_value": 0,
-    "target_field": "custom_body_material",
-    "value_doctype": "T2",
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 1,
-    "constraint_type": "Doctype",
-    "description": null,
-    "doctype_selector": "Item Surface",
-    "join_to_hash": 1,
-    "optional": 0,
-    "parameter_default_value": "镀锡",
-    "parameter_name": "表面",
-    "readonly_value": 0,
-    "target_field": "custom_surface_treatment",
-    "value_doctype": "镀锡",
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 0,
-    "constraint_type": "Float",
-    "description": "端子总长度。单位: mm。",
-    "doctype_selector": null,
-    "join_to_hash": 0,
-    "optional": 1,
-    "parameter_default_value": "90",
-    "parameter_name": "进深厚度",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 90.0,
     "value_format": null,
     "value_integer": 0
    },
@@ -15321,12 +15185,80 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
-    "description": "此类元件通常指安装螺栓孔，已体现在【螺栓孔径】中。",
+    "description": "如 VE (管型), TE (双线管型), SV (叉型)。",
     "doctype_selector": null,
-    "join_to_hash": 0,
-    "optional": 1,
+    "join_to_hash": 1,
+    "optional": 0,
     "parameter_default_value": null,
-    "parameter_name": "开孔尺寸",
+    "parameter_name": "端子系列",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "完整产品型号。如 VE7508, SV2-6。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "适配导线截面。如 0.75mm², 1.5mm²。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "适用线径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "管型指针长(mm)，叉型指螺栓孔径(M)。如 8mm, M6。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "功能尺寸",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "红色",
+    "parameter_name": "绝缘颜色",
     "readonly_value": 0,
     "target_field": null,
     "value_doctype": null,
@@ -15342,11 +15274,11 @@
     "doctype_selector": "UOM",
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "个",
+    "parameter_default_value": "包",
     "parameter_name": "计量单位",
     "readonly_value": 1,
     "target_field": "stock_uom",
-    "value_doctype": "个",
+    "value_doctype": "包",
     "value_float": 0.0,
     "value_format": null,
     "value_integer": 0
@@ -15355,34 +15287,34 @@
     "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
-    "description": "品牌+型号(类型截面-孔径)+基础名",
+    "description": "品牌+型号+颜色+基础名",
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 端子类型 or '' }}{{ 适配截面 or 0 }}-{{ 螺栓孔径 or 0 }} {{ 基础名 }}",
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 端子系列 or '' }} {{ 系列型号 or '' }} {{ 绝缘颜色 or '' }}{{ 基础名 }}",
     "parameter_name": "物料名称",
     "readonly_value": 1,
     "target_field": "item_name",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 端子类型 or '' }}{{ 适配截面 or 0 }}-{{ 螺栓孔径 or 0 }} {{ 基础名 }}",
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 端子系列 or '' }} {{ 系列型号 or '' }} {{ 绝缘颜色 or '' }}{{ 基础名 }}",
     "value_integer": 0
    },
    {
     "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
-    "description": "截面+孔径+材质",
+    "description": "型号+(线径/尺寸/包装)",
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{{ 适配截面 or 0 }}mm² M{{ 螺栓孔径 or 0 }}{% if 材质 %} ({{ 材质 }}){% endif %}",
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 适用线径 or '' }}, {{ 功能尺寸 or '' }})",
     "parameter_name": "规格型号",
     "readonly_value": 1,
     "target_field": "custom_specification",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{{ 适配截面 or 0 }}mm² M{{ 螺栓孔径 or 0 }}{% if 材质 %} ({{ 材质 }}){% endif %}",
+    "value_format": "{{ 系列型号 or '' }} ({{ 适用线径 or '' }}, {{ 功能尺寸 or '' }})",
     "value_integer": 0
    },
    {
@@ -15393,17 +15325,17 @@
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}规格: {{ 端子类型 }}{{ 适配截面 }}-{{ 螺栓孔径 }} | 适配导线: {{ 适配截面 }}mm² | 螺纹孔: M{{ 螺栓孔径 }}{% if 材质 %} | 材质: {{ 材质 }}{% endif %}{% if 进深厚度 %} | 总长: {{ 进深厚度 }}mm{% endif %}",
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 系列: {{ 端子系列 or '' }} | 线径: {{ 适用线径 or '' }} | 规格: {{ 功能尺寸 or '' }} | 颜色: {{ 绝缘颜色 or '' }}",
     "parameter_name": "详细描述",
     "readonly_value": 1,
     "target_field": "description",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}规格: {{ 端子类型 }}{{ 适配截面 }}-{{ 螺栓孔径 }} | 适配导线: {{ 适配截面 }}mm² | 螺纹孔: M{{ 螺栓孔径 }}{% if 材质 %} | 材质: {{ 材质 }}{% endif %}{% if 进深厚度 %} | 总长: {{ 进深厚度 }}mm{% endif %}",
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 系列: {{ 端子系列 or '' }} | 线径: {{ 适用线径 or '' }} | 规格: {{ 功能尺寸 or '' }} | 颜色: {{ 绝缘颜色 or '' }}",
     "value_integer": 0
    }
   ],
-  "template_name": "成套辅材模板 - 冷压端子",
+  "template_name": "标准模板 - 冷压端子",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -15412,10 +15344,6 @@
    {
     "conversion_factor": 0.0,
     "uom": "包"
-   },
-   {
-    "conversion_factor": 0.0,
-    "uom": "袋"
    }
   ]
  },
@@ -15425,10 +15353,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气元件",
-  "modified": "2026-01-11 11:10:18.504722",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 14:58:10.225372",
   "module": "COS Stock",
-  "name": "电气元件模板 - PLC",
+  "name": "标准模板 - PLC",
   "parameters": [
    {
     "allowed_data": null,
@@ -15669,7 +15597,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - PLC",
+  "template_name": "标准模板 - PLC",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -15687,10 +15615,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气元件",
-  "modified": "2026-01-11 12:23:18.984095",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.466809",
   "module": "COS Stock",
-  "name": "电气元件模板 - PLC数字量模块",
+  "name": "标准模板 - PLC数字量模块",
   "parameters": [
    {
     "allowed_data": null,
@@ -15914,7 +15842,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - PLC数字量模块",
+  "template_name": "标准模板 - PLC数字量模块",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -15935,7 +15863,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 11:38:31.489301",
   "module": "COS Stock",
-  "name": "电气辅材模板 - 触摸屏保护盖",
+  "name": "标准模板 - 触摸屏保护盖",
   "parameters": [
    {
     "allowed_data": null,
@@ -16142,7 +16070,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气辅材模板 - 触摸屏保护盖",
+  "template_name": "标准模板 - 触摸屏保护盖",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -16156,10 +16084,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气元件",
-  "modified": "2026-01-11 12:21:03.376366",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.408007",
   "module": "COS Stock",
-  "name": "电气元件模板 - PLC模拟量模块",
+  "name": "标准模板 - PLC模拟量模块",
   "parameters": [
    {
     "allowed_data": null,
@@ -16400,7 +16328,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - PLC模拟量模块",
+  "template_name": "标准模板 - PLC模拟量模块",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -16418,10 +16346,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气元件",
-  "modified": "2026-01-11 12:24:40.725448",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.341137",
   "module": "COS Stock",
-  "name": "电气元件模板 - RS422/485 通信模块",
+  "name": "标准模板 - RS422/485 通信模块",
   "parameters": [
    {
     "allowed_data": null,
@@ -16645,7 +16573,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - RS422/485 通信模块",
+  "template_name": "标准模板 - RS422/485 通信模块",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -16663,28 +16591,11 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气元件",
-  "modified": "2026-01-11 12:49:40.631548",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.277936",
   "module": "COS Stock",
-  "name": "电气元件模板 - PLC CPU",
+  "name": "标准模板 - PLC CPU",
   "parameters": [
-   {
-    "allowed_data": null,
-    "binding_field": 1,
-    "constraint_type": "Doctype",
-    "description": null,
-    "doctype_selector": "Item Group",
-    "join_to_hash": 0,
-    "optional": 0,
-    "parameter_default_value": "电气元件",
-    "parameter_name": "所属分类",
-    "readonly_value": 0,
-    "target_field": "item_group",
-    "value_doctype": "电气元件",
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
    {
     "allowed_data": null,
     "binding_field": 0,
@@ -16723,7 +16634,7 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
-    "description": "品牌下的具体型号，如 CPU 1214C, CPU ST60。",
+    "description": "如 CPU 1214C, CPU ST40, CPU 1511-1 PN。",
     "doctype_selector": null,
     "join_to_hash": 1,
     "optional": 0,
@@ -16740,29 +16651,12 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
-    "description": "工作电源，如 AC100-240V, 24VDC。",
+    "description": "电气特性(可选)。如 AC/DC/RLY, DC/DC/DC, 24VDC。",
     "doctype_selector": null,
     "join_to_hash": 1,
-    "optional": 0,
+    "optional": 1,
     "parameter_default_value": null,
-    "parameter_name": "供电电压",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 0,
-    "constraint_type": "Data",
-    "description": "电气属性组合，如 AC/DC/RLY, DC/DC/DC。",
-    "doctype_selector": null,
-    "join_to_hash": 1,
-    "optional": 0,
-    "parameter_default_value": null,
-    "parameter_name": "IO配置类型",
+    "parameter_name": "IO配置",
     "readonly_value": 0,
     "target_field": null,
     "value_doctype": null,
@@ -16774,10 +16668,10 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
-    "description": "本体数字量输入点数。无则填0。",
+    "description": "本体数字量输入。中大型PLC无本体IO请留空。",
     "doctype_selector": null,
     "join_to_hash": 0,
-    "optional": 0,
+    "optional": 1,
     "parameter_default_value": null,
     "parameter_name": "DI点数",
     "readonly_value": 0,
@@ -16791,10 +16685,10 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
-    "description": "本体数字量输出点数。无则填0。",
+    "description": "本体数字量输出。中大型PLC无本体IO请留空。",
     "doctype_selector": null,
     "join_to_hash": 0,
-    "optional": 0,
+    "optional": 1,
     "parameter_default_value": null,
     "parameter_name": "DQ点数",
     "readonly_value": 0,
@@ -16808,7 +16702,7 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Integer",
-    "description": "本体模拟量输入通道。无则填0。",
+    "description": "本体模拟量输入。无则留空。",
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 1,
@@ -16822,49 +16716,15 @@
     "value_integer": 0
    },
    {
-    "allowed_data": null,
+    "allowed_data": "[220VAC, 24VDC]",
     "binding_field": 0,
-    "constraint_type": "Integer",
-    "description": "本体模拟量输出通道。无则填0。",
+    "constraint_type": "Data",
+    "description": "CPU本体的工作电源。如 220VAC, 24VDC。",
     "doctype_selector": null,
-    "join_to_hash": 0,
-    "optional": 1,
-    "parameter_default_value": null,
-    "parameter_name": "AQ点数",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 0,
-    "constraint_type": "Float",
-    "description": "导轨占用宽度。单位: mm。",
-    "doctype_selector": null,
-    "join_to_hash": 0,
+    "join_to_hash": 1,
     "optional": 0,
-    "parameter_default_value": null,
-    "parameter_name": "横向宽度",
-    "readonly_value": 0,
-    "target_field": null,
-    "value_doctype": null,
-    "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 0
-   },
-   {
-    "allowed_data": null,
-    "binding_field": 0,
-    "constraint_type": "Float",
-    "description": "入柜总深度。单位: mm。",
-    "doctype_selector": null,
-    "join_to_hash": 0,
-    "optional": 0,
-    "parameter_default_value": null,
-    "parameter_name": "进深厚度",
+    "parameter_default_value": "24VDC",
+    "parameter_name": "供电电源",
     "readonly_value": 0,
     "target_field": null,
     "value_doctype": null,
@@ -16876,12 +16736,46 @@
     "allowed_data": null,
     "binding_field": 0,
     "constraint_type": "Data",
-    "description": "导轨式安装通常留空。",
+    "description": "本体DI的信号电压。如 24VDC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "24VDC",
+    "parameter_name": "输入信号类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "本体DQ的硬件实现。如 Relay (继电器), Transistor (晶体管)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "Relay",
+    "parameter_name": "输出信号类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "用于核算总电源容量。单位: W。",
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 1,
     "parameter_default_value": null,
-    "parameter_name": "开孔尺寸",
+    "parameter_name": "功耗额定值",
     "readonly_value": 0,
     "target_field": null,
     "value_doctype": null,
@@ -16927,34 +16821,34 @@
     "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
-    "description": "品牌+型号+配置+基础名",
+    "description": "品牌+型号+供电+基础名",
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ IO配置类型 or '' }} {{ 基础名 }}",
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 供电电源 or '' }} {{ 基础名 }}",
     "parameter_name": "物料名称",
     "readonly_value": 1,
     "target_field": "item_name",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ IO配置类型 or '' }} {{ 基础名 }}",
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 供电电源 or '' }} {{ 基础名 }}",
     "value_integer": 0
    },
    {
     "allowed_data": null,
     "binding_field": 1,
     "constraint_type": "Format",
-    "description": "型号+配置+IO汇总",
+    "description": "整合合成规格逻辑",
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{{ 系列型号 or '' }} {{ IO配置类型 or '' }} ({% if DI点数 %}{{ DI点数 }}DI{% endif %}{% if DQ点数 %}/{{ DQ点数 }}DQ{% endif %}{% if AI点数 %}/{{ AI点数 }}AI{% endif %}{% if AQ点数 %}/{{ AQ点数 }}AQ{% endif %})",
+    "parameter_default_value": "{{ 系列型号 or '' }} ({% if 供电电源 == '220VAC' %}AC{% else %}DC{% endif %}/{% if 输入信号类型 %}{{ 输入信号类型[:2] }}{% else %}DC{% endif %}/{% if 输出信号类型 == 'Relay' %}RLY{% else %}DC{% endif %})",
     "parameter_name": "规格型号",
     "readonly_value": 1,
     "target_field": "custom_specification",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{{ 系列型号 or '' }} {{ IO配置类型 or '' }} ({% if DI点数 %}{{ DI点数 }}DI{% endif %}{% if DQ点数 %}/{{ DQ点数 }}DQ{% endif %}{% if AI点数 %}/{{ AI点数 }}AI{% endif %}{% if AQ点数 %}/{{ AQ点数 }}AQ{% endif %})",
+    "value_format": "{{ 系列型号 or '' }} ({% if 供电电源 == '220VAC' %}AC{% else %}DC{% endif %}/{% if 输入信号类型 %}{{ 输入信号类型[:2] }}{% else %}DC{% endif %}/{% if 输出信号类型 == 'Relay' %}RLY{% else %}DC{% endif %})",
     "value_integer": 0
    },
    {
@@ -16965,39 +16859,4340 @@
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 供电: {{ 供电电压 or '' }}{% if DI点数 %} | DI: {{ DI点数 }}{% endif %}{% if DQ点数 %} | DQ: {{ DQ点数 }}{% endif %}{% if AI点数 %} | AI: {{ AI点数 }}{% endif %}{% if AQ点数 %} | AQ: {{ AQ点数 }}{% endif %} | 尺寸: {{ 横向宽度 or 0 }}W*{{ 进深厚度 or 0 }}D mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }}{% if IO配置 %} | 配置: {{ IO配置 }}{% endif %}{% if DI点数 %} | DI: {{ DI点数 }}{% endif %}{% if DQ点数 %} | DQ: {{ DQ点数 }}{% endif %}{% if AI点数 %} | AI: {{ AI点数 }}{% endif %}{% if 功耗额定值 %} | 功耗: {{ 功耗额定值 }}W{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
     "parameter_name": "详细描述",
     "readonly_value": 1,
     "target_field": "description",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 供电: {{ 供电电压 or '' }}{% if DI点数 %} | DI: {{ DI点数 }}{% endif %}{% if DQ点数 %} | DQ: {{ DQ点数 }}{% endif %}{% if AI点数 %} | AI: {{ AI点数 }}{% endif %}{% if AQ点数 %} | AQ: {{ AQ点数 }}{% endif %} | 尺寸: {{ 横向宽度 or 0 }}W*{{ 进深厚度 or 0 }}D mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }}{% if IO配置 %} | 配置: {{ IO配置 }}{% endif %}{% if DI点数 %} | DI: {{ DI点数 }}{% endif %}{% if DQ点数 %} | DQ: {{ DQ点数 }}{% endif %}{% if AI点数 %} | AI: {{ AI点数 }}{% endif %}{% if 功耗额定值 %} | 功耗: {{ 功耗额定值 }}W{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - PLC CPU",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "台"
+   },
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 14:25:44.723101",
+  "module": "COS Stock",
+  "name": "标准模板 - 工业SD存储卡",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "存储卡",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
     "value_integer": 0
    },
    {
     "allowed_data": null,
     "binding_field": 1,
-    "constraint_type": "Integer",
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "闪迪",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "闪迪",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 micro SD (TF), SDHC, CF。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "micro SD",
+    "parameter_name": "卡片类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 32GB, 64GB, 128GB。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "32GB",
+    "parameter_name": "存储容量",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 Class 10, UHS-I, U3。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "Class 10",
+    "parameter_name": "速度等级",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "张",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "张",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+容量+卡片类型",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 存储容量 or '' }} {{ 卡片类型 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 存储容量 or '' }} {{ 卡片类型 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "容量+速度等级",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 存储容量 or '' }}{% if 速度等级 %} ({{ 速度等级 }}){% endif %}",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 存储容量 or '' }}{% if 速度等级 %} ({{ 速度等级 }}){% endif %}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
     "description": null,
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "1",
-    "parameter_name": "库存属性",
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}容量: {{ 存储容量 or '' }} | 类型: {{ 卡片类型 or '' }}{% if 速度等级 %} | 速度: {{ 速度等级 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
     "readonly_value": 1,
-    "target_field": "is_stock_item",
+    "target_field": "description",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": null,
-    "value_integer": 1
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}容量: {{ 存储容量 or '' }} | 类型: {{ 卡片类型 or '' }}{% if 速度等级 %} | 速度: {{ 速度等级 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - PLC CPU",
+  "template_name": "标准模板 - 工业SD存储卡",
   "uoms": [
    {
     "conversion_factor": 1.0,
-    "uom": "块"
+    "uom": "张"
    },
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 14:45:13.171658",
+  "module": "COS Stock",
+  "name": "标准模板 - 模拟量采集与显示模块",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "模拟量采集显示模块",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "具体产品型号。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "输入信号类型。如 4-20mA, 0-10V。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "4-20mA",
+    "parameter_name": "信号输入",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "报警或变送输出。如 晶体管输出, 继电器输出。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "晶体管输出",
+    "parameter_name": "输出类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "通讯协议及接口。如 RS485 (Modbus)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "RS485",
+    "parameter_name": "通讯接口",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "工作电压。如 24VDC, 220VAC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "24VDC",
+    "parameter_name": "供电电源",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "面板安装开孔尺寸。如 92x45mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "开孔尺寸",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "单位: mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "进深厚度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+信号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 信号输入 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 信号输入 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "信号/输出/通讯 组合",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 信号输入 or '' }}/{{ 输出类型 or '' }}/{{ 通讯接口 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 信号输入 or '' }}/{{ 输出类型 or '' }}/{{ 通讯接口 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 输入: {{ 信号输入 or '' }}{% if 输出类型 %} | 输出: {{ 输出类型 }}{% endif %}{% if 通讯接口 %} | 通讯: {{ 通讯接口 }}{% endif %} | 电源: {{ 供电电源 or '' }}{% if 开孔尺寸 %} | 开孔: {{ 开孔尺寸 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 输入: {{ 信号输入 or '' }}{% if 输出类型 %} | 输出: {{ 输出类型 }}{% endif %}{% if 通讯接口 %} | 通讯: {{ 通讯接口 }}{% endif %} | 电源: {{ 供电电源 or '' }}{% if 开孔尺寸 %} | 开孔: {{ 开孔尺寸 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 模拟量采集与显示模块",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:28:35.120136",
+  "module": "COS Stock",
+  "name": "标准模板 - PLC接口模块",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "PLC接口模块",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "西门子",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "西门子",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 IM 155-6 PN ST, IM 155-6 DP HF。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "IM 155-6 PN ST",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 PROFINET, PROFIBUS-DP。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "PROFINET",
+    "parameter_name": "通讯协议",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "可挂载的最大模块数量。ST型通常为32。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "32",
+    "parameter_name": "最大扩展数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 32
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "工作电压。通常为 24VDC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "24VDC",
+    "parameter_name": "供电电源",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "含总线适配器宽度。单位: mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "50",
+    "parameter_name": "横向宽度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 50.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "单位: mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "75",
+    "parameter_name": "进深厚度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 75.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": "如 6ES7155-6AU01-0BN0。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+协议+能力汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 通讯协议 or '' }}) {% if 最大扩展数 %}Max {{ 最大扩展数 }} Mod.{% endif %}",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 通讯协议 or '' }}) {% if 最大扩展数 %}Max {{ 最大扩展数 }} Mod.{% endif %}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 协议: {{ 通讯协议 or '' }} | 电源: {{ 供电电源 or '' }}{% if 最大扩展数 %} | 扩展能力: {{ 最大扩展数 }}模块{% endif %}{% if 横向宽度 %} | 尺寸: {{ 横向宽度 }}x{{ 进深厚度 or 0 }}mm{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 协议: {{ 通讯协议 or '' }} | 电源: {{ 供电电源 or '' }}{% if 最大扩展数 %} | 扩展能力: {{ 最大扩展数 }}模块{% endif %}{% if 横向宽度 %} | 尺寸: {{ 横向宽度 }}x{{ 进深厚度 or 0 }}mm{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - PLC接口模块",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:28:13.578823",
+  "module": "COS Stock",
+  "name": "标准模板 - PLC基础单元",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "PLC基础单元",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "西门子",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "西门子",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 BU15-P16+A0+2D, BU15-P16+A0+2B。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "BU15-P16+A0+2D",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "BaseUnit 类型。如 A0, A1, D0。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "A0",
+    "parameter_name": "单元类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "工艺端子数量。如 16。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "16",
+    "parameter_name": "端子数量",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 16
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "2D/2B代表暗色(通过左侧供电)，2L代表浅色(开启新电源组)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "暗色(接入左侧电位组)",
+    "parameter_name": "电位组特性",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "单位: mm。BU15通常为15mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "15",
+    "parameter_name": "横向宽度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 15.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": "如 6ES7193-6BP00-0BA0。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+类型+特性",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} (Type {{ 单元类型 }}, {{ 端子数量 }}PT, {{ 电位组特性 }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} (Type {{ 单元类型 }}, {{ 端子数量 }}PT, {{ 电位组特性 }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 类型: {{ 单元类型 }} | 端子: {{ 端子数量 }} | 特性: {{ 电位组特性 }} | 宽度: {{ 横向宽度 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 类型: {{ 单元类型 }} | 端子: {{ 端子数量 }} | 特性: {{ 电位组特性 }} | 宽度: {{ 横向宽度 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - PLC基础单元",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:48:30.083481",
+  "module": "COS Stock",
+  "name": "标准模板 - 导轨式开关电源",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "导轨式开关电源",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "明纬",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "明纬",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "型号的前缀，如 NDR, EDR",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "NDR",
+    "parameter_name": "系列名",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "型号中的功率数字，如 120",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "120",
+    "parameter_name": "型号功率",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "型号中的电压数字，如 24",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "24",
+    "parameter_name": "型号电压",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 90-264VAC",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "90-264VAC",
+    "parameter_name": "输入电压",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 24VDC",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "24VDC",
+    "parameter_name": "输出电压",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "5",
+    "parameter_name": "额定电流",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 5.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "单位: W",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "120",
+    "parameter_name": "额定功率",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 120
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "单位: mm",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "40",
+    "parameter_name": "横向宽度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 40.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Format",
+    "description": "自动拼接：系列名-型号功率-型号电压",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列名 }}-{{ 型号功率 }}-{{ 型号电压 }}",
+    "parameter_name": "系列型号",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列名 }}-{{ 型号功率 }}-{{ 型号电压 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 }} {{ 额定功率 }}W {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 }} {{ 额定功率 }}W {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 }} (In:{{ 输入电压 }}, Out:{{ 输出电压 }}, {{ 额定电流 }}A)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 }} (In:{{ 输入电压 }}, Out:{{ 输出电压 }}, {{ 额定电流 }}A)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 }} | 功率: {{ 额定功率 }}W | 输入: {{ 输入电压 }} | 输出: {{ 输出电压 }}({{ 额定电流 }}A) | 宽度: {{ 横向宽度 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 }} | 功率: {{ 额定功率 }}W | 输入: {{ 输入电压 }} | 输出: {{ 输出电压 }}({{ 额定电流 }}A) | 宽度: {{ 横向宽度 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 导轨式开关电源",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 18:17:01.364040",
+  "module": "COS Stock",
+  "name": "标准模板 - 指示灯",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "指示灯",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "施耐德",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "施耐德",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 XB2-BVM3C, XB5-AVM3。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "XB2",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 红, 绿, 黄, 蓝, 白。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "绿",
+    "parameter_name": "发光颜色",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": "[220VAC, 24VDC, 380VAC]",
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 220VAC, 24VDC, 380VAC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "220VAC",
+    "parameter_name": "工作电压",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "面板安装孔尺寸。单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+颜色+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 发光颜色 or '' }}光{{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 发光颜色 or '' }}光{{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+电压+孔径汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 工作电压 or '' }}, {{ 安装孔径 or '' }}mm)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 工作电压 or '' }}, {{ 安装孔径 or '' }}mm)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 颜色: {{ 发光颜色 or '' }}光 | 电压: {{ 工作电压 or '' }} | 孔径: {{ 安装孔径 or '' }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 颜色: {{ 发光颜色 or '' }}光 | 电压: {{ 工作电压 or '' }} | 孔径: {{ 安装孔径 or '' }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 指示灯",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 16:01:42.250179",
+  "module": "COS Stock",
+  "name": "标准模板 - 按钮开关",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "按钮开关",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "施耐德",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "施耐德",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 XB2-BA31C (平头), XB2-BW33M1C (带灯)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "XB2",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 绿, 红, 黑, 黄, 蓝。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "绿",
+    "parameter_name": "按钮颜色",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "常开/常闭组合。如 1NO, 1NC, 1NO+1NC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "1NO",
+    "parameter_name": "触点配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+颜色+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 按钮颜色 or '' }}色{{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 按钮颜色 or '' }}色{{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+触点+孔径汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 触点配置 or '' }}, {{ 安装孔径 or '' }}mm)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 触点配置 or '' }}, {{ 安装孔径 or '' }}mm)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 颜色: {{ 按钮颜色 or '' }}色 | 触点: {{ 触点配置 or '' }} | 孔径: {{ 安装孔径 or '' }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 颜色: {{ 按钮颜色 or '' }}色 | 触点: {{ 触点配置 or '' }} | 孔径: {{ 安装孔径 or '' }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 按钮开关",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 16:02:33.711722",
+  "module": "COS Stock",
+  "name": "标准模板 - 蜂鸣器",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "蜂鸣器",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "施耐德",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "施耐德",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 XB2-BVB, XB5-KSB。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "XB2",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 24VDC, 220VAC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "24VDC",
+    "parameter_name": "工作电压",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 持续音, 间断音。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "持续音",
+    "parameter_name": "发声类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "声音强度。单位: dB。如 80dB。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "80",
+    "parameter_name": "声压级",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 80
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+电压+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 工作电压 or '' }}{{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 工作电压 or '' }}{{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+电压+孔径汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 工作电压 or '' }}, {{ 安装孔径 or '' }}mm)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 工作电压 or '' }}, {{ 安装孔径 or '' }}mm)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 电压: {{ 工作电压 or '' }} | 类型: {{ 发声类型 or '' }}{% if 声压级 %} | 强度: {{ 声压级 }}dB{% endif %} | 孔径: {{ 安装孔径 or '' }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 电压: {{ 工作电压 or '' }} | 类型: {{ 发声类型 or '' }}{% if 声压级 %} | 强度: {{ 声压级 }}dB{% endif %} | 孔径: {{ 安装孔径 or '' }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 蜂鸣器",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 18:11:18.125364",
+  "module": "COS Stock",
+  "name": "标准模板 - 旋钮开关",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "旋钮开关",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "施耐德",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "施耐德",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 XB2-BD21C (2位自锁), XB2-BD33C (3位自锁)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "XB2",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "选择档位。如 2位, 3位。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "2位",
+    "parameter_name": "操作位数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 自锁(保持), 自复位。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "自锁",
+    "parameter_name": "复位方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "常开/常闭组合。如 1NO, 2NO, 1NO+1NC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "1NO",
+    "parameter_name": "触点配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+位数+复位方式+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 操作位数 or '' }}{{ 复位方式 or '' }}{{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 操作位数 or '' }}{{ 复位方式 or '' }}{{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+档位+触点汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 操作位数 }}, {{ 触点配置 }}, {{ 安装孔径 }}mm)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 操作位数 }}, {{ 触点配置 }}, {{ 安装孔径 }}mm)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 挡位: {{ 操作位数 }} | 复位: {{ 复位方式 }} | 触点: {{ 触点配置 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 挡位: {{ 操作位数 }} | 复位: {{ 复位方式 }} | 触点: {{ 触点配置 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 旋钮开关",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 18:14:51.915487",
+  "module": "COS Stock",
+  "name": "标准模板 - 急停按钮（带基座）",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "急停按钮",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "施耐德",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "施耐德",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 XB2-BS542C, XB5-AS542。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "XB2",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "头部直径。如 40mm, 60mm。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "40mm",
+    "parameter_name": "蘑菇头尺寸",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 旋转复位, 拉出复位, 钥匙复位。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "旋转复位",
+    "parameter_name": "复位方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "急停强制要求含NC。如 1NC, 1NO+1NC, 2NC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "1NC",
+    "parameter_name": "触点配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "套",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "套",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+红色蘑菇头+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}红色蘑菇头 {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}红色蘑菇头 {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+触点+复位方式+孔径",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 触点配置 }}, {{ 复位方式 }}, {{ 安装孔径 }}mm)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 触点配置 }}, {{ 复位方式 }}, {{ 安装孔径 }}mm)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 }} | 复位: {{ 复位方式 }} | 头部: {{ 蘑菇头尺寸 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 }} | 复位: {{ 复位方式 }} | 头部: {{ 蘑菇头尺寸 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 急停按钮（带基座）",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "套"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 18:18:13.204392",
+  "module": "COS Stock",
+  "name": "标准模板 - 电位器",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "电位器",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "通用",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "通用",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 LA42, WXD3-13。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "通用型",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "电阻值。如 5K, 10K。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "5K",
+    "parameter_name": "标称阻值",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 单圈, 多圈, 10圈。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "多圈",
+    "parameter_name": "调节圈数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 大旋钮, 指针型, 刻度型。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "大旋钮",
+    "parameter_name": "外观特征",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "面板开孔直径。单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+阻值+调节方式+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 标称阻值 or '' }} {{ 调节圈数 or '' }}{{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 标称阻值 or '' }} {{ 调节圈数 or '' }}{{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+阻值+特征汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 标称阻值 }}, {{ 调节圈数 }}, {{ 外观特征 }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 标称阻值 }}, {{ 调节圈数 }}, {{ 外观特征 }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 阻值: {{ 标称阻值 }} | 圈数: {{ 调节圈数 }} | 特征: {{ 外观特征 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 阻值: {{ 标称阻值 }} | 圈数: {{ 调节圈数 }} | 特征: {{ 外观特征 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 电位器",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-11 18:18:58.852748",
+  "module": "COS Stock",
+  "name": "标准模板 - 急停按钮",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "急停按钮",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "正泰",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "正泰",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 NP2-BS542, NP2-ES542。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "NP2-BS542",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "头部直径。NP2标准通常为 40mm。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "40mm",
+    "parameter_name": "蘑菇头尺寸",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 旋转复位, 拉出复位。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "旋转复位",
+    "parameter_name": "复位方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "常闭触点组合。如 1NC, 2NC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "1NC",
+    "parameter_name": "触点配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "单位: mm。通常为 22mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "22",
+    "parameter_name": "安装孔径",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 22
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+触点+孔径汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 触点配置 }}, {{ 复位方式 }}, {{ 安装孔径 }}mm)",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 触点配置 }}, {{ 复位方式 }}, {{ 安装孔径 }}mm)",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 }} | 复位: {{ 复位方式 }} | 头部: {{ 蘑菇头尺寸 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 }} | 复位: {{ 复位方式 }} | 头部: {{ 蘑菇头尺寸 }} | 孔径: {{ 安装孔径 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 急停按钮",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 12:02:27.355004",
+  "module": "COS Stock",
+  "name": "标准模板 - 双向拉绳开关",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "双向拉绳开关",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "通用",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "通用",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 HFKLT2-II, KLT2-1。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "HFKLT2-II",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "常开/常闭组合。如 1NO+1NC, 2NC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "1NO+1NC",
+    "parameter_name": "触点配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 手动复位, 自动复位。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "手动复位",
+    "parameter_name": "复位方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 IP65, IP67。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "IP65",
+    "parameter_name": "防护等级",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+触点+复位+防护汇总",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 触点配置 }}, {{ 复位方式 }}{% if 防护等级 %}, {{ 防护等级 }}{% endif %})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 触点配置 }}, {{ 复位方式 }}{% if 防护等级 %}, {{ 防护等级 }}{% endif %})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 }} | 复位: {{ 复位方式 }}{% if 防护等级 %} | 防护: {{ 防护等级 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 }} | 复位: {{ 复位方式 }}{% if 防护等级 %} | 防护: {{ 防护等级 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 双向拉绳开关",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 11:15:11.742327",
+  "module": "COS Stock",
+  "name": "标准模板 - 接线端子",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "接线端子",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": "如 上海通用, 威客 (Waik)。",
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "输入完整型号，如 TUK-5RD, PT2.5-PE/L/N。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "导线粗细。如 2.5mm, 4mm, 1.5mm。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "适用截面",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 单层, 双层, 三层。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "单层",
+    "parameter_name": "层数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 普通, 接地(PE), 熔断(保险), 试验, 组合。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "普通",
+    "parameter_name": "端子功能",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 带灯, 含熔芯, 灰色, PE/L/N。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "附加特性",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 螺钉连接, 直插式弹簧(PT)。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "接线方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+(截面/层数/功能/特性)",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 适用截面 or '' }}{% if 层数 != '单层' %}, {{ 层数 }}{% endif %}{% if 端子功能 != '普通' %}, {{ 端子功能 }}{% endif %}{% if 附加特性 %}, {{ 附加特性 }}{% endif %})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 适用截面 or '' }}{% if 层数 != '单层' %}, {{ 层数 }}{% endif %}{% if 端子功能 != '普通' %}, {{ 端子功能 }}{% endif %}{% if 附加特性 %}, {{ 附加特性 }}{% endif %})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 截面: {{ 适用截面 or '' }} | 类型: {{ 层数 }}{% if 端子功能 != '普通' %} | 功能: {{ 端子功能 }}{% endif %}{% if 附加特性 %} | 特性: {{ 附加特性 }}{% endif %}{% if 接线方式 %} | 接线: {{ 接线方式 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 截面: {{ 适用截面 or '' }} | 类型: {{ 层数 }}{% if 端子功能 != '普通' %} | 功能: {{ 端子功能 }}{% endif %}{% if 附加特性 %} | 特性: {{ 附加特性 }}{% endif %}{% if 接线方式 %} | 接线: {{ 接线方式 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 接线端子",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   },
+   {
+    "conversion_factor": 0.0,
+    "uom": "包"
+   },
+   {
+    "conversion_factor": 0.0,
+    "uom": "袋"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 11:15:04.701507",
+  "module": "COS Stock",
+  "name": "标准模板 - 分线端子",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "分线端子",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "海威",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "海威",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 KV225G-12P, KV225G-6P。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "接线位数。如 12P, 6P。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "极数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "主线进线截面。如 35mm²。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "进线规格",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "分线出线截面。如 2.5-6mm²。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "出线规格",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 含导轨脚, 螺钉固定。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "含导轨脚",
+    "parameter_name": "安装方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "单位: A。如 125A。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "额定电流",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "导轨占用宽度。单位: mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "横向宽度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+极数+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 极数 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 极数 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+(极数/安装方式)",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 极数 or '' }}, {{ 安装方式 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 极数 or '' }}, {{ 安装方式 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 极数: {{ 极数 or '' }} | 方式: {{ 安装方式 or '' }}{% if 额定电流 %} | 电流: {{ 额定电流 }}{% endif %}{% if 进线规格 %} | 进线: {{ 进线规格 }}{% endif %}{% if 出线规格 %} | 出线: {{ 出线规格 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 极数: {{ 极数 or '' }} | 方式: {{ 安装方式 or '' }}{% if 额定电流 %} | 电流: {{ 额定电流 }}{% endif %}{% if 进线规格 %} | 进线: {{ 进线规格 }}{% endif %}{% if 出线规格 %} | 出线: {{ 出线规格 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 分线端子",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   },
+   {
+    "conversion_factor": 0.0,
+    "uom": "包"
+   },
+   {
+    "conversion_factor": 0.0,
+    "uom": "袋"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 11:14:55.586149",
+  "module": "COS Stock",
+  "name": "标准模板 - 端子挡板",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "端子挡板",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "威客",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "威客",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 D-UK 4-10, D-PT 2.5。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "D-UK 4-10",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "所配套的端子型号。如 UK3N-10N, PT2.5。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "UK4N-10N",
+    "parameter_name": "适配端子",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "单位: mm。通常为 1.5mm 或 2.2mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "1.5",
+    "parameter_name": "挡板厚度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 1.5,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 灰色, 蓝色, 橙色。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "灰色",
+    "parameter_name": "颜色",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+(适配/厚度/颜色)",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} (适配{{ 适配端子 or '' }}, {{ 颜色 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} (适配{{ 适配端子 or '' }}, {{ 颜色 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 适配端子: {{ 适配端子 or '' }} | 颜色: {{ 颜色 or '' }}{% if 挡板厚度 %} | 厚度: {{ 挡板厚度 }}mm{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 适配端子: {{ 适配端子 or '' }} | 颜色: {{ 颜色 or '' }}{% if 挡板厚度 %} | 厚度: {{ 挡板厚度 }}mm{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 端子挡板",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   },
+   {
+    "conversion_factor": 0.0,
+    "uom": "包"
+   },
+   {
+    "conversion_factor": 0.0,
+    "uom": "袋"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 11:15:44.146329",
+  "module": "COS Stock",
+  "name": "标准模板 - 导轨网络对接头",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "导轨网络对接头",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "甸炽云",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "甸炽云",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 C45-RJ45-CAT6。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "C45",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "网络类别。如 六类(Cat6), 超五类(Cat5e)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "六类",
+    "parameter_name": "规格标准",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 千兆(1000Mbps), 百兆。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "千兆",
+    "parameter_name": "传输速率",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 RJ45直通, RJ45转接。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "RJ45直通",
+    "parameter_name": "接口类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "导轨占用宽度。单位: mm。通常为 18mm。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "18",
+    "parameter_name": "横向宽度",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 18.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+速率+标准+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 传输速率 or '' }}{{ 规格标准 or '' }}{{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 传输速率 or '' }}{{ 规格标准 or '' }}{{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+(速率/标准/接口)",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 传输速率 or '' }}, {{ 规格标准 or '' }}, {{ 接口类型 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 传输速率 or '' }}, {{ 规格标准 or '' }}, {{ 接口类型 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 性能: {{ 传输速率 or '' }}{{ 规格标准 or '' }} | 接口: {{ 接口类型 or '' }} | 宽度: {{ 横向宽度 or 0 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 性能: {{ 传输速率 or '' }}{{ 规格标准 or '' }} | 接口: {{ 接口类型 or '' }} | 宽度: {{ 横向宽度 or 0 }}mm{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 导轨网络对接头",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "成套辅材",
+  "modified": "2026-01-12 12:01:55.725011",
+  "module": "COS Stock",
+  "name": "标准模板 - 端子连接条",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "端子连接条",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "威客",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "威客",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 FBI 10-5, EB 10-6。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "FBI 10-5",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "连接点数量。如 10位(10P)。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "10位",
+    "parameter_name": "位数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "适配端子的中心间距。如 5.2mm, 6.2mm。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "5.2mm",
+    "parameter_name": "适配间距",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "所配套的端子型号。如 UK3N, PT2.5。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "UK3N",
+    "parameter_name": "适配端子",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+(位数/间距)",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 位数 or '' }}, 间距{{ 适配间距 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 位数 or '' }}, 间距{{ 适配间距 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 位数: {{ 位数 or '' }} | 间距: {{ 适配间距 or '' }}{% if 适配端子 %} | 适配端子: {{ 适配端子 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 位数: {{ 位数 or '' }} | 间距: {{ 适配间距 or '' }}{% if 适配端子 %} | 适配端子: {{ 适配端子 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 端子连接条",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 12:12:06.132183",
+  "module": "COS Stock",
+  "name": "标准模板 - 固定式接线端子",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "固定式接线端子",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "正泰",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "正泰",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 TC-6004, TC-3004。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "单位: A。TC-6004为60A, TC-3004为30A。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": null,
+    "parameter_name": "额定电流",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "接线位数。如 3P, 4P。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "4P",
+    "parameter_name": "极数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "带透明防护盖",
+    "parameter_name": "防护特性",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "螺钉固定",
+    "parameter_name": "安装方式",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "品牌+型号+基础名",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": "型号+(电流/极数)",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 额定电流 or '' }}, {{ 极数 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 额定电流 or '' }}, {{ 极数 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 电流: {{ 额定电流 or '' }} | 极数: {{ 极数 or '' }} | 方式: {{ 安装方式 }}{% if 防护特性 %} | 特性: {{ 防护特性 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 电流: {{ 额定电流 or '' }} | 极数: {{ 极数 or '' }} | 方式: {{ 安装方式 }}{% if 防护特性 %} | 特性: {{ 防护特性 }}{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 固定式接线端子",
+  "uoms": [
    {
     "conversion_factor": 1.0,
     "uom": "个"
@@ -17013,7 +21208,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-10 07:47:55.396988",
   "module": "COS Stock",
-  "name": "电气辅材模板 - 电线电缆",
+  "name": "标准模板 - 电线电缆",
   "parameters": [
    {
     "allowed_data": null,
@@ -17288,7 +21483,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "电气辅材模板 - 电线电缆",
+  "template_name": "标准模板 - 电线电缆",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -17309,7 +21504,7 @@
   "item_group": "成套辅材",
   "modified": "2026-01-10 16:15:38.984016",
   "module": "COS Stock",
-  "name": "电气原料模板 - 铜排",
+  "name": "标准模板 - 铜排",
   "parameters": [
    {
     "allowed_data": null,
@@ -17533,7 +21728,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气原料模板 - 铜排",
+  "template_name": "标准模板 - 铜排",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -17558,7 +21753,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-10 17:48:50.762308",
   "module": "COS Stock",
-  "name": "电气元件模板 - 继电器底座",
+  "name": "标准模板 - 继电器底座",
   "parameters": [
    {
     "allowed_data": null,
@@ -17748,7 +21943,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "电气元件模板 - 继电器底座",
+  "template_name": "标准模板 - 继电器底座",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -17769,7 +21964,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-10 17:48:12.947726",
   "module": "COS Stock",
-  "name": "电气元件模板 - 导轨插座",
+  "name": "标准模板 - 导轨插座",
   "parameters": [
    {
     "allowed_data": null,
@@ -17959,7 +22154,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "电气元件模板 - 导轨插座",
+  "template_name": "标准模板 - 导轨插座",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -17980,7 +22175,7 @@
   "item_group": "成套辅材",
   "modified": "2026-01-10 18:24:08.532108",
   "module": "COS Stock",
-  "name": "电气辅材模板 - 继电器连接片",
+  "name": "标准模板 - 继电器连接片",
   "parameters": [
    {
     "allowed_data": "[连接片, 短接片]",
@@ -18170,7 +22365,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气辅材模板 - 继电器连接片",
+  "template_name": "标准模板 - 继电器连接片",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -18195,7 +22390,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-10 19:40:53.580382",
   "module": "COS Stock",
-  "name": "电气元件模板 - 辅助触点",
+  "name": "标准模板 - 辅助触点",
   "parameters": [
    {
     "allowed_data": null,
@@ -18385,7 +22580,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 辅助触点",
+  "template_name": "标准模板 - 辅助触点",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -18402,7 +22597,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:01.320265",
   "module": "COS Stock",
-  "name": "电气元件模板 - 熔断器式隔离开关",
+  "name": "标准模板 - 熔断器式隔离开关",
   "parameters": [
    {
     "allowed_data": null,
@@ -18592,7 +22787,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 熔断器式隔离开关",
+  "template_name": "标准模板 - 熔断器式隔离开关",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -18606,10 +22801,10 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
-  "item_group": "电气辅材",
-  "modified": "2026-01-11 07:02:01.375024",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.744754",
   "module": "COS Stock",
-  "name": "电气元件模板 - 电流表",
+  "name": "标准模板 - 电流表",
   "parameters": [
    {
     "allowed_data": null,
@@ -18816,7 +23011,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 电流表",
+  "template_name": "标准模板 - 电流表",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -18833,7 +23028,7 @@
   "item_group": "成套辅材",
   "modified": "2026-01-11 08:06:50.563391",
   "module": "COS Stock",
-  "name": "电气元件模板 - 绝缘子",
+  "name": "标准模板 - 绝缘子",
   "parameters": [
    {
     "allowed_data": null,
@@ -19040,7 +23235,197 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 绝缘子",
+  "template_name": "标准模板 - 绝缘子",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
+  "item_group": "电气辅材",
+  "modified": "2026-01-12 12:02:35.509468",
+  "module": "COS Stock",
+  "name": "标准模板 - 开关基座（触点模块）",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "开关基座",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "施耐德",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "施耐德",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "具体型号。常闭型为 ZB2BZ102C。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "ZB2BZ102C",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "常开/常闭属性。如 1NC, 1NO。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "1NC",
+    "parameter_name": "触点配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 后面板安装, 底座安装。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "后面板安装",
+    "parameter_name": "安装方式",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "ZB2BZ102C",
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "个",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "个",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 触点配置 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}{{ 触点配置 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ 触点配置 or '' }})",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ 触点配置 or '' }})",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 or '' }}{% if 安装方式 %} | 方式: {{ 安装方式 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}型号: {{ 系列型号 or '' }} | 触点: {{ 触点配置 or '' }}{% if 安装方式 %} | 方式: {{ 安装方式 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 开关基座（触点模块）",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -19057,7 +23442,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-10 19:10:07.980883",
   "module": "COS Stock",
-  "name": "电气元件模板 - 微型断路器(MCB)",
+  "name": "标准模板 - 微型断路器(MCB)",
   "parameters": [
    {
     "allowed_data": "[断路器,小型断路器,微型断路器]",
@@ -19315,7 +23700,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "电气元件模板 - 微型断路器(MCB)",
+  "template_name": "标准模板 - 微型断路器(MCB)",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -19336,7 +23721,7 @@
   "item_group": "型材",
   "modified": "2026-01-10 13:27:02.106237",
   "module": "COS Stock",
-  "name": "机械传动模板 - 键坯",
+  "name": "标准模板 - 键坯",
   "parameters": [
    {
     "allowed_data": null,
@@ -19577,7 +23962,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "机械传动模板 - 键坯",
+  "template_name": "标准模板 - 键坯",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -19602,7 +23987,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 07:02:01.431014",
   "module": "COS Stock",
-  "name": "电气元件模板 - 继电器",
+  "name": "标准模板 - 继电器",
   "parameters": [
    {
     "allowed_data": null,
@@ -19809,7 +24194,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - 继电器",
+  "template_name": "标准模板 - 继电器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -19830,7 +24215,7 @@
   "item_group": "电气辅材",
   "modified": "2026-01-11 04:17:55.523166",
   "module": "COS Stock",
-  "name": "电气元件模板 - EMI 滤波器",
+  "name": "标准模板 - EMI 滤波器",
   "parameters": [
    {
     "allowed_data": null,
@@ -20020,7 +24405,7 @@
     "value_integer": 0
    }
   ],
-  "template_name": "电气元件模板 - EMI 滤波器",
+  "template_name": "标准模板 - EMI 滤波器",
   "uoms": [
    {
     "conversion_factor": 1.0,
@@ -20038,10 +24423,306 @@
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Item Parameter Template",
+  "item_group": "控制与自动化",
+  "modified": "2026-01-11 15:01:09.129484",
+  "module": "COS Stock",
+  "name": "标准模板 - 热电阻（RTD）模块",
+  "parameters": [
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "PLC扩展模块",
+    "parameter_name": "基础名",
+    "readonly_value": 1,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "Brand",
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "西门子",
+    "parameter_name": "品牌",
+    "readonly_value": 0,
+    "target_field": "brand",
+    "value_doctype": "西门子",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": "[EM AR04, EM AR02]",
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "如 EM AR04, EM AR02。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "EM AR04",
+    "parameter_name": "系列型号",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "信号规格。如 4xRTD, 2xRTD。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "4xRTD",
+    "parameter_name": "IO配置",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "数字量输入。RTD模块通常为0。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "DI点数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "数字量输出。RTD模块通常为0。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "DQ点数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Integer",
+    "description": "模拟量/热电阻通道数。AR04填4。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "4",
+    "parameter_name": "AI点数",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 4
+   },
+   {
+    "allowed_data": "[24VDC]",
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "模块工作电源。通常为 24VDC。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 0,
+    "parameter_default_value": "24VDC",
+    "parameter_name": "供电电源",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "传感器类型。如 PT100, PT1000, Cu50。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "PT100",
+    "parameter_name": "输入信号类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Data",
+    "description": "无输出请填：无。",
+    "doctype_selector": null,
+    "join_to_hash": 1,
+    "optional": 1,
+    "parameter_default_value": "无",
+    "parameter_name": "输出信号类型",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 0,
+    "constraint_type": "Float",
+    "description": "单位: W。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": "1.5",
+    "parameter_name": "功耗额定值",
+    "readonly_value": 0,
+    "target_field": null,
+    "value_doctype": null,
+    "value_float": 1.5,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Data",
+    "description": "如 6ES7288-3AR04-0AA0。",
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 1,
+    "parameter_default_value": null,
+    "parameter_name": "厂家订货号",
+    "readonly_value": 0,
+    "target_field": "custom_manufacturer_part_number",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Doctype",
+    "description": null,
+    "doctype_selector": "UOM",
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "块",
+    "parameter_name": "计量单位",
+    "readonly_value": 1,
+    "target_field": "stock_uom",
+    "value_doctype": "块",
+    "value_float": 0.0,
+    "value_format": null,
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}{{ 品牌 }} {% endif %}S7-200 SMART {{ 系列型号 or '' }} {{ 基础名 }}",
+    "parameter_name": "物料名称",
+    "readonly_value": 1,
+    "target_field": "item_name",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}{{ 品牌 }} {% endif %}S7-200 SMART {{ 系列型号 or '' }} {{ 基础名 }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{{ 系列型号 or '' }} ({{ IO配置 or '' }}) {{ 输入信号类型 or '' }}",
+    "parameter_name": "规格型号",
+    "readonly_value": 1,
+    "target_field": "custom_specification",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{{ 系列型号 or '' }} ({{ IO配置 or '' }}) {{ 输入信号类型 or '' }}",
+    "value_integer": 0
+   },
+   {
+    "allowed_data": null,
+    "binding_field": 1,
+    "constraint_type": "Format",
+    "description": null,
+    "doctype_selector": null,
+    "join_to_hash": 0,
+    "optional": 0,
+    "parameter_default_value": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}系列: S7-200 SMART | 型号: {{ 系列型号 or '' }}{% if IO配置 %} | 通道: {{ IO配置 }}{% endif %}{% if 输入信号类型 %} | 信号: {{ 输入信号类型 }}{% endif %}{% if 功耗额定值 %} | 功耗: {{ 功耗额定值 }}W{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "parameter_name": "详细描述",
+    "readonly_value": 1,
+    "target_field": "description",
+    "value_doctype": null,
+    "value_float": 0.0,
+    "value_format": "{% if 品牌 %}品牌: {{ 品牌 }} | {% endif %}系列: S7-200 SMART | 型号: {{ 系列型号 or '' }}{% if IO配置 %} | 通道: {{ IO配置 }}{% endif %}{% if 输入信号类型 %} | 信号: {{ 输入信号类型 }}{% endif %}{% if 功耗额定值 %} | 功耗: {{ 功耗额定值 }}W{% endif %}{% if 厂家订货号 %} | 订货号: {{ 厂家订货号 }}{% endif %}",
+    "value_integer": 0
+   }
+  ],
+  "template_name": "标准模板 - 热电阻（RTD）模块",
+  "uoms": [
+   {
+    "conversion_factor": 1.0,
+    "uom": "块"
+   },
+   {
+    "conversion_factor": 1.0,
+    "uom": "个"
+   }
+  ]
+ },
+ {
+  "amended_from": null,
+  "description": "",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Parameter Template",
   "item_group": "焊接与磨具",
   "modified": "2026-01-10 15:34:12.137286",
   "module": "COS Stock",
-  "name": "焊接耗材模板 - 焊丝",
+  "name": "标准模板 - 焊丝",
   "parameters": [
    {
     "allowed_data": null,
@@ -20265,7 +24946,7 @@
     "value_integer": 1
    }
   ],
-  "template_name": "焊接耗材模板 - 焊丝",
+  "template_name": "标准模板 - 焊丝",
   "uoms": [
    {
     "conversion_factor": 1.0,
