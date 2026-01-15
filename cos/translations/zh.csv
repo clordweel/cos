@@ -127,3 +127,6 @@ Download JSON,下载 JSON
 Sync from New Item Request,从新物料申请同步
 Optional,可选
 Customer Provided Project Number,客户提供项目编号
+{group_code}.####,物料组代码+四位流水号
+{custom_unique_item_name},唯一物料编码
+Unique Item Name,唯一物料编码
