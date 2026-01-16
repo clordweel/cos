@@ -150,6 +150,9 @@ doc_events = {
         "before_insert": "cos.cos_stock.utils.item.auto_set_item_code",
         # "validate": "cos.cos_accounts.utils.tax_logic.update_item_tax_data",
     },
+    "Project": {
+        "before_insert": "cos.cos_stock.utils.project.auto_set_project_code",
+    },
 }
 
 # Scheduled Tasks
@@ -319,6 +322,7 @@ fixtures = [
                     "Stock Entry Detail",
                     "BOM Item",
                     "BOM Explosion Item",
+                    "Project",
                 ],
             ],
         ],

@@ -130,3 +130,6 @@ Customer Provided Project Number,客户提供项目编号
 {group_code}.####,物料组代码+四位流水号
 {custom_unique_item_name},唯一物料编码
 Unique Item Name,唯一物料编码
+Is One Time BOM,一次性 BOM
+Is Phantom BOM,虚体 BOM
+{custom_customer_provided_project_number},客户提供项目编号
