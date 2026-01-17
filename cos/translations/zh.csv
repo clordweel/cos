@@ -133,3 +133,14 @@ Unique Item Name,唯一物料编码
 Is One Time BOM,一次性 BOM
 Is Phantom BOM,虚体 BOM
 {custom_customer_provided_project_number},客户提供项目编号
+Contract Information,合同信息
+Payment & Receipt,收款与付款方式
+Payment Customer,付款客户
+Payment Bank Account,付款银行账户
+Payment Bank Account No,付款银行账户号
+Payment Contact Person,付款联系人
+Receipt Company,收款公司
+Receipt Bank Account,收款银行账户
+Receipt Bank Account No,收款银行账户号
+Receipt Contact Person,收款联系人
+Signing Location,签署地点

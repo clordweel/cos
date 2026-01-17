@@ -1,4 +1,8 @@
 /* --- 基础容器与字体 --- */
+.print-format.print-format-preview {
+    padding: 8mm !important;
+}
+
 .print-format {
     font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "HarmonyOSHans-fallback", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif !important;
     font-size: 13px;
@@ -237,4 +241,23 @@ body:last-child .print-format td img {
 #screenity-ui {
     overflow: hidden;
     display: none !important;
+}
+
+/** Quill 编辑器样式 */
+.print-format .ql-editor {
+    color: rgb(0, 0, 0);
+    line-height: 1.85;
+}
+
+.print-format .ql-editor h5 {
+    margin-top: 1em;
+}
+
+.print-format .ql-editor u {
+    text-underline-offset: 0.2em;
+}
+
+.print-format .ql-editor li[data-list=checked]>.ql-ui,
+.print-format .ql-editor li[data-list=unchecked]>.ql-ui {
+    scale: 1.5;
 }
