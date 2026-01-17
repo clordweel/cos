@@ -101,18 +101,6 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
-  "modified": "2025-12-15 11:00:24.140634",
-  "must_be_whole_number": 0,
-  "name": "件",
-  "symbol": "pc",
-  "uom_name": "件"
- },
- {
-  "common_code": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "UOM",
-  "enabled": 1,
   "modified": "2026-01-11 06:04:47.590673",
   "must_be_whole_number": 0,
   "name": "条",
@@ -226,6 +214,18 @@
   "name": "块",
   "symbol": null,
   "uom_name": "块"
+ },
+ {
+  "common_code": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2025-12-15 11:00:24.140634",
+  "must_be_whole_number": 0,
+  "name": "件",
+  "symbol": "pc",
+  "uom_name": "件"
  },
  {
   "common_code": null,

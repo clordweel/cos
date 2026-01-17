@@ -1,0 +1,240 @@
+/* --- 基础容器与字体 --- */
+.print-format {
+    font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "HarmonyOSHans-fallback", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif !important;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #171717;
+    background: white;
+    padding: 0.5in !important; /* 适当缩小页边距增加内容空间 */
+}
+
+/* --- 表头 (Letterhead) 优化 --- */
+.letter-head {
+    margin-bottom: 20px !important; /* 压缩表头与正文间距 */
+    padding: 0 !important;
+}
+
+.letter-head table {
+    border-bottom: 2px solid #171717; /* 加粗底线提升稳重感 */
+    padding-bottom: 0px;
+}
+
+/* 针对 wkhtmltopdf 的图片修复 */
+.letter-head img {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+
+/* --- 正文标题区域 --- */
+.print-format-body {
+    padding: 0 !important; /* 移除多余内边距 */
+}
+
+.print-format-body h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.title {
+    color: #74808b !important; /* 统一标签颜色 */
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* --- 订单包装器样式 --- */
+.order-wrapper {
+    color: #000;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* --- 表格样式 --- */
+table.info-table,
+table.items-table,
+table.totals-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+table.info-table td,
+table.items-table td,
+table.totals-table td {
+    border: 1px solid #000;
+}
+
+table.info-table td {
+    padding: 8px 10px;
+    vertical-align: top;
+}
+
+table.items-table td {
+    padding: 4px 5px;
+    vertical-align: middle;
+}
+
+/* 总计表样式 */
+table.totals-table td {
+    padding: 6px 10px;
+}
+
+/* 隔行变色 */
+table.items-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* 表头样式 */
+thead.table-header {
+    background-color: #e0e0e0 !important;
+    font-weight: bold;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+thead.table-header td {
+    color: #000;
+    padding: 6px 5px;
+}
+
+/* --- 物料表格 (Items Table) 精细化 --- */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    border: 1px solid #ededed;
+}
+
+.items-table th {
+    background-color: #f8f9fa; /* 极浅灰背景 */
+    color: #4c5a67;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: none;
+    padding: 8px !important;
+    border: 1px solid #ededed;
+}
+
+.items-table td {
+    padding: 8px !important;
+    border: 1px solid #ededed;
+    vertical-align: middle !important;
+}
+
+/* 物品代码与名称的排版 */
+.items-table td div[style*="font-weight: bold"] {
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+.items-table td div[style*="color: #666"] {
+    font-size: 11px;
+    color: #888 !important;
+}
+
+/* 数量列突出显示 */
+.items-table td.text-right span[style*="font-size: 16px"] {
+    font-size: 15px !important;
+    color: #000;
+}
+
+/* --- 文本对齐工具类 --- */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+/* --- 自定义标签样式 --- */
+.custom-label {
+    font-weight: bold;
+    margin-right: 5px;
+    display: inline-block;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #000 !important;
+}
+
+/* --- 次要文本样式 --- */
+.secondary-text {
+    font-size: 11px;
+    color: #333;
+    line-height: 1.2;
+}
+
+/* --- 水印样式 --- */
+.watermark h4 {
+    border: 2px solid #ccc;
+    color: #ccc;
+    padding: 10px 20px;
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    position: absolute;
+    top: 15%;
+    left: 40%;
+}
+
+/* --- 签名区域样式 --- */
+.signature-area {
+    margin-top: 20px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.signature-area td {
+    border: none;
+    padding: 10px;
+}
+
+.signature-line {
+    border-top: 1px solid #000;
+    width: 90%;
+    margin-top: 30px;
+}
+
+/* --- 复选框样式 --- */
+.check-box-outline {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #000;
+    display: inline-block;
+    background-color: #fff;
+    margin-top: 2px;
+}
+
+/* --- 确认框样式 --- */
+.items-table .text-center div[style*="border: 1px solid #ccc"] {
+    border: 1px solid #bbb !important;
+    border-radius: 2px;
+    width: 16px !important; /* 稍微缩小复选框，更精致 */
+    height: 16px !important;
+}
+
+/* --- 打印适配 (解决图片被强制拉伸) --- */
+body:last-child .print-format td img {
+    width: auto !important; /* 强制覆盖您提供的 100% 规则 */
+    max-width: 100%;
+}
+
+/** 修复溢出导出多余空白页问题 */
+#screenity-ui {
+    overflow: hidden;
+    display: none !important;
+}

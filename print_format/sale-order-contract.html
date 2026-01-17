@@ -1,0 +1,778 @@
+<style>
+    .print-format.print-format-preview {
+        padding: 8mm !important;
+    }
+
+    .print-format {
+        padding: 0 !important;
+        margin: 0 !important;
+        font-family: "Microsoft YaHei", "SimSun", sans-serif;
+        color: #000;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .contract-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .contract-number {
+        text-align: right;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .header-title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 15px 0;
+        letter-spacing: 3px;
+    }
+
+    .contract-parties {
+        margin-bottom: 15px;
+        font-size: 13px;
+    }
+
+    .party-line {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: baseline;
+    }
+
+    .party-label {
+        width: 80px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .party-value {
+        border-bottom: 1px solid #000;
+        flex: 1;
+        min-width: 200px;
+        padding-bottom: 2px;
+        display: inline-block;
+    }
+
+    .party-value:empty::after {
+        content: '\00a0';
+    }
+
+    .contract-date-location {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-size: 13px;
+    }
+
+    .date-location-item {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .date-location-label {
+        margin-right: 5px;
+        font-weight: bold;
+    }
+
+    .date-location-value {
+        border-bottom: 1px solid #000;
+        min-width: 150px;
+        padding-bottom: 2px;
+        display: inline-block;
+    }
+
+    .date-location-value:empty::after {
+        content: '\00a0';
+    }
+
+    .regulatory-info {
+        text-align: center;
+        font-size: 11px;
+        color: #666;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        border-top: 1px solid #ddd;
+    }
+
+    .notice-section {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        font-size: 11px;
+        line-height: 1.8;
+    }
+
+    .notice-title {
+        font-weight: bold;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .notice-content {
+        margin-bottom: 5px;
+    }
+
+    .section-title {
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        page-break-after: avoid;
+    }
+
+    .section-subtitle {
+        font-weight: bold;
+        font-size: 13px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+
+    .item-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+        font-size: 11px;
+        table-layout: fixed;
+    }
+
+    .item-table th,
+    .item-table td {
+        border: 1px solid #000;
+        padding: 6px 4px;
+        vertical-align: middle;
+        text-align: center;
+        word-wrap: break-word;
+    }
+
+    .item-table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .item-table td.text-left {
+        text-align: left;
+    }
+
+    .item-table td.text-right {
+        text-align: right;
+    }
+
+    .clause-content {
+        font-size: 12px;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+
+    .checkbox-item {
+        margin-bottom: 6px;
+        display: flex;
+        align-items: baseline;
+    }
+
+    .checkbox {
+        width: 14px;
+        height: 14px;
+        border: 1px solid #000;
+        display: inline-block;
+        margin-right: 3px;
+        margin-left: 2px;
+        margin-top: 0 !important;
+        flex-shrink: 0;
+        vertical-align: middle;
+        position: relative;
+        top: 2px;
+    }
+
+    /* 覆盖 Bootstrap 的 checkbox 样式干扰 */
+    .checkbox + .checkbox {
+        margin-top: 0 !important;
+    }
+
+    .checkbox-label {
+        margin-right: 8px;
+    }
+
+    .fill-field {
+        border-bottom: 1px solid #000;
+        min-width: 100px;
+        display: inline-block;
+        padding-bottom: 2px;
+        margin: 0 3px;
+    }
+
+    .fill-field:empty::after {
+        content: '\00a0';
+    }
+
+    .signature-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        font-size: 11px;
+        table-layout: fixed;
+    }
+
+    .signature-table td {
+        border: none;
+        padding: 8px 6px;
+        vertical-align: top;
+        width: 50%;
+    }
+
+    .signature-table th {
+        border: none;
+        padding: 8px 6px;
+        background-color: transparent;
+        font-weight: bold;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .signature-info {
+        margin-bottom: 6px;
+        font-size: 11px;
+        line-height: 1.8;
+        display: flex;
+        align-items: baseline;
+    }
+
+    .signature-label {
+        font-weight: bold;
+        margin-right: 8px;
+        text-align: right;
+        min-width: 120px;
+        flex-shrink: 0;
+    }
+
+    .signature-value {
+        border-bottom: 1px solid #000;
+        min-width: 150px;
+        flex: 1;
+        display: inline-block;
+        padding-bottom: 2px;
+        vertical-align: baseline;
+    }
+
+    .signature-value:empty::after {
+        content: '\00a0';
+    }
+
+    /* PDF和打印优化 */
+    @media print {
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .print-format {
+            padding: 0 !important;
+            margin: 0 !important;
+            font-size: 11px !important;
+        }
+
+        .item-table {
+            border-collapse: collapse !important;
+            width: 100% !important;
+            table-layout: fixed !important;
+        }
+
+        .item-table th,
+        .item-table td {
+            border: 1px solid #000 !important;
+            padding: 5px 3px !important;
+        }
+
+        .item-table th {
+            background-color: #f0f0f0 !important;
+        }
+
+        .signature-table th,
+        .signature-table td {
+            border: none !important;
+            padding: 6px 4px !important;
+        }
+
+        .signature-table th {
+            background-color: transparent !important;
+        }
+
+        .section-title,
+        .section-subtitle {
+            page-break-after: avoid !important;
+        }
+
+        .notice-section {
+            page-break-inside: avoid !important;
+        }
+    }
+
+    @page {
+        margin: 8mm 10mm;
+        size: A4;
+    }
+
+    .print-format {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    /* 确保PDF导出时边距正确 */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 覆盖Frappe默认的print-format padding */
+    body .print-format {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+</style>
+
+<div class="print-format">
+    <div class="contract-number">
+        <strong>合同编号：</strong><span class="fill-field">{{ doc.name }}</span>
+    </div>
+
+    <div class="header-title">购销合同</div>
+
+    <div class="contract-parties">
+        <div class="party-line">
+            <span class="party-label">买受人：</span>
+            <span class="party-value">{{ doc.customer_name }}</span>
+        </div>
+        <div class="party-line">
+            <span class="party-label">出卖人：</span>
+            <span class="party-value">{{ doc.company }}</span>
+        </div>
+    </div>
+
+    <div class="contract-date-location">
+        <div class="date-location-item">
+            <span class="date-location-label">签订日期：</span>
+            <span class="date-location-value">
+                {% set date_str = frappe.utils.format_date(doc.transaction_date, "yyyy-mm-dd") %}
+                {% set date_parts = date_str.split("-") %}
+                {{ date_parts[0] }}年{{ date_parts[1] }}月{{ date_parts[2] }}日
+            </span>
+        </div>
+        <div class="date-location-item">
+            <span class="date-location-label">签订地点：</span>
+            <span class="date-location-value"></span>
+        </div>
+    </div>
+
+    <div class="clause-content" style="margin-top: 20px; margin-bottom: 15px;">
+        根据《中华人民共和国民法典》等有关法律、法规的规定，双方在平等、自愿、公平和诚信的基础上，经友好协商达成如下协议：
+    </div>
+
+    <div class="section-title">一、标的物</div>
+    <div style="font-size: 11px; color: #666; margin-bottom: 8px;">（注：空格如不够用，可以另接）</div>
+
+    <table class="item-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">序号</th>
+                <th style="width: 18%;">名称</th>
+                <th style="width: 15%;">规格型号</th>
+                <th style="width: 8%;">单位</th>
+                <th style="width: 8%;">数量</th>
+                <th style="width: 12%;">单价</th>
+                <th style="width: 12%;">总额</th>
+                <th style="width: 11%;">交货期限</th>
+                <th style="width: 11%;">备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in doc.items %}
+            {% set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code, "custom_specification") or "" %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td class="text-left">{{ item.item_name }}</td>
+                <td class="text-left">{{ specification }}</td>
+                <td>{{ item.uom }}</td>
+                <td>{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty) }}{% endif %}</td>
+                <td class="text-right">{{ "{:,.2f}".format(item.rate) }}</td>
+                <td class="text-right">{{ "{:,.2f}".format(item.amount) }}</td>
+                <td>{% if item.delivery_date %}{{ frappe.utils.format_date(item.delivery_date) }}{% endif %}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+            {% set total_qty = [] %}
+            {% for item in doc.items %}
+                {% if total_qty.append(item.qty) %}{% endif %}
+            {% endfor %}
+            {% set total_qty_sum = total_qty | sum %}
+            <tr style="font-weight: bold;">
+                <td colspan="4" class="text-right" style="border-right: none;">
+                    <strong>合计：</strong>
+                </td>
+                <td style="border-left: 1px solid #000;">
+                    {% if total_qty_sum % 1 == 0 %}{{ "{:,.0f}".format(total_qty_sum) }}{% else %}{{ "{:,.2f}".format(total_qty_sum) }}{% endif %}
+                </td>
+                <td style="border-left: 1px solid #000;"></td>
+                <td class="text-right" style="border-left: 1px solid #000;">
+                    {{ "{:,.2f}".format(doc.grand_total) }}
+                </td>
+                <td colspan="2" style="border-left: 1px solid #000;" rowspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-right"><strong>总计：</strong></td>
+                <td colspan="3" style="font-weight: bold;">
+                    {{ doc.in_words or "" }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">二、质量标准、技术要求</div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">质量标准：</span>
+        <span class="fill-field"></span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">技术要求：</span>
+        <span class="fill-field"></span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">其他：</span>
+        <span class="fill-field"></span>
+    </div>
+
+    <div class="section-title">三、费用</div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">送货费由</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>承担，金额：</span>
+        <span class="fill-field" style="min-width: 100px;"></span>
+        <span>元。</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">安装费由</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>承担，金额：</span>
+        <span class="fill-field" style="min-width: 100px;"></span>
+        <span>元。</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>费用：由</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>承担，金额：</span>
+        <span class="fill-field" style="min-width: 100px;"></span>
+        <span>元。</span>
+    </div>
+    <div class="clause-content" style="margin-top: 8px; line-height: 1.8;">
+        合同总额：<span class="fill-field" style="min-width: 150px;">{{ "{:,.2f}".format(doc.grand_total) }}</span>元（<span class="checkbox"></span>含/<span class="checkbox"></span>不含增值税）。
+    </div>
+
+    <div class="section-title">四、包装标准、包装物的提供与回收</div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">包装标准：</span>
+        <span class="fill-field"></span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">包装物的提供：</span>
+        <span class="fill-field"></span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">包装物的回收：</span>
+        <span class="fill-field"></span>
+    </div>
+    <div class="clause-content" style="margin-top: 8px;">
+        出卖人交付的标的物应符合质量、安全、健康、环保等方面法律、法规和行业标准的规定。
+    </div>
+
+    <div class="section-title">五、附随必备品、配件、工具的的名称、规格、数量、交付方式</div>
+    <div class="clause-content">
+        <span class="fill-field" style="min-width: 300px;"></span>
+    </div>
+
+    <div class="section-title">六、结算方式及期限</div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">一次性支付全部价款：</span>
+        <span class="checkbox"></span>
+        <span>签约时</span>
+        <span class="checkbox"></span>
+        <span>交货时</span>
+        <span class="checkbox"></span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>时</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">分期付款：分</span>
+        <span class="fill-field" style="min-width: 30px;"></span>
+        <span>期支付，</span>
+        <span class="fill-field" style="min-width: 50px;"></span>
+        <span>时支付首付款</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>元，余款分别于</span>
+        <span class="fill-field" style="min-width: 100px;"></span>
+        <span>支付。</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">预付款：签约时支付</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>元，余款</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>元应在</span>
+        <span class="fill-field" style="min-width: 100px;"></span>
+        <span>时付清。</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">定金：签约时支付</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>元，余款</span>
+        <span class="fill-field" style="min-width: 80px;"></span>
+        <span>元应在</span>
+        <span class="fill-field" style="min-width: 100px;"></span>
+        <span>时付清。</span>
+    </div>
+
+    <div class="section-title">七、发票</div>
+    <div class="clause-content">
+        出卖人收到全额后<span class="fill-field" style="min-width: 50px;"></span>日内，提供全额增值税发票。如出卖人未按约定开具发票给买受人，由此造成的一切损失由出卖人承担。
+    </div>
+
+    <div class="section-title">八、合理损耗标准及计算方法</div>
+    <div class="clause-content">
+        <span class="fill-field" style="min-width: 300px;"></span>
+    </div>
+
+    <div class="section-title">九、交付</div>
+    <div class="checkbox-item">
+        <span class="checkbox-label">交付方式：</span>
+        <span class="checkbox"></span>
+        <span>买受人自提</span>
+        <span class="checkbox"></span>
+        <span>出卖人送货</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox-label">交付批次：</span>
+        <span class="checkbox"></span>
+        <span>一次性交付</span>
+        <span class="checkbox"></span>
+        <span>分批交付</span>
+        <span class="fill-field" style="min-width: 150px;"></span>
+    </div>
+    <div class="clause-content" style="margin-top: 8px;">
+        运输方式：<span class="fill-field" style="min-width: 200px;"></span>。
+    </div>
+    <div class="clause-content">
+        交货时间：<span class="fill-field" style="min-width: 200px;"></span>。
+    </div>
+    <div class="clause-content">
+        交货地点：<span class="fill-field" style="min-width: 200px;"></span>。
+    </div>
+
+    <div class="section-title">十、检验</div>
+    <div class="clause-content">
+        1. 标的物应当符合标的物所属行业质量规范要求或<span class="fill-field" style="min-width: 150px;"></span>标准，并经买受人书面确认。
+    </div>
+    <div class="clause-content">
+        2. 买受人收到标的物后应在<span class="fill-field" style="min-width: 50px;"></span>日内完成检验，如标的物的数量或者质量不符合约定，买受人应于<span class="fill-field" style="min-width: 50px;"></span>日内通知出卖人。买受人在约定期限内未通知出卖人的，视为检验合格。
+    </div>
+    <div class="clause-content">
+        3. 检验地点：<span class="fill-field" style="min-width: 200px;"></span>。
+    </div>
+    <div class="clause-content">
+        4. 买受人对标的物质量有异议的，在双方未能就此达成一致意见时，可委托进行鉴定，鉴定费用由<span class="fill-field" style="min-width: 80px;"></span>承担。
+    </div>
+
+    <div class="section-title">十一、标的物所有权转移</div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span>自（交付/<span class="fill-field" style="min-width: 80px;"></span>）时起转移。</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span class="fill-field" style="min-width: 300px;"></span>。
+    </div>
+
+    <div class="section-title">十二、标的物的毁损、灭失的风险承担</div>
+    <div class="clause-content">
+        <span class="fill-field" style="min-width: 300px;"></span>
+    </div>
+
+    <div class="section-title">十三、成套设备的安装与调试</div>
+    <div class="clause-content">
+        <span class="fill-field" style="min-width: 300px;"></span>
+    </div>
+    <div class="clause-content" style="margin-top: 8px;">
+        设备交付后<span class="fill-field" style="min-width: 50px;"></span>日内安装调试完，若期间工期需要调整，依据双方约定对工期进行变更。
+    </div>
+
+    <div class="section-title">十四、担保方式</div>
+    <div class="clause-content">
+        如需提供担保可另立合同担保书作为合同附件。
+    </div>
+
+    <div class="section-title">十五、质量保证期</div>
+    <div class="clause-content">
+        标的物经买受人检验合格后，质量保证期为<span class="fill-field" style="min-width: 50px;"></span>个月。质量保证期内产品出现问题免费解决，服务响应为<span class="fill-field" style="min-width: 50px;"></span>小时内。
+    </div>
+
+    <div class="section-title">十六、违约责任</div>
+    <div class="section-subtitle">（一）出卖人违约</div>
+    <div class="clause-content">
+        1. 出卖人逾期交货或延期安装调试的，应当每日按照合同总额的<span class="fill-field" style="min-width: 50px;"></span>‰向买受人支付违约金，但因买受人原因导致的迟延除外；迟延超过<span class="fill-field" style="min-width: 50px;"></span>日的，买受人有权解除合同，并要求出卖人退还已支付的货款并支付合同总额的<span class="fill-field" style="min-width: 50px;"></span>‰的违约金。
+    </div>
+    <div class="clause-content">
+        2. 因出卖人未取得处分权致使标的物所有权不能转移的，买受人可以解除合同并请求出卖人承担违约责任。
+    </div>
+    <div class="clause-content">
+        3. 因标的物质量问题或出卖人提供的安装服务不当造成买受人损失的，应由出卖人承担相应的责任。
+    </div>
+    <div class="clause-content">
+        4. 出卖人送货的标的物，如买受人无正当理由拒绝接货，买受人应承担因此而造成的损失、运输及保管费用。
+    </div>
+    <div class="clause-content">
+        5. 出卖人分批交付标的物的，出卖人对其中一批标的物不交付或者交付不符合约定，致使该批标的物不能实现合同目的的，买受人可以就该批标的物解除。
+    </div>
+    <div class="clause-content">
+        出卖人不交付其中一批标的物或者交付不符合约定，致使之后其他各批标的物的交付不能实现合同目的的，买受人可以就该批以及之后其他各批标的物解除。
+    </div>
+    <div class="clause-content">
+        买受人如果就其中一批标的物解除，该批标的物与其他各批标的物相互依存的，可以就已经交付和未交付的各批标的物解除。
+    </div>
+
+    <div class="section-subtitle">（二）买受人违约</div>
+    <div class="clause-content">
+        1. 买受人逾期付款的，应当每日按照逾期部分价款的<span class="fill-field" style="min-width: 50px;"></span>‰向出卖人支付违约金。买受人逾期超过<span class="fill-field" style="min-width: 50px;"></span>日，出卖人有权解除合同，并要求买受人赔偿损失。
+    </div>
+    <div class="clause-content">
+        2. 分期付款的买受人未支付到期价款的数额达到全部价款的五分之一，经催告后在<span class="fill-field" style="min-width: 50px;"></span>日内仍未支付到期价款的，出卖人可以请求买受人支付全部价款或者解除合同。
+    </div>
+    <div class="clause-content">
+        3. 按合同约定由买受人自行提货，但买受人未按约定日期提货的，每迟延一日，应当按照合同总额的<span class="fill-field" style="min-width: 50px;"></span>‰向出卖人支付违约金。迟延超过<span class="fill-field" style="min-width: 50px;"></span>日的，出卖人有权解除合同，并要求买受人赔偿损失。
+    </div>
+
+    <div class="section-title">十七、争议解决</div>
+    <div class="clause-content">
+        本合同项下发生的争议，双方应友好协商解决，如协商不成的，可按下述方式解决：
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span>向</span>
+        <span class="fill-field" style="min-width: 150px;"></span>
+        <span>人民法院提起诉讼。</span>
+    </div>
+    <div class="checkbox-item">
+        <span class="checkbox"></span>
+        <span>向</span>
+        <span class="fill-field" style="min-width: 150px;"></span>
+        <span>仲裁委员会申请仲裁。</span>
+    </div>
+
+    <div class="section-title">十八、其他约定事项</div>
+    <div class="clause-content">
+        <span class="fill-field" style="min-width: 300px;"></span>
+    </div>
+
+    <div class="section-title">十九、其他</div>
+    <div class="clause-content">
+        本合同自<span class="checkbox"></span>双方当事人签名盖章之日 <span class="checkbox"></span><span class="fill-field" style="min-width: 50px;"></span>年<span class="fill-field" style="min-width: 30px;"></span>月<span class="fill-field" style="min-width: 30px;"></span>日起生效。
+    </div>
+    <div class="clause-content">
+        本合同使用汉语书写，如使用少数民族语言译本，对合同的解释、说明，以汉语为准。
+    </div>
+    <div class="clause-content">
+        本合同及附件（如有）一式<span class="fill-field" style="min-width: 30px;"></span>份，买受人执<span class="fill-field" style="min-width: 30px;"></span>份，出卖人执<span class="fill-field" style="min-width: 30px;"></span>份，具有同等法律效力。
+    </div>
+
+    <table class="signature-table">
+        <thead>
+            <tr>
+                <th>买受人（盖章/签名）</th>
+                <th>出卖人（盖章/签名）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="signature-info">
+                        <span class="signature-label">统一社会信用代码:</span>
+                        <span class="signature-value"></span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">法定代表人：（签名）</span>
+                        <span class="signature-value"></span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">委托代表人：（签名）</span>
+                        <span class="signature-value">{{ doc.contact_display or '' }}</span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">地址:</span>
+                        <span class="signature-value">{{ doc.address_display or '' }}</span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">电话:</span>
+                        <span class="signature-value">{{ doc.contact_mobile or '' }}</span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">开户银行:</span>
+                        <span class="signature-value"></span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">账号:</span>
+                        <span class="signature-value"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="signature-info">
+                        <span class="signature-label">统一社会信用代码:</span>
+                        <span class="signature-value"></span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">法定代表人：（签名）</span>
+                        <span class="signature-value"></span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">委托代表人：（签名）</span>
+                        <span class="signature-value">{{ frappe.db.get_value("User", doc.owner, "full_name") or '' }}</span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">地址:</span>
+                        <span class="signature-value">{{ frappe.db.get_value("Address", doc.company_address, "address_line1") or '' }}</span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">电话:</span>
+                        <span class="signature-value">{{ frappe.db.get_value("User", doc.owner, "mobile_no") or '' }}</span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">开户银行:</span>
+                        <span class="signature-value"></span>
+                    </div>
+                    <div class="signature-info">
+                        <span class="signature-label">账号:</span>
+                        <span class="signature-value"></span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="clause-content" style="margin-top: 20px; text-align: center; font-weight: bold;">
+        请认真阅读本合同条款和出卖人提供的其他书面材料，确认无误后再签订本合同。
+    </div>
+</div>

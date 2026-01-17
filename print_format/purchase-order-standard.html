@@ -1,0 +1,202 @@
+{%- macro add_header(doc, letter_head, no_letterhead) -%}
+{% if letter_head and not no_letterhead %}
+<div class="letter-head">{{ letter_head }}</div>
+{% endif %}
+{%- endmacro -%}
+
+{% set project_display = "" %}
+
+{# --- 1. 获取项目信息 (从主表或第一行子表) --- #}
+{% set found_project_id = "" %}
+{# 优先看主表是否有项目字段 #}
+{% if doc.project %}
+{% set found_project_id = doc.project %}
+{# 其次看子表第一行 #}
+{% elif doc.items and doc.items|length > 0 and doc.items[0].project %}
+{% set found_project_id = doc.items[0].project %}
+{% endif %}
+
+{# --- 2. 拼接项目名称: ID (名称) --- #}
+{% if found_project_id %}
+{% set found_project_name = frappe.db.get_value("Project", found_project_id, "project_name") %}
+{% if found_project_name %}
+{% set project_display = found_project_id ~ " (" ~ found_project_name ~ ")" %}
+{% else %}
+{% set project_display = found_project_id %}
+{% endif %}
+{% endif %}
+
+{# --- 3. 获取供应商联系人信息 (如果有) --- #}
+{% set contact_display = "" %}
+{% if doc.contact_person %}
+{% set contact_display = doc.contact_display or doc.contact_person %}
+{% set contact_mobile = frappe.db.get_value("Contact", doc.contact_person, "mobile_no") %}
+{% if contact_mobile %}
+{% set contact_display = contact_display ~ " (" ~ contact_mobile ~ ")" %}
+{% endif %}
+{% endif %}
+
+
+<div class="page-break order-wrapper">
+    <div id="header-html" class="hidden-pdf">
+        {{ add_header(doc, letter_head, no_letterhead) }}
+    </div>
+
+    {%- if doc.docstatus==2-%}
+    <div class="text-center watermark" document-status="cancelled">
+        <h4>已作废</h4>
+    </div>
+    {%- endif -%}
+    {%- if doc.docstatus==0 -%}
+    <div class="text-center watermark" document-status="draft">
+        <h4>草稿</h4>
+    </div>
+    {%- endif -%}
+
+
+    <div class="print-format-body">
+
+        <table class="info-table">
+            <tr>
+                <td style="width: 50%">
+                    <span class="custom-label">供应商:</span>
+                    <span class="text-bold" style="font-size: 13px;">{{ doc.supplier_name }}</span>
+                </td>
+                <td style="width: 50%">
+                    <span class="custom-label">单号:</span>
+                    <span class="text-bold">{{ doc.name }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="custom-label">联系人:</span>
+                    {{ contact_display or "&nbsp;" }}
+                </td>
+                <td>
+                    <span class="custom-label">日期:</span>
+                    {{ frappe.utils.format_date(doc.transaction_date) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span class="custom-label">关联项目:</span>
+                    {{ project_display or "&nbsp;" }}
+                </td>
+            </tr>
+        </table>
+
+        <table class="items-table">
+            <thead class="table-header">
+                <tr>
+                    <td class="text-center" style="width: 5%;">&nbsp;</td>
+                    <td class="text-left" style="width: 35%;">物料信息</td>
+                    <td class="text-left" style="width: 15%;">交货日期</td>
+                    <td class="text-right" style="width: 10%;">数量</td>
+                    <td class="text-right" style="width: 15%;">单价</td>
+                    <td class="text-right" style="width: 20%;">金额</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in doc.items %}
+                <tr>
+                    <td class="text-center">{{ loop.index }}</td>
+                    <td>
+                        <div class="text-bold">{{ item.item_code }}</div>
+                        <div>{{ item.item_name }}</div>
+                        {% if item.description and item.description != item.item_name %}
+                        <div class="secondary-text" style="margin-top: 2px;">{{ item.description | striptags }}</div>
+                        {% endif %}
+                        {% if item.supplier_part_no %}
+                        <div class="secondary-text" style="margin-top: 2px;">[供]: {{ item.supplier_part_no }}</div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ frappe.utils.format_date(item.schedule_date) }}
+                    </td>
+                    <td class="text-right">
+                        <span class="text-bold">{{ item.qty }}</span>
+                        <div style="font-size: 10px;">{{ item.uom }}</div>
+                    </td>
+                    <td class="text-right">
+                        {{ item.get_formatted("rate") }}
+                    </td>
+                    <td class="text-right">
+                        {{ item.get_formatted("amount") }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr>
+                <td style="width: 60%; vertical-align: top; padding-right: 20px; border: none;">
+
+                    <div style="border: 1px solid #000; padding: 8px; margin-bottom: 10px; background-color: #f9f9f9;">
+                        <span class="custom-label">大写金额:</span>
+                        <span class="text-bold">{{ doc.in_words or "" }}</span>
+                    </div>
+
+                    <div style="border: 1px solid #000; padding: 10px; min-height: 80px;">
+                        <div class="custom-label" style="margin-bottom: 4px;">备注 / 条款:</div>
+                        {% if doc.terms %}
+                        <div class="secondary-text">{{ doc.terms | safe }}</div>
+                        {% else %}
+                        <p style="margin: 0;">{{ doc.remarks or "&nbsp;" }}</p>
+                        {% endif %}
+                    </div>
+                </td>
+
+                <td style="width: 40%; vertical-align: top; border: none;">
+                    <table class="totals-table">
+                        <tr>
+                            <td class="text-right" style="border: 1px solid #000; width: 40%;"><strong>小计</strong></td>
+                            <td class="text-right" style="border: 1px solid #000;">{{ doc.get_formatted("total") }}</td>
+                        </tr>
+                        {% for tax in doc.taxes %}
+                        {% if tax.tax_amount > 0 %}
+                        <tr>
+                            <td class="text-right" style="border: 1px solid #000;">
+                                <small>{{ tax.description }}</small>
+                            </td>
+                            <td class="text-right" style="border: 1px solid #000;">{{ tax.get_formatted("tax_amount") }}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                        <tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                            <td class="text-right" style="border: 1px solid #000;"><strong>总计 ({{ doc.currency
+                                    }})</strong></td>
+                            <td class="text-right text-bold" style="border: 1px solid #000;">{{
+                                doc.get_formatted("grand_total") }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table class="signature-area">
+            <tr>
+                <td style="width: 25%; vertical-align: top;">
+                    <div>采购员:</div>
+                    <div style="margin-top: 5px; font-weight: bold;">{{ doc.owner }}</div>
+                    <div class="signature-line" style="margin-top: 5px;"></div>
+                </td>
+                <td style="width: 25%; vertical-align: top;">
+                    <div>部门经理:</div>
+                    <div class="signature-line"></div>
+                </td>
+                <td style="width: 25%; vertical-align: top;">
+                    <div>财务审核:</div>
+                    <div class="signature-line"></div>
+                </td>
+                <td style="width: 25%; vertical-align: top;">
+                    <div>供应商确认:</div>
+                    <div class="signature-line"></div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
