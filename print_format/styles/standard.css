@@ -1,6 +1,6 @@
 /* --- 基础容器与字体 --- */
 .print-format.print-format-preview {
-    padding: 8mm !important;
+    padding: 0.6in 0.4in !important;
 }
 
 .print-format {
@@ -9,7 +9,7 @@
     line-height: 1.5;
     color: #171717;
     background: white;
-    padding: 0.5in !important; /* 适当缩小页边距增加内容空间 */
+    padding: 0.04in 0.16in !important; /* 适当缩小页边距增加内容空间 */
 }
 
 /* --- 表头 (Letterhead) 优化 --- */
@@ -260,4 +260,8 @@ body:last-child .print-format td img {
 .print-format .ql-editor li[data-list=checked]>.ql-ui,
 .print-format .ql-editor li[data-list=unchecked]>.ql-ui {
     scale: 1.5;
+}
+
+.print-format .ql-editor li[data-list=unchecked] {
+    display: none;
 }

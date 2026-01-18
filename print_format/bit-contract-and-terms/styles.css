@@ -1,0 +1,278 @@
+/* 比特物联网控制系统销售合同样式 - 基于Bootstrap */
+
+/* --- 合同编号 --- */
+.contract-number {
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+/* --- 合同标题 --- */
+.header-title {
+    margin-top: 30px;
+}
+
+.header-title h2 {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 15px 0;
+}
+
+/* --- 合同双方信息 --- */
+.contract-parties {
+    font-size: 13px;
+}
+
+.party-line {
+    white-space: nowrap;
+}
+
+.party-label {
+    min-width: 100px;
+}
+
+.party-value {
+    border-bottom: 1px solid #000;
+    min-width: 200px;
+    padding-bottom: 2px;
+    display: inline-block;
+}
+
+.party-value:empty::after {
+    content: '\00a0';
+}
+
+/* --- 签订信息 --- */
+.contract-date-location {
+    font-size: 13px;
+}
+
+.date-location-item {
+    white-space: nowrap;
+}
+
+.date-location-label {
+    min-width: 80px;
+}
+
+.date-location-value {
+    border-bottom: 1px solid #000;
+    min-width: 150px;
+    padding-bottom: 2px;
+    display: inline-block;
+}
+
+.date-location-value:empty::after {
+    content: '\00a0';
+}
+
+/* --- 前言说明 --- */
+.regulatory-info {
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* --- 章节标题 --- */
+.section-title {
+    font-size: 14px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+}
+
+.section-subtitle {
+    font-size: 13px;
+    margin-top: 16px;
+    margin-bottom: 10px;
+}
+
+/* --- 表格样式 --- */
+.item-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 12px;
+    table-layout: fixed;
+}
+
+.item-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px 4px;
+    border: 1px solid #000;
+}
+
+.item-table td {
+    padding: 6px 4px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #000;
+    word-wrap: break-word;
+}
+
+.item-table td.text-left {
+    text-align: left;
+}
+
+.item-table td.text-right {
+    text-align: right;
+}
+
+/* --- 条款内容 --- */
+.clause-content {
+    font-size: 12px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.clause-item {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.clause-item.indent {
+    padding-left: 30px;
+}
+
+/* --- 填充字段 --- */
+.fill-field {
+    border-bottom: 1px solid #000;
+    display: inline-block;
+    padding-bottom: 0;
+    margin: 0 3px;
+}
+
+.fill-field:empty::after {
+    content: '\00a0';
+}
+
+/* --- 签名/附件信息表格 --- */
+.signature-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-size: 11px;
+    table-layout: fixed;
+}
+
+.signature-table th {
+    border: none;
+    padding: 8px 6px;
+    background-color: transparent;
+    font-weight: bold;
+    text-align: center;
+    font-size: 12px;
+}
+
+.signature-table td {
+    border: none;
+    padding: 8px 6px;
+    vertical-align: top;
+    width: 50%;
+}
+
+.signature-info {
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.signature-label {
+    min-width: 100px;
+}
+
+.signature-value {
+    border-bottom: 1px solid #000;
+    min-width: 150px;
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+.signature-value:empty::after {
+    content: '\00a0';
+}
+
+/* --- PDF和打印优化 --- */
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .item-table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+
+    .item-table th,
+    .item-table td {
+        border: 1px solid #000 !important;
+        padding: 5px 3px !important;
+    }
+
+    .item-table th {
+        background-color: #f0f0f0 !important;
+    }
+
+    .signature-table th,
+    .signature-table td {
+        border: none !important;
+        padding: 6px 4px !important;
+    }
+
+    .signature-table th {
+        background-color: transparent !important;
+    }
+
+    .section-title,
+    .section-subtitle {
+        page-break-after: avoid !important;
+    }
+
+    .clause-content {
+        page-break-inside: avoid !important;
+    }
+}
+
+@page {
+    margin: 8mm 10mm;
+    size: A4;
+}
+
+/* --- Bootstrap表格覆盖 --- */
+.table-bordered {
+    border: 1px solid #000;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #000;
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 6px 4px;
+}
+
+.table thead th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* --- Bootstrap表格单元格默认居中对齐 --- */
+.table th,
+.table td {
+    text-align: center;
+}
+
+.table thead th {
+    text-align: center;
+}
+
+/* --- 文本对齐工具类补充 --- */
+.text-justify {
+    text-align: justify;
+}
