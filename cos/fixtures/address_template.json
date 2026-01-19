@@ -4,8 +4,8 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 1,
-  "modified": "2026-01-19 14:03:46.108440",
+  "modified": "2026-01-19 14:26:20.943523",
   "name": "China",
-  "template": "{{ _(\"Address\") }}: {% if state %}{{ state }} {% endif -%}{{ city }} {{ address_line1 }}\n{%- if address_line2 %}<br>{{ address_line2 }}{% endif -%}\n{%- if phone %}<br>{{ _(\"Phone\") }}: {{ phone }}{% endif -%}\n{%- if email_id %}<br>{{ _(\"Email\") }}: {{ email_id }}{% endif -%}"
+  "template": "{% if state %}{{ state }} {% endif -%}{{ city }} {{ address_line1 }}"
  }
 ]
