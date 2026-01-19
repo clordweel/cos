@@ -1,278 +1,191 @@
-/* 比特物联网控制系统销售合同样式 - 基于Bootstrap */
+/* ============================================
+   合同内容区域样式 (contract-content)
+   ============================================ */
 
-/* --- 合同编号 --- */
-.contract-number {
+/* 主容器样式 */
+.contract-content {
+    font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #171717;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+/* 章节标题样式（第一条、第二条等） */
+.contract-content .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #171717;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+/* 第一个章节标题不需要上边距 */
+.contract-content .section-title:first-child {
+    margin-top: 0;
+}
+
+/* 子章节标题样式（1.1、1.2等） */
+.contract-content .section-subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 18px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+}
+
+/* 条款内容容器 */
+.contract-content .clause-content {
+    margin-bottom: 16px;
+    padding-left: 1.5em;
+}
+
+/* 条款项样式 */
+.contract-content .clause-item {
+    font-size: 13px;
+    line-height: 2;
+    color: #171717;
+    margin-bottom: 10px;
+    text-align: justify;
+    text-indent: 0;
+    padding-left: 0;
+}
+
+/* 缩进条款项（如 4.1.2.1、4.1.2.2 等） */
+.contract-content .clause-item.indent {
+    padding-left: 2em;
+    text-indent: -2em;
+    margin-left: 0;
+}
+
+/* 下划线样式优化 */
+.contract-content u {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+    text-decoration-color: #171717;
+    padding: 0 2px;
+}
+
+/* 表格样式 */
+.contract-content .item-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    margin-bottom: 16px;
     font-size: 12px;
-    margin-bottom: 20px;
+    border: 1px solid #333;
 }
 
-/* --- 合同标题 --- */
-.header-title {
-    margin-top: 30px;
+.contract-content .item-table thead {
+    background-color: #f5f5f5;
 }
 
-.header-title h2 {
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    margin: 15px 0;
+.contract-content .item-table th {
+    font-weight: 600;
+    color: #171717;
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid #333;
+    background-color: #f5f5f5;
+    vertical-align: middle;
 }
 
-/* --- 合同双方信息 --- */
-.contract-parties {
-    font-size: 13px;
+.contract-content .item-table td {
+    padding: 8px;
+    border: 1px solid #333;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.6;
 }
 
-.party-line {
-    white-space: nowrap;
+.contract-content .item-table tbody tr {
+    background-color: #fff;
 }
 
-.party-label {
-    min-width: 100px;
+/* 表格中的左对齐文本（如备注列） */
+.contract-content .item-table td[style*="text-align: left"] {
+    text-align: left !important;
+    padding-left: 10px;
 }
 
-.party-value {
-    border-bottom: 1px solid #000;
-    min-width: 200px;
-    padding-bottom: 2px;
+/* 签名表格样式（仅在 contract-content 内部） */
+.contract-content .signature-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    margin-bottom: 0;
+    font-size: 12px;
+    border: 1px solid #333;
+}
+
+.contract-content .signature-table th {
+    font-weight: 600;
+    color: #171717;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #333;
+    background-color: #f5f5f5;
+    vertical-align: middle;
+}
+
+.contract-content .signature-table td {
+    padding: 16px 12px;
+    border: 1px solid #333;
+    vertical-align: top;
+    line-height: 1.8;
+}
+
+/* 签名信息样式（仅在 contract-content 内部） */
+.contract-content .signature-info {
+    margin-bottom: 8px;
+    line-height: 1.8;
+}
+
+.contract-content .signature-label {
+    font-weight: 600;
+    color: #171717;
     display: inline-block;
-}
-
-.party-value:empty::after {
-    content: '\00a0';
-}
-
-/* --- 签订信息 --- */
-.contract-date-location {
-    font-size: 13px;
-}
-
-.date-location-item {
-    white-space: nowrap;
-}
-
-.date-location-label {
     min-width: 80px;
 }
 
-.date-location-value {
-    border-bottom: 1px solid #000;
-    min-width: 150px;
-    padding-bottom: 2px;
-    display: inline-block;
+.contract-content .signature-value {
+    color: #171717;
+    display: inline;
 }
 
-.date-location-value:empty::after {
-    content: '\00a0';
-}
-
-/* --- 前言说明 --- */
-.regulatory-info {
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-/* --- 章节标题 --- */
-.section-title {
-    font-size: 14px;
-    margin-top: 24px;
-    margin-bottom: 12px;
-    page-break-after: avoid;
-}
-
-.section-subtitle {
-    font-size: 13px;
-    margin-top: 16px;
-    margin-bottom: 10px;
-}
-
-/* --- 表格样式 --- */
-.item-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 16px;
-    font-size: 12px;
-    table-layout: fixed;
-}
-
-.item-table th {
-    background-color: #f0f0f0;
-    font-weight: bold;
-    font-size: 12px;
-    text-align: center;
-    vertical-align: middle;
-    padding: 6px 4px;
-    border: 1px solid #000;
-}
-
-.item-table td {
-    padding: 6px 4px;
-    vertical-align: middle;
-    text-align: center;
-    border: 1px solid #000;
-    word-wrap: break-word;
-}
-
-.item-table td.text-left {
-    text-align: left;
-}
-
-.item-table td.text-right {
-    text-align: right;
-}
-
-/* --- 条款内容 --- */
-.clause-content {
-    font-size: 12px;
-    line-height: 1.8;
-    margin-bottom: 16px;
-}
-
-.clause-item {
-    margin-bottom: 10px;
-    text-align: justify;
-}
-
-.clause-item.indent {
-    padding-left: 30px;
-}
-
-/* --- 填充字段 --- */
-.fill-field {
-    border-bottom: 1px solid #000;
-    display: inline-block;
-    padding-bottom: 0;
-    margin: 0 3px;
-}
-
-.fill-field:empty::after {
-    content: '\00a0';
-}
-
-/* --- 签名/附件信息表格 --- */
-.signature-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-    font-size: 11px;
-    table-layout: fixed;
-}
-
-.signature-table th {
-    border: none;
-    padding: 8px 6px;
-    background-color: transparent;
-    font-weight: bold;
-    text-align: center;
-    font-size: 12px;
-}
-
-.signature-table td {
-    border: none;
-    padding: 8px 6px;
-    vertical-align: top;
-    width: 50%;
-}
-
-.signature-info {
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-.signature-label {
-    min-width: 100px;
-}
-
-.signature-value {
-    border-bottom: 1px solid #000;
-    min-width: 150px;
-    display: inline-block;
-    padding-bottom: 2px;
-}
-
-.signature-value:empty::after {
-    content: '\00a0';
-}
-
-/* --- PDF和打印优化 --- */
+/* 响应式调整 */
 @media print {
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+    .contract-content {
+        page-break-inside: avoid;
     }
-
-    .item-table {
-        border-collapse: collapse !important;
-        width: 100% !important;
-        table-layout: fixed !important;
+    
+    .contract-content .section-title {
+        page-break-after: avoid;
     }
-
-    .item-table th,
-    .item-table td {
-        border: 1px solid #000 !important;
-        padding: 5px 3px !important;
+    
+    .contract-content .section-subtitle {
+        page-break-after: avoid;
     }
-
-    .item-table th {
-        background-color: #f0f0f0 !important;
+    
+    .contract-content .item-table {
+        page-break-inside: avoid;
     }
-
-    .signature-table th,
-    .signature-table td {
-        border: none !important;
-        padding: 6px 4px !important;
-    }
-
-    .signature-table th {
-        background-color: transparent !important;
-    }
-
-    .section-title,
-    .section-subtitle {
-        page-break-after: avoid !important;
-    }
-
-    .clause-content {
-        page-break-inside: avoid !important;
+    
+    .contract-content .signature-table {
+        page-break-inside: avoid;
     }
 }
 
-@page {
-    margin: 8mm 10mm;
-    size: A4;
-}
-
-/* --- Bootstrap表格覆盖 --- */
-.table-bordered {
-    border: 1px solid #000;
-}
-
-.table-bordered th,
-.table-bordered td {
-    border: 1px solid #000;
-}
-
-.table-sm th,
-.table-sm td {
-    padding: 6px 4px;
-}
-
-.table thead th {
-    background-color: #f0f0f0;
-    font-weight: bold;
-}
-
-/* --- Bootstrap表格单元格默认居中对齐 --- */
-.table th,
-.table td {
-    text-align: center;
-}
-
-.table thead th {
-    text-align: center;
-}
-
-/* --- 文本对齐工具类补充 --- */
-.text-justify {
-    text-align: justify;
+/* 确保表格在打印时正确显示 */
+.contract-content .item-table,
+.contract-content .signature-table {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
