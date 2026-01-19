@@ -243,6 +243,13 @@ body:last-child .print-format td img {
     display: none !important;
 }
 
+/* 下划线样式 */
+.print-format u {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+}
+
 /** Quill 编辑器样式 */
 .print-format .ql-editor {
     color: rgb(0, 0, 0);
@@ -251,10 +258,6 @@ body:last-child .print-format td img {
 
 .print-format .ql-editor h5 {
     margin-top: 1em;
-}
-
-.print-format .ql-editor u {
-    text-underline-offset: 0.2em;
 }
 
 .print-format .ql-editor li[data-list=checked]>.ql-ui,
