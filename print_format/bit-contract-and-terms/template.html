@@ -14,11 +14,11 @@
     <div class="col-xs-6 contract-parties">
         <div class="party-line mb-2" style="white-space: nowrap;">
             <span class="party-label font-weight-bold" style="display: inline-block; min-width: 100px;">甲方（需方）：</span>
-            <u>{{ doc.customer_name }}</u>
+            <u>{{ doc.customer_name or '' }}</u>
         </div>
         <div class="party-line mb-2" style="white-space: nowrap;">
             <span class="party-label font-weight-bold" style="display: inline-block; min-width: 100px;">乙方（供方）：</span>
-            <u>{{ doc.company }}</u>
+            <u>{{ doc.company or '' }}</u>
         </div>
     </div>
 
