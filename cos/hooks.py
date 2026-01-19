@@ -301,6 +301,12 @@ fixtures = [
     {"dt": "Print Style", "filters": [["name", "in", ["COS Standard"]]]},
     {"dt": "Address Template", "filters": [["name", "in", ["China"]]]},
     {
+        "dt": "Terms and Conditions",
+        "filters": [
+            ["name", "in", ["购销合同条款 - 第一版", "工业品采销合同补充条款"]]
+        ],
+    },
+    {
         "dt": "Property Setter",
         "filters": [
             [
