@@ -143,4 +143,21 @@ Receipt Company,收款公司
 Receipt Bank Account,收款银行账户
 Receipt Bank Account No,收款银行账户号
 Receipt Contact Person,收款联系人
+Contract No,合同编号
+First Party (Law),甲方（需方）
+Second Party (Law),乙方（供方）
+First Party Tax ID,甲方纳税登记号
+Second Party Tax ID,乙方纳税登记号
+First Party Address,甲方地址
+Second Party Address,乙方地址
+First Party Signer,甲方签订代表
+Second Party Signer,乙方签订代表
+First Party Signer Phone,甲方签订代表电话
+Second Party Signer Phone,乙方签订代表电话
+First Party Signer Email,甲方签订代表邮箱
+Second Party Signer Email,乙方签订代表邮箱
 Signing Location,签署地点
+Signing Date,签署时间
+Shipping Contact Person,收货联系人
+Shipping Contact Phone,收货联系人电话
+Is Print Terms,是否打印条款
