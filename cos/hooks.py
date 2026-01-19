@@ -299,6 +299,7 @@ fixtures = [
         "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
     },
     {"dt": "Print Style", "filters": [["name", "in", ["COS Standard"]]]},
+    {"dt": "Address Template", "filters": [["name", "in", ["China"]]]},
     {
         "dt": "Property Setter",
         "filters": [
