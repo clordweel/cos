@@ -19,21 +19,49 @@ body {
 
 /* Style Enhancement */
 .body-sidebar {
+    position: relative;
     padding-bottom: 20px;
 }
 
-.body-sidebar #company-abbreviation-badge {
+/* 公司 Badge 基础样式 */
+.body-sidebar #company-abbreviation-badge,
+.body-sidebar #abbr-company-abbreviation-badge {
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 9999;
-    color: var(--text-color);
     left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: 50px;
+    height: 32px;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 4px;
+    word-break: break-all;
     text-align: center;
-    font-size: 11px;
-    border-top: 1px solid var(--border-color);
-    background-color: var(--border-color);
-    padding: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
 }
 
+/* 折叠状态 - 显示缩写 */
+.body-sidebar #company-abbreviation-badge {
+    display: none; /* 折叠时隐藏全称 */
+}
+
+/* 展开状态 - 显示全称 */
+.expanded .body-sidebar #company-abbreviation-badge {
+    display: flex; /* 展开时显示全称 */
+    width: 100%;
+}
+
+.expanded .body-sidebar #abbr-company-abbreviation-badge {
+    display: none; /* 展开时隐藏缩写 */
+}
 /* Custom Styles */

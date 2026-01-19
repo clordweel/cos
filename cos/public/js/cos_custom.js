@@ -13,15 +13,25 @@ const get_company_abbreviation = () => {
             const { abbr } = r.message;
             $('body').attr('data-company', abbr);
 
-            // 注入公司缩写标签
+            // 注入公司标签
+            // 全称标签（展开时显示）
             const companyBadge = $('<a>')
-                .attr('onclick', `return frappe.ui.toolbar.setup_session_defaults()`)
                 .attr('id', 'company-abbreviation-badge')
+                .attr('onclick', `return frappe.ui.toolbar.setup_session_defaults()`)
+                .attr('class', 'custom-company-badge')
                 .text(`${company} (${abbr})`);
+            // 缩写标签（折叠时显示）
+            const abbrBadge = $('<a>')
+                .attr('id', 'abbr-company-abbreviation-badge')
+                .attr('onclick', `return frappe.ui.toolbar.setup_session_defaults()`)
+                .attr('class', 'custom-company-badge abbr')
+                .text(`${abbr}`);
 
             // 如果已存在则先移除
             $('#company-abbreviation-badge').remove();
+            $('#abbr-company-abbreviation-badge').remove();
             $('.body-sidebar').append(companyBadge);
+            $('.body-sidebar').append(abbrBadge);
         } else {
             console.log("Company abbreviation not found.");
         }
