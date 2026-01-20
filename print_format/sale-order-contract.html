@@ -177,7 +177,7 @@
     }
 
     /* 覆盖 Bootstrap 的 checkbox 样式干扰 */
-    .checkbox + .checkbox {
+    .checkbox+.checkbox {
         margin-top: 0 !important;
     }
 
@@ -378,13 +378,15 @@
         </thead>
         <tbody>
             {% for item in doc.items %}
-            {% set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code, "custom_specification") or "" %}
+            {% set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code,
+            "custom_specification") or "" %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td class="text-left">{{ item.item_name }}</td>
                 <td class="text-left">{{ specification }}</td>
                 <td>{{ item.uom }}</td>
-                <td>{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty) }}{% endif %}</td>
+                <td>{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty)
+                    }}{% endif %}</td>
                 <td class="text-right">{{ "{:,.2f}".format(item.rate) }}</td>
                 <td class="text-right">{{ "{:,.2f}".format(item.amount) }}</td>
                 <td>{% if item.delivery_date %}{{ frappe.utils.format_date(item.delivery_date) }}{% endif %}</td>
@@ -393,7 +395,7 @@
             {% endfor %}
             {% set total_qty = [] %}
             {% for item in doc.items %}
-                {% if total_qty.append(item.qty) %}{% endif %}
+            {% if total_qty.append(item.qty) %}{% endif %}
             {% endfor %}
             {% set total_qty_sum = total_qty | sum %}
             <tr style="font-weight: bold;">
@@ -401,7 +403,8 @@
                     <strong>合计：</strong>
                 </td>
                 <td style="border-left: 1px solid #000;">
-                    {% if total_qty_sum % 1 == 0 %}{{ "{:,.0f}".format(total_qty_sum) }}{% else %}{{ "{:,.2f}".format(total_qty_sum) }}{% endif %}
+                    {% if total_qty_sum % 1 == 0 %}{{ "{:,.0f}".format(total_qty_sum) }}{% else %}{{
+                    "{:,.2f}".format(total_qty_sum) }}{% endif %}
                 </td>
                 <td style="border-left: 1px solid #000;"></td>
                 <td class="text-right" style="border-left: 1px solid #000;">
@@ -417,7 +420,9 @@
             </tr>
         </tbody>
     </table>
-
+    {%- if doc.custom_is_print_terms and doc.terms -%}
+    {{ doc.terms | safe }}
+    {%- else -%}
     <div class="section-title">二、质量标准、技术要求</div>
     <div class="checkbox-item">
         <span class="checkbox"></span>
@@ -462,7 +467,8 @@
         <span>元。</span>
     </div>
     <div class="clause-content" style="margin-top: 8px; line-height: 1.8;">
-        合同总额：<span class="fill-field" style="min-width: 150px;">{{ "{:,.2f}".format(doc.grand_total) }}</span>元（<span class="checkbox"></span>含/<span class="checkbox"></span>不含增值税）。
+        合同总额：<span class="fill-field" style="min-width: 150px;">{{ "{:,.2f}".format(doc.grand_total) }}</span>元（<span
+            class="checkbox"></span>含/<span class="checkbox"></span>不含增值税）。
     </div>
 
     <div class="section-title">四、包装标准、包装物的提供与回收</div>
@@ -576,7 +582,8 @@
         1. 标的物应当符合标的物所属行业质量规范要求或<span class="fill-field" style="min-width: 150px;"></span>标准，并经买受人书面确认。
     </div>
     <div class="clause-content">
-        2. 买受人收到标的物后应在<span class="fill-field" style="min-width: 50px;"></span>日内完成检验，如标的物的数量或者质量不符合约定，买受人应于<span class="fill-field" style="min-width: 50px;"></span>日内通知出卖人。买受人在约定期限内未通知出卖人的，视为检验合格。
+        2. 买受人收到标的物后应在<span class="fill-field" style="min-width: 50px;"></span>日内完成检验，如标的物的数量或者质量不符合约定，买受人应于<span
+            class="fill-field" style="min-width: 50px;"></span>日内通知出卖人。买受人在约定期限内未通知出卖人的，视为检验合格。
     </div>
     <div class="clause-content">
         3. 检验地点：<span class="fill-field" style="min-width: 200px;"></span>。
@@ -615,13 +622,17 @@
 
     <div class="section-title">十五、质量保证期</div>
     <div class="clause-content">
-        标的物经买受人检验合格后，质量保证期为<span class="fill-field" style="min-width: 50px;"></span>个月。质量保证期内产品出现问题免费解决，服务响应为<span class="fill-field" style="min-width: 50px;"></span>小时内。
+        标的物经买受人检验合格后，质量保证期为<span class="fill-field" style="min-width: 50px;"></span>个月。质量保证期内产品出现问题免费解决，服务响应为<span
+            class="fill-field" style="min-width: 50px;"></span>小时内。
     </div>
 
     <div class="section-title">十六、违约责任</div>
     <div class="section-subtitle">（一）出卖人违约</div>
     <div class="clause-content">
-        1. 出卖人逾期交货或延期安装调试的，应当每日按照合同总额的<span class="fill-field" style="min-width: 50px;"></span>‰向买受人支付违约金，但因买受人原因导致的迟延除外；迟延超过<span class="fill-field" style="min-width: 50px;"></span>日的，买受人有权解除合同，并要求出卖人退还已支付的货款并支付合同总额的<span class="fill-field" style="min-width: 50px;"></span>‰的违约金。
+        1. 出卖人逾期交货或延期安装调试的，应当每日按照合同总额的<span class="fill-field"
+            style="min-width: 50px;"></span>‰向买受人支付违约金，但因买受人原因导致的迟延除外；迟延超过<span class="fill-field"
+            style="min-width: 50px;"></span>日的，买受人有权解除合同，并要求出卖人退还已支付的货款并支付合同总额的<span class="fill-field"
+            style="min-width: 50px;"></span>‰的违约金。
     </div>
     <div class="clause-content">
         2. 因出卖人未取得处分权致使标的物所有权不能转移的，买受人可以解除合同并请求出卖人承担违约责任。
@@ -644,13 +655,17 @@
 
     <div class="section-subtitle">（二）买受人违约</div>
     <div class="clause-content">
-        1. 买受人逾期付款的，应当每日按照逾期部分价款的<span class="fill-field" style="min-width: 50px;"></span>‰向出卖人支付违约金。买受人逾期超过<span class="fill-field" style="min-width: 50px;"></span>日，出卖人有权解除合同，并要求买受人赔偿损失。
+        1. 买受人逾期付款的，应当每日按照逾期部分价款的<span class="fill-field" style="min-width: 50px;"></span>‰向出卖人支付违约金。买受人逾期超过<span
+            class="fill-field" style="min-width: 50px;"></span>日，出卖人有权解除合同，并要求买受人赔偿损失。
     </div>
     <div class="clause-content">
-        2. 分期付款的买受人未支付到期价款的数额达到全部价款的五分之一，经催告后在<span class="fill-field" style="min-width: 50px;"></span>日内仍未支付到期价款的，出卖人可以请求买受人支付全部价款或者解除合同。
+        2. 分期付款的买受人未支付到期价款的数额达到全部价款的五分之一，经催告后在<span class="fill-field"
+            style="min-width: 50px;"></span>日内仍未支付到期价款的，出卖人可以请求买受人支付全部价款或者解除合同。
     </div>
     <div class="clause-content">
-        3. 按合同约定由买受人自行提货，但买受人未按约定日期提货的，每迟延一日，应当按照合同总额的<span class="fill-field" style="min-width: 50px;"></span>‰向出卖人支付违约金。迟延超过<span class="fill-field" style="min-width: 50px;"></span>日的，出卖人有权解除合同，并要求买受人赔偿损失。
+        3. 按合同约定由买受人自行提货，但买受人未按约定日期提货的，每迟延一日，应当按照合同总额的<span class="fill-field"
+            style="min-width: 50px;"></span>‰向出卖人支付违约金。迟延超过<span class="fill-field"
+            style="min-width: 50px;"></span>日的，出卖人有权解除合同，并要求买受人赔偿损失。
     </div>
 
     <div class="section-title">十七、争议解决</div>
@@ -677,15 +692,18 @@
 
     <div class="section-title">十九、其他</div>
     <div class="clause-content">
-        本合同自<span class="checkbox"></span>双方当事人签名盖章之日 <span class="checkbox"></span><span class="fill-field" style="min-width: 50px;"></span>年<span class="fill-field" style="min-width: 30px;"></span>月<span class="fill-field" style="min-width: 30px;"></span>日起生效。
+        本合同自<span class="checkbox"></span>双方当事人签名盖章之日 <span class="checkbox"></span><span class="fill-field"
+            style="min-width: 50px;"></span>年<span class="fill-field" style="min-width: 30px;"></span>月<span
+            class="fill-field" style="min-width: 30px;"></span>日起生效。
     </div>
     <div class="clause-content">
         本合同使用汉语书写，如使用少数民族语言译本，对合同的解释、说明，以汉语为准。
     </div>
     <div class="clause-content">
-        本合同及附件（如有）一式<span class="fill-field" style="min-width: 30px;"></span>份，买受人执<span class="fill-field" style="min-width: 30px;"></span>份，出卖人执<span class="fill-field" style="min-width: 30px;"></span>份，具有同等法律效力。
+        本合同及附件（如有）一式<span class="fill-field" style="min-width: 30px;"></span>份，买受人执<span class="fill-field"
+            style="min-width: 30px;"></span>份，出卖人执<span class="fill-field" style="min-width: 30px;"></span>份，具有同等法律效力。
     </div>
-
+    {%- endif -%}
     <table class="signature-table">
         <thead>
             <tr>
@@ -706,15 +724,15 @@
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">委托代表人：（签名）</span>
-                        <span class="signature-value">{{ doc.contact_display or '' }}</span>
+                        <span class="signature-value"></span>
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">地址:</span>
-                        <span class="signature-value">{{ doc.address_display or '' }}</span>
+                        <span class="signature-value"></span>
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">电话:</span>
-                        <span class="signature-value">{{ doc.contact_mobile or '' }}</span>
+                        <span class="signature-value"></span>
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">开户银行:</span>
@@ -736,15 +754,15 @@
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">委托代表人：（签名）</span>
-                        <span class="signature-value">{{ frappe.db.get_value("User", doc.owner, "full_name") or '' }}</span>
+                        <span class="signature-value"></span>
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">地址:</span>
-                        <span class="signature-value">{{ frappe.db.get_value("Address", doc.company_address, "address_line1") or '' }}</span>
+                        <span class="signature-value"></span>
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">电话:</span>
-                        <span class="signature-value">{{ frappe.db.get_value("User", doc.owner, "mobile_no") or '' }}</span>
+                        <span class="signature-value"></span>
                     </div>
                     <div class="signature-info">
                         <span class="signature-label">开户银行:</span>
