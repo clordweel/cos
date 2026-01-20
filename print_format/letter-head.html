@@ -1,0 +1,50 @@
+{% set company_logo = frappe.db.get_value("Company", doc.company, "company_logo") %}
+
+<div style="width: 100%; color: #171717;">
+    <table style="width: 100%; border-collapse: collapse; table-layout: fixed; border-bottom: none; margin: 0;">
+        <tbody>
+            <tr>
+                <td style="vertical-align: middle !important; text-align: left; padding: 0 !important;">
+                    <div style="line-height: 54px; font-size: 0; white-space: nowrap; display: flex; align-items: center;">
+                        
+                        {% if company_logo %}
+                            <img src="{{ frappe.utils.get_url(company_logo) }}" style="height: 44px !important; width: auto !important; max-width: none !important; display: inline-block !important; vertical-align: middle; flex-shrink: 0;">
+                        {% else %}
+                            <img src="https://s3.junhai.work/cos-shared/cos_logo_t.svg" style="height: 44px !important; width: auto !important; max-width: none !important; background: black; display: inline-block !important; vertical-align: middle; flex-shrink: 0;">
+                        {% endif %}
+
+                        <span style="display: inline-block; width: 12px;"></span>
+                        
+                        <span style="display: inline-block; vertical-align: middle; font-size: 18px; font-weight: bold; line-height: 1.2; color: #000; white-space: normal;">
+                            {{ doc.company }}
+                        </span>
+                    </div>
+                </td>
+
+                <td style="vertical-align: middle !important; text-align: right; padding: 0 !important; width: 220px;">
+                    <div style="font-size: 20px; font-weight: bold; color: #000; line-height: 1; margin-bottom: 5px;">
+                        {{ _(doc.doctype) }}
+                    </div>
+                    <div style="font-size: 11px; color: #666; line-height: 1;">
+                        <span style="color: #999;">编号:</span>
+                        <span style="font-weight: bold; color: #333; font-family: Arial, sans-serif;">{{ doc.name }}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="height: 2px; background-color: #000; font-size: 0; line-height: 0; width: 100%;"></div>
+</div>
+
+{# 水印 - 根据文档状态显示 #}
+{%- if doc.docstatus==2-%}
+<div class="text-center watermark" document-status="cancelled">
+    <h4>已作废</h4>
+</div>
+{%- endif -%}
+{%- if doc.docstatus==0 -%}
+<div class="text-center watermark" document-status="draft">
+    <h4>草稿</h4>
+</div>
+{%- endif -%}

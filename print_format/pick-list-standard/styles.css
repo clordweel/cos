@@ -1,9 +1,10 @@
 /* ============================================
-   拣货单打印格式样式 (pick-list-standard)
+   打印格式样式 (Print Format Styles)
+   适用于标准打印格式模板
    ============================================ */
 
 /* 主容器样式 */
-.pick-list-wrapper {
+.print-format-wrapper {
     font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif;
     font-size: 13px;
     line-height: 1.6;
@@ -14,12 +15,12 @@
 }
 
 /* 标题样式 */
-.pick-list-wrapper .header-title {
+.print-format-wrapper .header-title {
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.pick-list-wrapper .header-title h2 {
+.print-format-wrapper .header-title h2 {
     font-size: 20px;
     font-weight: 700;
     color: #171717;
@@ -28,7 +29,7 @@
 }
 
 /* 基本信息表格样式 */
-.pick-list-wrapper .info-table {
+.print-format-wrapper .info-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 16px;
@@ -36,25 +37,25 @@
     border: 1px solid #333;
 }
 
-.pick-list-wrapper .info-table .info-cell {
-    padding: 8px 10px;
+.print-format-wrapper .info-table .info-cell {
+    padding: 4px;
     border: 1px solid #333;
     vertical-align: top;
 }
 
-.pick-list-wrapper .info-label {
+.print-format-wrapper .info-label {
     display: inline-block;
     min-width: 60px;
     margin-right: 5px;
     color: #171717;
 }
 
-.pick-list-wrapper .info-value {
+.print-format-wrapper .info-value {
     color: #171717;
 }
 
 /* 物料明细表格样式 */
-.pick-list-wrapper .items-table {
+.print-format-wrapper .items-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 16px;
@@ -62,55 +63,55 @@
     border: 1px solid #333;
 }
 
-.pick-list-wrapper .items-table thead {
+.print-format-wrapper .items-table thead {
     background-color: #f5f5f5;
 }
 
-.pick-list-wrapper .items-table th {
+.print-format-wrapper .items-table th {
     font-weight: 600;
     color: #171717;
-    padding: 8px 6px;
+    padding: 4px;
     text-align: center;
     border: 1px solid #333;
     background-color: #f5f5f5;
     vertical-align: middle;
 }
 
-.pick-list-wrapper .items-table td {
-    padding: 6px 5px;
+.print-format-wrapper .items-table td {
+    padding: 4px;
     border: 1px solid #333;
     vertical-align: middle;
     line-height: 1.5;
 }
 
-.pick-list-wrapper .items-table tbody tr {
+.print-format-wrapper .items-table tbody tr {
     background-color: #fff;
 }
 
 /* 隔行变色 */
-.pick-list-wrapper .items-table tbody tr:nth-child(even) {
+.print-format-wrapper .items-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
 /* 物料信息单元格 */
-.pick-list-wrapper .item-info-cell {
+.print-format-wrapper .item-info-cell {
     text-align: left;
 }
 
-.pick-list-wrapper .item-code {
+.print-format-wrapper .item-code {
     font-size: 13px;
     font-weight: 600;
     margin-bottom: 2px;
     color: #171717;
 }
 
-.pick-list-wrapper .item-name {
+.print-format-wrapper .item-name {
     font-size: 12px;
     color: #171717;
     margin-bottom: 2px;
 }
 
-.pick-list-wrapper .item-description {
+.print-format-wrapper .item-description {
     font-size: 11px;
     color: #666;
     margin-top: 2px;
@@ -118,35 +119,35 @@
 }
 
 /* 仓库单元格 */
-.pick-list-wrapper .warehouse-cell {
+.print-format-wrapper .warehouse-cell {
     text-align: left;
     color: #171717;
 }
 
 /* 批次/序列号单元格 */
-.pick-list-wrapper .batch-serial-cell {
+.print-format-wrapper .batch-serial-cell {
     text-align: left;
 }
 
 /* 数量单元格 */
-.pick-list-wrapper .quantity-cell {
+.print-format-wrapper .quantity-cell {
     text-align: right;
 }
 
-.pick-list-wrapper .quantity-value {
+.print-format-wrapper .quantity-value {
     font-size: 13px;
     font-weight: 600;
     color: #171717;
     margin-right: 3px;
 }
 
-.pick-list-wrapper .quantity-uom {
+.print-format-wrapper .quantity-uom {
     font-size: 12px;
     color: #666;
 }
 
 /* 复选框样式 */
-.pick-list-wrapper .check-box-outline {
+.print-format-wrapper .check-box-outline {
     width: 14px;
     height: 14px;
     border: 1px solid #333;
@@ -156,7 +157,7 @@
 }
 
 /* 备注区域样式 */
-.pick-list-wrapper .remarks-box {
+.print-format-wrapper .remarks-box {
     border: 1px solid #333;
     padding: 10px;
     min-height: 80px;
@@ -164,49 +165,49 @@
     margin-bottom: 16px;
 }
 
-.pick-list-wrapper .remarks-label {
+.print-format-wrapper .remarks-label {
     margin-bottom: 6px;
     color: #171717;
 }
 
-.pick-list-wrapper .remarks-content {
+.print-format-wrapper .remarks-content {
     color: #171717;
     line-height: 1.6;
     margin: 0;
 }
 
 /* 签名表格样式 */
-.pick-list-wrapper .signature-table {
+.print-format-wrapper .signature-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     font-size: 12px;
 }
 
-.pick-list-wrapper .signature-table td {
+.print-format-wrapper .signature-table td {
     border: none;
-    padding: 10px 8px;
+    padding: 4px;
     vertical-align: top;
 }
 
-.pick-list-wrapper .signature-cell {
+.print-format-wrapper .signature-cell {
     text-align: left;
     min-height: 80px;
     height: 80px;
 }
 
-.pick-list-wrapper .signature-label {
+.print-format-wrapper .signature-label {
     font-weight: 600;
     color: #171717;
     margin-bottom: 4px;
 }
 
-.pick-list-wrapper .signature-name {
+.print-format-wrapper .signature-name {
     font-weight: 600;
     color: #171717;
 }
 
-.pick-list-wrapper .signature-line {
+.print-format-wrapper .signature-line {
     border-top: 1px solid #333;
     width: 90%;
     margin-top: 8px;
@@ -214,96 +215,69 @@
 }
 
 /* 次要文本样式 */
-.pick-list-wrapper .secondary-text {
+.print-format-wrapper .secondary-text {
     font-size: 11px;
     color: #666;
     line-height: 1.3;
 }
 
-/* 水印样式 */
-.pick-list-wrapper .watermark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1000;
-    margin: 0;
-    padding: 0;
-}
-
-.pick-list-wrapper .watermark h4 {
-    border: 2px solid #ccc;
-    color: #ccc;
-    padding: 10px 20px;
-    transform: rotate(-15deg);
-    -webkit-transform: rotate(-15deg);
-    position: absolute;
-    top: 15%;
-    left: 40%;
-    font-size: 48px;
-    font-weight: 700;
-    margin: 0;
-}
-
 /* 文本对齐工具类 */
-.pick-list-wrapper .text-center {
+.print-format-wrapper .text-center {
     text-align: center;
 }
 
-.pick-list-wrapper .text-left {
+.print-format-wrapper .text-left {
     text-align: left;
 }
 
-.pick-list-wrapper .text-right {
+.print-format-wrapper .text-right {
     text-align: right;
 }
 
-.pick-list-wrapper .text-bold {
+.print-format-wrapper .text-bold {
     font-weight: 600;
 }
 
 /* 间距工具类 */
-.pick-list-wrapper .mb-2 {
+.print-format-wrapper .mb-2 {
     margin-bottom: 8px;
 }
 
-.pick-list-wrapper .mb-3 {
+.print-format-wrapper .mb-3 {
     margin-bottom: 16px;
 }
 
-.pick-list-wrapper .mt-2 {
+.print-format-wrapper .mt-2 {
     margin-top: 8px;
 }
 
 /* 打印优化 */
 @media print {
-    .pick-list-wrapper {
+    .print-format-wrapper {
         page-break-inside: avoid;
     }
     
-    .pick-list-wrapper .items-table {
+    .print-format-wrapper .items-table {
         page-break-inside: auto;
     }
     
-    .pick-list-wrapper .items-table tbody tr {
+    .print-format-wrapper .items-table tbody tr {
         page-break-inside: avoid;
         page-break-after: auto;
     }
     
-    .pick-list-wrapper .items-table thead {
+    .print-format-wrapper .items-table thead {
         display: table-header-group;
     }
     
-    .pick-list-wrapper .signature-table {
+    .print-format-wrapper .signature-table {
         page-break-inside: avoid;
     }
 }
 
 /* 确保表格在打印时正确显示 */
-.pick-list-wrapper .items-table,
-.pick-list-wrapper .info-table {
+.print-format-wrapper .items-table,
+.print-format-wrapper .info-table {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
