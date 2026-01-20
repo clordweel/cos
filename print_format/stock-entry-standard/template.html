@@ -1,0 +1,169 @@
+{%- macro add_header(doc, letter_head, no_letterhead) -%}
+{% if letter_head and not no_letterhead %}
+<div class="letter-head">{{ letter_head }}</div>
+{% endif %}
+{%- endmacro -%}
+
+{% set project_display = "" %}
+{% set source_label = "无" %}
+{% set source_name = "" %}
+
+{# --- 1. 获取关联来源 (工单/BOM) --- #}
+{% if doc.work_order %}
+{% set source_label = "生产工单" %}
+{% set source_name = doc.work_order %}
+{% elif doc.bom_no %}
+{% set source_label = "BOM" %}
+{% set source_name = doc.bom_no %}
+{% elif doc.purchase_order %}
+{% set source_label = "采购订单" %}
+{% set source_name = doc.purchase_order %}
+{% endif %}
+
+{# --- 2. 获取项目信息 (优先从主表，其次查子表) --- #}
+{% set found_project_id = "" %}
+{% if doc.project %}
+{% set found_project_id = doc.project %}
+{% elif doc.items and doc.items|length > 0 and doc.items[0].project %}
+{% set found_project_id = doc.items[0].project %}
+{# 如果没有直接项目，尝试从关联的工单查项目 #}
+{% elif doc.work_order %}
+{% set found_project_id = frappe.db.get_value("Work Order", doc.work_order, "project") %}
+{% endif %}
+
+{# --- 3. 拼接项目名称 --- #}
+{% if found_project_id %}
+{% set found_project_name = frappe.db.get_value("Project", found_project_id, "project_name") %}
+{% if found_project_name %}
+{% set project_display = found_project_id ~ " (" ~ found_project_name ~ ")" %}
+{% else %}
+{% set project_display = found_project_id %}
+{% endif %}
+{% endif %}
+
+<div class="page-break print-format-wrapper">
+    <div id="header-html" class="hidden-pdf">
+        {{ add_header(doc, letter_head, no_letterhead) }}
+    </div>
+
+    <div class="print-format-body">
+        <!-- 基本信息表格 -->
+        <table class="table table-bordered info-table mb-3">
+            <tbody>
+                <tr>
+                    <td class="info-cell" style="width: 50%;">
+                        <span class="info-label font-weight-bold">移库单号:</span>
+                        <span class="info-value text-bold">{{ doc.name }}</span>
+                    </td>
+                    <td class="info-cell" style="width: 50%;">
+                        <span class="info-label font-weight-bold">过账日期:</span>
+                        <span class="info-value">{{ frappe.utils.format_date(doc.posting_date) }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info-cell" style="width: 50%;">
+                        <span class="info-label font-weight-bold">移库类型:</span>
+                        <span class="info-value">{{ _(doc.stock_entry_type) }}</span>
+                    </td>
+                    <td class="info-cell" style="width: 50%;">
+                        <span class="info-label font-weight-bold">项目:</span>
+                        <span class="info-value text-bold">{{ project_display or "&nbsp;" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info-cell" colspan="2">
+                        <span class="info-label font-weight-bold">关联 ({{ source_label }}):</span>
+                        <span class="info-value">{{ source_name or "&nbsp;" }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 物料明细表格 -->
+        <table class="table table-bordered items-table mb-3">
+            <thead class="table-header">
+                <tr>
+                    <th class="text-center" style="width: 6%;">序号</th>
+                    <th class="text-left" style="width: 28%;">物料信息</th>
+                    <th class="text-left" style="width: 14%;">源仓库</th>
+                    <th class="text-left" style="width: 14%;">目标仓库</th>
+                    <th class="text-left" style="width: 20%;">批次/序列号</th>
+                    <th class="text-right" style="width: 12%;">数量</th>
+                    <th class="text-center" style="width: 6%;">✔</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in doc.items %}
+                <tr>
+                    <td class="text-center">{{ loop.index }}</td>
+                    <td class="item-info-cell">
+                        <div class="item-code text-bold">{{ item.item_code }}</div>
+                        <div class="item-name">{{ item.item_name }}</div>
+                        {% if item.description and item.description != item.item_name %}
+                        <div class="item-description secondary-text">{{ item.description | striptags }}</div>
+                        {% endif %}
+                    </td>
+                    <td class="warehouse-cell">{{ item.s_warehouse or "--" }}</td>
+                    <td class="warehouse-cell">{{ item.t_warehouse or "--" }}</td>
+                    <td class="batch-serial-cell">
+                        {% if item.batch_no %}
+                        <div class="secondary-text">[批] {{ item.batch_no }}</div>
+                        {% endif %}
+                        {% if item.serial_no %}
+                        <div class="secondary-text">[序] {{ item.serial_no }}</div>
+                        {% endif %}
+                        {% if not item.batch_no and not item.serial_no %}
+                        &nbsp;
+                        {% endif %}
+                    </td>
+                    <td class="text-right quantity-cell">
+                        <span class="quantity-value text-bold">{{ item.qty }}</span>
+                        <span class="quantity-uom">{{ item.uom }}</span>
+                    </td>
+                    <td class="text-center check-cell">
+                        <div class="check-box-outline"></div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 备注区域 -->
+        <div class="remarks-box mb-3">
+            <div class="remarks-label font-weight-bold mb-2">备注:</div>
+            <div class="remarks-content">{{ doc.remarks or "&nbsp;" }}</div>
+        </div>
+
+        <!-- 签名区域 -->
+        <table class="table table-borderless signature-table">
+            <tbody>
+                <tr>
+                    <td class="signature-cell" style="width: 25%; vertical-align: top;">
+                        <div class="signature-label">制单人:</div>
+                        {% if doc.owner %}
+                        <div class="signature-name text-bold mt-2">{{ doc.owner }}</div>
+                        {% else %}
+                        <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+                        {% endif %}
+                        <div class="signature-line mt-2"></div>
+                    </td>
+                    <td class="signature-cell" style="width: 25%; vertical-align: top;">
+                        <div class="signature-label">发货人 (源):</div>
+                        <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+                        <div class="signature-line mt-2"></div>
+                    </td>
+                    <td class="signature-cell" style="width: 25%; vertical-align: top;">
+                        <div class="signature-label">收货人 (目标):</div>
+                        <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+                        <div class="signature-line mt-2"></div>
+                    </td>
+                    <td class="signature-cell" style="width: 25%; vertical-align: top;">
+                        <div class="signature-label">审核/监管:</div>
+                        <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+                        <div class="signature-line mt-2"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
