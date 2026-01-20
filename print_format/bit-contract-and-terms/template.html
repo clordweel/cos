@@ -1,11 +1,11 @@
-<!-- 合同标题 -->
-<div class="header-title text-center mb-2">
-    <h2 class="mb-0">购销合同</h2>
+<!-- 合同编号 -->
+<div class="contract-number" style="text-align: right;">
+    <strong>编号：</strong>{{ doc.custom_contract_no or doc.name }}
 </div>
 
-<!-- 合同编号 -->
-<div class="contract-number text-center mb-4">
-    <strong>编号：</strong>{{ doc.custom_contract_no or doc.name }}
+<!-- 合同标题 -->
+<div class="header-title text-center" style="margin-top: 30px; margin-bottom: 30px;">
+    <h2 class="mb-0">购销合同</h2>
 </div>
 
 <!-- 合同双方信息和签订信息 -->
@@ -13,12 +13,12 @@
     <!-- 左侧：合同双方信息 -->
     <div class="col-xs-6 contract-parties">
         <div class="party-line mb-2" style="white-space: nowrap;">
-            <span class="party-label font-weight-bold" style="display: inline-block; min-width: 100px;">甲方（需方）：</span>
-            <u>{{ doc.customer_name or '' }}</u>
+            <span class="party-label font-weight-bold" style="display: inline-block;">甲方（需方）：</span>
+            <strong>{{ doc.customer_name or '' }}</strong>
         </div>
         <div class="party-line mb-2" style="white-space: nowrap;">
-            <span class="party-label font-weight-bold" style="display: inline-block; min-width: 100px;">乙方（供方）：</span>
-            <u>{{ doc.company or '' }}</u>
+            <span class="party-label font-weight-bold" style="display: inline-block;">乙方（供方）：</span>
+            <strong>{{ doc.company or '' }}</strong>
         </div>
     </div>
 
@@ -26,18 +26,20 @@
     <div class="col-xs-6 contract-date-location">
         <div class="date-location-item mb-2" style="white-space: nowrap;">
             <span class="date-location-label font-weight-bold"
-                style="display: inline-block; min-width: 80px;">签订时间：</span>
-            <u class="date-location-value">
-                {% set date = doc.custom_signing_date or doc.transaction_date %}
+                style="display: inline-block;">签订时间：</span>
+            <strong class="date-location-value">
+                {% set date = doc.get('custom_signing_date') or doc.transaction_date %}
+                {% if date %}
                 {% set date_str = frappe.utils.format_date(date, "yyyy-mm-dd") %}
                 {% set date_parts = date_str.split("-") %}
-                {{ date_parts[0] }}年{{ date_parts[1] }}月{{ date_parts[2] }}日
-            </u>
+                {{ date_parts[0] }}年 {{ date_parts[1] }}月 {{ date_parts[2] }}日
+                {% endif %}
+            </strong>
         </div>
         <div class="date-location-item mb-2" style="white-space: nowrap;">
             <span class="date-location-label font-weight-bold"
-                style="display: inline-block; min-width: 80px;">签订地点：</span>
-            <u class="date-location-value">{{ doc.custom_signing_location or '' }}</u>
+                style="display: inline-block;">签订地点：</span>
+            <strong class="date-location-value">{{ doc.custom_signing_location or '' }}</strong>
         </div>
     </div>
 </div>
@@ -102,8 +104,8 @@
                 payment.payment_term or "" }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{% if payment.invoice_portion %}{{
                 "{:.0f}".format(payment.invoice_portion) }}%{% else %}{% if
-                payment.payment_amount and doc.grand_total %}{{ "{:.0f}".format((payment.payment_amount /
-                doc.grand_total) * 100) }}%{% endif %}{% endif %}</td>
+                payment.payment_amount and (doc.grand_total or 0) %}{{ "{:.0f}".format((payment.payment_amount /
+                (doc.grand_total or 0)) * 100) }}%{% endif %}{% endif %}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ "{:,.2f}".format(payment.payment_amount
                 or 0) }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ payment.mode_of_payment or "" }}</td>
@@ -115,7 +117,7 @@
             <td data-row="2" style="text-align: center;">全款</td>
             <td data-row="2" style="text-align: center;">合同签订后</td>
             <td data-row="2" style="text-align: center;">100%</td>
-            <td data-row="2" style="text-align: center;">{{ "{:,.2f}".format(doc.grand_total) }}</td>
+            <td data-row="2" style="text-align: center;">{{ "{:,.2f}".format(doc.grand_total or 0) }}</td>
             <td data-row="2" style="text-align: center;">现金电汇</td>
         </tr>
         {% endif %}
@@ -237,7 +239,7 @@
     <!-- 1.3 合同总金额 -->
     <div class="section-subtitle font-weight-bold">1.3 合同总金额</div>
     <div class="clause-content">
-        合同总金额为 <u>{{ "{:,.2f}".format(doc.grand_total) }}</u> 元（人民币大写： <u>{{ doc.in_words or "" }}</u> ），含 <u> </u> %
+        合同总金额为 <u>{{ "{:,.2f}".format(doc.grand_total or 0) }}</u> 元（人民币大写： <u>{{ doc.in_words or "" }}</u> ），含 <u> </u> %
         增值税。在合同执行期间，若国家统一税率发生调整，双方将按照不含税总金额保持不变的原则，依据新的税率执行。
     </div>
 
@@ -265,8 +267,8 @@
                 <td>{{ payment.payment_term or payment.description or "" }}</td>
                 <td>{{ payment.description or payment.payment_term or "" }}</td>
                 <td>{% if payment.invoice_portion %}{{ "{:.0f}".format(payment.invoice_portion) }}%{% else %}{% if
-                    payment.payment_amount and doc.grand_total %}{{ "{:.0f}".format((payment.payment_amount /
-                    doc.grand_total) * 100) }}%{% endif %}{% endif %}</td>
+                    payment.payment_amount and (doc.grand_total or 0) %}{{ "{:.0f}".format((payment.payment_amount /
+                    (doc.grand_total or 0)) * 100) }}%{% endif %}{% endif %}</td>
                 <td>{{ "{:,.2f}".format(payment.payment_amount or 0) }}</td>
                 <td>{{ payment.mode_of_payment or "" }}</td>
             </tr>
@@ -277,7 +279,7 @@
                 <td>全款</td>
                 <td>合同签订后</td>
                 <td>100%</td>
-                <td>{{ "{:,.2f}".format(doc.grand_total) }}</td>
+                <td>{{ "{:,.2f}".format(doc.grand_total or 0) }}</td>
                 <td>现金电汇</td>
             </tr>
             {% endif %}
@@ -455,7 +457,7 @@
                 <div class="signature-info mb-2">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px;">单位名称：</span>
-                    <span class="signature-value">{{ doc.custom_first_party_law }}</span>
+                    <span class="signature-value">{{ doc.get('custom_first_party_law') or '' }}</span>
                 </div>
                 <div class="signature-info mb-2">
                     <span class="signature-label font-weight-bold"
@@ -492,7 +494,7 @@
                 <div class="signature-info mb-2">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px;">单位名称：</span>
-                    <span class="signature-value">{{ doc.custom_second_party_law }}</span>
+                    <span class="signature-value">{{ doc.get('custom_second_party_law') or '' }}</span>
                 </div>
                 <div class="signature-info mb-2">
                     <span class="signature-label font-weight-bold"
