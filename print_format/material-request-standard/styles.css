@@ -1,0 +1,283 @@
+/* ============================================
+   打印格式样式 (Print Format Styles)
+   适用于标准打印格式模板
+   ============================================ */
+
+/* 主容器样式 */
+.print-format-wrapper {
+    font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #171717;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* 标题样式 */
+.print-format-wrapper .header-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.print-format-wrapper .header-title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #171717;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* 基本信息表格样式 */
+.print-format-wrapper .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 12px;
+    border: 1px solid #333;
+}
+
+.print-format-wrapper .info-table .info-cell {
+    padding: 4px;
+    border: 1px solid #333;
+    vertical-align: top;
+}
+
+.print-format-wrapper .info-label {
+    display: inline-block;
+    min-width: 60px;
+    margin-right: 5px;
+    color: #171717;
+}
+
+.print-format-wrapper .info-value {
+    color: #171717;
+}
+
+/* 物料明细表格样式 */
+.print-format-wrapper .items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 12px;
+    border: 1px solid #333;
+}
+
+.print-format-wrapper .items-table thead {
+    background-color: #f5f5f5;
+}
+
+.print-format-wrapper .items-table th {
+    font-weight: 600;
+    color: #171717;
+    padding: 4px;
+    text-align: center;
+    border: 1px solid #333;
+    background-color: #f5f5f5;
+    vertical-align: middle;
+}
+
+.print-format-wrapper .items-table td {
+    padding: 4px;
+    border: 1px solid #333;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.print-format-wrapper .items-table tbody tr {
+    background-color: #fff;
+}
+
+/* 隔行变色 */
+.print-format-wrapper .items-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 物料信息单元格 */
+.print-format-wrapper .item-info-cell {
+    text-align: left;
+}
+
+.print-format-wrapper .item-code {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #171717;
+}
+
+.print-format-wrapper .item-name {
+    font-size: 12px;
+    color: #171717;
+    margin-bottom: 2px;
+}
+
+.print-format-wrapper .item-description {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+    line-height: 1.3;
+}
+
+/* 仓库单元格 */
+.print-format-wrapper .warehouse-cell {
+    text-align: left;
+    color: #171717;
+}
+
+/* 批次/序列号单元格 */
+.print-format-wrapper .batch-serial-cell {
+    text-align: left;
+}
+
+/* 数量单元格 */
+.print-format-wrapper .quantity-cell {
+    text-align: right;
+}
+
+.print-format-wrapper .quantity-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #171717;
+    margin-right: 3px;
+}
+
+.print-format-wrapper .quantity-uom {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 复选框样式 */
+.print-format-wrapper .check-box-outline {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #333;
+    display: inline-block;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+/* 备注区域样式 */
+.print-format-wrapper .remarks-box {
+    border: 1px solid #333;
+    padding: 10px;
+    min-height: 80px;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+.print-format-wrapper .remarks-label {
+    margin-bottom: 6px;
+    color: #171717;
+}
+
+.print-format-wrapper .remarks-content {
+    color: #171717;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 签名表格样式 */
+.print-format-wrapper .signature-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.print-format-wrapper .signature-table td {
+    border: none;
+    padding: 4px;
+    vertical-align: top;
+}
+
+.print-format-wrapper .signature-cell {
+    text-align: left;
+    min-height: 80px;
+    height: 80px;
+}
+
+.print-format-wrapper .signature-label {
+    font-weight: 600;
+    color: #171717;
+    margin-bottom: 4px;
+}
+
+.print-format-wrapper .signature-name {
+    font-weight: 600;
+    color: #171717;
+}
+
+.print-format-wrapper .signature-line {
+    border-top: 1px solid #333;
+    width: 90%;
+    margin-top: 8px;
+    height: 1px;
+}
+
+/* 次要文本样式 */
+.print-format-wrapper .secondary-text {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.3;
+}
+
+/* 文本对齐工具类 */
+.print-format-wrapper .text-center {
+    text-align: center;
+}
+
+.print-format-wrapper .text-left {
+    text-align: left;
+}
+
+.print-format-wrapper .text-right {
+    text-align: right;
+}
+
+.print-format-wrapper .text-bold {
+    font-weight: 600;
+}
+
+/* 间距工具类 */
+.print-format-wrapper .mb-2 {
+    margin-bottom: 8px;
+}
+
+.print-format-wrapper .mb-3 {
+    margin-bottom: 16px;
+}
+
+.print-format-wrapper .mt-2 {
+    margin-top: 8px;
+}
+
+/* 打印优化 */
+@media print {
+    .print-format-wrapper {
+        page-break-inside: avoid;
+    }
+    
+    .print-format-wrapper .items-table {
+        page-break-inside: auto;
+    }
+    
+    .print-format-wrapper .items-table tbody tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    
+    .print-format-wrapper .items-table thead {
+        display: table-header-group;
+    }
+    
+    .print-format-wrapper .signature-table {
+        page-break-inside: avoid;
+    }
+}
+
+/* 确保表格在打印时正确显示 */
+.print-format-wrapper .items-table,
+.print-format-wrapper .info-table {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
