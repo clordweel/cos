@@ -55,8 +55,8 @@
 - **自定义样式**：通过 `styles.css` 补充 Bootstrap 未覆盖的样式需求
 
 #### 主要容器
-- `.pick-list-wrapper`：主容器
-- `.print-format-body`：正文容器
+- `.print-format-wrapper`：主容器（通用前缀，可复用到其他模板）
+- `.print-format-body`：正文容器（全局样式）
 - `.header-title`：标题区域
 
 #### 关键元素类名（结合Bootstrap类）
@@ -215,7 +215,221 @@ pick-list-standard/
    - 将 `template.html` 的内容复制到模板编辑器
    - 确保样式文件 `styles.css` 被正确引用
 
-### 10. 待完善项
+### 10. 样式和HTML结构规范
+
+#### 10.1 表格单元格规范
+
+##### 单元格边距（Padding）
+- **统一标准**：所有表格单元格（`th` 和 `td`）的 `padding` 统一为 `4px`
+- **适用范围**：
+  - 基本信息表格（`.info-table .info-cell`）：`padding: 4px`
+  - 明细表格表头（`.items-table th`）：`padding: 4px`
+  - 明细表格单元格（`.items-table td`）：`padding: 4px`
+  - 签名表格单元格（`.signature-table td`）：`padding: 4px`
+
+##### 表格单元格宽度
+- **基本信息表格**：使用百分比宽度
+  - 两列布局：每列 `width: 50%`
+  - 单列布局：`colspan="2"`，宽度 `100%`
+- **明细表格**：使用百分比宽度，总和应为 `100%`
+  - 示例：序号 `6%` + 物料信息 `36%` + 源仓库 `15%` + 批次/序列号 `20%` + 数量 `15%` + 确认框 `8%` = `100%`
+- **签名表格**：使用百分比宽度，平均分配
+  - 示例：4列签名，每列 `width: 25%`
+
+##### 表格边框
+- **边框颜色**：`#333`（深灰色）
+- **边框宽度**：`1px solid`
+- **边框样式**：
+  - 基本信息表格：`border: 1px solid #333`
+  - 明细表格：`border: 1px solid #333`
+  - 签名表格：`border: none`（无边框）
+
+##### 表格背景色
+- **表头背景**：`#f5f5f5`（浅灰色）
+- **表体背景**：`#fff`（白色）
+- **隔行变色**：偶数行 `#f9f9f9`（极浅灰色）
+
+#### 10.2 HTML结构规范
+
+##### 主容器结构
+```html
+<div class="page-break print-format-wrapper">
+    <div id="header-html" class="hidden-pdf">
+        {{ add_header(doc, letter_head, no_letterhead) }}
+    </div>
+    <div class="print-format-body">
+        <!-- 内容区域 -->
+    </div>
+</div>
+```
+
+##### 基本信息表格结构
+```html
+<table class="table table-bordered info-table mb-3">
+    <tbody>
+        <tr>
+            <td class="info-cell" style="width: 50%;">
+                <span class="info-label font-weight-bold">标签:</span>
+                <span class="info-value text-bold">值</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+```
+
+##### 明细表格结构
+```html
+<table class="table table-bordered items-table mb-3">
+    <thead class="table-header">
+        <tr>
+            <th class="text-center" style="width: 6%;">列标题</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">内容</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+##### 签名表格结构
+```html
+<table class="table table-borderless signature-table">
+    <tbody>
+        <tr>
+            <td class="signature-cell" style="width: 25%; vertical-align: top;">
+                <div class="signature-label">标签:</div>
+                <div class="signature-name text-bold mt-2">姓名或占位符</div>
+                <div class="signature-line mt-2"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+```
+
+#### 10.3 模板私有样式规范
+
+##### 样式文件命名
+- 模板私有样式文件：`styles.css`
+- 样式类前缀：`.print-format-wrapper`（通用前缀，可复用）
+
+##### 样式组织结构
+```css
+/* 主容器样式 */
+.print-format-wrapper { ... }
+
+/* 基本信息表格样式 */
+.print-format-wrapper .info-table { ... }
+.print-format-wrapper .info-table .info-cell { ... }
+
+/* 明细表格样式 */
+.print-format-wrapper .items-table { ... }
+.print-format-wrapper .items-table th { ... }
+.print-format-wrapper .items-table td { ... }
+
+/* 签名表格样式 */
+.print-format-wrapper .signature-table { ... }
+.print-format-wrapper .signature-table td { ... }
+
+/* 工具类 */
+.print-format-wrapper .text-center { ... }
+.print-format-wrapper .mb-2 { ... }
+.print-format-wrapper .mb-3 { ... }
+```
+
+##### 字体和颜色规范
+- **字体族**：`"HarmonyOS Sans SC", "HarmonyOSHans-Regular", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif`
+- **基础字号**：`13px`
+- **行高**：`1.6`
+- **文字颜色**：`#171717`（深灰色）
+- **次要文本颜色**：`#666`（中灰色）
+- **边框颜色**：`#333`（深灰色）
+
+##### 间距规范
+- **工具类间距**：
+  - `.mb-2`：`margin-bottom: 8px`
+  - `.mb-3`：`margin-bottom: 16px`
+  - `.mt-2`：`margin-top: 8px`
+- **表格间距**：`margin-bottom: 16px`
+- **签名表格间距**：`margin-top: 20px`
+
+#### 10.4 全局样式使用规则
+
+##### 全局样式文件
+- **文件位置**：`print_format/standard.css`
+- **适用范围**：所有打印格式模板共享
+
+##### 可用的全局样式类
+
+**文本对齐类**（无需前缀，直接使用）：
+- `.text-center`：文本居中
+- `.text-left`：文本左对齐
+- `.text-right`：文本右对齐
+- `.text-bold`：文本加粗
+
+**次要文本样式**（无需前缀）：
+- `.secondary-text`：次要文本样式（`font-size: 11px`, `color: #333`）
+
+**自定义标签样式**（无需前缀）：
+- `.custom-label`：自定义标签样式（加粗，无边框，无背景）
+
+**表格基础样式**（无需前缀）：
+- `.info-table`：基本信息表格基础样式（仅边框，无 padding）
+- `.items-table`：明细表格基础样式（仅边框，无 padding）
+- `.totals-table`：总计表格基础样式（仅边框，无 padding）
+- `.table-header`：表头样式（背景色 `#e0e0e0`）
+
+**签名区域样式**（无需前缀）：
+- `.signature-area`：签名区域基础样式（无 padding）
+- `.signature-line`：签名线样式
+
+**复选框样式**（无需前缀）：
+- `.check-box-outline`：复选框样式（`12px × 12px`）
+
+**水印样式**（无需前缀，但建议使用内联样式）：
+- `.watermark`：水印容器样式（绝对定位，覆盖整个页面）
+
+##### 全局样式使用注意事项
+
+1. **表格单元格 padding**：
+   - 全局样式**不设置**具体的 `padding` 值
+   - 各模板需要在私有样式中自行定义 `padding: 4px`
+
+2. **表格边框**：
+   - 全局样式只设置边框颜色 `border: 1px solid #000`
+   - 各模板可以覆盖边框样式
+
+3. **样式优先级**：
+   - 模板私有样式（`.print-format-wrapper` 下的样式）优先级高于全局样式
+   - 使用 `!important` 时需谨慎，避免影响其他模板
+
+4. **Bootstrap 工具类**：
+   - 可以使用 Bootstrap 的工具类（如 `table`, `table-bordered`, `table-borderless`）
+   - 建议结合模板私有样式使用
+
+#### 10.5 复用其他模板样式指南
+
+##### 复用步骤
+1. **复制样式文件**：将 `styles.css` 复制到新模板目录
+2. **修改主容器类名**：保持使用 `.print-format-wrapper`（通用前缀）
+3. **调整特定样式**：根据新模板需求调整特定样式
+4. **保持规范**：遵循表格单元格 `padding: 4px` 等规范
+
+##### 可复用的样式组件
+- ✅ 主容器样式（`.print-format-wrapper`）
+- ✅ 基本信息表格样式（`.info-table`）
+- ✅ 明细表格样式（`.items-table`）
+- ✅ 签名表格样式（`.signature-table`）
+- ✅ 备注区域样式（`.remarks-box`）
+- ✅ 工具类（`.text-center`, `.mb-2`, `.mb-3` 等）
+
+##### 需要自定义的样式
+- ⚠️ 特定业务字段样式（如 `.item-code`, `.warehouse-cell` 等）
+- ⚠️ 特定布局样式（如列宽、特殊对齐等）
+- ⚠️ 特定颜色和字体大小（如需要与模板主题一致）
+
+### 11. 待完善项
 
 - 部分字段可能需要从自定义字段或配置中获取
 - 签名区域可能需要支持更多签名人
