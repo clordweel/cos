@@ -15,7 +15,7 @@
 
 <!-- 合同标题 -->
 <div class="header-title text-center" style="margin-top: 30px; margin-bottom: 30px;">
-    <h2 class="mb-0">购销合同</h2>
+    <h2 class="mb-0">销售合同</h2>
 </div>
 
 <!-- 合同双方信息和签订信息 -->
@@ -24,11 +24,11 @@
     <div class="col-xs-7 contract-parties">
         <div class="party-line mb-2" style="white-space: nowrap;">
             <span class="party-label font-weight-bold" style="display: inline-block;">甲方（需方）：</span>
-            <strong>{{ doc.customer_name or '' }}</strong>
+            <strong>{{ doc.custom_first_party_law or '' }}</strong>
         </div>
         <div class="party-line mb-2" style="white-space: nowrap;">
             <span class="party-label font-weight-bold" style="display: inline-block;">乙方（供方）：</span>
-            <strong>{{ doc.company or '' }}</strong>
+            <strong>{{ doc.custom_second_party_law or '' }}</strong>
         </div>
     </div>
 
@@ -467,7 +467,7 @@
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px; flex-shrink: 0;">单位名称：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.get('custom_first_party_law') or '' }}</span>
+                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_first_party_law or '' }}</span>
                 </div>
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
@@ -504,7 +504,7 @@
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px; flex-shrink: 0;">单位名称：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.get('custom_second_party_law') or '' }}</span>
+                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_second_party_law or '' }}</span>
                 </div>
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
