@@ -162,9 +162,8 @@
 
 /* 响应式调整 */
 @media print {
-    .contract-content {
-        page-break-inside: avoid;
-    }
+    /* 移除 .contract-content 的 page-break-inside: avoid; 
+       允许合同内容在页面中自然分页，避免第一页空白 */
     
     .contract-content .section-title {
         page-break-after: avoid;
