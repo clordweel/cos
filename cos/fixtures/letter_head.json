@@ -17,9 +17,9 @@
   "image_height": 0.0,
   "image_width": 0.0,
   "is_default": 1,
-  "letter_head_name": "COS Standard",
-  "modified": "2026-01-20 11:20:39.796297",
-  "name": "COS Standard",
-  "source": "HTML"
+  "letter_head_name": "COS 通用打印页头",
+  "modified": "2026-01-22 02:09:56.440169",
+  "name": "COS 通用打印页头",
+  "source": "Image"
  }
 ]

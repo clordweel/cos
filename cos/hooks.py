@@ -291,14 +291,14 @@ fixtures = [
         "filters": [["module", "in", ["COS Accounts"]]],
     },
     {
-        "dt": "Letter Head",
-        "filters": [["name", "in", ["COS Standard"]]],
-    },
-    {
         "dt": "Print Format",
         "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
     },
-    {"dt": "Print Style", "filters": [["name", "in", ["COS Standard"]]]},
+    {"dt": "Print Style", "filters": [["name", "in", ["COS 通用打印样式"]]]},
+    {
+        "dt": "Letter Head",
+        "filters": [["name", "in", ["COS 通用打印页头"]]],
+    },
     {"dt": "Address Template", "filters": [["name", "in", ["China"]]]},
     {
         "dt": "Terms and Conditions",
