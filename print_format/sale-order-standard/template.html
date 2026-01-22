@@ -106,61 +106,48 @@
             </tbody>
         </table>
 
-        <!-- 金额汇总和备注区域 -->
-        <table class="table table-borderless mb-3" style="width: 100%; border-collapse: collapse;">
-            <tbody>
-                <tr>
-                    <td style="width: 60%; vertical-align: top; padding-right: 20px; border: none;">
-                        <!-- 大写金额 -->
-                        <div class="remarks-box mb-2" style="background-color: #f9f9f9;">
-                            <div class="remarks-label font-weight-bold mb-2">大写金额:</div>
-                            <div class="remarks-content text-bold">{{ doc.in_words or "" }}</div>
-                        </div>
+        <!-- 金额汇总表格 -->
+        <div class="mb-3" style="text-align: right;">
+            <table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
+                <tbody>
+                    <tr>
+                        <td class="text-right" style="width: 40%;"><strong>小计</strong></td>
+                        <td class="text-right text-bold">{{ doc.get_formatted("total") }}</td>
+                    </tr>
+                    {% for tax in doc.taxes %}
+                    {% if tax.tax_amount > 0 %}
+                    <tr>
+                        <td class="text-right"><strong>{{ tax.description }}</strong></td>
+                        <td class="text-right text-bold">{{ tax.get_formatted("tax_amount") }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    <tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                        <td class="text-right"><strong>总计 ({{ doc.currency }})</strong></td>
+                        <td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" style="width: 40%;"><strong>大写金额</strong></td>
+                        <td class="text-right text-bold">{{ doc.in_words or "" }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                        <!-- 备注/条款 -->
-                        <div class="remarks-box">
-                            <div class="remarks-label font-weight-bold mb-2">备注 / 条款:</div>
-                            <div class="remarks-content">
-                                {% if doc.payment_terms_template %}
-                                <div class="secondary-text mb-2"><strong>付款条款:</strong> {{ doc.payment_terms_template }}</div>
-                                {% endif %}
-                                {% if doc.terms %}
-                                <div class="secondary-text">{{ doc.terms | safe }}</div>
-                                {% else %}
-                                {{ doc.remarks or "&nbsp;" }}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </td>
-
-                    <td style="width: 40%; vertical-align: top; border: none;">
-                        <!-- 金额汇总表格 -->
-                        <table class="table table-bordered totals-table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-right" style="width: 40%;"><strong>小计</strong></td>
-                                    <td class="text-right">{{ doc.get_formatted("total") }}</td>
-                                </tr>
-                                {% for tax in doc.taxes %}
-                                {% if tax.tax_amount > 0 %}
-                                <tr>
-                                    <td class="text-right">
-                                        <small>{{ tax.description }}</small>
-                                    </td>
-                                    <td class="text-right">{{ tax.get_formatted("tax_amount") }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
-                                    <td class="text-right"><strong>总计 ({{ doc.currency }})</strong></td>
-                                    <td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- 备注/条款区域 -->
+        <div class="remarks-box mb-3">
+            <div class="remarks-label font-weight-bold mb-2">备注 / 条款:</div>
+            <div class="remarks-content">
+                {% if doc.payment_terms_template %}
+                <div class="secondary-text mb-2"><strong>付款条款:</strong> {{ doc.payment_terms_template }}</div>
+                {% endif %}
+                {% if doc.terms %}
+                <div class="secondary-text">{{ doc.terms | safe }}</div>
+                {% else %}
+                {{ doc.remarks or "&nbsp;" }}
+                {% endif %}
+            </div>
+        </div>
 
         <!-- 签名区域 -->
         <table class="table table-borderless signature-table">
