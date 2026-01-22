@@ -1,7 +1,10 @@
-{%- macro add_header(doc, letter_head, no_letterhead) -%}
-{% if letter_head and not no_letterhead %}
-<div class="letter-head">{{ letter_head }}</div>
-{% endif %}
+{%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
+	{%- if letter_head and not no_letterhead -%}
+		<div class="letter-head">{{ letter_head }}</div>
+	{%- endif -%}
+	{%- if print_heading_template -%}
+		{{ frappe.render_template(print_heading_template, {"doc":doc}) }}
+	{%- endif -%}
 {%- endmacro -%}
 
 {% set source_label = "无" %}
@@ -46,12 +49,23 @@ doc.locations[0].material_request %}
 {% endif %}
 {% endif %}
 
-<div class="page-break print-format-wrapper">
-    <div id="header-html" class="hidden-pdf">
-        {{ add_header(doc, letter_head, no_letterhead) }}
-    </div>
+{% for page in layout %}
+<div class="page-break print-format-wrapper order-wrapper">
+	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
+		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
+	</div>
+	{%- if doc.meta.is_submittable and doc.docstatus==2-%}
+		<div class="text-center" document-status="cancelled">
+			<h4 style="margin-top: 20px;">{{ _("CANCELLED") }}</h4>
+		</div>
+	{%- endif -%}
+	{%- if doc.meta.is_submittable and doc.docstatus==0 and (print_settings==None or print_settings.add_draft_heading) -%}
+		<div class="text-center" document-status="draft">
+			<h4 style="margin-top: 20px !important;">{{ _("DRAFT") }}</h4>
+		</div>
+	{%- endif -%}
 
-    <div class="print-format-body">
+	<div class="print-format-body">
         <!-- 基本信息表格 -->
         <table class="table table-bordered info-table mb-3">
             <tbody>
@@ -97,25 +111,25 @@ doc.locations[0].material_request %}
                 </tr>
             </thead>
             <tbody>
-                {% for item in doc.locations %}
+                {%- for item in doc.locations -%}
                 <tr>
                     <td class="text-center">{{ loop.index }}</td>
                     <td class="item-info-cell">
                         <div class="item-code text-bold">{{ item.item_code }}</div>
                         <div class="item-name">{{ item.item_name }}</div>
-                        {% if item.description and item.description != item.item_name %}
+                        {%- if item.description and item.description != item.item_name -%}
                         <div class="item-description secondary-text">{{ item.description }}</div>
                         {% endif %}
                     </td>
                     <td class="warehouse-cell">{{ item.warehouse or "--" }}</td>
                     <td class="batch-serial-cell">
-                        {% if item.batch_no %}
+                        {%- if item.batch_no -%}
                         <div class="secondary-text">[批] {{ item.batch_no }}</div>
                         {% endif %}
-                        {% if item.serial_no %}
+                        {%- if item.serial_no -%}
                         <div class="secondary-text">[序] {{ item.serial_no }}</div>
                         {% endif %}
-                        {% if not item.batch_no and not item.serial_no %}
+                        {%- if not item.batch_no and not item.serial_no -%}
                         &nbsp;
                         {% endif %}
                     </td>
@@ -127,7 +141,7 @@ doc.locations[0].material_request %}
                         <div class="check-box-outline"></div>
                     </td>
                 </tr>
-                {% endfor %}
+                {%- endfor -%}
             </tbody>
         </table>
 
@@ -143,9 +157,9 @@ doc.locations[0].material_request %}
                 <tr>
                     <td class="signature-cell" style="width: 25%; vertical-align: top;">
                         <div class="signature-label">制单人:</div>
-                        {% if doc.owner %}
+                        {%- if doc.owner -%}
                         <div class="signature-name text-bold mt-2">{{ doc.owner }}</div>
-                        {% else %}
+                        {%- else -%}
                         <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
                         {% endif %}
                         <div class="signature-line mt-2"></div>
@@ -168,5 +182,6 @@ doc.locations[0].material_request %}
                 </tr>
             </tbody>
         </table>
-    </div>
+	</div>
 </div>
+{% endfor %}

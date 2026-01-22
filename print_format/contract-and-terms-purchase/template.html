@@ -1,14 +1,30 @@
-{%- macro add_header(doc, letter_head, no_letterhead) -%}
-{% if letter_head and not no_letterhead %}
-<div class="letter-head">{{ letter_head }}</div>
-{% endif %}
+{%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
+	{%- if letter_head and not no_letterhead -%}
+		<div class="letter-head">{{ letter_head }}</div>
+	{%- endif -%}
+	{%- if print_heading_template -%}
+		{{ frappe.render_template(print_heading_template, {"doc":doc}) }}
+	{%- endif -%}
 {%- endmacro -%}
 
-<div id="header-html" class="hidden-pdf">
-    {{ add_header(doc, letter_head, no_letterhead) }}
-</div>
+{% for page in layout %}
+<div class="page-break print-format-wrapper order-wrapper">
+	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
+		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
+	</div>
+	{%- if doc.meta.is_submittable and doc.docstatus==2-%}
+		<div class="text-center" document-status="cancelled">
+			<h4 style="margin-top: 20px;">{{ _("CANCELLED") }}</h4>
+		</div>
+	{%- endif -%}
+	{%- if doc.meta.is_submittable and doc.docstatus==0 and (print_settings==None or print_settings.add_draft_heading) -%}
+		<div class="text-center" document-status="draft">
+			<h4 style="margin-top: 20px !important;">{{ _("DRAFT") }}</h4>
+		</div>
+	{%- endif -%}
 
-<!-- 合同编号 -->
+	<div class="print-format-body">
+		<!-- 合同编号 -->
 <div class="contract-number" style="text-align: right;">
     <strong>合同编号：</strong>{{ doc.custom_contract_no or doc.name }}
 </div>
@@ -38,12 +54,12 @@
             <span class="date-location-label font-weight-bold"
                 style="display: inline-block;">签订时间：</span>
             <strong class="date-location-value">
-                {% set date = doc.get('custom_signing_date') or doc.transaction_date %}
-                {% if date %}
-                {% set date_str = frappe.utils.format_date(date, "yyyy-mm-dd") %}
-                {% set date_parts = date_str.split("-") %}
+                {%- set date = doc.get('custom_signing_date') or doc.transaction_date -%}
+                {%- if date -%}
+                {%- set date_str = frappe.utils.format_date(date, "yyyy-mm-dd") -%}
+                {%- set date_parts = date_str.split("-") -%}
                 {{ date_parts[0] }}年 {{ date_parts[1] }}月 {{ date_parts[2] }}日
-                {% endif %}
+                {%- endif -%}
             </strong>
         </div>
         <div class="date-location-item mb-2" style="white-space: nowrap;">
@@ -72,9 +88,9 @@
             <td data-row="1" style="width: 11%; text-align: center;"><strong>总价（元）</strong></td>
             <td data-row="1" style="width: 17%; text-align: center;"><strong>备注</strong></td>
         </tr>
-        {% for item in doc.items %}
-        {% set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code,
-        "custom_specification") or "" %}
+        {%- for item in doc.items -%}
+        {%- set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code,
+        "custom_specification") or "" -%}
         <tr>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ loop.index }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ item.item_name }}</td>
@@ -88,7 +104,7 @@
             <td data-row="{{ loop.index + 1 }}" style="text-align: left; white-space: normal;">{{ (item.description or
                 "") | striptags }}</td>
         </tr>
-        {% endfor %}
+        {%- endfor -%}
     </tbody>
 </table>
 {%- endmacro -%}
@@ -104,8 +120,8 @@
             <td data-row="1" style="width: 18%; text-align: center;"><strong>付款金额（元）</strong></td>
             <td data-row="1" style="width: 20%; text-align: center;"><strong>结算方式</strong></td>
         </tr>
-        {% if doc.payment_schedule and doc.payment_schedule|length > 0 %}
-        {% for payment in doc.payment_schedule %}
+        {%- if doc.payment_schedule and doc.payment_schedule|length > 0 -%}
+        {%- for payment in doc.payment_schedule -%}
         <tr>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ loop.index }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ payment.payment_term or
@@ -120,7 +136,7 @@
                 or 0) }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ payment.mode_of_payment or "" }}</td>
         </tr>
-        {% endfor %}
+        {%- endfor -%}
         {% else %}
         <tr>
             <td data-row="2" style="text-align: center;">1</td>
@@ -130,7 +146,7 @@
             <td data-row="2" style="text-align: center;">{{ "{:,.2f}".format(doc.grand_total or 0) }}</td>
             <td data-row="2" style="text-align: center;">现金电汇</td>
         </tr>
-        {% endif %}
+        {%- endif -%}
     </tbody>
 </table>
 {%- endmacro -%}
@@ -163,7 +179,7 @@
 </table>
 {%- endmacro -%}
 
-{% if doc.custom_is_print_terms and doc.terms %}
+{%- if doc.custom_is_print_terms and doc.terms -%}
 {% set terms_content = doc.terms %}
 {%- if "<p>[[ ITEMS_TABLE ]]</p>" in terms_content or "<p>[[ PAYMENT_SCHEDULE_TABLE ]]</p>" in terms_content or "<p>[[
     COMMUNICATION_TABLE ]]</p>" in terms_content -%}
@@ -233,7 +249,7 @@
                 <td>{{ "{:,.2f}".format(item.amount) }}</td>
                 <td style="text-align: left; white-space: normal;">{{ (item.description or "") | striptags }}</td>
             </tr>
-            {% endfor %}
+            {%- endfor -%}
         </tbody>
     </table>
 
@@ -282,7 +298,7 @@
                 <td>{{ "{:,.2f}".format(payment.payment_amount or 0) }}</td>
                 <td>{{ payment.mode_of_payment or "" }}</td>
             </tr>
-            {% endfor %}
+            {%- endfor -%}
             {% else %}
             <tr>
                 <td>1</td>
@@ -292,7 +308,7 @@
                 <td>{{ "{:,.2f}".format(doc.grand_total or 0) }}</td>
                 <td>现金电汇</td>
             </tr>
-            {% endif %}
+            {%- endif -%}
         </tbody>
     </table>
 
@@ -540,3 +556,6 @@
         </tr>
     </tbody>
 </table>
+	</div>
+</div>
+{% endfor %}

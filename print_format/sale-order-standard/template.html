@@ -1,7 +1,10 @@
-{%- macro add_header(doc, letter_head, no_letterhead) -%}
-{% if letter_head and not no_letterhead %}
-<div class="letter-head">{{ letter_head }}</div>
-{% endif %}
+{%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
+	{%- if letter_head and not no_letterhead -%}
+		<div class="letter-head">{{ letter_head }}</div>
+	{%- endif -%}
+	{%- if print_heading_template -%}
+		{{ frappe.render_template(print_heading_template, {"doc":doc}) }}
+	{%- endif -%}
 {%- endmacro -%}
 
 {% set project_display = "" %}
@@ -30,12 +33,23 @@
 {% set po_display = po_display ~ " (" ~ frappe.utils.format_date(doc.po_date) ~ ")" %}
 {% endif %}
 
-<div class="page-break print-format-wrapper">
-    <div id="header-html" class="hidden-pdf">
-        {{ add_header(doc, letter_head, no_letterhead) }}
-    </div>
+{% for page in layout %}
+<div class="page-break print-format-wrapper order-wrapper">
+	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
+		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
+	</div>
+	{%- if doc.meta.is_submittable and doc.docstatus==2-%}
+		<div class="text-center" document-status="cancelled">
+			<h4 style="margin-top: 20px;">{{ _("CANCELLED") }}</h4>
+		</div>
+	{%- endif -%}
+	{%- if doc.meta.is_submittable and doc.docstatus==0 and (print_settings==None or print_settings.add_draft_heading) -%}
+		<div class="text-center" document-status="draft">
+			<h4 style="margin-top: 20px !important;">{{ _("DRAFT") }}</h4>
+		</div>
+	{%- endif -%}
 
-    <div class="print-format-body">
+	<div class="print-format-body">
         <!-- 基本信息表格 -->
         <table class="table table-bordered info-table mb-3">
             <tbody>
@@ -81,18 +95,18 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in doc.items %}
+                {%- for item in doc.items -%}
                 <tr>
                     <td class="text-center">{{ loop.index }}</td>
                     <td class="item-info-cell">
                         <div class="item-code text-bold">{{ item.item_code }}</div>
                         <div class="item-name">{{ item.item_name }}</div>
-                        {% if item.description and item.description != item.item_name %}
+                        {%- if item.description and item.description != item.item_name -%}
                         <div class="item-description secondary-text">{{ item.description | striptags }}</div>
-                        {% endif %}
-                        {% if item.customer_item_code %}
+                        {%- endif -%}
+                        {%- if item.customer_item_code -%}
                         <div class="secondary-text" style="margin-top: 2px;">[客]: {{ item.customer_item_code }}</div>
-                        {% endif %}
+                        {%- endif -%}
                     </td>
                     <td>{{ frappe.utils.format_date(item.delivery_date) }}</td>
                     <td class="text-right quantity-cell">
@@ -102,7 +116,7 @@
                     <td class="text-right">{{ item.get_formatted("rate") }}</td>
                     <td class="text-right text-bold">{{ item.get_formatted("amount") }}</td>
                 </tr>
-                {% endfor %}
+                {%- endfor -%}
             </tbody>
         </table>
 
@@ -114,14 +128,14 @@
                         <td class="text-right" style="width: 40%;"><strong>小计</strong></td>
                         <td class="text-right text-bold">{{ doc.get_formatted("total") }}</td>
                     </tr>
-                    {% for tax in doc.taxes %}
-                    {% if tax.tax_amount > 0 %}
+                    {%- for tax in doc.taxes -%}
+                    {%- if tax.tax_amount > 0 -%}
                     <tr>
                         <td class="text-right"><strong>{{ tax.description }}</strong></td>
                         <td class="text-right text-bold">{{ tax.get_formatted("tax_amount") }}</td>
                     </tr>
-                    {% endif %}
-                    {% endfor %}
+                    {%- endif -%}
+                    {%- endfor -%}
                     <tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
                         <td class="text-right"><strong>总计 ({{ doc.currency }})</strong></td>
                         <td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
@@ -138,14 +152,14 @@
         <div class="remarks-box mb-3">
             <div class="remarks-label font-weight-bold mb-2">备注 / 条款:</div>
             <div class="remarks-content">
-                {% if doc.payment_terms_template %}
+                {%- if doc.payment_terms_template -%}
                 <div class="secondary-text mb-2"><strong>付款条款:</strong> {{ doc.payment_terms_template }}</div>
-                {% endif %}
-                {% if doc.terms %}
+                {%- endif -%}
+                {%- if doc.terms -%}
                 <div class="secondary-text">{{ doc.terms | safe }}</div>
-                {% else %}
+                {%- else -%}
                 {{ doc.remarks or "&nbsp;" }}
-                {% endif %}
+                {%- endif -%}
             </div>
         </div>
 
@@ -155,11 +169,11 @@
                 <tr>
                     <td class="signature-cell" style="width: 25%; vertical-align: top;">
                         <div class="signature-label">销售员:</div>
-                        {% if doc.owner %}
+                        {%- if doc.owner -%}
                         <div class="signature-name text-bold mt-2">{{ doc.owner }}</div>
-                        {% else %}
+                        {%- else -%}
                         <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
-                        {% endif %}
+                        {%- endif -%}
                         <div class="signature-line mt-2"></div>
                     </td>
                     <td class="signature-cell" style="width: 25%; vertical-align: top;">
@@ -180,5 +194,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+	</div>
 </div>
+{%- endfor -%}
