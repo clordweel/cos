@@ -44,16 +44,7 @@
 	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
 		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
 	</div>
-	{%- if doc.meta.is_submittable and doc.docstatus==2-%}
-		<div class="text-center" document-status="cancelled">
-			<h4 style="margin-top: 20px;">{{ _("CANCELLED") }}</h4>
-		</div>
-	{%- endif -%}
-	{%- if doc.meta.is_submittable and doc.docstatus==0 and (print_settings==None or print_settings.add_draft_heading) -%}
-		<div class="text-center" document-status="draft">
-			<h4 style="margin-top: 20px !important;">{{ _("DRAFT") }}</h4>
-		</div>
-	{%- endif -%}
+	
 
 	<div class="print-format-body">
         <!-- 基本信息表格 -->
