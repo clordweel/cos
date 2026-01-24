@@ -11,6 +11,7 @@ dependencies = [
     # "frappe~=16.0.0" # Installed and managed by bench.
     "cn2an>=0.5.22",
     "pandas>=2.3.3",
+    "pycups>=2.0.0",
     "unidecode>=1.4.0"
 ]
 
