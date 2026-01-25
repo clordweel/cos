@@ -71,8 +71,7 @@
     <tbody>
         <tr>
             <td data-row="1" style="width: 7%; text-align: center;"><strong>序号</strong></td>
-            <td data-row="1" style="width: 20%; text-align: center;"><strong>名称</strong></td>
-            <td data-row="1" style="width: 18%; text-align: center;"><strong>规格型号</strong></td>
+            <td data-row="1" style="width: 38%; text-align: center;"><strong>名称</strong></td>
             <td data-row="1" style="width: 10%; text-align: center;"><strong>数量</strong></td>
             <td data-row="1" style="width: 6%; text-align: center;"><strong>单位</strong></td>
             <td data-row="1" style="width: 11%; text-align: center;"><strong>单价（元）</strong></td>
@@ -80,12 +79,9 @@
             <td data-row="1" style="width: 17%; text-align: center;"><strong>备注</strong></td>
         </tr>
         {%- for item in doc.items -%}
-        {%- set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code,
-        "custom_specification") or "" -%}
         <tr>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ loop.index }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ item.item_name }}</td>
-            <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ specification }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{% if item.qty % 1 == 0 %}{{
                 "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty) }}{%
                 endif %}</td>
@@ -125,7 +121,7 @@
                 (doc.grand_total or 0)) * 100) }}%{% endif %}{% endif %}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ "{:,.2f}".format(payment.payment_amount
                 or 0) }}</td>
-            <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ payment.mode_of_payment or "" }}</td>
+            <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ _(payment.mode_of_payment or "") }}</td>
         </tr>
         {%- endfor -%}
         {% else %}
@@ -135,7 +131,7 @@
             <td data-row="2" style="text-align: center;">合同签订后</td>
             <td data-row="2" style="text-align: center;">100%</td>
             <td data-row="2" style="text-align: center;">{{ "{:,.2f}".format(doc.grand_total or 0) }}</td>
-            <td data-row="2" style="text-align: center;">现金电汇</td>
+            <td data-row="2" style="text-align: center;">{{ _("现金电汇") }}</td>
         </tr>
         {%- endif -%}
     </tbody>
@@ -215,8 +211,7 @@
         <thead>
             <tr>
                 <th style="width: 7%;">序号</th>
-                <th style="width: 20%;">名称</th>
-                <th style="width: 18%;">规格型号</th>
+                <th style="width: 38%;">名称</th>
                 <th style="width: 10%;">数量</th>
                 <th style="width: 6%;">单位</th>
                 <th style="width: 11%;">单价（元）</th>
@@ -226,12 +221,9 @@
         </thead>
         <tbody>
             {% for item in doc.items %}
-            {% set specification = item.custom_specification or frappe.db.get_value("Item", item.item_code,
-            "custom_specification") or "" %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ item.item_name }}</td>
-                <td>{{ specification }}</td>
                 <td>{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty)
                     }}{%
                     endif %}</td>
@@ -287,7 +279,7 @@
                     payment.payment_amount and (doc.grand_total or 0) %}{{ "{:.0f}".format((payment.payment_amount /
                     (doc.grand_total or 0)) * 100) }}%{% endif %}{% endif %}</td>
                 <td>{{ "{:,.2f}".format(payment.payment_amount or 0) }}</td>
-                <td>{{ payment.mode_of_payment or "" }}</td>
+                <td>{{ _(payment.mode_of_payment or "") }}</td>
             </tr>
             {%- endfor -%}
             {% else %}
@@ -297,7 +289,7 @@
                 <td>合同签订后</td>
                 <td>100%</td>
                 <td>{{ "{:,.2f}".format(doc.grand_total or 0) }}</td>
-                <td>现金电汇</td>
+                <td>{{ _("现金电汇") }}</td>
             </tr>
             {%- endif -%}
         </tbody>
@@ -531,12 +523,12 @@
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px; flex-shrink: 0;">开户银行：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_payment_bank or '' }}</span>
+                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_receipt_bank or '' }}</span>
                 </div>
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px; flex-shrink: 0;">银行账号：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_payment_bank_account_no or '' }}</span>
+                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_receipt_bank_account_no or '' }}</span>
                 </div>
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
