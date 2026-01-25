@@ -67,7 +67,7 @@
 </div>
 
 {%- macro items_table() -%}
-<table class="table table-bordered" style="width: 100%; font-size: 12px;">
+<table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
     <tbody>
         <tr>
             <td data-row="1" style="width: 7%; text-align: center;"><strong>序号</strong></td>
@@ -97,7 +97,7 @@
 {%- endmacro -%}
 
 {%- macro payment_schedule_table() -%}
-<table class="table table-bordered" style="width: 100%; font-size: 12px;">
+<table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
     <tbody>
         <tr>
             <td data-row="1" style="width: 7%; text-align: center;"><strong>序号</strong></td>
@@ -139,7 +139,7 @@
 {%- endmacro -%}
 
 {%- macro communication_table() -%}
-<table class="table table-bordered" style="width: 100%; font-size: 12px;">
+<table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
     <tbody>
         <tr>
             <td data-row="1" style="width: 10%; text-align: center;"><strong>通信方</strong></td>
@@ -150,14 +150,14 @@
         </tr>
         <tr>
             <td data-row="2" style="text-align: center;">甲方</td>
-            <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer or '' }}</td>
+            <td data-row="2" style="text-align: center;">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.address_display or '' }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_phone or '' }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_email or '' }}</td>
         </tr>
         <tr>
             <td data-row="3" style="text-align: center;">乙方</td>
-            <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer or '' }}</td>
+            <td data-row="3" style="text-align: center;">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.company_address_display or '' }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_phone or '' }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_email or '' }}</td>
@@ -476,7 +476,7 @@
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px; flex-shrink: 0;">签订代表：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_first_party_signer or '' }}</span>
+                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</span>
                 </div>
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
@@ -513,7 +513,7 @@
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
                         style="display: inline-block; min-width: 80px; flex-shrink: 0;">签订代表：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_second_party_signer or '' }}</span>
+                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</span>
                 </div>
                 <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
                     <span class="signature-label font-weight-bold"
