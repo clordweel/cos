@@ -115,6 +115,28 @@
     padding-left: 10px;
 }
 
+/* 防止单价、总价列换行 */
+.contract-content .item-table td:nth-child(5),
+.contract-content .item-table td:nth-child(6),
+.item-table td:nth-child(5),
+.item-table td:nth-child(6) {
+    white-space: nowrap;
+}
+
+/* 防止数量列换行（仅当没有white-space: normal样式时） */
+.contract-content .item-table td:nth-child(3):not([style*="white-space: normal"]),
+.item-table td:nth-child(3):not([style*="white-space: normal"]) {
+    white-space: nowrap;
+}
+
+/* 通讯地址列允许换行 */
+.item-table td[style*="white-space: normal"],
+.contract-content .item-table td[style*="white-space: normal"] {
+    white-space: normal !important;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
 /* 签名表格样式 */
 .signature-table,
 .print-format-wrapper .signature-table {

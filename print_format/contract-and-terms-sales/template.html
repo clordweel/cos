@@ -70,13 +70,13 @@
 <table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
     <tbody>
         <tr>
-            <td data-row="1" style="width: 7%; text-align: center;"><strong>序号</strong></td>
-            <td data-row="1" style="width: 38%; text-align: center;"><strong>名称</strong></td>
-            <td data-row="1" style="width: 10%; text-align: center;"><strong>数量</strong></td>
+            <td data-row="1" style="width: 6%; text-align: center;"><strong>序号</strong></td>
+            <td data-row="1" style="width: 35%; text-align: center;"><strong>名称</strong></td>
+            <td data-row="1" style="width: 7%; text-align: center;"><strong>数量</strong></td>
             <td data-row="1" style="width: 6%; text-align: center;"><strong>单位</strong></td>
-            <td data-row="1" style="width: 11%; text-align: center;"><strong>单价（元）</strong></td>
-            <td data-row="1" style="width: 11%; text-align: center;"><strong>总价（元）</strong></td>
-            <td data-row="1" style="width: 17%; text-align: center;"><strong>备注</strong></td>
+            <td data-row="1" style="width: 13%; text-align: center;"><strong>单价（元）</strong></td>
+            <td data-row="1" style="width: 13%; text-align: center;"><strong>总价（元）</strong></td>
+            <td data-row="1" style="width: 20%; text-align: center;"><strong>备注</strong></td>
         </tr>
         {%- for item in doc.items -%}
         <tr>
@@ -144,21 +144,21 @@
         <tr>
             <td data-row="1" style="width: 10%; text-align: center;"><strong>通信方</strong></td>
             <td data-row="1" style="width: 15%; text-align: center;"><strong>联系人</strong></td>
-            <td data-row="1" style="width: 35%; text-align: center;"><strong>通讯地址</strong></td>
-            <td data-row="1" style="width: 20%; text-align: center;"><strong>联系电话</strong></td>
+            <td data-row="1" style="width: 40%; text-align: center;"><strong>通讯地址</strong></td>
+            <td data-row="1" style="width: 15%; text-align: center;"><strong>联系电话</strong></td>
             <td data-row="1" style="width: 20%; text-align: center;"><strong>邮箱</strong></td>
         </tr>
         <tr>
             <td data-row="2" style="text-align: center;">甲方</td>
             <td data-row="2" style="text-align: center;">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</td>
-            <td data-row="2" style="text-align: center;">{{ doc.address_display or '' }}</td>
+            <td data-row="2" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ doc.address_display or '' }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_phone or '' }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_email or '' }}</td>
         </tr>
         <tr>
             <td data-row="3" style="text-align: center;">乙方</td>
             <td data-row="3" style="text-align: center;">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</td>
-            <td data-row="3" style="text-align: center;">{{ doc.company_address_display or '' }}</td>
+            <td data-row="3" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ doc.company_address_display or '' }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_phone or '' }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_email or '' }}</td>
         </tr>
@@ -210,13 +210,13 @@
     <table class="item-table table table-bordered table-sm mb-4">
         <thead>
             <tr>
-                <th style="width: 7%;">序号</th>
-                <th style="width: 38%;">名称</th>
-                <th style="width: 10%;">数量</th>
+                <th style="width: 6%;">序号</th>
+                <th style="width: 35%;">名称</th>
+                <th style="width: 7%;">数量</th>
                 <th style="width: 6%;">单位</th>
-                <th style="width: 11%;">单价（元）</th>
-                <th style="width: 11%;">总价（元）</th>
-                <th style="width: 17%;">备注</th>
+                <th style="width: 13%;">单价（元）</th>
+                <th style="width: 13%;">总价（元）</th>
+                <th style="width: 20%;">备注</th>
             </tr>
         </thead>
         <tbody>
@@ -412,8 +412,8 @@
             <tr>
                 <th style="width: 10%;">通信方</th>
                 <th style="width: 15%;">联系人</th>
-                <th style="width: 35%;">通讯地址</th>
-                <th style="width: 20%;">联系电话</th>
+                <th style="width: 40%;">通讯地址</th>
+                <th style="width: 15%;">联系电话</th>
                 <th style="width: 20%;">邮箱</th>
             </tr>
             <tr>
