@@ -1,5 +1,11 @@
 {%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
-	{%- if letter_head and not no_letterhead -%}
+	{%- set should_show_letterhead = True -%}
+	{%- if print_settings and print_settings.with_letterhead == False -%}
+		{%- set should_show_letterhead = False -%}
+	{%- elif no_letterhead -%}
+		{%- set should_show_letterhead = False -%}
+	{%- endif -%}
+	{%- if letter_head and should_show_letterhead -%}
 		<div class="letter-head">{{ letter_head }}</div>
 	{%- endif -%}
 	{%- if print_heading_template -%}
