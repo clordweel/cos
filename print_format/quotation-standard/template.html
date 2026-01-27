@@ -7,25 +7,6 @@
 	{%- endif -%}
 {%- endmacro -%}
 
-{% set project_display = "" %}
-
-{# --- 1. 获取项目信息 (优先从主表，其次查子表) --- #}
-{% set found_project_id = "" %}
-{% if doc.project %}
-{% set found_project_id = doc.project %}
-{% elif doc.items and doc.items|length > 0 and doc.items[0].project %}
-{% set found_project_id = doc.items[0].project %}
-{% endif %}
-
-{# --- 2. 拼接项目名称 --- #}
-{% if found_project_id %}
-{% set found_project_name = frappe.db.get_value("Project", found_project_id, "project_name") %}
-{% if found_project_name %}
-{% set project_display = found_project_id ~ " (" ~ found_project_name ~ ")" %}
-{% else %}
-{% set project_display = found_project_id %}
-{% endif %}
-{% endif %}
 
 {% for page in layout %}
 <div class="page-break print-format-wrapper order-wrapper">
@@ -54,8 +35,6 @@
                         <span class="info-value">{{ frappe.utils.format_date(doc.transaction_date) }}</span>
                     </td>
                     <td class="info-cell" style="width: 50%;">
-                        <span class="info-label font-weight-bold">关联项目:</span>
-                        <span class="info-value text-bold">{{ project_display or "&nbsp;" }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -65,12 +44,13 @@
         <table class="table table-bordered items-table mb-3">
             <thead class="table-header">
                 <tr>
-                    <th class="text-center" style="width: 6%;">序号</th>
-                    <th class="text-left" style="width: 32%;">物料信息</th>
-                    <th class="text-left" style="width: 14%;">交货日期</th>
-                    <th class="text-right" style="width: 12%;">数量</th>
-                    <th class="text-right" style="width: 18%;">单价</th>
-                    <th class="text-right" style="width: 18%;">金额</th>
+                    <th class="text-center" style="width: 5%;">序号</th>
+                    <th class="text-left" style="width: 28%;">物料信息</th>
+                    <th class="text-right" style="width: 8%;">数量</th>
+                    <th class="text-center" style="width: 6%;">单位</th>
+                    <th class="text-right" style="width: 12%;">单价</th>
+                    <th class="text-right" style="width: 12%;">金额</th>
+                    <th class="text-left" style="width: 29%;">备注</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,22 +58,18 @@
                 <tr>
                     <td class="text-center">{{ loop.index }}</td>
                     <td class="item-info-cell">
-                        <div class="item-code text-bold">{{ item.item_code }}</div>
                         <div class="item-name">{{ item.item_name }}</div>
-                        {%- if item.description and item.description != item.item_name -%}
-                        <div class="item-description secondary-text">{{ item.description | striptags }}</div>
-                        {%- endif -%}
                         {%- if item.customer_item_code -%}
                         <div class="secondary-text" style="margin-top: 2px;">[客]: {{ item.customer_item_code }}</div>
                         {% endif %}
                     </td>
-                    <td>{{ frappe.utils.format_date(item.delivery_date) }}</td>
-                    <td class="text-right quantity-cell">
+                    <td class="text-right">
                         <span class="quantity-value text-bold">{{ item.qty }}</span>
-                        <span class="quantity-uom">{{ item.uom }}</span>
                     </td>
+                    <td class="text-center">{{ item.uom }}</td>
                     <td class="text-right">{{ item.get_formatted("rate") }}</td>
                     <td class="text-right text-bold">{{ item.get_formatted("amount") }}</td>
+                    <td class="text-left">{{ (item.description or "") | safe }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
