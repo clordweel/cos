@@ -73,7 +73,7 @@
 </div>
 
 {%- macro items_table() -%}
-<table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
+<table class="item-table table table-bordered">
     <tbody>
         <tr>
             <td data-row="1" style="width: 6%; text-align: center;"><strong>序号</strong></td>
@@ -103,7 +103,7 @@
 {%- endmacro -%}
 
 {%- macro payment_schedule_table() -%}
-<table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
+<table class="item-table table table-bordered">
     <tbody>
         <tr>
             <td data-row="1" style="width: 7%; text-align: center;"><strong>序号</strong></td>
@@ -162,28 +162,28 @@
 {%- set second_party_address = doc.address_display or '' -%}
 {%- endif -%}
 
-<table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
+<table class="item-table table table-bordered">
     <tbody>
         <tr>
-            <td data-row="1" style="width: 10%; text-align: center;"><strong>通信方</strong></td>
-            <td data-row="1" style="width: 15%; text-align: center;"><strong>联系人</strong></td>
-            <td data-row="1" style="width: 40%; text-align: center;"><strong>通讯地址</strong></td>
-            <td data-row="1" style="width: 15%; text-align: center;"><strong>联系电话</strong></td>
-            <td data-row="1" style="width: 20%; text-align: center;"><strong>邮箱</strong></td>
+            <td data-row="1" style="width: 10%;"><strong>通信方</strong></td>
+            <td data-row="1" style="width: 15%;"><strong>联系人</strong></td>
+            <td data-row="1" style="width: 40%;"><strong>通讯地址</strong></td>
+            <td data-row="1" style="width: 15%;"><strong>联系电话</strong></td>
+            <td data-row="1" style="width: 20%;"><strong>邮箱</strong></td>
         </tr>
         <tr>
-            <td data-row="2" style="text-align: center;">甲方</td>
-            <td data-row="2" style="text-align: center;">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</td>
-            <td data-row="2" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ first_party_address }}</td>
-            <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_phone or '' }}</td>
-            <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_email or '' }}</td>
+            <td data-row="2">甲方</td>
+            <td data-row="2">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</td>
+            <td data-row="2" style="white-space: normal; word-wrap: break-word;">{{ first_party_address }}</td>
+            <td data-row="2">{{ doc.custom_first_party_signer_phone or '' }}</td>
+            <td data-row="2">{{ doc.custom_first_party_signer_email or '' }}</td>
         </tr>
         <tr>
-            <td data-row="3" style="text-align: center;">乙方</td>
-            <td data-row="3" style="text-align: center;">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</td>
-            <td data-row="3" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ second_party_address }}</td>
-            <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_phone or '' }}</td>
-            <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_email or '' }}</td>
+            <td data-row="3">乙方</td>
+            <td data-row="3">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</td>
+            <td data-row="3" style="white-space: normal; word-wrap: break-word;">{{ second_party_address }}</td>
+            <td data-row="3">{{ doc.custom_second_party_signer_phone or '' }}</td>
+            <td data-row="3">{{ doc.custom_second_party_signer_email or '' }}</td>
         </tr>
     </tbody>
 </table>
@@ -478,85 +478,107 @@
 {% endif %}
 
 <!-- 附件信息表格 -->
-<table class="signature-table table table-bordered mt-4 mb-0" style="width: 100%;">
+<table class="signature-table table table-bordered mt-4 mb-0">
     <tbody>
         <tr>
-            <th style="width: 50%; text-align: center;">甲方</th>
-            <th style="width: 50%; text-align: center;">乙方</th>
+            <th>甲方</th>
+            <th>乙方</th>
         </tr>
         <tr>
-            <td style="text-align: left; vertical-align: top; padding: 20px !important;">
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">单位名称：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_first_party_law or '' }}</span>
-                </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">单位地址：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.billing_address_display or '' }}</span>
-                </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">签订代表：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</span>
-                </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">联系方式：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_first_party_signer_phone or '' }}</span>
-                </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">开户银行：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_payment_bank or '' }}</span>
-                </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">银行账号：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_payment_bank_account_no or '' }}</span>
-                </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">企业税号：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_first_party_tax_id or '' }}</span>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">单位名称：</span>
+                    <span class="signature-value">{{ doc.custom_first_party_law or '' }}</span>
                 </div>
             </td>
-            <td style="text-align: left; vertical-align: top; padding: 20px !important;">
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">单位名称：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_second_party_law or '' }}</span>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">单位名称：</span>
+                    <span class="signature-value">{{ doc.custom_second_party_law or '' }}</span>
                 </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">单位地址：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.address_display or '' }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">单位地址：</span>
+                    <span class="signature-value">{{ doc.billing_address_display or '' }}</span>
                 </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">签订代表：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</span>
+            </td>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">单位地址：</span>
+                    <span class="signature-value">{{ doc.address_display or '' }}</span>
                 </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">联系方式：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_second_party_signer_phone or '' }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">签订代表：</span>
+                    <span class="signature-value">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</span>
                 </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">开户银行：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_receipt_bank or '' }}</span>
+            </td>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">签订代表：</span>
+                    <span class="signature-value">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</span>
                 </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">银行账号：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_receipt_bank_account_no or '' }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">联系方式：</span>
+                    <span class="signature-value">{{ doc.custom_first_party_signer_phone or '' }}</span>
                 </div>
-                <div class="signature-info mb-2" style="display: flex; align-items: flex-start;">
-                    <span class="signature-label font-weight-bold"
-                        style="display: inline-block; min-width: 80px; flex-shrink: 0;">企业税号：</span>
-                    <span class="signature-value" style="flex: 1; word-wrap: break-word; word-break: break-all;">{{ doc.custom_second_party_tax_id or '' }}</span>
+            </td>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">联系方式：</span>
+                    <span class="signature-value">{{ doc.custom_second_party_signer_phone or '' }}</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">开户银行：</span>
+                    <span class="signature-value">{{ doc.custom_payment_bank or '' }}</span>
+                </div>
+            </td>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">开户银行：</span>
+                    <span class="signature-value">{{ doc.custom_receipt_bank or '' }}</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">银行账号：</span>
+                    <span class="signature-value">{{ doc.custom_payment_bank_account_no or '' }}</span>
+                </div>
+            </td>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">银行账号：</span>
+                    <span class="signature-value">{{ doc.custom_receipt_bank_account_no or '' }}</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">企业税号：</span>
+                    <span class="signature-value">{{ doc.custom_first_party_tax_id or '' }}</span>
+                </div>
+            </td>
+            <td>
+                <div class="signature-info">
+                    <span class="signature-label font-weight-bold">企业税号：</span>
+                    <span class="signature-value">{{ doc.custom_second_party_tax_id or '' }}</span>
                 </div>
             </td>
         </tr>
