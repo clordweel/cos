@@ -191,6 +191,8 @@
 
 {%- if doc.custom_is_print_terms and doc.terms -%}
 {% set terms_content = doc.terms %}
+{%- set terms_content = terms_content.replace("[[ grand_total ]]", "{:,.2f}".format(doc.grand_total or 0)) -%}
+{%- set terms_content = terms_content.replace("[[ in_words ]]", doc.in_words or "") -%}
 {%- if "<p>[[ ITEMS_TABLE ]]</p>" in terms_content or "<p>[[ PAYMENT_SCHEDULE_TABLE ]]</p>" in terms_content or "<p>[[
     COMMUNICATION_TABLE ]]</p>" in terms_content -%}
 {%- set parts = terms_content.split("<p>[[ ITEMS_TABLE ]]</p>") -%}
@@ -271,8 +273,7 @@
     <!-- 1.3 合同总金额 -->
     <div class="section-subtitle font-weight-bold">1.3 合同总金额</div>
     <div class="clause-content">
-        合同总金额为 <u>{{ "{:,.2f}".format(doc.grand_total or 0) }}</u> 元（人民币大写： <u>{{ doc.in_words or "" }}</u> ），含 <u> </u> %
-        增值税。在合同执行期间，若国家统一税率发生调整，双方将按照不含税总金额保持不变的原则，依据新的税率执行。
+        合同总金额详见上表。在合同执行期间，若国家统一税率发生调整，双方将按照不含税总金额保持不变的原则，依据新的税率执行。
     </div>
 
     <!-- 第二条：付款方式及发票开具 -->
