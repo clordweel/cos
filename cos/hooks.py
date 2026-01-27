@@ -154,6 +154,10 @@ doc_events = {
     "Project": {
         "before_insert": "cos.cos_stock.utils.project.auto_set_project_code",
     },
+    "Address": {
+        "before_save": "cos.cos_share.utils.address.update_address_display",
+        "validate": "cos.cos_share.utils.address.update_address_display",
+    },
 }
 
 # Scheduled Tasks

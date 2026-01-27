@@ -158,6 +158,8 @@ First Party Signer Phone,甲方签订代表电话
 Second Party Signer Phone,乙方签订代表电话
 First Party Signer Email,甲方签订代表邮箱
 Second Party Signer Email,乙方签订代表邮箱
+First Party Signer Address,甲方签订代表地址
+Second Party Signer Address,乙方签订代表地址
 Signing Location,签署地点
 Signing Date,签署时间
 Shipping Contact Person,送货联系人
@@ -170,3 +172,4 @@ Party Responsible for Freight,货运责任方
 To be borne by Party A,甲方承担
 To be borne by Party B,乙方承担
 Shared by both Parties,甲乙方分摊
+Address Display,地址显示
