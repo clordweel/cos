@@ -292,7 +292,7 @@ thead.table-header,
 
 /* 支持不同的签名线样式 */
 .print-format-wrapper .signature-line {
-    border-top: 1px solid #333;
+    border-top: 1px solid #000;
     margin-top: 8px;
     height: 1px;
 }

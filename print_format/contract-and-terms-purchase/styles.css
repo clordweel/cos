@@ -13,6 +13,12 @@
     padding: 0;
 }
 
+/* 前言说明文字颜色统一为黑色 */
+.regulatory-info,
+.regulatory-info.text-muted {
+    color: #171717 !important;
+}
+
 /* 章节标题样式（第一条、第二条等） */
 .section-title {
     font-size: 15px;
@@ -74,32 +80,36 @@ u {
 }
 
 /* 表格样式 */
-.contract-content .item-table {
+.contract-content .item-table,
+.item-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 12px;
     margin-bottom: 16px;
     font-size: 12px;
-    border: 1px solid #000;
+    border: 1px solid #000 !important;
 }
 
-.contract-content .item-table thead {
+.contract-content .item-table thead,
+.item-table thead {
     background-color: #f5f5f5;
 }
 
-.contract-content .item-table th {
+.contract-content .item-table th,
+.item-table th {
     font-weight: 600;
     color: #171717;
     padding: 10px 8px;
     text-align: center;
-    border: 1px solid #000;
+    border: 1px solid #000 !important;
     background-color: #f5f5f5;
     vertical-align: middle;
 }
 
-.contract-content .item-table td {
+.contract-content .item-table td,
+.item-table td {
     padding: 8px;
-    border: 1px solid #000;
+    border: 1px solid #000 !important;
     text-align: center;
     vertical-align: middle;
     line-height: 1.6;
@@ -145,7 +155,7 @@ u {
     margin-top: 24px;
     margin-bottom: 0;
     font-size: 12px;
-    border: 1px solid #d1d8dd !important;
+    border: 1px solid #000 !important;
 }
 
 .signature-table th,
@@ -154,7 +164,7 @@ u {
     color: #171717;
     padding: 12px;
     text-align: center;
-    border: 1px solid #d1d8dd !important;
+    border: 1px solid #000 !important;
     background-color: #f5f5f5;
     vertical-align: middle;
 }
@@ -162,7 +172,7 @@ u {
 .signature-table td,
 .print-format-wrapper .signature-table td {
     padding: 16px 12px;
-    border: 1px solid #d1d8dd !important;
+    border: 1px solid #000 !important;
     vertical-align: top;
     line-height: 1.8;
 }
