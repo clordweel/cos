@@ -145,6 +145,23 @@
 {%- endmacro -%}
 
 {%- macro communication_table() -%}
+{# 获取甲方通讯地址：从联系人的address关联单据下的custom_address_display字段读取 #}
+{%- set first_party_address = '' -%}
+{%- if doc.custom_first_party_signer_address -%}
+{%- set first_party_address = frappe.db.get_value("Address", doc.custom_first_party_signer_address, "custom_address_display") or '' -%}
+{%- elif doc.address_display -%}
+{%- set first_party_address = doc.address_display or '' -%}
+{%- endif -%}
+
+{# 获取乙方通讯地址：从公司地址的custom_address_display字段读取 #}
+{%- set second_party_address = '' -%}
+{%- if doc.custom_second_party_signer_address -%}
+{%- set second_party_address = frappe.db.get_value("Address", doc.custom_second_party_signer_address, "custom_address_display") or '' -%}
+{%- endif -%}
+{%- if not second_party_address -%}
+{%- set second_party_address = doc.company_address_display or '' -%}
+{%- endif -%}
+
 <table class="item-table table table-bordered" style="width: 100%; font-size: 12px;">
     <tbody>
         <tr>
@@ -157,14 +174,14 @@
         <tr>
             <td data-row="2" style="text-align: center;">甲方</td>
             <td data-row="2" style="text-align: center;">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</td>
-            <td data-row="2" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ doc.address_display or '' }}</td>
+            <td data-row="2" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ first_party_address }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_phone or '' }}</td>
             <td data-row="2" style="text-align: center;">{{ doc.custom_first_party_signer_email or '' }}</td>
         </tr>
         <tr>
             <td data-row="3" style="text-align: center;">乙方</td>
             <td data-row="3" style="text-align: center;">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</td>
-            <td data-row="3" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ doc.company_address_display or '' }}</td>
+            <td data-row="3" style="text-align: center; white-space: normal; word-wrap: break-word;">{{ second_party_address }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_phone or '' }}</td>
             <td data-row="3" style="text-align: center;">{{ doc.custom_second_party_signer_email or '' }}</td>
         </tr>
