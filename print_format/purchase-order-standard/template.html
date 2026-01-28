@@ -87,8 +87,8 @@
                     <th class="text-left" style="width: 32%;">物料信息</th>
                     <th class="text-left" style="width: 14%;">交货日期</th>
                     <th class="text-right" style="width: 12%;">数量</th>
-                    <th class="text-right" style="width: 18%;">单价</th>
-                    <th class="text-right" style="width: 18%;">金额</th>
+                    <th class="text-right" style="width: 18%;">单价（元）</th>
+                    <th class="text-right" style="width: 18%;">金额（元）</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,8 +110,8 @@
                         <span class="quantity-value text-bold">{{ item.qty }}</span>
                         <span class="quantity-uom">{{ item.uom }}</span>
                     </td>
-                    <td class="text-right">{{ item.get_formatted("rate") }}</td>
-                    <td class="text-right text-bold">{{ item.get_formatted("amount") }}</td>
+                    <td class="text-right" style="white-space: nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
+                    <td class="text-right text-bold" style="white-space: nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

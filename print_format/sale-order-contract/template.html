@@ -63,8 +63,8 @@
                 <th style="width: 15%;">规格型号</th>
                 <th style="width: 8%;">单位</th>
                 <th style="width: 8%;">数量</th>
-                <th style="width: 12%;">单价</th>
-                <th style="width: 12%;">总额</th>
+                <th style="width: 12%;">单价（元）</th>
+                <th style="width: 12%;">总额（元）</th>
                 <th style="width: 11%;">交货期限</th>
                 <th style="width: 11%;">备注</th>
             </tr>
@@ -80,8 +80,8 @@
                 <td>{{ item.uom }}</td>
                 <td>{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty)
                     }}{% endif %}</td>
-                <td class="text-right">{{ "{:,.2f}".format(item.rate) }}</td>
-                <td class="text-right">{{ "{:,.2f}".format(item.amount) }}</td>
+                <td class="text-right" style="white-space: nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
+                <td class="text-right" style="white-space: nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
                 <td>{% if item.delivery_date %}{{ frappe.utils.format_date(item.delivery_date) }}{% endif %}</td>
                 <td></td>
             </tr>
@@ -100,7 +100,7 @@
                     "{:,.2f}".format(total_qty_sum) }}{% endif %}
                 </td>
                 <td style="border-left: 1px solid #000;"></td>
-                <td class="text-right" style="border-left: 1px solid #000;">
+                <td class="text-right" style="border-left: 1px solid #000; white-space: nowrap;">
                     {{ "{:,.2f}".format(doc.grand_total) }}
                 </td>
                 <td colspan="2" style="border-left: 1px solid #000;" rowspan="2"></td>

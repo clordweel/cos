@@ -92,8 +92,8 @@
                 "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty) }}{%
                 endif %}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ item.uom }}</td>
-            <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ "{:,.2f}".format(item.rate) }}</td>
-            <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ "{:,.2f}".format(item.amount) }}</td>
+            <td data-row="{{ loop.index + 1 }}" style="text-align: center; white-space: nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
+            <td data-row="{{ loop.index + 1 }}" style="text-align: center; white-space: nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: left; white-space: normal;">{{ (item.description or
                 "") | striptags }}</td>
         </tr>
@@ -253,8 +253,8 @@
                     }}{%
                     endif %}</td>
                 <td>{{ item.uom }}</td>
-                <td>{{ "{:,.2f}".format(item.rate) }}</td>
-                <td>{{ "{:,.2f}".format(item.amount) }}</td>
+                <td style="white-space: nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
+                <td style="white-space: nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
                 <td style="text-align: left; white-space: normal;">{{ (item.description or "") | striptags }}</td>
             </tr>
             {%- endfor -%}
