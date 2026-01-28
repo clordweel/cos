@@ -26,7 +26,7 @@
     "capital_work_in_progress_account": ["account", "在建工程"],
     "default_deferred_revenue_account": ["account", "预收账款"],
     "default_deferred_expense_account": ["account", "预付账款"],
-    "purchase_expense_account": ["account", "生产成本-基本生产成本"],
+    "purchase_expense_account": ["account", "主营业务成本"],
     "service_expense_account": ["account", "外协加工"],
     "purchase_expense_contra_account": ["account", "生产成本-辅助生产成本"],
     "book_advance_payments_in_separate_party_account": 1,
