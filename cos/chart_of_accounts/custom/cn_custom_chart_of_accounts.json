@@ -369,7 +369,15 @@
                     "account_type": "Tax",
                     "应交税费-应交增值税-进项税额": {
                         "account_number": 22210101,
-                        "account_type": "Tax"
+                        "account_type": "Tax",
+                        "应交税费-应交增值税-进项税额-已抵扣": {
+                            "account_number": 222101011,
+                            "account_type": "Tax"
+                        },
+                        "应交税费-应交增值税-进项税额-未抵扣": {
+                            "account_number": 222101012,
+                            "account_type": "Tax"
+                        }
                     },
                     "应交税费-应交增值税-销项税额抵减": {
                         "account_number": 22210102,
