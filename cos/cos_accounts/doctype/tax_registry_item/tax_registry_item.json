@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-28 16:47:06.490410",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "invoice_doctype",
+  "invoice",
+  "column_break_vywn",
+  "tax_id",
+  "customer",
+  "supplier",
+  "section_break_cyca",
+  "posting_date",
+  "column_break_fgbu",
+  "total_taxes_and_charges",
+  "grand_total"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_vywn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "invoice_doctype",
+   "fieldtype": "Link",
+   "label": "Invoice Doctype",
+   "link_filters": "[[\"DocType\",\"name\",\"in\",[\"Sales Invoice\",\"Purchase Invoice\"]]]",
+   "options": "DocType",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "invoice",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Invoice",
+   "options": "invoice_doctype",
+   "reqd": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_cyca",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fgbu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tax ID",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.invoice_doctype==\"Sales Invoice\"",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.invoice_doctype==\"Purchase Invoice\"",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_taxes_and_charges",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Taxes And Charges",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-29 17:58:10.821658",
+ "modified_by": "Administrator",
+ "module": "COS Accounts",
+ "name": "Tax Registry Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -158,6 +158,15 @@ doc_events = {
         "before_save": "cos.cos_share.utils.address.update_address_display",
         "validate": "cos.cos_share.utils.address.update_address_display",
     },
+    # 当发票被税务登记引用时，取消/删除需联动处理（避免链接校验拦截）
+    "Purchase Invoice": {
+        "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
+        "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
+    },
+    "Sales Invoice": {
+        "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
+        "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
+    },
 }
 
 # Scheduled Tasks

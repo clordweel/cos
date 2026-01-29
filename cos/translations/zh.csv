@@ -173,3 +173,15 @@ To be borne by Party A,甲方承担
 To be borne by Party B,乙方承担
 Shared by both Parties,甲乙方分摊
 Address Display,地址显示
+Invoice Doctype,发票文档类型
+Tax Registered,已登记税务
+Tax Registry Reference,税务登记参考
+Tax Registry,税务登记
+Tax Registry Item,税务登记项
+Total Tax Amount,总税额
+Total Taxes And Charges,总税费
+Invoice Number,发票号
+Buying Tax Account,进项税额账户
+Selling Tax Account,销项税额账户
+Buying Tax Account Used,已抵扣进项税额账户
+Selling Tax Account Used,已开票销项税额账户
