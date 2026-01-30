@@ -33,6 +33,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Invoice Number",
+   "options": "Barcode",
    "reqd": 1,
    "search_index": 1
   },
@@ -148,6 +149,7 @@
    "default": ".ABBR.-TXR-.FY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Series",
    "options": ".ABBR.-TXR-.FY.-",
    "print_hide": 1
@@ -157,7 +159,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-29 21:15:02.556227",
+ "modified": "2026-01-30 08:52:28.385568",
  "modified_by": "Administrator",
  "module": "COS Accounts",
  "name": "Tax Registry",

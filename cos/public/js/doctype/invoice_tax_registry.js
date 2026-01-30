@@ -33,7 +33,7 @@ async function create_tax_registry_from_invoice(frm) {
 	// 父表预填
 	tr.invoice_doctype = frm.doctype;
 	tr.company = frm.doc.company;
-	tr.invoice_number = frm.doc.name;
+	// 不使用发票单据编号自动填充发票号（留空由用户填写）
 	tr.posting_date = frm.doc.posting_date || frappe.datetime.get_today();
 	tr.posting_time = frm.doc.posting_time || frappe.datetime.now_time();
 
