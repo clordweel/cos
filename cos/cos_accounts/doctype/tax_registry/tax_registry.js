@@ -189,13 +189,15 @@ function update_accounts_from_company(frm) {
 		let credit_account = null;
 
 		if (frm.doc.invoice_doctype === "Sales Invoice") {
-			// 销售发票：借方 = 销项税额-已开票，贷方 = 销项税额
-			debit_account = company.custom_selling_tax_account_used;
-			credit_account = company.custom_selling_tax_account;
+			// 销售发票税务登记：将“未开票销项税额”结转到“已开票销项税额”
+			// 借：未开票（冲减 Sales Invoice 产生的贷方余额）；贷：已开票（增加已开票余额）
+			debit_account = company.custom_selling_tax_account;
+			credit_account = company.custom_selling_tax_account_used;
 		} else if (frm.doc.invoice_doctype === "Purchase Invoice") {
-			// 采购发票：借方 = 进项税额，贷方 = 进项税额-已抵扣
-			debit_account = company.custom_buying_tax_account;
-			credit_account = company.custom_buying_tax_account_used;
+			// 采购发票税务登记：将“未抵扣进项税额”结转到“已抵扣进项税额”
+			// 借：已抵扣（增加已抵扣）；贷：未抵扣（冲减 Purchase Invoice 产生的借方余额）
+			debit_account = company.custom_buying_tax_account_used;
+			credit_account = company.custom_buying_tax_account;
 		}
 
 		// 更新账户字段
