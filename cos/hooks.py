@@ -54,6 +54,9 @@ doctype_js = {
     "Item Group": "public/js/doctype/item_group.js",
     "Item": "public/js/doctype/item.js",
     "Company": "public/js/doctype/company.js",
+    # 发票：创建税务登记入口
+    "Sales Invoice": "public/js/doctype/invoice_tax_registry.js",
+    "Purchase Invoice": "public/js/doctype/invoice_tax_registry.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}

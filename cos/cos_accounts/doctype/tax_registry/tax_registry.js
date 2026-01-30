@@ -3,6 +3,10 @@
 
 frappe.ui.form.on("Tax Registry", {
 	refresh(frm) {
+		// 记录上一次 invoice_doctype，用于判断是否“切换”而非首次赋值
+		if (typeof frm._last_invoice_doctype === "undefined") {
+			frm._last_invoice_doctype = frm.doc.invoice_doctype || null;
+		}
 		// 取消单据时不联动取消发票（避免影响系统内置发票管理）
 		// 该变量会被 Frappe 用于 cancel-with-children 的预检查与联动取消逻辑
 		frm.ignore_doctypes_on_cancel_all = ["Sales Invoice", "Purchase Invoice"];
@@ -79,31 +83,53 @@ frappe.ui.form.on("Tax Registry", {
 	},
 
 	invoice_doctype(frm) {
-		// 当父表的 invoice_doctype 改变时
-		if (frm.doc.invoice_doctype) {
-			// 检查子表是否不为空
-			if (frm.doc.tax_registry_item && frm.doc.tax_registry_item.length > 0) {
-				// 提示用户是否清除子表
+		// 避免在脚本回滚字段时重复触发
+		if (frm._ignore_invoice_doctype_change) {
+			frm._ignore_invoice_doctype_change = false;
+			frm._last_invoice_doctype = frm.doc.invoice_doctype || null;
+			update_child_table_invoice_doctype(frm);
+			update_accounts_from_company(frm);
+			return;
+		}
+
+		const new_value = frm.doc.invoice_doctype || null;
+		const old_value = typeof frm._last_invoice_doctype === "undefined" ? null : frm._last_invoice_doctype;
+
+		// 首次赋值（旧值为空）不提示清空；仅在“切换”时提示
+		const is_switching = !!old_value && new_value && old_value !== new_value;
+
+		if (new_value) {
+			// 检查子表是否不为空（仅在切换时提示）
+			if (is_switching && frm.doc.tax_registry_item && frm.doc.tax_registry_item.length > 0) {
 				frappe.confirm(
-					__('子表不为空，是否清除子表数据？'),
-					function() {
+					__("子表不为空，是否清除子表数据？"),
+					function () {
 						// 用户确认清除
 						frm.clear_table("tax_registry_item");
-						update_child_table_invoice_doctype(frm);
 						frm.refresh_field("tax_registry_item");
+						// 清空子表时，同步清空父表合计与总税费
+						update_parent_totals(frm);
+						frm._last_invoice_doctype = new_value;
+						// 更新账户字段
+						update_accounts_from_company(frm);
 					},
-					function() {
-						// 用户取消，更新子表的 invoice_doctype
-						update_child_table_invoice_doctype(frm);
+					function () {
+						// 用户取消：回滚 invoice_doctype 到旧值（避免子表与单据类型不一致）
+						frm._ignore_invoice_doctype_change = true;
+						frm.set_value("invoice_doctype", old_value);
+						frm._last_invoice_doctype = old_value;
 					}
 				);
-			} else {
-				// 子表为空，直接更新
-				update_child_table_invoice_doctype(frm);
+				return;
 			}
+
+			// 非切换或子表为空：直接同步子表 invoice_doctype
+			update_child_table_invoice_doctype(frm);
 			// 更新账户字段
 			update_accounts_from_company(frm);
 		}
+
+		frm._last_invoice_doctype = new_value;
 	},
 
 	company(frm) {
