@@ -55,16 +55,20 @@ class TaxRegistry(Document):
 
 		注意：Frappe 的 delete 流程是先执行 on_trash，再做链接检查。
 		"""
-		# 仅允许删除已取消单据（已提交单据本来也不允许删除）
-		if self.docstatus != 2:
+		# 草稿允许直接删除；已提交单据不允许删除（需先取消）；已取消单据允许删除
+		if self.docstatus == 1:
 			frappe.throw(_("请先取消该税务登记单再删除。"))
 
-		# 若启用不可变账本，不允许删除会计分录，故也禁止删除该单据
+		# 若启用不可变账本：仅当本单据确实生成过 GL Entry 时，才禁止删除
 		try:
-			from erpnext.accounts.utils import is_immutable_ledger_enabled
+			gl_exists = bool(
+				frappe.db.exists("GL Entry", {"voucher_type": self.doctype, "voucher_no": self.name})
+			)
+			if gl_exists:
+				from erpnext.accounts.utils import is_immutable_ledger_enabled
 
-			if is_immutable_ledger_enabled():
-				frappe.throw(_("已启用不可变账本，禁止删除包含会计分录的单据。"))
+				if is_immutable_ledger_enabled():
+					frappe.throw(_("已启用不可变账本，禁止删除包含会计分录的单据。"))
 		except Exception:
 			# erpnext 不可用时忽略（一般不会发生）
 			pass
