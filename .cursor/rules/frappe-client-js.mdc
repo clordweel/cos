@@ -1,0 +1,16 @@
+---
+description: Frappe/前端 JS 规范（Desk 脚本、DocType 脚本）
+globs: cos/**/*.js
+alwaysApply: false
+---
+
+# Frappe/前端 JS 规范
+
+- 国际化：用户可见文本使用 `__('...')`。
+- 事件绑定：优先 `frappe.ui.form.on('<DocType>', { ... })`；避免污染全局变量。
+- 与服务端交互：优先 `frappe.call` 调用白名单方法；参数要显式、可追踪、可校验。
+- 兼容性：尽量不依赖私有 API；覆写/热修要写清楚适用版本与回滚方式。
+- 日志：避免 `console.log`；需要调试信息时使用 `console.warn` 或受控开关。
+- 落点约定：
+  - 标准 DocType 的增强脚本放 `cos/public/js/doctype/` 并在 `cos/hooks.py` 的 `doctype_js` 中显式注入
+

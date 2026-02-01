@@ -1,0 +1,20 @@
+---
+description: DocType 目录结构与约定（schema/controller/test）
+globs: cos/**/doctype/**
+alwaysApply: false
+---
+
+# DocType 结构约定
+
+- DocType 目录形态保持标准化：
+  - `.../doctype/<doctype>/<doctype>.json`：schema
+  - `.../doctype/<doctype>/<doctype>.py`：controller（校验/事件/服务端逻辑）
+  - `.../doctype/<doctype>/<doctype>.js`：客户端脚本（表单行为/交互）
+  - `.../doctype/<doctype>/test_<doctype>.py`：测试（如适用）
+- 命名：
+  - DocType 名称用 PascalCase（如 `New Item Request`）
+  - 文件夹/文件名用 snake_case（如 `new_item_request`）
+- JSON 注意：
+  - 遵循本仓库 `.editorconfig`（JSON 使用空格缩进，且通常不强制末尾换行）
+  - 变更 schema 后，确保迁移/fixtures/patches 等交付物同步更新（按变更类型选择）
+

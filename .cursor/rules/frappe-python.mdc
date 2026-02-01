@@ -1,0 +1,22 @@
+---
+description: Frappe/Python 开发规范（仅对 Python 生效）
+globs: cos/**/*.py
+alwaysApply: false
+---
+
+# Frappe/Python 规范
+
+- 优先使用 Frappe API：`frappe.get_doc`、`frappe.db.get_value/set_value`、`frappe.get_all`；避免 `frappe.db.sql`。
+- 权限与输入：
+  - `@frappe.whitelist()` 仅用于确需前端调用的方法
+  - 校验权限（`frappe.has_permission` / `frappe.only_for`）与输入（类型/空值/范围）
+- 错误处理：
+  - 业务校验用 `frappe.throw`（配合 `frappe.ValidationError` 等）
+  - 异常记录用 `frappe.log_error` 或 `frappe.logger()`
+- 事务与性能：
+  - 默认不手动 `frappe.db.commit()`；需要时必须说明场景（如登录/集成落库）并确保幂等
+  - 循环中避免频繁查库；必要时批量查询/预取
+- 国际化：用户可见字符串必须用 `_('...')`
+- 文件落点：
+  - DocType 事件逻辑尽量放 DocType controller 或 `utils/`，再由 `hooks.py` 挂载
+

@@ -1,18 +1,20 @@
 ---
-name: global-rule
-description: This is a new rule
+description: COS 项目核心开发规则（通用、始终生效）
+alwaysApply: true
 ---
 
-You are an expert Frappe/ERPNext developer.
+# COS 项目核心规则（通用）
 
-- Context: We are working on a custom Frappe App. 
-- Standards: Follow PEP8 for Python and Frappe's standard JS coding style.
-- DocType Logic: Python logic goes in `app_name/module/doctype/name/name.py`, JS in `name.js`.
-- Database: Use `frappe.db` methods instead of raw SQL whenever possible.
-- Hooks: Use `hooks.py` for overriding DocType events (using `doc_events`), adding custom scripts (`app_include_js`), or CRUD hooks.
-- Internationalization: Always use `_("...")` in Python and `__("...")` in JS.
-- Naming: Use snake_case for fields and variables, PascalCase for DocTypes.
-- Security: Always use `@frappe.whitelist()` for server-side methods called from client-side. Validate user permissions using `frappe.has_permission`.
-- UI: Use standard Frappe UI components (frappe.ui.form, frappe.msgprint).
+- 输出语言始终使用**中文**（包含代码注释/提交信息建议）。
+- 开工前优先阅读/搜索项目文档与说明：`docs/`、`README.md`、`print_format/README.md`，并参考对应版本的 Frappe/ERPNext 文档。
+- 遵守仓库规范：以 `ruff` / `eslint` / `pre-commit` / `.editorconfig` 为准（本项目 Python/JS 主要使用 **tab 缩进**）。
+- 逻辑放在正确位置：
+  - DocType 逻辑：`cos/<module>/doctype/<doctype>/<doctype>.py` 与同名 `.js/.json`
+  - 复用逻辑：优先放 `utils/` 或 `controllers/`，再由 `hooks.py`（`doc_events`、`override_whitelisted_methods` 等）挂载
+- 国际化：Python 使用 `_('...')`，JS 使用 `__('...')`。
+- 数据库：优先 `frappe.get_doc / frappe.db / frappe.get_all`；避免裸 SQL（必要时必须参数化）。
+- 安全与权限：对外 API 必须 `@frappe.whitelist()`，并做权限校验（如 `frappe.has_permission` / `frappe.only_for`）与输入校验。
+- 事务：避免随意 `frappe.db.commit()`；优先让请求生命周期/队列任务自然提交（确需手动提交时写明原因并控制影响面）。
+- 配置型变更优先走 fixtures；数据库结构/数据迁移使用 patches（要求幂等）。
 
-When generating code, always check if the logic belongs to a DocType controller, a background task, or a hook.
+生成/修改代码前，先判断该逻辑应属于 DocType controller、后台任务、controllers/utils 还是 hooks 挂载点，再动手落点。
