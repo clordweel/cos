@@ -1,0 +1,46 @@
+---
+description: 开发环境与协议选择（cos-dev.junhai.work 本地部署强制 HTTP）
+alwaysApply: true
+---
+
+# 开发环境与协议选择（HTTP/HTTPS）
+
+## 默认域名
+
+- 默认开发域名：`cos-dev.junhai.work`
+- 默认建议从项目根目录本地 `.env` 读取：
+  - `COS_DEV_BASE_URL`
+  - `FAC_MCP_URL`
+  - `FAC_AUTH_HEADER`
+
+## 关键规则：本地部署 + hosts 指向 127.0.0.1 时必须用 HTTP
+
+当满足以下条件时：
+
+- 你在本机跑 Frappe（通常无 TLS）
+- 且本机 `hosts` 将 `cos-dev.junhai.work` 指向 `127.0.0.1`
+- 且 nginx/反代未配置 TLS/证书
+
+则对 `cos-dev.junhai.work` 的访问必须使用：
+
+- ✅ `http://cos-dev.junhai.work`
+- ❌ `https://cos-dev.junhai.work`（会因无 TLS/证书而失败）
+
+## 环境判断（建议做法）
+
+- 若 `cos-dev.junhai.work` 解析到 `127.0.0.1` → 认为是本地部署 → 强制 `http`
+- 否则默认可用 `https`（以实际 TLS 配置为准）
+
+## 困境的可选解决方案（择一）
+
+### 方案 A（推荐）：本地启用 TLS（自签/本地 CA）
+
+- 使用 `mkcert` 为 `cos-dev.junhai.work` 生成证书并信任本地 CA
+- 配置 nginx/反代监听 443 并使用该证书
+- 优点：本地/远端统一 https，减少条件分支
+
+### 方案 B（更省事）：用 Caddy 做本地反代与本地 CA TLS
+
+- Caddy 可用 “internal” CA 自动签发并托管 https
+- 优点：配置简单、自动续期；缺点：需要引入额外组件
+

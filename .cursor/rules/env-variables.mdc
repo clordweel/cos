@@ -1,0 +1,40 @@
+---
+description: 项目环境变量（.env/.env.example）约束：默认域名、FAC、Outline；敏感信息与引用方式
+alwaysApply: true
+---
+
+# 环境变量约束（.env / .env.example）
+
+## 基本约定
+
+- `.env`：仅本地使用，**包含敏感信息**（token / api_secret / api key 等），**禁止提交**
+- `.env.example`：可提交的模板文件，**不包含真实密钥**
+- 任何需要 URL/token 的脚本/技能，优先从环境变量读取，不要硬编码
+
+## 语法要求（避免 source 失败）
+
+- `.env` 需能被 `bash` 正确加载：`set -a && source .env && set +a`
+- **包含空格的值必须加双引号**，例如：
+  - `FAC_AUTH_HEADER="token <api_key>:<api_secret>"`
+  - `OUTLINE_DEFAULT_COLLECTION="COS 文档"`
+
+## 关键变量（本项目）
+
+### FAC（MCP）
+
+- `FAC_MCP_URL`：FAC MCP endpoint
+- `FAC_AUTH_HEADER`：`Bearer ...` 或 `token api_key:api_secret`（务必加引号）
+
+### Outline（私有部署）
+
+- `OUTLINE_BASE_URL`：例如 `https://outline.junhai.work`
+- `OUTLINE_API_KEY`：只允许存在本地 `.env`
+- `OUTLINE_DEFAULT_COLLECTION`：默认文档集名称，当前为 `COS 文档`
+
+## 安全红线
+
+- 不要把任何真实密钥写入：
+  - `.env.example`
+  - 文档（README/docs）
+  - 代码仓库历史（commit message / patch / fixtures）
+

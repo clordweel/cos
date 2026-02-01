@@ -7,6 +7,7 @@ alwaysApply: true
 
 - 输出语言始终使用**中文**（包含代码注释/提交信息建议）。
 - 开工前优先阅读/搜索项目文档与说明：`docs/`、`README.md`、`print_format/README.md`，并参考对应版本的 Frappe/ERPNext 文档。
+- 开发环境默认域名：`cos-dev.junhai.work`（建议在项目根目录 `.env` 中用 `COS_DEV_BASE_URL` 维护；提交只保留 `.env.example`）。本地 hosts 指向 `127.0.0.1` 且无 TLS 时必须用 **http**（详见 `dev-environment.mdc`）。
 - 遵守仓库规范：以 `ruff` / `eslint` / `pre-commit` / `.editorconfig` 为准（本项目 Python/JS 主要使用 **tab 缩进**）。
 - 逻辑放在正确位置：
   - DocType 逻辑：`cos/<module>/doctype/<doctype>/<doctype>.py` 与同名 `.js/.json`
