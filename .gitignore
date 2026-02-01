@@ -54,6 +54,7 @@ jspm_packages/
 # Aider AI Chat
 .aider*
 
-docs
 * copy
 /*.md
+!README.md
+__resources__
