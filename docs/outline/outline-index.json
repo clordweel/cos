@@ -1,0 +1,366 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-02-02T06:49:19.123128Z",
+ "collection": {
+  "name": "COS 文档",
+  "id": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+  "url": "/collection/cos-WzeKKYUfOV"
+ },
+ "rootIds": [
+  "05cb114a-82e4-4318-a0b5-af946017ceb5",
+  "b54007aa-c045-48dd-a810-cb5f189fe3c9",
+  "cf4935bf-0c72-4f20-ac43-c8f820d41bc4",
+  "2b4a41a0-5c13-4468-9ee5-d5b96aa00d9b",
+  "95090127-86a4-4d83-863f-d11a88984b23",
+  "47afcf66-87cd-49e7-8995-cca05662f018",
+  "a5920d60-94e7-494e-922c-fc953b7ea72c",
+  "028fdc8b-ae6a-4f22-96c9-b616eb71be72",
+  "ca1b4590-4861-4923-91ed-20b8f55d9c74",
+  "1476a116-fb34-48c1-9a01-2c4f91346732",
+  "8c1dba82-c5d5-43ba-8afb-44946b720aaf",
+  "4c6a19b5-3198-4324-86d8-ecfccd2c80bc",
+  "febc0c15-11a3-4bb3-a141-b6f7c4194852",
+  "28b27d21-cb19-468a-87bc-ab5f0308324c",
+  "9e75fb12-fcbe-44d4-a5ea-c742cb7aaa6d",
+  "40365fdd-24eb-494e-88a9-c4ba41e90ce7",
+  "e9bad976-8b24-41fb-80b9-3b73f36a26ab",
+  "74d4f368-60d2-467a-b68b-cc3e293fb443",
+  "d2f4daf9-00ee-4ffa-afde-de5a8a46e88f",
+  "99f107a7-b3c2-4d83-929b-8fdcd2ebb20d",
+  "7e764d85-cfff-4cb5-a1e3-ec735ff67512",
+  "9f69b5e3-83c5-4260-ba0a-8d0ae9743280",
+  "02aaafe2-2bef-4afa-8342-4f1424a6bbfc",
+  "a81494f3-a114-4dc4-bf64-cd6112749d2b",
+  "2ce40c1f-fe7c-4d0c-9505-38ced0cf826e",
+  "03bf4fec-2758-4b1e-b773-341a061126f1",
+  "39a0b605-6983-4090-8832-fae48a8fa52c"
+ ],
+ "nodes": {
+  "05cb114a-82e4-4318-a0b5-af946017ceb5": {
+   "title": "初代阶段",
+   "url": "/doc/5yid5luj6zi25q61-7geQnLuarK",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "2b4a41a0-5c13-4468-9ee5-d5b96aa00d9b",
+   "updatedAt": "2026-02-02T06:49:15.195Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "b54007aa-c045-48dd-a810-cb5f189fe3c9": {
+   "title": "试行阶段",
+   "url": "/doc/6kv6kgm6zi25q61-a3Q7eVkLY6",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "2b4a41a0-5c13-4468-9ee5-d5b96aa00d9b",
+   "updatedAt": "2026-02-02T06:49:11.045Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "cf4935bf-0c72-4f20-ac43-c8f820d41bc4": {
+   "title": "原型阶段",
+   "url": "/doc/5y6f5z6l6zi25q61-OCpUQpu2HZ",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "2b4a41a0-5c13-4468-9ee5-d5b96aa00d9b",
+   "updatedAt": "2026-02-02T06:49:10.496Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "2b4a41a0-5c13-4468-9ee5-d5b96aa00d9b": {
+   "title": "商业化改造交付（讨论目录）",
+   "url": "/doc/5zwg5lia5yyw5ps56ycg5lqk5luy77yi6k6o6k6655uu5b2v77yj-QDFvNT4wsn",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-02T06:49:09.845Z",
+   "archivedAt": null,
+   "childCount": 3
+  },
+  "95090127-86a4-4d83-863f-d11a88984b23": {
+   "title": "待办清单（汇总）",
+   "url": "/doc/5b6f5yqe5rif5y2v77yi5rgh5oc777yj-jQ4mDr7cSX",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "02aaafe2-2bef-4afa-8342-4f1424a6bbfc",
+   "updatedAt": "2026-02-02T02:53:03.922Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "47afcf66-87cd-49e7-8995-cca05662f018": {
+   "title": "ERPNext（v16）面向 AI Agent 的开发手册（COS 项目版）",
+   "url": "/doc/erpnextv16-ai-agent-cos-hwjzd4jBZa",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T14:32:18.813Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "a5920d60-94e7-494e-922c-fc953b7ea72c": {
+   "title": "Skill：create-item-from-parameter-template",
+   "url": "/doc/skillcreate-item-from-parameter-template-l87X2WTlZX",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:59:01.999Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "028fdc8b-ae6a-4f22-96c9-b616eb71be72": {
+   "title": "Skills 索引（Cursor / COS）",
+   "url": "/doc/skills-cursor-cos-DKOLyzRS8b",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:52:04.001Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "ca1b4590-4861-4923-91ed-20b8f55d9c74": {
+   "title": "Skill：outline-notes",
+   "url": "/doc/skilloutline-notes-JQXMZZMKOz",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:51:49.438Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "1476a116-fb34-48c1-9a01-2c4f91346732": {
+   "title": "Skill：fetch-item-groups",
+   "url": "/doc/skillfetch-item-groups-GgWfKZMr68",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:51:38.927Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "8c1dba82-c5d5-43ba-8afb-44946b720aaf": {
+   "title": "Skill：fac-external-tools",
+   "url": "/doc/skillfac-external-tools-3pnqSEYlPR",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:51:38.332Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "4c6a19b5-3198-4324-86d8-ecfccd2c80bc": {
+   "title": "Skill：fac-mcp-http-client",
+   "url": "/doc/skillfac-mcp-http-client-qfqGPhAD5w",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:51:37.734Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "febc0c15-11a3-4bb3-a141-b6f7c4194852": {
+   "title": "Skill：cursor-mcp-tooling",
+   "url": "/doc/skillcursor-mcp-tooling-gddZ3zl8lY",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "28b27d21-cb19-468a-87bc-ab5f0308324c",
+   "updatedAt": "2026-02-01T13:51:37.184Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "28b27d21-cb19-468a-87bc-ab5f0308324c": {
+   "title": "Cursor Skills（目录）",
+   "url": "/doc/cursor-skills-bypwIDy5ee",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T13:51:36.581Z",
+   "archivedAt": null,
+   "childCount": 7
+  },
+  "9e75fb12-fcbe-44d4-a5ea-c742cb7aaa6d": {
+   "title": "第一阶段任务清单（本地化 & AI 协作）",
+   "url": "/doc/ai-l4wkX7BWQN",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "02aaafe2-2bef-4afa-8342-4f1424a6bbfc",
+   "updatedAt": "2026-02-01T12:51:31.072Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "40365fdd-24eb-494e-88a9-c4ba41e90ce7": {
+   "title": "风险与控制：指令代采/委外仓的权限、审计与对账",
+   "url": "/doc/6aoo6zmp5lio5o6n5yi277ya5oyh5luk5luj6yehlwnlowklus7keahoadgmzkooagewuoeiuoes4juwvuei0pg-qK7FABU6gT",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "39a0b605-6983-4090-8832-fae48a8fa52c",
+   "updatedAt": "2026-02-01T12:51:23.767Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "e9bad976-8b24-41fb-80b9-3b73f36a26ab": {
+   "title": "资料梳理：AI 驱动协作生产计划 → COS 落地建议",
+   "url": "/doc/ai-cos-V7PkMagYP7",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "a81494f3-a114-4dc4-bf64-cd6112749d2b",
+   "updatedAt": "2026-02-01T12:50:26.399Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "74d4f368-60d2-467a-b68b-cc3e293fb443": {
+   "title": "SOP：项目 BOM 五步法（销售→设计→MRP→生产）",
+   "url": "/doc/sop-bom-mrp-UY9lTBZaoD",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "2ce40c1f-fe7c-4d0c-9505-38ced0cf826e",
+   "updatedAt": "2026-02-01T12:49:55.547Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "d2f4daf9-00ee-4ffa-afde-de5a8a46e88f": {
+   "title": "阶段性规划（Roadmap）",
+   "url": "/doc/roadmap-g3y0G1aOjA",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "a81494f3-a114-4dc4-bf64-cd6112749d2b",
+   "updatedAt": "2026-02-01T12:30:38.767Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "99f107a7-b3c2-4d83-929b-8fdcd2ebb20d": {
+   "title": "概览（必读）",
+   "url": "/doc/5qac6kei77yi5bf6k777yj-EYRE5YMvPh",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T12:26:03.525Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "7e764d85-cfff-4cb5-a1e3-ec735ff67512": {
+   "title": "系统集成架构（Frappe + FAC/MCP + Outline）",
+   "url": "/doc/frappe-facmcp-outline-NdK9AJDlNh",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "a81494f3-a114-4dc4-bf64-cd6112749d2b",
+   "updatedAt": "2026-02-01T12:23:22.853Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "9f69b5e3-83c5-4260-ba0a-8d0ae9743280": {
+   "title": "待办：开发环境 HTTP → HTTPS 切换",
+   "url": "/doc/http-https-QFzLYcpbwV",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "02aaafe2-2bef-4afa-8342-4f1424a6bbfc",
+   "updatedAt": "2026-02-01T12:23:04.909Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "02aaafe2-2bef-4afa-8342-4f1424a6bbfc": {
+   "title": "待办任务",
+   "url": "/doc/5b6f5yqe5lu75yqh-I4fExJkZGr",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T12:22:56.139Z",
+   "archivedAt": null,
+   "childCount": 3
+  },
+  "a81494f3-a114-4dc4-bf64-cd6112749d2b": {
+   "title": "方案架构",
+   "url": "/doc/5pa55qgi5p625p6e-SQEbbZq4Yl",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T12:22:52.859Z",
+   "archivedAt": null,
+   "childCount": 3
+  },
+  "2ce40c1f-fe7c-4d0c-9505-38ced0cf826e": {
+   "title": "开发规范",
+   "url": "/doc/5bya5yr6kee6iyd-VYZXnFFtVC",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T12:22:50.448Z",
+   "archivedAt": null,
+   "childCount": 1
+  },
+  "03bf4fec-2758-4b1e-b773-341a061126f1": {
+   "title": "开发环境：cos-dev.junhai.work 协议限制（HTTP）",
+   "url": "/doc/cos-devjunhaiwork-http-zfN36vKRzq",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": "39a0b605-6983-4090-8832-fae48a8fa52c",
+   "updatedAt": "2026-02-01T12:22:41.568Z",
+   "archivedAt": null,
+   "childCount": 0
+  },
+  "39a0b605-6983-4090-8832-fae48a8fa52c": {
+   "title": "问题说明",
+   "url": "/doc/6zeu6aky6k05pio-ra3jw1AfSo",
+   "collectionId": "72f3b5a0-9dbd-4f6a-a758-69bb1e1299ec",
+   "parentDocumentId": null,
+   "updatedAt": "2026-02-01T12:22:39.178Z",
+   "archivedAt": null,
+   "childCount": 2
+  }
+ },
+ "paths": {
+  "Cursor Skills（目录）": [
+   "28b27d21-cb19-468a-87bc-ab5f0308324c"
+  ],
+  "Cursor Skills（目录）/Skills 索引（Cursor / COS）": [
+   "028fdc8b-ae6a-4f22-96c9-b616eb71be72"
+  ],
+  "Cursor Skills（目录）/Skill：create-item-from-parameter-template": [
+   "a5920d60-94e7-494e-922c-fc953b7ea72c"
+  ],
+  "Cursor Skills（目录）/Skill：cursor-mcp-tooling": [
+   "febc0c15-11a3-4bb3-a141-b6f7c4194852"
+  ],
+  "Cursor Skills（目录）/Skill：fac-external-tools": [
+   "8c1dba82-c5d5-43ba-8afb-44946b720aaf"
+  ],
+  "Cursor Skills（目录）/Skill：fac-mcp-http-client": [
+   "4c6a19b5-3198-4324-86d8-ecfccd2c80bc"
+  ],
+  "Cursor Skills（目录）/Skill：fetch-item-groups": [
+   "1476a116-fb34-48c1-9a01-2c4f91346732"
+  ],
+  "Cursor Skills（目录）/Skill：outline-notes": [
+   "ca1b4590-4861-4923-91ed-20b8f55d9c74"
+  ],
+  "ERPNext（v16）面向 AI Agent 的开发手册（COS 项目版）": [
+   "47afcf66-87cd-49e7-8995-cca05662f018"
+  ],
+  "商业化改造交付（讨论目录）": [
+   "2b4a41a0-5c13-4468-9ee5-d5b96aa00d9b"
+  ],
+  "商业化改造交付（讨论目录）/初代阶段": [
+   "05cb114a-82e4-4318-a0b5-af946017ceb5"
+  ],
+  "商业化改造交付（讨论目录）/原型阶段": [
+   "cf4935bf-0c72-4f20-ac43-c8f820d41bc4"
+  ],
+  "商业化改造交付（讨论目录）/试行阶段": [
+   "b54007aa-c045-48dd-a810-cb5f189fe3c9"
+  ],
+  "开发规范": [
+   "2ce40c1f-fe7c-4d0c-9505-38ced0cf826e"
+  ],
+  "开发规范/SOP：项目 BOM 五步法（销售→设计→MRP→生产）": [
+   "74d4f368-60d2-467a-b68b-cc3e293fb443"
+  ],
+  "待办任务": [
+   "02aaafe2-2bef-4afa-8342-4f1424a6bbfc"
+  ],
+  "待办任务/待办清单（汇总）": [
+   "95090127-86a4-4d83-863f-d11a88984b23"
+  ],
+  "待办任务/待办：开发环境 HTTP → HTTPS 切换": [
+   "9f69b5e3-83c5-4260-ba0a-8d0ae9743280"
+  ],
+  "待办任务/第一阶段任务清单（本地化 & AI 协作）": [
+   "9e75fb12-fcbe-44d4-a5ea-c742cb7aaa6d"
+  ],
+  "方案架构": [
+   "a81494f3-a114-4dc4-bf64-cd6112749d2b"
+  ],
+  "方案架构/系统集成架构（Frappe + FAC/MCP + Outline）": [
+   "7e764d85-cfff-4cb5-a1e3-ec735ff67512"
+  ],
+  "方案架构/资料梳理：AI 驱动协作生产计划 → COS 落地建议": [
+   "e9bad976-8b24-41fb-80b9-3b73f36a26ab"
+  ],
+  "方案架构/阶段性规划（Roadmap）": [
+   "d2f4daf9-00ee-4ffa-afde-de5a8a46e88f"
+  ],
+  "概览（必读）": [
+   "99f107a7-b3c2-4d83-929b-8fdcd2ebb20d"
+  ],
+  "问题说明": [
+   "39a0b605-6983-4090-8832-fae48a8fa52c"
+  ],
+  "问题说明/开发环境：cos-dev.junhai.work 协议限制（HTTP）": [
+   "03bf4fec-2758-4b1e-b773-341a061126f1"
+  ],
+  "问题说明/风险与控制：指令代采/委外仓的权限、审计与对账": [
+   "40365fdd-24eb-494e-88a9-c4ba41e90ce7"
+  ]
+ }
+}
