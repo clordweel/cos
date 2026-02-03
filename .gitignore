@@ -60,3 +60,5 @@ jspm_packages/
 /*.md
 !README.md
 __resources__
+docs/outline/cache/*
+!docs/outline/cache/README.md

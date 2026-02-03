@@ -26,6 +26,13 @@ python scripts/outline_refresh_index.py
 
 输出会给出：collection 信息、抓取到的文档数量、根目录标题列表、以及可能的“同父级重名”冲突提示。
 
+## Cache 与单向推送（文档修改流程）
+
+- **cache 目录**：`docs/outline/cache/` 为默认文档集的本地缓存，文档修改**只在 cache 内进行**，确认无误后**单向**推送到 Outline。
+- **拉取**：`python scripts/outline_pull_cache.py`（依赖 `.env` 与 `outline-index.json`），将 Outline 文档拉入 `cache/documents/<id>.md`。
+- **推送**：确认无误后执行 `python scripts/outline_push_cache.py`；可选 `--dry-run`、`--only <path>`。新文档以 `_new_<slug>.md` 放在 cache，推送后会自动 `documents.create` 并重命名为 `<id>.md`。
+- 详见 `docs/outline/cache/README.md`。
+
 ## 使用建议（给技能/脚本）
 
 - **优先**读取 `docs/outline/outline-index.json`，按 `paths`（如 `待办任务/待办清单（汇总）`）或按 `nodes` 条件筛选定位目标
