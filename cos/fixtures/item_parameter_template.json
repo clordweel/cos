@@ -1570,7 +1570,7 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "紧固件",
-  "modified": "2026-02-28 23:07:23.251429",
+  "modified": "2026-03-01 01:00:10.820721",
   "module": "COS Stock",
   "name": "标准模板 - 螺栓",
   "parameters": [
@@ -1786,13 +1786,13 @@
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 强度等级 }} {{ 表面处理 }}",
+    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 强度等级 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "parameter_name": "物料名称",
     "readonly_value": 1,
     "target_field": "item_name",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 强度等级 }} {{ 表面处理 }}",
+    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 强度等级 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "value_integer": 0
    },
    {
@@ -35718,7 +35718,7 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "紧固件",
-  "modified": "2026-02-28 23:06:21.453024",
+  "modified": "2026-03-01 01:00:10.919908",
   "module": "COS Stock",
   "name": "标准模板 - 螺母",
   "parameters": [
@@ -35934,13 +35934,13 @@
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}",
+    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "parameter_name": "物料名称",
     "readonly_value": 1,
     "target_field": "item_name",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}",
+    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "value_integer": 0
    },
    {
@@ -35997,7 +35997,7 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "紧固件",
-  "modified": "2026-02-28 23:06:34.247551",
+  "modified": "2026-03-01 01:00:10.967659",
   "module": "COS Stock",
   "name": "标准模板 - 平垫",
   "parameters": [
@@ -36179,13 +36179,13 @@
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}",
+    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "parameter_name": "物料名称",
     "readonly_value": 1,
     "target_field": "item_name",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}",
+    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "value_integer": 0
    },
    {
@@ -36242,7 +36242,7 @@
   "docstatus": 0,
   "doctype": "Item Parameter Template",
   "item_group": "紧固件",
-  "modified": "2026-02-28 23:06:48.533941",
+  "modified": "2026-03-01 01:00:11.010674",
   "module": "COS Stock",
   "name": "标准模板 - 弹垫",
   "parameters": [
@@ -36424,13 +36424,13 @@
     "doctype_selector": null,
     "join_to_hash": 0,
     "optional": 0,
-    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}",
+    "parameter_default_value": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "parameter_name": "物料名称",
     "readonly_value": 1,
     "target_field": "item_name",
     "value_doctype": null,
     "value_float": 0.0,
-    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}",
+    "value_format": "{{ 基础名 }} {{ 规格型号 }} {{ 表面处理 }}{% if 材质 and 材质 != 'Q235B' %} {{ 材质 }}{% endif %}",
     "value_integer": 0
    },
    {
