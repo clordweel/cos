@@ -166,10 +166,6 @@ doc_events = {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },
-    "Delivery Note": {
-        "on_submit": "cos.cos_accounts.revenue_at_delivery.delivery_note_gl.on_delivery_note_submit",
-    "on_cancel": "cos.cos_accounts.revenue_at_delivery.delivery_note_gl.on_delivery_note_cancel",
-    },
     "Sales Invoice": {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
@@ -210,10 +206,7 @@ doc_events = {
 #     # "Purchase Order": "cos.cos_accounts.overrides.currency_ext.RMBMixin",
 # }
 
-# 出库即确认收入
-override_doctype_class = {
-    "Sales Invoice": "cos.cos_accounts.revenue_at_delivery.sales_invoice_override.SalesInvoiceRevenueAtDelivery",
-}
+# override_doctype_class = {}
 
 # Overriding Methods
 # ------------------------------
