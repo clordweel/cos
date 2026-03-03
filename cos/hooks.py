@@ -166,6 +166,9 @@ doc_events = {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },
+    "Delivery Note": {
+        "on_submit": "cos.cos_accounts.utils.delivery_note_auto_invoice.on_delivery_note_submit",
+    },
     "Sales Invoice": {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",

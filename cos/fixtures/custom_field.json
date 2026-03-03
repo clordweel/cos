@@ -10,7 +10,7 @@
   "columns": 0,
   "default": "0",
   "depends_on": null,
-  "description": null,
+  "description": "勾选后，提交销售出库时自动创建并提交销售发票（系统内开票），实现出库当天确认收入",
   "docstatus": 0,
   "doctype": "Custom Field",
   "dt": "Selling Settings",
