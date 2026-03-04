@@ -59,7 +59,7 @@ def execute(filters=None):
 	sql = """
 		SELECT s.purchase_order, po.supplier, s.tracking_no, s.courier_name,
 			   s.status AS shipment_status, s.last_track_time
-		FROM `tabShipment` s
+		FROM `tabOrder Shipment` s
 		INNER JOIN `tabPurchase Order` po ON po.name = s.purchase_order
 		WHERE (s.status IS NULL OR s.status NOT IN ('签收', '已签收'))
 		  AND """ + " AND ".join(conditions)

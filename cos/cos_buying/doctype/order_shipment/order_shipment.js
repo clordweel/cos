@@ -1,7 +1,7 @@
 // Copyright (c) 2026, COS and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Shipment", {
+frappe.ui.form.on("Order Shipment", {
 	refresh: function (frm) {
 		if (frm.doc.purchase_order) {
 			frm.add_custom_button(__("查看采购订单"), function () {
@@ -51,7 +51,7 @@ frappe.ui.form.on("Shipment", {
 			return;
 		}
 		frappe.call({
-			method: "cos.cos_buying.express_tracking.refresh_shipment",
+			method: "cos.cos_buying.express_tracking.refresh_order_shipment",
 			args: { shipment: frm.doc.name },
 			freeze: true,
 			callback: function (r) {

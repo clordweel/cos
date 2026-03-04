@@ -108,9 +108,9 @@ def _detail_to_html(detail: list) -> str:
 
 
 @frappe.whitelist()
-def refresh_shipment(shipment: str):
-	"""根据物流运单 Shipment 刷新轨迹，更新 status、last_track_time、track_detail、track_detail_html"""
-	doc = frappe.get_doc("Shipment", shipment)
+def refresh_order_shipment(shipment: str):
+	"""根据订单运单 Order Shipment 刷新轨迹，更新 status、last_track_time、track_detail、track_detail_html"""
+	doc = frappe.get_doc("Order Shipment", shipment)
 	doc.check_permission("write")
 	if not doc.courier_code or not doc.tracking_no:
 		frappe.throw(_("请先填写快递公司代码和运单号"))

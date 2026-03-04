@@ -4,7 +4,7 @@
 from frappe.model.document import Document
 
 
-class Shipment(Document):
-	"""物流运单：独立单据，多对一关联采购订单"""
+class OrderShipment(Document):
+	"""订单运单：独立单据，多对一关联采购订单，避免与 ERPNext 内置 Shipment 冲突"""
 
 	pass
