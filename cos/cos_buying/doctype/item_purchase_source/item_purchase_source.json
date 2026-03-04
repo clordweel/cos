@@ -31,7 +31,8 @@
    "fieldname": "purchase_url",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "采购链接"
+   "label": "采购链接",
+   "options": "URL"
   },
   {
    "fieldname": "supplier",
