@@ -8,7 +8,7 @@ import frappe
 
 def remove():
 	"""删除 Purchase Order 上物流相关的 Custom Field"""
-	keywords = ["物流", "运单", "shipment", "logistics"]
+	keywords = ["物流", "物流信息", "运单", "shipment", "logistics"]
 	rows = frappe.get_all(
 		"Custom Field",
 		filters={"dt": "Purchase Order"},
