@@ -9,6 +9,6 @@
  "name": "Purchase In Transit",
  "owner": "Administrator",
  "ref_doctype": "Purchase Order",
- "report_name": "Purchase In Transit",
+ "report_name": "订单在途",
  "report_type": "Script Report"
 }

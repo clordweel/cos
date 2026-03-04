@@ -186,3 +186,17 @@ Selling Tax Account,销项税额账户
 Buying Tax Account Used,已抵扣进项税额账户
 Selling Tax Account Used,已开票销项税额账户
 Logistics Company,物流公司
+Order Shipment,订单运单
+Item Purchase Source,物料采购来源
+Purchase In Transit,订单在途
+COS Buying,COS 采购
+Item Tools,物料工具
+Debit Account,借方科目
+Credit Account,贷方科目
+Date,日期
+Grand Total,合计
+Posting Time,过账时间
+Edit Posting Date and Time,编辑过账日期时间
+Posting Date,过账日期
+Tax ID,税务登记号
+Invoice,发票
