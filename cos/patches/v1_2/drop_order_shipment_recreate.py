@@ -8,15 +8,27 @@ def execute():
 	# 1. 删除所有 Order Shipment 记录
 	if frappe.db.table_exists("Order Shipment"):
 		frappe.db.sql("DELETE FROM `tabOrder Shipment`")
-		frappe.db.sql("DROP TABLE IF EXISTS `tabOrder Shipment`")
+		frappe.db.commit()
+		# DDL 会触发隐式提交，用底层连接执行以绕过 Frappe 事务检查
+		conn = frappe.db.get_connection()
+		conn.connection.autocommit(True)
+		try:
+			conn.execute("DROP TABLE IF EXISTS `tabOrder Shipment`")
+		finally:
+			conn.connection.autocommit(False)
 
 	# 2. Courier Company -> Logistics Company（若存在）
 	if frappe.db.table_exists("Courier Company"):
 		frappe.rename_doc("DocType", "Courier Company", "Logistics Company", force=True, merge=False)
 	# 3. Logistics Company: courier_name -> logistics_name（若存在）
 	if frappe.db.table_exists("Logistics Company") and frappe.db.column_exists("Logistics Company", "courier_name"):
-		frappe.db.sql(
-			"ALTER TABLE `tabLogistics Company` CHANGE COLUMN `courier_name` `logistics_name` VARCHAR(140)"
-		)
+		conn = frappe.db.get_connection()
+		conn.connection.autocommit(True)
+		try:
+			conn.execute(
+				"ALTER TABLE `tabLogistics Company` CHANGE COLUMN `courier_name` `logistics_name` VARCHAR(140)"
+			)
+		finally:
+			conn.connection.autocommit(False)
 
 	frappe.db.commit()
