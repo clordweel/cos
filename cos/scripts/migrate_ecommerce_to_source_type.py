@@ -52,23 +52,26 @@ def run(site: str | None = None) -> str:
             created[f"st_{name}"] = "created"
 
     # 2) 确保 Item Purchase Source 的 module 为 COS Buying，platform 为 Link(Source Type)
-    ips_dt = frappe.get_doc("DocType", "Item Purchase Source")
-    if ips_dt.module != "COS Buying":
-        ips_dt.module = "COS Buying"
-        ips_dt.save()
-        created["ips_module"] = "updated"
-    platform_field = next((f for f in ips_dt.fields if f.fieldname == "platform"), None)
-    if platform_field:
-        if platform_field.fieldtype == "Link" and platform_field.options == "Source Type":
-            created["ips_platform"] = "already_link"
+    if frappe.db.exists("DocType", "Item Purchase Source"):
+        ips_dt = frappe.get_doc("DocType", "Item Purchase Source")
+        if ips_dt.module != "COS Buying":
+            ips_dt.module = "COS Buying"
+            ips_dt.save()
+            created["ips_module"] = "updated"
+        platform_field = next((f for f in ips_dt.fields if f.fieldname == "platform"), None)
+        if platform_field:
+            if platform_field.fieldtype == "Link" and platform_field.options == "Source Type":
+                created["ips_platform"] = "already_link"
+            else:
+                platform_field.fieldtype = "Link"
+                platform_field.options = "Source Type"
+                platform_field.link_filters = '[[\"Source Type\",\"related_doctype\",\"=\",\"Item Purchase Source\"]]'
+                platform_field.save()
+                created["ips_platform"] = "updated"
         else:
-            platform_field.fieldtype = "Link"
-            platform_field.options = "Source Type"
-            platform_field.link_filters = '[[\"Source Type\",\"related_doctype\",\"=\",\"Item Purchase Source\"]]'
-            platform_field.save()
-            created["ips_platform"] = "updated"
+            created["ips_platform"] = "field_not_found"
     else:
-        created["ips_platform"] = "field_not_found"
+        created["ips_platform"] = "doctype_not_found"
 
     # 3) 修改 Purchase Order Item custom_platform：Select -> Link(Source Type)
     # 注：Custom Field 的 save() 会校验 fieldtype 不可变更，故用 db.set_value 直接更新
