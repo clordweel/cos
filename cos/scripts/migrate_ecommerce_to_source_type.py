@@ -18,6 +18,16 @@ def run(site: str | None = None) -> str:
     frappe.connect(site=site)
     created = {}
 
+    # 0) 确保 COS Buying 模块存在（Module Def）
+    if not frappe.db.exists("Module Def", "COS Buying"):
+        m = frappe.new_doc("Module Def")
+        m.module_name = "COS Buying"
+        m.app_name = "cos"
+        m.insert()
+        created["module_def"] = "created"
+    else:
+        created["module_def"] = "already_exists"
+
     # 1) 创建 Source Type 预设（京东、1688 等）
     meta = frappe.get_meta("Source Type")
     name_field = "source_name" if meta.has_field("source_name") else ("source_type_name" if meta.has_field("source_type_name") else "name")
