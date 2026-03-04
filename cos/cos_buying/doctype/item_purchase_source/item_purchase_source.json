@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "creation": "2026-02-28 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "platform",
+  "platform_sku",
+  "purchase_url",
+  "supplier"
+ ],
+ "fields": [
+  {
+   "fieldname": "platform",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "采购平台",
+   "link_filters": "[[\"Source Type\",\"related_doctype\",\"=\",\"Item Purchase Source\"]]",
+   "options": "Source Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "platform_sku",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "平台 SKU"
+  },
+  {
+   "fieldname": "purchase_url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "采购链接"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "供应商",
+   "options": "Supplier"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "modified": "2026-02-28 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Buying",
+ "name": "Item Purchase Source",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

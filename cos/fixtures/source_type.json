@@ -68,5 +68,59 @@
   "name": "采购",
   "related_doctype": "Item",
   "source_name": "采购"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "module": "COS Buying",
+  "name": "京东",
+  "related_doctype": "Item Purchase Source",
+  "source_name": "京东"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "module": "COS Buying",
+  "name": "1688",
+  "related_doctype": "Item Purchase Source",
+  "source_name": "1688"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "module": "COS Buying",
+  "name": "淘宝/天猫",
+  "related_doctype": "Item Purchase Source",
+  "source_name": "淘宝/天猫"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "module": "COS Buying",
+  "name": "拼多多",
+  "related_doctype": "Item Purchase Source",
+  "source_name": "拼多多"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "module": "COS Buying",
+  "name": "工品汇",
+  "related_doctype": "Item Purchase Source",
+  "source_name": "工品汇"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Source Type",
+  "module": "COS Buying",
+  "name": "其他",
+  "related_doctype": "Item Purchase Source",
+  "source_name": "其他"
  }
 ]

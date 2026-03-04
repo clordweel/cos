@@ -24,15 +24,29 @@ def run(site: str | None = None) -> str:
 
     for name in PLATFORMS:
         if frappe.db.exists("Source Type", name):
-            created[f"st_{name}"] = "already_exists"
+            # 更新已有记录：related_doctype、module
+            doc = frappe.get_doc("Source Type", name)
+            if doc.related_doctype != "Item Purchase Source" or doc.module != "COS Buying":
+                doc.related_doctype = "Item Purchase Source"
+                doc.module = "COS Buying"
+                doc.save()
+                created[f"st_{name}"] = "updated"
+            else:
+                created[f"st_{name}"] = "already_exists"
         else:
             doc = frappe.new_doc("Source Type")
             setattr(doc, name_field, name)
+            doc.related_doctype = "Item Purchase Source"
+            doc.module = "COS Buying"
             doc.insert()
             created[f"st_{name}"] = "created"
 
-    # 2) 修改 Item Purchase Source 的 platform 字段：Select -> Link(Source Type)
+    # 2) 确保 Item Purchase Source 的 module 为 COS Buying，platform 为 Link(Source Type)
     ips_dt = frappe.get_doc("DocType", "Item Purchase Source")
+    if ips_dt.module != "COS Buying":
+        ips_dt.module = "COS Buying"
+        ips_dt.save()
+        created["ips_module"] = "updated"
     platform_field = next((f for f in ips_dt.fields if f.fieldname == "platform"), None)
     if platform_field:
         if platform_field.fieldtype == "Link" and platform_field.options == "Source Type":
@@ -40,6 +54,7 @@ def run(site: str | None = None) -> str:
         else:
             platform_field.fieldtype = "Link"
             platform_field.options = "Source Type"
+            platform_field.link_filters = '[[\"Source Type\",\"related_doctype\",\"=\",\"Item Purchase Source\"]]'
             platform_field.save()
             created["ips_platform"] = "updated"
     else:
@@ -55,10 +70,17 @@ def run(site: str | None = None) -> str:
     )
     if cf:
         if cf.fieldtype == "Link" and cf.options == "Source Type":
-            created["po_platform"] = "already_link"
+            # 确保 link_filters 正确
+            link_filters = '[[\"Source Type\",\"related_doctype\",\"=\",\"Item Purchase Source\"]]'
+            if frappe.db.get_value("Custom Field", cf.name, "link_filters") != link_filters:
+                frappe.db.set_value("Custom Field", cf.name, "link_filters", link_filters)
+                created["po_platform"] = "link_filters_updated"
+            else:
+                created["po_platform"] = "already_link"
         else:
             frappe.db.set_value("Custom Field", cf.name, "fieldtype", "Link")
             frappe.db.set_value("Custom Field", cf.name, "options", "Source Type")
+            frappe.db.set_value("Custom Field", cf.name, "link_filters", '[[\"Source Type\",\"related_doctype\",\"=\",\"Item Purchase Source\"]]')
             created["po_platform"] = "updated"
     else:
         created["po_platform"] = "cf_not_found"
