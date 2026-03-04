@@ -13,6 +13,7 @@ class TaxRegistry(Document):
 		self._set_totals_from_children()
 		self._validate_no_duplicate_invoice()
 		self._validate_child_invoices()
+		self._validate_tax_accounts_match_company_config()
 
 	def before_submit(self):
 		# invoice_number 取消 Unique 后，提交时仍需保证唯一（排除已取消记录）
@@ -227,10 +228,63 @@ class TaxRegistry(Document):
 					item.invoice_doctype, item.invoice, "custom_tax_registry_reference"
 				)
 				if ref and ref != self.name:
-					frappe.throw(
-						_("发票 {0} 已被税务登记单 {1} 引用，无法重复引用。").format(item.invoice, ref),
-						title=_("发票已被引用"),
-					)
+				frappe.throw(
+					_("发票 {0} 已被税务登记单 {1} 引用，无法重复引用。").format(item.invoice, ref),
+					title=_("发票已被引用"),
+				)
+
+	def _validate_tax_accounts_match_company_config(self):
+		"""校验借、贷科目与公司配置一致，避免手动选错科目导致借贷方向颠倒。
+
+		仅当公司已配置对应税务科目时校验；未配置则跳过（允许用户手动选择）。
+		"""
+		if not (self.invoice_doctype and self.company and self.debit_account and self.credit_account):
+			return
+
+		company_fields = [
+			"custom_selling_tax_account",
+			"custom_selling_tax_account_used",
+			"custom_buying_tax_account",
+			"custom_buying_tax_account_used",
+		]
+		# 若公司无这些自定义字段，跳过校验（避免 meta 未配置时报错）
+		company_meta = frappe.get_meta("Company")
+		if not all(company_meta.has_field(f) for f in company_fields):
+			return
+
+		company = frappe.get_cached_value(
+			"Company",
+			self.company,
+			company_fields,
+			as_dict=True,
+		)
+		if not company:
+			return
+
+		expected_debit = None
+		expected_credit = None
+		if self.invoice_doctype == "Sales Invoice":
+			expected_debit = company.get("custom_selling_tax_account")
+			expected_credit = company.get("custom_selling_tax_account_used")
+		elif self.invoice_doctype == "Purchase Invoice":
+			expected_debit = company.get("custom_buying_tax_account_used")
+			expected_credit = company.get("custom_buying_tax_account")
+
+		# 仅当公司已配置两个科目时才校验
+		if not (expected_debit and expected_credit):
+			return
+
+		if self.debit_account != expected_debit or self.credit_account != expected_credit:
+			frappe.throw(
+				_(
+					"借、贷科目必须与公司配置一致。{0} 类型税务登记：借方应为 {1}，贷方应为 {2}。"
+				).format(
+					self.invoice_doctype,
+					frappe.bold(expected_debit),
+					frappe.bold(expected_credit),
+				),
+				title=_("科目与公司配置不一致"),
+			)
 
 	def _validate_no_duplicate_invoice(self):
 		"""子表不允许重复添加同一发票（同一 invoice_doctype + invoice 只允许出现一次）"""

@@ -193,11 +193,19 @@ function update_accounts_from_company(frm) {
 			// 借：未开票（冲减 Sales Invoice 产生的贷方余额）；贷：已开票（增加已开票余额）
 			debit_account = company.custom_selling_tax_account;
 			credit_account = company.custom_selling_tax_account_used;
+			// 兜底：公司未配置 custom_selling_tax_account_used 时，按命名约定推导（未开票→已开票）
+			if (!credit_account && debit_account && String(debit_account).includes("未开票")) {
+				credit_account = debit_account.replace(/未开票/g, "已开票");
+			}
 		} else if (frm.doc.invoice_doctype === "Purchase Invoice") {
 			// 采购发票税务登记：将“未抵扣进项税额”结转到“已抵扣进项税额”
 			// 借：已抵扣（增加已抵扣）；贷：未抵扣（冲减 Purchase Invoice 产生的借方余额）
 			debit_account = company.custom_buying_tax_account_used;
 			credit_account = company.custom_buying_tax_account;
+			// 兜底：公司未配置 custom_buying_tax_account_used 时，按命名约定推导（未抵扣→已抵扣）
+			if (!debit_account && credit_account && String(credit_account).includes("未抵扣")) {
+				debit_account = credit_account.replace(/未抵扣/g, "已抵扣");
+			}
 		}
 
 		// 更新账户字段
