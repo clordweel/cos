@@ -95,21 +95,9 @@ def _get_courier_code(val: str) -> str:
 	return val.split(" - ")[0].strip().lower() or val
 
 
-def _detail_to_html(detail: list) -> str:
-	"""将轨迹列表转为 HTML"""
-	if not detail:
-		return ""
-	lines = []
-	for d in detail:
-		ctx = (d.get("context") or "").strip()
-		tm = (d.get("time") or d.get("ftime") or "").strip()
-		lines.append(f"<div class='track-item'><span class='text-muted'>{tm}</span> {ctx}</div>")
-	return "<div class='track-detail'>" + "".join(lines) + "</div>"
-
-
 @frappe.whitelist()
 def refresh_order_shipment(shipment: str):
-	"""根据订单运单 Order Shipment 刷新轨迹，更新 status、last_track_time、track_detail、track_detail_html"""
+	"""根据订单运单 Order Shipment 刷新轨迹，更新 status、last_track_time、track_detail"""
 	doc = frappe.get_doc("Order Shipment", shipment)
 	doc.check_permission("write")
 	if not doc.courier_code or not doc.tracking_no:
@@ -127,11 +115,9 @@ def refresh_order_shipment(shipment: str):
 	doc.status = status
 	doc.last_track_time = frappe.utils.now()
 	doc.track_detail = json.dumps(detail, ensure_ascii=False)
-	doc.track_detail_html = _detail_to_html(detail)
 	doc.save()
 	return {
 		"status": status,
 		"detail": detail,
 		"last_track_time": doc.last_track_time,
-		"track_detail_html": doc.track_detail_html,
 	}

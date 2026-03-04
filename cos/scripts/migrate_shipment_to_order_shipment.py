@@ -20,7 +20,7 @@ def migrate():
 		rows = frappe.db.sql(
 			f"""
 			SELECT name, purchase_order, company, courier_code, courier_name, tracking_no,
-			       contact, phone, remarks, status, last_track_time, track_detail, track_detail_html
+			       contact, phone, remarks, status, last_track_time, track_detail
 			FROM `{tab_name}`
 			WHERE purchase_order IS NOT NULL
 			ORDER BY creation
@@ -42,7 +42,6 @@ def migrate():
 			doc.status = r.status
 			doc.last_track_time = r.last_track_time
 			doc.track_detail = r.track_detail
-			doc.track_detail_html = r.track_detail_html
 			doc.insert(ignore_permissions=True)
 			created += 1
 			print(f"  迁移 Order Shipment: {doc.name} (原 {src_dt}: {r.name})")

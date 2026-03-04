@@ -8,21 +8,6 @@ frappe.ui.form.on("Order Shipment", {
 				frappe.set_route("Form", "Purchase Order", frm.doc.purchase_order);
 			});
 		}
-		// 若有轨迹缓存但无 HTML，从服务端刷新
-		if (frm.doc.track_detail && !frm.doc.track_detail_html && !frm.doc.__islocal) {
-			try {
-				const detail = JSON.parse(frm.doc.track_detail);
-				if (Array.isArray(detail) && detail.length) {
-					const html = detail
-						.map(
-							(d) =>
-								`<div class="track-item"><span class="text-muted">${d.time || d.ftime || ""}</span> ${d.context || ""}</div>`
-						)
-						.join("");
-					frm.set_df_property("track_detail_html", "options", `<div class="track-detail">${html}</div>`);
-				}
-			} catch (e) {}
-		}
 	},
 	purchase_order: function (frm) {
 		if (frm.doc.purchase_order && !frm.doc.company) {
@@ -61,9 +46,6 @@ frappe.ui.form.on("Order Shipment", {
 					frm.set_value("last_track_time", r.message.last_track_time);
 					if (r.message.detail && r.message.detail.length) {
 						frm.set_value("track_detail", JSON.stringify(r.message.detail));
-					}
-					if (r.message.track_detail_html) {
-						frm.set_df_property("track_detail_html", "options", r.message.track_detail_html);
 					}
 					frm.refresh_fields();
 				}

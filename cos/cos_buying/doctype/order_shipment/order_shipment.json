@@ -19,7 +19,6 @@
   "status",
   "last_track_time",
   "track_detail",
-  "track_detail_html",
   "column_break_btn",
   "query_btn"
  ],
@@ -111,12 +110,6 @@
    "fieldtype": "Small Text",
    "hidden": 1,
    "label": "轨迹缓存"
-  },
-  {
-   "fieldname": "track_detail_html",
-   "fieldtype": "HTML",
-   "label": "物流轨迹",
-   "read_only": 1
   },
   {
    "fieldname": "column_break_btn",
