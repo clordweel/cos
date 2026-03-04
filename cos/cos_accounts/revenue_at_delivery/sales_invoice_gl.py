@@ -21,6 +21,8 @@ def before_sales_invoice_gl_entries(doc, method=None):
 
 def should_use_receivable_transfer_logic(doc) -> bool:
     """SI 是否应走「应收转正」逻辑（不记收入/销项税，只记应收转正）。"""
+    if cint(doc.is_return):
+        return False  # 红字发票需走标准逻辑冲销收入/销项税
     if cint(doc.update_stock):
         return False
     has_dn = any(row.get("dn_detail") for row in (doc.get("items") or []))

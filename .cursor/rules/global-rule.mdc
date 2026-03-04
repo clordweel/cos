@@ -17,5 +17,6 @@ alwaysApply: true
 - 安全与权限：对外 API 必须 `@frappe.whitelist()`，并做权限校验（如 `frappe.has_permission` / `frappe.only_for`）与输入校验。
 - 事务：避免随意 `frappe.db.commit()`；优先让请求生命周期/队列任务自然提交（确需手动提交时写明原因并控制影响面）。
 - 配置型变更优先走 fixtures；数据库结构/数据迁移使用 patches（要求幂等）。
+- **自定义 DocType / Custom Field**：必须设置 module 为 cos 模块（COS Share / COS Stock / COS Accounts），并通过 fixtures 导出；禁止仅 UI 创建不导出。详见 `frappe-fixtures-customization.mdc`。
 
 生成/修改代码前，先判断该逻辑应属于 DocType controller、后台任务、controllers/utils 还是 hooks 挂载点，再动手落点。

@@ -1,0 +1,43 @@
+---
+description: 自定义单据与字段必须使用导出模块（fixtures），遵循 Frappe 最佳实践
+globs: cos/**/fixtures/**/*,cos/**/doctype/**/*,cos/hooks.py
+alwaysApply: false
+---
+
+# Frappe 自定义与 Fixtures 规范
+
+## 强制约束
+
+- **自定义 DocType**：必须归属 cos 模块，并在 `hooks.py` 的 fixtures 中声明导出
+- **自定义字段（Custom Field）**：必须设置 `module` 为 cos 模块之一，并通过 fixtures 导出
+- **禁止**：在 UI 中创建 Custom Field / Custom DocType 后不导出、不纳入版本控制
+
+## cos 可用模块
+
+| 模块 | 用途 | 适用场景 |
+|------|------|----------|
+| COS Share | 共享/基础 | 通用配置、跨模块字段（如 Selling Settings 扩展） |
+| COS Stock | 库存 | 物料、库存、Item 相关 |
+| COS Accounts | 财务 | 会计、发票、税务、收入相关 |
+| COS Logto | 认证 | Logto 集成相关 |
+
+新增业务领域可创建新模块（在 `modules.txt` 与 `hooks.py` fixtures 中注册）。
+
+## 导出流程
+
+1. 在开发站点创建/修改 Custom Field 或 DocType
+2. 执行 `bench --site <site> export-fixtures`
+3. 检查 `cos/fixtures/` 下生成的 JSON/CSV
+4. 确认 `hooks.py` 的 `fixtures` 列表包含对应 DocType 及 module 过滤
+5. 提交 fixture 文件到版本控制
+
+## hooks.py fixtures 约定
+
+- Custom Field：`filters=[["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]]`
+- 新增模块时，将模块名加入对应 fixture 的 filters
+- 单条记录可用 `filters=[["name", "=", "xxx"]]` 精确导出
+
+## 模块归属原则
+
+- 扩展标准 DocType（如 Selling Settings、Item、Sales Invoice）→ 按业务域选 COS Share / COS Stock / COS Accounts
+- 新建 DocType → 归属最相关的 cos 模块，或新建模块
