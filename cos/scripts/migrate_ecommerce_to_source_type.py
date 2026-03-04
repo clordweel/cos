@@ -46,6 +46,7 @@ def run(site: str | None = None) -> str:
         created["ips_platform"] = "field_not_found"
 
     # 3) 修改 Purchase Order Item custom_platform：Select -> Link(Source Type)
+    # 注：Custom Field 的 save() 会校验 fieldtype 不可变更，故用 db.set_value 直接更新
     cf = frappe.db.get_value(
         "Custom Field",
         {"dt": "Purchase Order Item", "fieldname": "custom_platform"},
@@ -56,10 +57,8 @@ def run(site: str | None = None) -> str:
         if cf.fieldtype == "Link" and cf.options == "Source Type":
             created["po_platform"] = "already_link"
         else:
-            cf_doc = frappe.get_doc("Custom Field", cf.name)
-            cf_doc.fieldtype = "Link"
-            cf_doc.options = "Source Type"
-            cf_doc.save()
+            frappe.db.set_value("Custom Field", cf.name, "fieldtype", "Link")
+            frappe.db.set_value("Custom Field", cf.name, "options", "Source Type")
             created["po_platform"] = "updated"
     else:
         created["po_platform"] = "cf_not_found"
