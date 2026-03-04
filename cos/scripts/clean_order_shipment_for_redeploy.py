@@ -17,10 +17,11 @@ def clean(site: str | None = None) -> dict:
 	frappe.connect(site=site)
 	done = []
 
-	# 1. 删除所有 Order Shipment 记录并删表
+	# 1. 删除所有 Order Shipment 记录并删表（DDL 用 sql_ddl 避免 ImplicitCommitError）
 	if frappe.db.table_exists("Order Shipment"):
 		frappe.db.sql("DELETE FROM `tabOrder Shipment`")
-		frappe.db.sql("DROP TABLE IF EXISTS `tabOrder Shipment`")
+		frappe.db.commit()
+		frappe.db.sql_ddl("DROP TABLE IF EXISTS `tabOrder Shipment`")
 		done.append("dropped tabOrder Shipment")
 
 	# 2. 删除 Order Shipment DocType 记录（migrate 时从 JSON 重建）
