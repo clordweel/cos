@@ -68,10 +68,29 @@ frappe.ui.form.on("Order Shipment", {
 					frm.refresh_fields();
 				}
 				if (r.message && r.message.detail && r.message.detail.length) {
-					const msg = r.message.detail
-						.map((d) => (d.context || "") + " " + (d.time || ""))
-						.join("\n");
-					frappe.msgprint({ title: __("物流轨迹"), message: msg });
+					const esc = (s) =>
+						(String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"));
+					const html = r.message.detail
+						.map(
+							(d, i) => {
+								const isLast = i === r.message.detail.length - 1;
+								const border = isLast ? "" : "border-bottom: 1px solid var(--border-color);";
+								return `<div class="track-popup-item" style="padding: 8px 0; ${border}"><span class="text-muted" style="font-size: 12px;">${esc(d.time || d.ftime)}</span><div style="margin-top: 4px;">${esc(d.context)}</div></div>`;
+							}
+						)
+						.join("");
+					const d = new frappe.ui.Dialog({
+						title: __("物流轨迹"),
+						size: "large",
+						fields: [
+							{
+								fieldtype: "HTML",
+								fieldname: "track_content",
+								options: `<div style="max-height: 400px; overflow-y: auto; min-width: 400px; padding: 8px 0;">${html}</div>`,
+							},
+						],
+					});
+					d.show();
 				}
 			},
 		});
