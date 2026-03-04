@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_import": 0,
+ "creation": "2026-03-04 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "courier_code",
+  "courier_name",
+  "tracking_no",
+  "phone",
+  "query_btn",
+  "status",
+  "last_track_time",
+  "track_detail"
+ ],
+ "fields": [
+  {
+   "description": "如 yuantong、shunfeng，对接快递100",
+   "fieldname": "courier_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "快递公司代码"
+  },
+  {
+   "fieldname": "courier_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "快递公司名称"
+  },
+  {
+   "fieldname": "tracking_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "运单号",
+   "reqd": 1
+  },
+  {
+   "description": "顺丰必填，其他快递可选，用于验证",
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "收/寄件人电话"
+  },
+  {
+   "fieldname": "query_btn",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "查询",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "最新状态",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_track_time",
+   "fieldtype": "Datetime",
+   "label": "最后查询时间",
+   "read_only": 1
+  },
+  {
+   "fieldname": "track_detail",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "轨迹缓存"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "modified": "2026-03-04 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Buying",
+ "name": "Purchase Order Shipment",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

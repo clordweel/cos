@@ -1,0 +1,137 @@
+# Copyright (c) 2026, COS and contributors
+# License: GNU General Public License v3. See license.txt
+"""
+快递100 实时查询 API 封装，用于采购运单轨迹查询。
+"""
+
+import hashlib
+import json
+import requests
+
+import frappe
+from frappe import _
+
+
+def _make_sign(param_str: str, key: str, customer: str, swap: bool = False) -> str:
+	"""生成快递100签名：MD5(param + key + customer)，32位大写。swap=True 时尝试 param + customer + key"""
+	sign_str = param_str + customer + key if swap else param_str + key + customer
+	return hashlib.md5(sign_str.encode()).hexdigest().upper()
+
+
+def _parse_result(data: dict) -> dict:
+	"""解析 API 返回，补充 state 中文映射"""
+	state_map = {"0": "在途", "1": "已收", "2": "问题件", "3": "已签收", "4": "退签", "5": "派件", "6": "退回"}
+	data["state"] = state_map.get(str(data.get("state", "")), data.get("state", ""))
+	return data
+
+
+def query_tracking(courier_code: str, tracking_no: str, phone: str = "", ship_from: str = "", ship_to: str = "") -> dict:
+	"""调用快递100实时查询，返回 {state, data: [{context, time, status}]}。参考官方示例：param + key + customer 签名"""
+	customer = frappe.conf.get("kuaidi100_customer")
+	key = frappe.conf.get("kuaidi100_key")
+	if not customer or not key:
+		frappe.throw(
+			_("未配置快递100 API，请在 site_config.json 设置 kuaidi100_customer、kuaidi100_key")
+		)
+	# 与成功请求格式一致：紧凑 JSON、含 from/to、phone 完整号、resultv2=0
+	param = {
+		"com": courier_code.lower().strip(),
+		"num": str(tracking_no).strip(),
+		"phone": str(phone).strip() if phone else "",
+		"from": ship_from or "",
+		"to": ship_to or "",
+		"resultv2": "0",
+		"show": "0",
+		"order": "desc",
+	}
+	param_str = json.dumps(param, separators=(",", ":"))
+	swap = frappe.conf.get("kuaidi100_swap_key_customer") or False
+
+	def _do_request(use_swap: bool):
+		sign = _make_sign(param_str, key, customer, swap=use_swap)
+		resp = requests.post(
+			"https://poll.kuaidi100.com/poll/query.do",
+			data={"customer": customer, "param": param_str, "sign": sign},
+			timeout=10,
+		)
+		resp.raise_for_status()
+		return resp.json()
+
+	def _is_ok(d):
+		# 成功：status/returnCode=200，或 message=ok 且有 data
+		if str(d.get("status", "")) == "200" or str(d.get("returnCode", "")) == "200":
+			return True
+		if str(d.get("message", "")) == "ok" and "data" in d:
+			return True
+		return False
+
+	try:
+		data = _do_request(swap)
+	except requests.RequestException as e:
+		frappe.throw(_("快递100 请求失败: {0}").format(str(e)))
+	if not _is_ok(data):
+		msg = data.get("message", _("查询失败"))
+		if "验证签名失败" in str(msg) and not swap:
+			# 自动用 param + customer + key 顺序重试一次
+			try:
+				data = _do_request(True)
+				if _is_ok(data):
+					return _parse_result(data)
+				frappe.throw(data.get("message", msg))
+			except requests.RequestException:
+				frappe.throw(
+					_("快递100 验证签名失败。请确认 site_config：kuaidi100_customer=授权码、kuaidi100_key=客户授权key")
+				)
+		if "验证码错误" in str(msg):
+			frappe.throw(_("快递公司参数异常：请填写收/寄件人电话（顺丰必填）后重试"))
+		frappe.throw(msg)
+	return _parse_result(data)
+
+
+def _get_courier_code(val: str) -> str:
+	"""从 Select 选项 'yuantong - 圆通速递' 提取代码 'yuantong'"""
+	if not val:
+		return ""
+	return val.split(" - ")[0].strip().lower() or val
+
+
+def _detail_to_html(detail: list) -> str:
+	"""将轨迹列表转为 HTML"""
+	if not detail:
+		return ""
+	lines = []
+	for d in detail:
+		ctx = (d.get("context") or "").strip()
+		tm = (d.get("time") or d.get("ftime") or "").strip()
+		lines.append(f"<div class='track-item'><span class='text-muted'>{tm}</span> {ctx}</div>")
+	return "<div class='track-detail'>" + "".join(lines) + "</div>"
+
+
+@frappe.whitelist()
+def refresh_shipment(shipment: str):
+	"""根据物流运单 Shipment 刷新轨迹，更新 status、last_track_time、track_detail、track_detail_html"""
+	doc = frappe.get_doc("Shipment", shipment)
+	doc.check_permission("write")
+	if not doc.courier_code or not doc.tracking_no:
+		frappe.throw(_("请先填写快递公司代码和运单号"))
+	phone = (doc.get("phone") or "").strip()
+	if not phone and doc.get("contact"):
+		contact = frappe.get_cached_value("Contact", doc.contact, ["mobile_no", "phone"], as_dict=1)
+		phone = (contact.get("mobile_no") or contact.get("phone") or "").strip()
+	courier_code = _get_courier_code(doc.courier_code)
+	if courier_code in ("shunfeng", "sf") and not phone:
+		frappe.throw(_("顺丰快递需填写收/寄件人电话"))
+	result = query_tracking(courier_code, doc.tracking_no, phone=phone)
+	status = result.get("state") or result.get("status", "")
+	detail = result.get("data", [])
+	doc.status = status
+	doc.last_track_time = frappe.utils.now()
+	doc.track_detail = json.dumps(detail, ensure_ascii=False)
+	doc.track_detail_html = _detail_to_html(detail)
+	doc.save()
+	return {
+		"status": status,
+		"detail": detail,
+		"last_track_time": doc.last_track_time,
+		"track_detail_html": doc.track_detail_html,
+	}

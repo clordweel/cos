@@ -1,0 +1,156 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "creation": "2026-03-04 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "purchase_order",
+  "company",
+  "section_break_tracking",
+  "courier_code",
+  "courier_name",
+  "tracking_no",
+  "contact",
+  "phone",
+  "remarks",
+  "section_break_status",
+  "status",
+  "last_track_time",
+  "track_detail",
+  "track_detail_html",
+  "column_break_btn",
+  "query_btn"
+ ],
+ "fields": [
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "采购订单",
+   "options": "Purchase Order",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "purchase_order.company",
+   "fetch_if_empty": 1,
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "公司",
+   "options": "Company"
+  },
+  {
+   "fieldname": "section_break_tracking",
+   "fieldtype": "Section Break",
+   "label": "运单信息"
+  },
+  {
+   "description": "对接快递100，常用国内快递",
+   "fieldname": "courier_code",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "快递公司代码",
+   "options": "yuantong - 圆通速递\nzhongtong - 中通快递\nshunfeng - 顺丰速运\nyunda - 韵达快递\nshentong - 申通快递\njtexpress - 极兔速递\nems - EMS\njd - 京东物流\ndebangwuliu - 德邦\nhuitongkuaidi - 百世快递\ntiantian - 天天快递\nyoushuwuliu - 优速\nsuning - 苏宁物流\nkuayue - 跨越速运"
+  },
+  {
+   "fieldname": "courier_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "快递公司名称"
+  },
+  {
+   "fieldname": "tracking_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "运单号",
+   "reqd": 1
+  },
+  {
+   "description": "选择联系人后自动带出手机号",
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "收/寄件人",
+   "options": "Contact"
+  },
+  {
+   "fetch_from": "contact.mobile_no",
+   "fetch_if_empty": 1,
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "手机号"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "运单备注"
+  },
+  {
+   "fieldname": "section_break_status",
+   "fieldtype": "Section Break",
+   "label": "查询结果"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "最新状态",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_track_time",
+   "fieldtype": "Datetime",
+   "label": "最后查询时间",
+   "read_only": 1
+  },
+  {
+   "fieldname": "track_detail",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "轨迹缓存"
+  },
+  {
+   "fieldname": "track_detail_html",
+   "fieldtype": "HTML",
+   "label": "物流轨迹",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_btn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "query_btn",
+   "fieldtype": "Button",
+   "label": "查询物流"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 0,
+ "modified": "2026-03-04 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Buying",
+ "name": "Shipment",
+ "naming_rule": "Expression",
+ "autoname": "SHIP-.#####",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

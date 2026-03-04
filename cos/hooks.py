@@ -57,6 +57,8 @@ doctype_js = {
     # 发票：创建税务登记入口
     "Sales Invoice": "public/js/doctype/invoice_tax_registry.js",
     "Purchase Invoice": "public/js/doctype/invoice_tax_registry.js",
+    # 采购运单：物流查询
+    "Purchase Order": "public/js/doctype/purchase_order.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -296,7 +298,7 @@ on_session_creation = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
 fixtures = [
     {
         "dt": "Report",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts", "COS Buying"]]],
     },
     {
         "dt": "Client Script",
