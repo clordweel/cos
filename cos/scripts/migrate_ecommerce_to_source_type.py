@@ -1,0 +1,68 @@
+"""在 dev 服务器上通过 bench execute 将电商采购平台从 Select 改为 Link(Source Type)。
+
+用法:
+  bench --site junhai.local execute cos.scripts.migrate_ecommerce_to_source_type.run
+"""
+from __future__ import annotations
+
+import json
+
+
+PLATFORMS = ["京东", "1688", "淘宝/天猫", "拼多多", "工品汇", "其他"]
+
+
+def run(site: str | None = None) -> str:
+    """执行迁移：预设 Source Type、修改 platform 字段为 Link(Source Type)。"""
+    import frappe
+
+    frappe.connect(site=site)
+    created = {}
+
+    # 1) 创建 Source Type 预设（京东、1688 等）
+    meta = frappe.get_meta("Source Type")
+    name_field = "source_name" if meta.has_field("source_name") else ("source_type_name" if meta.has_field("source_type_name") else "name")
+
+    for name in PLATFORMS:
+        if frappe.db.exists("Source Type", name):
+            created[f"st_{name}"] = "already_exists"
+        else:
+            doc = frappe.new_doc("Source Type")
+            setattr(doc, name_field, name)
+            doc.insert()
+            created[f"st_{name}"] = "created"
+
+    # 2) 修改 Item Purchase Source 的 platform 字段：Select -> Link(Source Type)
+    ips_dt = frappe.get_doc("DocType", "Item Purchase Source")
+    platform_field = next((f for f in ips_dt.fields if f.fieldname == "platform"), None)
+    if platform_field:
+        if platform_field.fieldtype == "Link" and platform_field.options == "Source Type":
+            created["ips_platform"] = "already_link"
+        else:
+            platform_field.fieldtype = "Link"
+            platform_field.options = "Source Type"
+            platform_field.save()
+            created["ips_platform"] = "updated"
+    else:
+        created["ips_platform"] = "field_not_found"
+
+    # 3) 修改 Purchase Order Item custom_platform：Select -> Link(Source Type)
+    cf = frappe.db.get_value(
+        "Custom Field",
+        {"dt": "Purchase Order Item", "fieldname": "custom_platform"},
+        ["name", "fieldtype", "options"],
+        as_dict=True,
+    )
+    if cf:
+        if cf.fieldtype == "Link" and cf.options == "Source Type":
+            created["po_platform"] = "already_link"
+        else:
+            cf_doc = frappe.get_doc("Custom Field", cf.name)
+            cf_doc.fieldtype = "Link"
+            cf_doc.options = "Source Type"
+            cf_doc.save()
+            created["po_platform"] = "updated"
+    else:
+        created["po_platform"] = "cf_not_found"
+
+    frappe.db.commit()
+    return json.dumps(created, ensure_ascii=False, indent=2)
