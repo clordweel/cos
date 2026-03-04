@@ -169,6 +169,9 @@ doc_events = {
     "Delivery Note": {
         "on_submit": "cos.cos_accounts.utils.delivery_note_auto_invoice.on_delivery_note_submit",
     },
+    "Purchase Order": {
+        "before_save": "cos.cos_buying.purchase_order_ecommerce.on_purchase_order_before_save",
+    },
     "Sales Invoice": {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
@@ -366,7 +369,7 @@ fixtures = [
     },
     {
         "dt": "Custom Field",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Buying", "COS Accounts"]]],
     },
     {
         "dt": "Role",
