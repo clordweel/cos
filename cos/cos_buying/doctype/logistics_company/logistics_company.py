@@ -4,7 +4,7 @@
 from frappe.model.document import Document
 
 
-class PurchaseOrderShipment(Document):
-	"""采购运单子表：物流公司、运单号、轨迹状态"""
+class LogisticsCompany(Document):
+	"""物流公司主数据，对接快递100 API 代码"""
 
 	pass

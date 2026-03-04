@@ -33,8 +33,8 @@ def execute(filters=None):
 			"width": 140,
 		},
 		{
-			"label": "快递公司",
-			"fieldname": "courier_name",
+			"label": "物流公司",
+			"fieldname": "logistics_name",
 			"fieldtype": "Data",
 			"width": 80,
 		},
@@ -57,7 +57,7 @@ def execute(filters=None):
 	if supplier:
 		conditions.append("po.supplier = %(supplier)s")
 	sql = """
-		SELECT s.purchase_order, po.supplier, s.tracking_no, s.courier_name,
+		SELECT s.purchase_order, po.supplier, s.tracking_no, s.logistics_name,
 			   s.status AS shipment_status, s.last_track_time
 		FROM `tabOrder Shipment` s
 		INNER JOIN `tabPurchase Order` po ON po.name = s.purchase_order

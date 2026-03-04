@@ -1,0 +1,16 @@
+[
+ {"doctype": "Logistics Company", "api_code": "yuantong", "logistics_name": "圆通速递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "zhongtong", "logistics_name": "中通快递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "shunfeng", "logistics_name": "顺丰速运", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "yunda", "logistics_name": "韵达快递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "shentong", "logistics_name": "申通快递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "jtexpress", "logistics_name": "极兔速递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "ems", "logistics_name": "EMS", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "jd", "logistics_name": "京东物流", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "debangwuliu", "logistics_name": "德邦", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "huitongkuaidi", "logistics_name": "百世快递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "tiantian", "logistics_name": "天天快递", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "youshuwuliu", "logistics_name": "优速", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "suning", "logistics_name": "苏宁物流", "module": "COS Buying"},
+ {"doctype": "Logistics Company", "api_code": "kuayue", "logistics_name": "跨越速运", "module": "COS Buying"}
+]

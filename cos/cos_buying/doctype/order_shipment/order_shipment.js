@@ -26,12 +26,11 @@ frappe.ui.form.on("Order Shipment", {
 		}
 	},
 	query_btn: function (frm) {
-		if (!frm.doc.courier_code || !frm.doc.tracking_no) {
-			frappe.msgprint(__("请先填写快递公司代码和运单号"));
+		if (!frm.doc.logistics || !frm.doc.tracking_no) {
+			frappe.msgprint(__("请先填写物流公司和运单号"));
 			return;
 		}
-		const code = (frm.doc.courier_code || "").split(" - ")[0].toLowerCase();
-		if ((code === "shunfeng" || code === "sf") && !frm.doc.phone) {
+		if ((frm.doc.logistics === "shunfeng" || frm.doc.logistics === "sf") && !frm.doc.phone) {
 			frappe.msgprint(__("顺丰快递需填写收/寄件人电话"));
 			return;
 		}

@@ -9,8 +9,8 @@
   "purchase_order",
   "company",
   "section_break_tracking",
-  "courier_code",
-  "courier_name",
+  "logistics",
+  "logistics_name",
   "tracking_no",
   "contact",
   "phone",
@@ -46,18 +46,20 @@
    "label": "运单信息"
   },
   {
-   "description": "对接快递100，常用国内快递",
-   "fieldname": "courier_code",
-   "fieldtype": "Select",
+   "description": "对接快递100，单据选择后自动带出名称",
+   "fieldname": "logistics",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "快递公司代码",
-   "options": "yuantong - 圆通速递\nzhongtong - 中通快递\nshunfeng - 顺丰速运\nyunda - 韵达快递\nshentong - 申通快递\njtexpress - 极兔速递\nems - EMS\njd - 京东物流\ndebangwuliu - 德邦\nhuitongkuaidi - 百世快递\ntiantian - 天天快递\nyoushuwuliu - 优速\nsuning - 苏宁物流\nkuayue - 跨越速运"
+   "label": "物流公司",
+   "options": "Logistics Company"
   },
   {
-   "fieldname": "courier_name",
+   "fetch_from": "logistics.logistics_name",
+   "fetch_if_empty": 1,
+   "fieldname": "logistics_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "快递公司名称"
+   "label": "物流公司名称"
   },
   {
    "fieldname": "tracking_no",

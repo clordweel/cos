@@ -88,25 +88,18 @@ def query_tracking(courier_code: str, tracking_no: str, phone: str = "", ship_fr
 	return _parse_result(data)
 
 
-def _get_courier_code(val: str) -> str:
-	"""从 Select 选项 'yuantong - 圆通速递' 提取代码 'yuantong'"""
-	if not val:
-		return ""
-	return val.split(" - ")[0].strip().lower() or val
-
-
 @frappe.whitelist()
 def refresh_order_shipment(shipment: str):
 	"""根据订单运单 Order Shipment 刷新轨迹，更新 status、last_track_time、track_detail"""
 	doc = frappe.get_doc("Order Shipment", shipment)
 	doc.check_permission("write")
-	if not doc.courier_code or not doc.tracking_no:
-		frappe.throw(_("请先填写快递公司代码和运单号"))
+	if not doc.logistics or not doc.tracking_no:
+		frappe.throw(_("请先填写物流公司和运单号"))
 	phone = (doc.get("phone") or "").strip()
 	if not phone and doc.get("contact"):
 		contact = frappe.get_cached_value("Contact", doc.contact, ["mobile_no", "phone"], as_dict=1)
 		phone = (contact.get("mobile_no") or contact.get("phone") or "").strip()
-	courier_code = _get_courier_code(doc.courier_code)
+	courier_code = (doc.logistics or "").strip().lower()
 	if courier_code in ("shunfeng", "sf") and not phone:
 		frappe.throw(_("顺丰快递需填写收/寄件人电话"))
 	result = query_tracking(courier_code, doc.tracking_no, phone=phone)

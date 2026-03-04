@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:api_code",
+ "creation": "2026-03-04 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "api_code",
+  "logistics_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "api_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "API 代码",
+   "reqd": 1,
+   "unique": 1,
+   "description": "快递100 接口使用的公司代码，如 yuantong、shunfeng"
+  },
+  {
+   "fieldname": "logistics_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "物流公司名称",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 0,
+ "modified": "2026-03-04 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Buying",
+ "name": "Logistics Company",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "logistics_name",
+ "track_changes": 0
+}
