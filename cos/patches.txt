@@ -7,4 +7,5 @@ cos.patches.v1_2.drop_order_shipment_recreate
 
 [post_model_sync]
 cos.patches.v1_2.sync_print_style_from_fixture
+cos.patches.v1_2.sync_new_print_formats
 # Patches added in this section will be executed after doctypes are migrated

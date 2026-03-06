@@ -1,0 +1,113 @@
+/* ============================================
+   打印格式样式 (Print Format Styles)
+   适用于采购收货单标准打印格式模板
+   注意：通用样式已合并到 standard.css，此处仅保留模板特定样式
+   ============================================ */
+
+/* 基本信息表格样式 */
+.print-format-wrapper .info-table {
+    margin-bottom: 16px;
+}
+
+.print-format-wrapper .info-table .info-cell {
+    padding: 4px;
+    vertical-align: top;
+}
+
+.print-format-wrapper .info-label {
+    display: inline-block;
+    min-width: 60px;
+    margin-right: 5px;
+    color: #171717;
+}
+
+.print-format-wrapper .info-value {
+    color: #171717;
+}
+
+/* 物料明细表格样式 */
+.print-format-wrapper .items-table {
+    margin-bottom: 16px;
+}
+
+.print-format-wrapper .item-info-cell {
+    text-align: left;
+}
+
+.print-format-wrapper .item-code {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #171717;
+}
+
+.print-format-wrapper .item-name {
+    font-size: 12px;
+    color: #171717;
+    margin-bottom: 2px;
+}
+
+.print-format-wrapper .item-description {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+    line-height: 1.3;
+}
+
+/* 仓库单元格 */
+.print-format-wrapper .warehouse-cell {
+    text-align: left;
+    color: #171717;
+}
+
+/* 数量单元格 */
+.print-format-wrapper .quantity-cell {
+    text-align: right;
+}
+
+.print-format-wrapper .quantity-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #171717;
+    margin-right: 3px;
+}
+
+.print-format-wrapper .quantity-uom {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 备注区域样式 */
+.print-format-wrapper .remarks-box {
+    border: 1px solid #333;
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 16px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.print-format-wrapper .remarks-label {
+    margin-bottom: 6px;
+    color: #171717;
+}
+
+.print-format-wrapper .remarks-content {
+    color: #171717;
+    line-height: 1.6;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* 金额汇总表格样式 */
+.print-format-wrapper .totals-table td {
+    padding: 4px;
+    vertical-align: middle;
+}
+
+/* 签名表格样式 */
+.print-format-wrapper .signature-table td {
+    padding: 4px;
+    vertical-align: top;
+}
