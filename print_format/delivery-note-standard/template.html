@@ -109,8 +109,8 @@
 						<span class="quantity-value text-bold">{{ item.qty }}</span>
 						<span class="quantity-uom">{{ item.uom or item.stock_uom or "--" }}</span>
 					</td>
-					<td class="text-right" style="white-space: nowrap;">{{ "{%s,.2f}"|format(item.rate|default(0)) }}</td>
-					<td class="text-right text-bold" style="white-space: nowrap;">{{ "{%s,.2f}"|format(item.amount|default(0)) }}</td>
+					<td class="text-right" style="white-space: nowrap;">{{ "{:,.2f}".format(item.rate or 0) }}</td>
+					<td class="text-right text-bold" style="white-space: nowrap;">{{ "{:,.2f}".format(item.amount or 0) }}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
@@ -144,10 +144,10 @@
 			</table>
 		</div>
 
-		<!-- 备注区域 -->
+		<!-- 备注区域：优先显示发货备注，其次条款，最后 remarks -->
 		<div class="remarks-box mb-3">
 			<div class="remarks-label font-weight-bold mb-2">备注:</div>
-			<div class="remarks-content">{{ (doc.terms | safe) if doc.terms else (doc.remarks or "&nbsp;") }}</div>
+			<div class="remarks-content">{{ doc.custom_delivery_remarks or ((doc.terms | safe) if doc.terms else (doc.remarks or "&nbsp;")) }}</div>
 		</div>
 
 		<!-- 签收区域 -->
