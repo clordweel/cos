@@ -1,16 +1,128 @@
 [
- {"doctype": "Logistics Company", "name": "yuantong", "api_code": "yuantong", "logistics_name": "圆通速递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "zhongtong", "api_code": "zhongtong", "logistics_name": "中通快递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "shunfeng", "api_code": "shunfeng", "logistics_name": "顺丰速运", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "yunda", "api_code": "yunda", "logistics_name": "韵达快递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "shentong", "api_code": "shentong", "logistics_name": "申通快递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "jtexpress", "api_code": "jtexpress", "logistics_name": "极兔速递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "ems", "api_code": "ems", "logistics_name": "EMS", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "jd", "api_code": "jd", "logistics_name": "京东物流", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "debangwuliu", "api_code": "debangwuliu", "logistics_name": "德邦", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "huitongkuaidi", "api_code": "huitongkuaidi", "logistics_name": "百世快递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "tiantian", "api_code": "tiantian", "logistics_name": "天天快递", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "youshuwuliu", "api_code": "youshuwuliu", "logistics_name": "优速", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "suning", "api_code": "suning", "logistics_name": "苏宁物流", "module": "COS Buying"},
- {"doctype": "Logistics Company", "name": "kuayue", "api_code": "kuayue", "logistics_name": "跨越速运", "module": "COS Buying"}
+ {
+  "api_code": "yuantong",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "圆通速递",
+  "modified": "2026-03-06 09:30:18.082004",
+  "module": "COS Buying",
+  "name": "yuantong"
+ },
+ {
+  "api_code": "zhongtong",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "中通快递",
+  "modified": "2026-03-06 09:30:18.102123",
+  "module": "COS Buying",
+  "name": "zhongtong"
+ },
+ {
+  "api_code": "shunfeng",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "顺丰速运",
+  "modified": "2026-03-06 09:30:18.117131",
+  "module": "COS Buying",
+  "name": "shunfeng"
+ },
+ {
+  "api_code": "yunda",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "韵达快递",
+  "modified": "2026-03-06 09:30:18.133051",
+  "module": "COS Buying",
+  "name": "yunda"
+ },
+ {
+  "api_code": "shentong",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "申通快递",
+  "modified": "2026-03-06 09:30:18.147921",
+  "module": "COS Buying",
+  "name": "shentong"
+ },
+ {
+  "api_code": "jtexpress",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "极兔速递",
+  "modified": "2026-03-06 09:30:18.163068",
+  "module": "COS Buying",
+  "name": "jtexpress"
+ },
+ {
+  "api_code": "ems",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "EMS",
+  "modified": "2026-03-06 09:30:18.178986",
+  "module": "COS Buying",
+  "name": "ems"
+ },
+ {
+  "api_code": "jd",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "京东物流",
+  "modified": "2026-03-06 09:30:18.193994",
+  "module": "COS Buying",
+  "name": "jd"
+ },
+ {
+  "api_code": "debangwuliu",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "德邦",
+  "modified": "2026-03-06 09:30:18.208767",
+  "module": "COS Buying",
+  "name": "debangwuliu"
+ },
+ {
+  "api_code": "huitongkuaidi",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "百世快递",
+  "modified": "2026-03-06 09:30:18.224360",
+  "module": "COS Buying",
+  "name": "huitongkuaidi"
+ },
+ {
+  "api_code": "tiantian",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "天天快递",
+  "modified": "2026-03-06 09:30:18.241843",
+  "module": "COS Buying",
+  "name": "tiantian"
+ },
+ {
+  "api_code": "youshuwuliu",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "优速",
+  "modified": "2026-03-06 09:30:18.259143",
+  "module": "COS Buying",
+  "name": "youshuwuliu"
+ },
+ {
+  "api_code": "suning",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "苏宁物流",
+  "modified": "2026-03-06 09:30:18.276072",
+  "module": "COS Buying",
+  "name": "suning"
+ },
+ {
+  "api_code": "kuayue",
+  "docstatus": 0,
+  "doctype": "Logistics Company",
+  "logistics_name": "跨越速运",
+  "modified": "2026-03-06 09:30:18.292862",
+  "module": "COS Buying",
+  "name": "kuayue"
+ }
 ]
