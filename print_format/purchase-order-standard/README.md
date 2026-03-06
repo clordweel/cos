@@ -215,11 +215,8 @@ purchase-order-standard/
 
 1. **模板位置**：`print_format/purchase-order-standard/template.html`
 2. **样式文件**：`print_format/purchase-order-standard/styles.css`
-3. **在Frappe中配置**：
-   - 创建或编辑打印格式
-   - 选择"HTML"类型
-   - 将 `template.html` 的内容复制到模板编辑器
-   - 确保样式文件 `styles.css` 被正确引用
+3. **同步到 dev**：执行 `bench --site <dev-site> execute cos.scripts.sync_purchase_order_print_format.sync` 将模板同步到 Print Format「采购订单 - 标准」
+4. **导出与迁移**：详见 `docs/采购订单打印格式_dev导出_prod迁移.md`
 
 ### 10. 样式和HTML结构规范
 
