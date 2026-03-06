@@ -15,9 +15,10 @@ import frappe
 
 
 def _get_print_format_dir() -> Path:
-	"""获取 print_format 目录路径（cos app 根目录下）。"""
-	app_path = Path(frappe.get_app_path("cos"))
-	return app_path / "print_format" / "stock-reconciliation-standard"
+	"""获取 print_format 目录路径。get_app_path 返回 apps/cos/cos，print_format 在 apps/cos/。"""
+	pkg_path = Path(frappe.get_app_path("cos"))
+	app_root = pkg_path.parent  # apps/cos
+	return app_root / "print_format" / "stock-reconciliation-standard"
 
 
 def sync(site: str | None = None) -> dict:
