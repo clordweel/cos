@@ -1102,5 +1102,53 @@
   "property_type": "Code",
   "row_name": null,
   "value": ""
+ },
+ {
+  "default_value": null,
+  "doc_type": "Delivery Note",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2026-03-06 12:00:00.000000",
+  "module": "COS Share",
+  "name": "Delivery Note-main-default_print_format",
+  "property": "default_print_format",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "发货单 - 标准"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Sales Invoice",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2026-03-06 12:00:00.000000",
+  "module": "COS Share",
+  "name": "Sales Invoice-main-default_print_format",
+  "property": "default_print_format",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "销售发票 - 标准"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Purchase Receipt",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2026-03-06 12:00:00.000000",
+  "module": "COS Share",
+  "name": "Purchase Receipt-main-default_print_format",
+  "property": "default_print_format",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "采购收货单 - 标准"
  }
 ]
