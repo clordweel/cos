@@ -144,10 +144,10 @@
 			</table>
 		</div>
 
-		<!-- 备注区域：优先显示发货备注，其次条款，最后 remarks -->
+		<!-- 备注区域：仅显示发货备注或 remarks，不显示条款 -->
 		<div class="remarks-box mb-3">
 			<div class="remarks-label font-weight-bold mb-2">备注:</div>
-			<div class="remarks-content">{{ doc.custom_delivery_remarks or ((doc.terms | safe) if doc.terms else (doc.remarks or "&nbsp;")) }}</div>
+			<div class="remarks-content">{{ doc.custom_delivery_remarks or doc.remarks or "&nbsp;" }}</div>
 		</div>
 
 		<!-- 签收区域 -->
