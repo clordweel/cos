@@ -12,5 +12,8 @@ def execute():
     for sync_fn in (sync_dn, sync_si, sync_pr):
         try:
             sync_fn()
-        except FileNotFoundError:
-            pass  # 模板文件不存在时跳过（如旧版本）
+        except FileNotFoundError as e:
+            frappe.log_error(
+                title=f"Print Format sync skipped: {sync_fn.__module__}",
+                message=str(e),
+            )
