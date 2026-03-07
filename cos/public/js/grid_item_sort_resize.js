@@ -43,44 +43,111 @@
 		}
 	}
 
-	// 使用 form_grid 作为查找范围，确保只影响表格区域
+	// 使用 form_grid 作为查找范围
 	function getGridContainer(grid) {
 		return grid.form_grid && grid.form_grid.length ? grid.form_grid : grid.wrapper;
 	}
 
-	function applyWidthToColumn(container, fieldname, widthPx) {
-		const w = Math.max(MIN_COL_WIDTH, widthPx);
-		const style = {
-			width: w + "px",
-			minWidth: w + "px",
-			maxWidth: w + "px",
-			flex: "0 0 " + w + "px",
-			boxSizing: "border-box",
-		};
-		container.find(".grid-static-col[data-fieldname='" + fieldname + "']").css(style);
+	// 每个 grid 的 CSS 作用域 id（用于注入 !important 列宽规则，覆盖 Bootstrap/Frappe）
+	const GRID_ID_ATTR = "data-cos-grid-id";
+	const STYLE_ID = "cos-grid-col-widths";
+	const widthRules = {}; // { "Sales Order_items": { "item_code": 150, ... }, ... }
+
+	function getGridScopeId(parent_doctype, table_fieldname) {
+		return parent_doctype + "_" + table_fieldname;
+	}
+
+	function ensureStyleElement() {
+		let el = document.getElementById(STYLE_ID);
+		if (!el) {
+			el = document.createElement("style");
+			el.id = STYLE_ID;
+			document.head.appendChild(el);
+		}
+		return el;
+	}
+
+	function writeWidthRulesToStyle() {
+		const style = ensureStyleElement();
+		const lines = [];
+		Object.keys(widthRules).forEach(function (scopeId) {
+			const cols = widthRules[scopeId];
+			Object.keys(cols).forEach(function (fieldname) {
+				const w = cols[fieldname];
+				const sel =
+					".grid-field[" +
+					GRID_ID_ATTR +
+					'="' +
+					scopeId +
+					'"] .grid-static-col[data-fieldname="' +
+					fieldname +
+					'"]';
+				lines.push(
+					sel +
+						" { width: " +
+						w +
+						"px !important; min-width: " +
+						w +
+						"px !important; max-width: " +
+						w +
+						"px !important; flex: 0 0 " +
+						w +
+						"px !important; box-sizing: border-box !important; }"
+				);
+			});
+		});
+		style.textContent = lines.join("\n");
+	}
+
+	function setColumnWidthRule(parent_doctype, table_fieldname, col_fieldname, widthPx) {
+		const scopeId = getGridScopeId(parent_doctype, table_fieldname);
+		if (!widthRules[scopeId]) widthRules[scopeId] = {};
+		widthRules[scopeId][col_fieldname] = Math.max(MIN_COL_WIDTH, widthPx);
+		writeWidthRulesToStyle();
 	}
 
 	function applySavedColumnWidths(grid, parent_doctype, table_fieldname) {
-		if (!grid || !grid.visible_columns || grid.visible_columns.length === 0) return;
+		if (!grid) return;
+		if (!grid.visible_columns || grid.visible_columns.length === 0) {
+			if (typeof grid.setup_visible_columns === "function") grid.setup_visible_columns();
+			if (!grid.visible_columns || grid.visible_columns.length === 0) return;
+		}
+		const scopeId = getGridScopeId(parent_doctype, table_fieldname);
+		if (!grid.wrapper || !grid.wrapper.length) return;
+		grid.wrapper.attr(GRID_ID_ATTR, scopeId);
+
 		const $container = getGridContainer(grid);
-		// 防止行换行，保证列宽生效
 		$container.find(".grid-heading-row .row, .grid-body .row").css("flexWrap", "nowrap");
+
 		for (let i = 0; i < grid.visible_columns.length; i++) {
 			const df = grid.visible_columns[i][0];
 			if (!df || !df.fieldname) continue;
 			const saved = getColumnWidth(parent_doctype, table_fieldname, df.fieldname);
-			if (saved) applyWidthToColumn($container, df.fieldname, saved);
+			if (saved) setColumnWidthRule(parent_doctype, table_fieldname, df.fieldname, saved);
 		}
 	}
 
 	function setupResizeHandles(grid, parent_doctype, table_fieldname) {
-		if (!grid || !grid.visible_columns || grid.visible_columns.length === 0) return;
+		if (!grid) return;
+		if (!grid.visible_columns || grid.visible_columns.length === 0) {
+			if (typeof grid.setup_visible_columns === "function") grid.setup_visible_columns();
+			if (!grid.visible_columns || grid.visible_columns.length === 0) return;
+		}
 		const $container = getGridContainer(grid);
-		const $headingRow = $container.find(".grid-heading-row .grid-row:not(.filter-row)").first();
+		// 表头行：第一个包含 .grid-static-col[data-fieldname] 的 .grid-row（不依赖 filter-row 挂在哪一层）
+		const $headingRow = $container
+			.find(".grid-heading-row .grid-row")
+			.filter(function () {
+				return $(this).find(".grid-static-col[data-fieldname]").length > 0;
+			})
+			.first();
 		if (!$headingRow.length) return;
 
 		if ($headingRow.attr(RESIZE_INIT_ATTR)) return;
 		$headingRow.attr(RESIZE_INIT_ATTR, "1");
+
+		if (!grid.wrapper || !grid.wrapper.length) return;
+		grid.wrapper.attr(GRID_ID_ATTR, getGridScopeId(parent_doctype, table_fieldname));
 
 		for (let i = 0; i < grid.visible_columns.length; i++) {
 			const df = grid.visible_columns[i][0];
@@ -97,7 +164,7 @@
 					df.fieldname +
 					'" title="' +
 					__("拖拽调整列宽") +
-					'" style="position:absolute;right:0;top:0;bottom:0;width:8px;cursor:col-resize;z-index:10;background:transparent;"></div>'
+					'" style="position:absolute;right:0;top:0;bottom:0;width:8px;cursor:col-resize;z-index:10;background:rgba(0,120,212,0.2);"></div>'
 			);
 			$col.append($handle);
 
@@ -112,19 +179,14 @@
 				function onMove(ev) {
 					const dx = ev.pageX - startX;
 					const newWidth = Math.max(MIN_COL_WIDTH, Math.round(startWidth + dx));
-					$cells.css({
-						width: newWidth + "px",
-						minWidth: newWidth + "px",
-						maxWidth: newWidth + "px",
-						flex: "0 0 " + newWidth + "px",
-						boxSizing: "border-box",
-					});
+					setColumnWidthRule(parent_doctype, table_fieldname, df.fieldname, newWidth);
 				}
 
 				function onUp(ev) {
 					const dx = ev.pageX - startX;
 					const finalWidth = Math.max(MIN_COL_WIDTH, Math.round(startWidth + dx));
 					setColumnWidth(parent_doctype, table_fieldname, df.fieldname, finalWidth);
+					setColumnWidthRule(parent_doctype, table_fieldname, df.fieldname, finalWidth);
 					$(document).off("mousemove", onMove).off("mouseup", onUp);
 				}
 
@@ -215,7 +277,10 @@
 		const grid = field.grid;
 		const parent_doctype = frm.doctype;
 
-		if (!grid.visible_columns || grid.visible_columns.length === 0) return;
+		if (!grid.visible_columns || grid.visible_columns.length === 0) {
+			if (typeof grid.setup_visible_columns === "function") grid.setup_visible_columns();
+			if (!grid.visible_columns || grid.visible_columns.length === 0) return;
+		}
 
 		// 表头列排序（升序/降序）
 		setupColumnSort(grid, frm, fieldname);
@@ -226,31 +291,44 @@
 		setupResizeHandles(grid, parent_doctype, fieldname);
 	}
 
+	function runEnhanceForForm(frm) {
+		if (!frm || !frm.doctype) return;
+		const entries = ORDER_ITEM_GRID_FIELDS.filter(function (e) {
+			return e.doctype === frm.doctype;
+		});
+		if (entries.length === 0) return;
+		entries.forEach(function (entry) {
+			enhanceGrid(frm, entry);
+		});
+	}
+
 	function onFormRefresh(frm) {
 		if (!frm || !frm.doctype) return;
 		const entries = ORDER_ITEM_GRID_FIELDS.filter(function (e) {
 			return e.doctype === frm.doctype;
 		});
 		if (entries.length === 0) return;
-
-		setTimeout(function () {
-			entries.forEach(function (entry) {
-				enhanceGrid(frm, entry);
-			});
-		}, 150);
+		// 多档延迟 + 点击表单时再试一次，应对 grid 在折叠区/tab 中晚渲染
+		[100, 450, 1000].forEach(function (ms) {
+			setTimeout(function () {
+				runEnhanceForForm(frm);
+			}, ms);
+		});
+		// 用户首次点击表单区域时再跑一次（仅一次）
+		if (!frm.wrapper || !frm.wrapper.length) return;
+		frm.wrapper.off("click.cos_grid_enhance").on("click.cos_grid_enhance", function () {
+			frm.wrapper.off("click.cos_grid_enhance");
+			setTimeout(function () {
+				runEnhanceForForm(frm);
+			}, 50);
+		});
 	}
 
 	$(document).on("grid-make-sortable", function (_ev, frm) {
 		if (!frm || !frm.doctype) return;
-		const entries = ORDER_ITEM_GRID_FIELDS.filter(function (e) {
-			return e.doctype === frm.doctype;
-		});
-		if (entries.length === 0) return;
 		setTimeout(function () {
-			entries.forEach(function (entry) {
-				enhanceGrid(frm, entry);
-			});
-		}, 80);
+			runEnhanceForForm(frm);
+		}, 50);
 	});
 
 	frappe.ui.form.on("Form", {
@@ -258,4 +336,29 @@
 			onFormRefresh(frm);
 		},
 	});
+
+	// 兜底：不依赖 Form refresh 时机，轮询当前表单并在发现未增强的 grid 时补跑（应对脚本晚加载或 refresh 先于脚本）
+	var pollCount = 0;
+	var pollMax = 12;
+	var pollInterval = setInterval(function () {
+		pollCount++;
+		if (pollCount > pollMax) {
+			clearInterval(pollInterval);
+			return;
+		}
+		var frm = frappe.cur_frm;
+		if (!frm || !frm.doctype) return;
+		var entries = ORDER_ITEM_GRID_FIELDS.filter(function (e) {
+			return e.doctype === frm.doctype;
+		});
+		if (entries.length === 0) return;
+		var field = frm.fields_dict && frm.fields_dict[entries[0].fieldname];
+		if (!field || !field.grid) return;
+		var grid = field.grid;
+		if (!grid.wrapper || !grid.wrapper.length) return;
+		if (grid.wrapper.attr(GRID_ID_ATTR)) return;
+		runEnhanceForForm(frm);
+	}, 500);
+
+	window.__cos_grid_resize_loaded = true;
 })();
