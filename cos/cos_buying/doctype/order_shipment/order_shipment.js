@@ -1,11 +1,58 @@
 // Copyright (c) 2026, COS and contributors
 // For license information, please see license.txt
 
+function receipt_image_url(value) {
+	if (!value) return "";
+	if (value.startsWith("http://") || value.startsWith("https://")) return value;
+	const path = value.startsWith("/") ? value : "/" + value;
+	return window.location.origin + path;
+}
+
+function apply_receipt_preview_to_row(grid_row) {
+	if (grid_row.grid.df.fieldname !== "receipt_images" || !grid_row.doc) return;
+	const col = grid_row.columns_list && grid_row.columns_list.find((c) => c.df && c.df.fieldname === "receipt_image");
+	if (!col || !col.static_area) return;
+	const file_url = grid_row.doc.receipt_image;
+	col.static_area.find(".receipt-preview-img").remove();
+	if (file_url) {
+		const src = receipt_image_url(file_url);
+		const $img = $("<img />")
+			.attr("src", src)
+			.addClass("receipt-preview-img")
+			.css({
+				width: "40px",
+				height: "40px",
+				"object-fit": "cover",
+				"border-radius": "4px",
+				"margin-right": "6px",
+				"vertical-align": "middle",
+			})
+			.on("error", function () {
+				$(this).hide();
+			});
+		col.static_area.css("display", "flex").css("align-items", "center").prepend($img);
+	}
+}
+
 frappe.ui.form.on("Order Shipment", {
 	refresh: function (frm) {
 		if (frm.doc.purchase_order) {
 			frm.add_custom_button(__("查看采购订单"), function () {
 				frappe.set_route("Form", "Purchase Order", frm.doc.purchase_order);
+			});
+		}
+		// 签收凭证表格行渲染时，在「签收凭证」列显示缩略图预览
+		frm.wrapper.off("grid-row-render.receipt_preview").on("grid-row-render.receipt_preview", function (evt, grid_row) {
+			apply_receipt_preview_to_row(grid_row);
+		});
+		const grid = frm.fields_dict.receipt_images && frm.fields_dict.receipt_images.grid;
+		if (grid) {
+			grid.wrapper.off("change.receipt_preview").on("change.receipt_preview", function () {
+				setTimeout(function () {
+					(grid.grid_rows || []).forEach(function (row) {
+						apply_receipt_preview_to_row(row);
+					});
+				}, 150);
 			});
 		}
 	},
