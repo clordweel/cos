@@ -134,11 +134,13 @@
 			if (!grid.visible_columns || grid.visible_columns.length === 0) return;
 		}
 		if (!grid.wrapper || !grid.wrapper.length) return;
-		// 在 grid.wrapper 内查找表头行，避免 form_grid 与 DOM 实际挂载不一致
+		// 表头行：取“不含 .row.filter-row”的那一行（Frappe 把 filter-row 加在第二行的 .row 上）
 		const $scope = grid.wrapper;
 		const $headingRow = $scope
 			.find(".grid-heading-row .grid-row")
 			.filter(function () {
+				var $inner = $(this).find(".row").first();
+				if ($inner.length && $inner.hasClass("filter-row")) return false;
 				return $(this).find(".grid-static-col[data-fieldname]").length > 0;
 			})
 			.first();
