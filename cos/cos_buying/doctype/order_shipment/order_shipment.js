@@ -42,12 +42,13 @@ frappe.ui.form.on("Order Shipment", {
 			});
 		}
 		// 签收凭证表格行渲染时，在「签收凭证」列显示缩略图预览
-		frm.wrapper.off("grid-row-render.receipt_preview").on("grid-row-render.receipt_preview", function (evt, grid_row) {
+		const $wrapper = $(frm.wrapper);
+		$wrapper.off("grid-row-render.receipt_preview").on("grid-row-render.receipt_preview", function (evt, grid_row) {
 			apply_receipt_preview_to_row(grid_row);
 		});
 		const grid = frm.fields_dict.receipt_images && frm.fields_dict.receipt_images.grid;
 		if (grid) {
-			grid.wrapper.off("change.receipt_preview").on("change.receipt_preview", function () {
+			$(grid.wrapper).off("change.receipt_preview").on("change.receipt_preview", function () {
 				setTimeout(function () {
 					(grid.grid_rows || []).forEach(function (row) {
 						apply_receipt_preview_to_row(row);
