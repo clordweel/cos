@@ -1,0 +1,30 @@
+{
+ "actions": [],
+ "allow_import": 0,
+ "creation": "2026-03-07 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "receipt_image"
+ ],
+ "fields": [
+  {
+   "fieldname": "receipt_image",
+   "fieldtype": "Attach Image",
+   "in_list_view": 1,
+   "label": "签收凭证"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "modified": "2026-03-07 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Buying",
+ "name": "Order Shipment Receipt Image",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

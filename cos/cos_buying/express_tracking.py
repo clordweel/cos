@@ -90,7 +90,8 @@ def query_tracking(courier_code: str, tracking_no: str, phone: str = "", ship_fr
 
 @frappe.whitelist()
 def refresh_order_shipment(shipment: str):
-	"""根据订单运单 Order Shipment 刷新轨迹，更新 status、last_track_time、track_detail"""
+	"""根据订单运单 Order Shipment 刷新物流轨迹，仅更新物流状态(status)、last_track_time、track_detail。
+	签收状态(receipt_status)由用户手动确认，不随物流接口结果自动变更。"""
 	doc = frappe.get_doc("Order Shipment", shipment)
 	doc.check_permission("write")
 	if not doc.logistics or not doc.tracking_no:

@@ -51,6 +51,12 @@ def execute(filters=None):
 			"fieldtype": "Datetime",
 			"width": 140,
 		},
+		{
+			"label": "签收状态",
+			"fieldname": "receipt_status",
+			"fieldtype": "Data",
+			"width": 90,
+		},
 	]
 	conditions = ["po.docstatus = 1"]
 	if company:
@@ -64,7 +70,7 @@ def execute(filters=None):
 		conditions.append("s.status IN ('签收', '已签收')")
 	sql = """
 		SELECT s.purchase_order, po.supplier, s.tracking_no, s.logistics_name,
-			   s.status AS shipment_status, s.last_track_time
+			   s.status AS shipment_status, s.last_track_time, s.receipt_status
 		FROM `tabOrder Shipment` s
 		INNER JOIN `tabPurchase Order` po ON po.name = s.purchase_order
 		WHERE """ + " AND ".join(conditions)

@@ -23,7 +23,10 @@
   "last_track_time",
   "track_detail",
   "column_break_btn",
-  "query_btn"
+  "query_btn",
+  "section_break_receipt",
+  "receipt_status",
+  "receipt_images"
  ],
  "fields": [
   {
@@ -104,13 +107,14 @@
   {
    "fieldname": "section_break_status",
    "fieldtype": "Section Break",
-   "label": "查询结果"
+   "label": "物流查询结果"
   },
   {
+   "description": "来自物流接口，仅查询时更新；签收以「签收状态」为准",
    "fieldname": "status",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "最新状态",
+   "label": "物流状态",
    "read_only": 1
   },
   {
@@ -133,6 +137,25 @@
    "fieldname": "query_btn",
    "fieldtype": "Button",
    "label": "查询物流"
+  },
+  {
+   "fieldname": "section_break_receipt",
+   "fieldtype": "Section Break",
+   "label": "签收确认"
+  },
+  {
+   "default": "待确认",
+   "fieldname": "receipt_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "签收状态",
+   "options": "待确认\n已签收"
+  },
+  {
+   "fieldname": "receipt_images",
+   "fieldtype": "Table",
+   "label": "签收凭证",
+   "options": "Order Shipment Receipt Image"
   }
  ],
  "index_web_pages_for_search": 0,
