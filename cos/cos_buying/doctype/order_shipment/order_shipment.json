@@ -26,7 +26,12 @@
   "query_btn",
   "section_break_receipt",
   "receipt_status",
-  "receipt_images"
+  "column_break_receipt_img",
+  "receipt_image_1",
+  "receipt_image_2",
+  "receipt_image_3",
+  "receipt_image_4",
+  "receipt_image_5"
  ],
  "fields": [
   {
@@ -152,10 +157,33 @@
    "options": "待确认\n已签收"
   },
   {
-   "fieldname": "receipt_images",
-   "fieldtype": "Table",
-   "label": "签收凭证",
-   "options": "Order Shipment Receipt Image"
+   "fieldname": "column_break_receipt_img",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "receipt_image_1",
+   "fieldtype": "Attach Image",
+   "label": "签收凭证 1"
+  },
+  {
+   "fieldname": "receipt_image_2",
+   "fieldtype": "Attach Image",
+   "label": "签收凭证 2"
+  },
+  {
+   "fieldname": "receipt_image_3",
+   "fieldtype": "Attach Image",
+   "label": "签收凭证 3"
+  },
+  {
+   "fieldname": "receipt_image_4",
+   "fieldtype": "Attach Image",
+   "label": "签收凭证 4"
+  },
+  {
+   "fieldname": "receipt_image_5",
+   "fieldtype": "Attach Image",
+   "label": "签收凭证 5"
   }
  ],
  "index_web_pages_for_search": 0,
