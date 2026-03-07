@@ -96,11 +96,21 @@ const add_toggle_buttons_to_form = (frm) => {
     });
 };
 
+// 判断字段是否处于表格行内（行级编辑），行内编辑时不添加源码按钮，避免多出按钮
+// 同时检测 .grid-row 与 .form-in-grid（GridRowForm 的 wrapper），确保覆盖所有行级编辑场景
+const is_in_grid_row = ($field) =>
+	$field.closest('.grid-row').length > 0 || $field.closest('.form-in-grid').length > 0;
+
 // 为单个 Text Editor 字段添加切换按钮
 const add_toggle_button_to_field = ($field, frm = null) => {
     const fieldname = $field.attr('data-fieldname');
     
     if (!fieldname) return;
+
+    // 行级编辑（grid 行内）不添加查看源码按钮，避免多出一个按钮
+    if (is_in_grid_row($field)) {
+        return;
+    }
 
     // 检查是否已经添加了按钮（避免重复添加）
     if ($field.find('.ql-source').length > 0) {
