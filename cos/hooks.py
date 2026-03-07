@@ -33,6 +33,7 @@ app_include_js = [
     "/assets/cos/js/cos_custom.js",
     "/assets/cos/js/sub_form_json_tools.js",
     "/assets/cos/js/text_editor_source_toggle.js",
+    "/assets/cos/js/grid_item_sort_resize.js",
 ]
 
 # include js, css files in header of web template
