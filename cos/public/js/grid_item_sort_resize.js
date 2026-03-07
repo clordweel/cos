@@ -114,7 +114,7 @@
 		}
 		const scopeId = getGridScopeId(parent_doctype, table_fieldname);
 		if (!grid.wrapper || !grid.wrapper.length) return;
-		grid.wrapper.attr(GRID_ID_ATTR, scopeId);
+		// 不在此处设置 GRID_ID_ATTR，留给 setupResizeHandles 在成功挂载手柄后再设，避免轮询误判“已处理”而不再重试
 
 		const $container = getGridContainer(grid);
 		$container.find(".grid-heading-row .row, .grid-body .row").css("flexWrap", "nowrap");
@@ -133,9 +133,10 @@
 			if (typeof grid.setup_visible_columns === "function") grid.setup_visible_columns();
 			if (!grid.visible_columns || grid.visible_columns.length === 0) return;
 		}
-		const $container = getGridContainer(grid);
-		// 表头行：第一个包含 .grid-static-col[data-fieldname] 的 .grid-row（不依赖 filter-row 挂在哪一层）
-		const $headingRow = $container
+		if (!grid.wrapper || !grid.wrapper.length) return;
+		// 在 grid.wrapper 内查找表头行，避免 form_grid 与 DOM 实际挂载不一致
+		const $scope = grid.wrapper;
+		const $headingRow = $scope
 			.find(".grid-heading-row .grid-row")
 			.filter(function () {
 				return $(this).find(".grid-static-col[data-fieldname]").length > 0;
@@ -146,8 +147,8 @@
 		if ($headingRow.attr(RESIZE_INIT_ATTR)) return;
 		$headingRow.attr(RESIZE_INIT_ATTR, "1");
 
-		if (!grid.wrapper || !grid.wrapper.length) return;
 		grid.wrapper.attr(GRID_ID_ATTR, getGridScopeId(parent_doctype, table_fieldname));
+		const $container = getGridContainer(grid);
 
 		for (let i = 0; i < grid.visible_columns.length; i++) {
 			const df = grid.visible_columns[i][0];
@@ -337,9 +338,9 @@
 		},
 	});
 
-	// 兜底：不依赖 Form refresh 时机，轮询当前表单并在发现未增强的 grid 时补跑（应对脚本晚加载或 refresh 先于脚本）
+	// 兜底：不依赖 Form refresh 时机，轮询当前表单并在发现未增强的 grid 时补跑（应对脚本晚加载或表头晚渲染）
 	var pollCount = 0;
-	var pollMax = 12;
+	var pollMax = 24;
 	var pollInterval = setInterval(function () {
 		pollCount++;
 		if (pollCount > pollMax) {
