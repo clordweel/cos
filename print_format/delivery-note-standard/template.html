@@ -8,6 +8,7 @@
 {%- endmacro -%}
 
 {% set project_display = "" %}
+{% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
 {% set po_display = doc.po_no or "" %}
 {% if doc.po_date %}
 {% set po_display = po_display ~ " (" ~ frappe.utils.format_date(doc.po_date) ~ ")" %}
@@ -156,8 +157,8 @@
 				<tr>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">
 						<div class="signature-label">发货人:</div>
-						{%- if doc.owner -%}
-						<div class="signature-name text-bold mt-2">{{ doc.owner }}</div>
+						{%- if owner_full_name -%}
+						<div class="signature-name text-bold mt-2">{{ owner_full_name }}</div>
 						{%- else -%}
 						<div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
 						{%- endif -%}

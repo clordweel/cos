@@ -10,6 +10,7 @@
 {% set project_display = "" %}
 {% set source_label = "无" %}
 {% set source_name = "" %}
+{% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
 
 {# --- 1. 获取关联来源 (工单/BOM) --- #}
 {% if doc.work_order %}
@@ -145,8 +146,8 @@
                 <tr>
                     <td class="signature-cell" style="width: 25%; vertical-align: top;">
                         <div class="signature-label">制单人:</div>
-                        {%- if doc.owner -%}
-                        <div class="signature-name text-bold mt-2">{{ doc.owner }}</div>
+                        {%- if owner_full_name -%}
+                        <div class="signature-name text-bold mt-2">{{ owner_full_name }}</div>
                         {%- else -%}
                         <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
                         {%- endif -%}

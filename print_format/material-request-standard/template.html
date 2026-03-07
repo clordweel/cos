@@ -17,6 +17,7 @@
     "Manufacture": "生产制造",
     "Customer Provided": "客户提供"
 } %}
+{% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
 
 {# --- 1. 尝试从子表第一行获取关联来源与项目 --- #}
 {% set found_project_id = "" %}
@@ -145,8 +146,8 @@
                 <tr>
                     <td class="signature-cell" style="width: 25%; vertical-align: top;">
                         <div class="signature-label">申请人 (制单):</div>
-                        {%- if doc.owner -%}
-                        <div class="signature-name text-bold mt-2">{{ doc.owner }}</div>
+                        {%- if owner_full_name -%}
+                        <div class="signature-name text-bold mt-2">{{ owner_full_name }}</div>
                         {%- else -%}
                         <div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
                         {% endif %}
