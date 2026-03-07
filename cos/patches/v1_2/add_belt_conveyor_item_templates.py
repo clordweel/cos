@@ -70,10 +70,11 @@ def _make_t_nut_template() -> dict:
     params = [
         _param("基础名", "Data", parameter_default_value="T型螺母", join_to_hash=1),
         _param("规格型号", "Data", join_to_hash=1),
+        _param("规格", "Format", value_format="{{ 规格型号 }}", target_field="custom_specification", binding_field=1),
         _param("来源类型", "Doctype", doctype_selector="Source Type", parameter_default_value="采购", target_field="custom_source_type", binding_field=1),
         _param("材质", "Doctype", doctype_selector="Item Material", parameter_default_value="Q235B", target_field="custom_body_material", join_to_hash=1, binding_field=1),
-        _param("物料名称", "Format", value_format="{{ 基础名 }} {{ 规格型号 }}", target_field="item_name", binding_field=1),
-        _param("详细描述", "Format", value_format="产品: {{ 基础名 }} | 规格: {{ 规格型号 }} | 材质: {{ 材质 }}", target_field="description", binding_field=1),
+        _param("物料名称", "Format", value_format="{{ 基础名 }} {{ 规格 }}", target_field="item_name", binding_field=1),
+        _param("详细描述", "Format", value_format="产品: {{ 基础名 }} | 规格: {{ 规格 }} | 材质: {{ 材质 }}", target_field="description", binding_field=1),
         _param("计量单位", "Doctype", doctype_selector="UOM", parameter_default_value="个", target_field="stock_uom", binding_field=1, value_doctype="个"),
     ]
     return {
@@ -89,14 +90,15 @@ def _make_t_nut_template() -> dict:
 
 
 def _make_t_rod_template() -> dict:
-    """T型螺丝杆：规格 T30*6 等，按米计。"""
+    """T型螺丝杆：规格 T30x6（规格代号×螺距），按米计。"""
     params = [
         _param("基础名", "Data", parameter_default_value="T型丝杆", join_to_hash=1),
         _param("规格型号", "Data", join_to_hash=1),
+        _param("规格", "Format", value_format="{{ 规格型号|replace('*','x')|replace('-','x') }}", target_field="custom_specification", binding_field=1),
         _param("来源类型", "Doctype", doctype_selector="Source Type", parameter_default_value="采购", target_field="custom_source_type", binding_field=1),
         _param("材质", "Doctype", doctype_selector="Item Material", parameter_default_value="Q235B", target_field="custom_body_material", join_to_hash=1, binding_field=1),
-        _param("物料名称", "Format", value_format="{{ 基础名 }} {{ 规格型号 }}", target_field="item_name", binding_field=1),
-        _param("详细描述", "Format", value_format="产品: {{ 基础名 }} | 规格: {{ 规格型号 }} | 材质: {{ 材质 }}", target_field="description", binding_field=1),
+        _param("物料名称", "Format", value_format="{{ 基础名 }} {{ 规格 }}", target_field="item_name", binding_field=1),
+        _param("详细描述", "Format", value_format="产品: {{ 基础名 }} | 规格: {{ 规格 }} | 材质: {{ 材质 }}", target_field="description", binding_field=1),
         _param("计量单位", "Doctype", doctype_selector="UOM", parameter_default_value="米", target_field="stock_uom", binding_field=1, value_doctype="米"),
     ]
     return {
@@ -105,21 +107,23 @@ def _make_t_rod_template() -> dict:
         "template_name": "标准模板 - T型螺丝杆",
         "item_group": "型材",
         "module": "COS Stock",
-        "description": "适用于 T 型螺纹丝杆，如 T30*6，按米计。",
+        "description": "适用于 T 型螺纹丝杆，规格如 T30x6（规格代号×螺距），按米计。",
         "parameters": params,
         "uoms": [{"uom": "米", "conversion_factor": 1.0}],
     }
 
 
 def _make_edge_profile_template() -> dict:
-    """封边型材：规格 t10 B=200 等，按米计。"""
+    """封边型材：厚度×宽度，如 10×200，按米计。编码 EDGE-厚度x宽度。"""
     params = [
         _param("基础名", "Data", parameter_default_value="封边胶带", join_to_hash=1),
-        _param("截面规格", "Data", join_to_hash=1),
+        _param("厚度", "Float", join_to_hash=1),
+        _param("宽度", "Float", join_to_hash=1),
+        _param("规格", "Format", value_format="{{ 厚度 or 0 }}×{{ 宽度 or 0 }}", target_field="custom_specification", binding_field=1),
         _param("来源类型", "Doctype", doctype_selector="Source Type", parameter_default_value="采购", target_field="custom_source_type", binding_field=1),
         _param("材质", "Doctype", doctype_selector="Item Material", parameter_default_value="Q235B", target_field="custom_body_material", join_to_hash=1, binding_field=1),
-        _param("物料名称", "Format", value_format="{{ 基础名 }} {{ 截面规格 }}", target_field="item_name", binding_field=1),
-        _param("详细描述", "Format", value_format="产品: {{ 基础名 }} | 规格: {{ 截面规格 }} | 材质: {{ 材质 }}", target_field="description", binding_field=1),
+        _param("物料名称", "Format", value_format="{{ 基础名 }} {{ 规格 }}", target_field="item_name", binding_field=1),
+        _param("详细描述", "Format", value_format="产品: {{ 基础名 }} | 规格: {{ 规格 }} | 材质: {{ 材质 }}", target_field="description", binding_field=1),
         _param("计量单位", "Doctype", doctype_selector="UOM", parameter_default_value="米", target_field="stock_uom", binding_field=1, value_doctype="米"),
     ]
     return {
@@ -128,7 +132,7 @@ def _make_edge_profile_template() -> dict:
         "template_name": "标准模板 - 封边型材",
         "item_group": "型材",
         "module": "COS Stock",
-        "description": "适用于封边胶带/角钢件等，规格如 t10 B=200，按米计。",
+        "description": "适用于封边胶带/角钢件等，规格为厚度×宽度（如 10×200），编码 EDGE-厚度x宽度，按米计。",
         "parameters": params,
         "uoms": [{"uom": "米", "conversion_factor": 1.0}],
     }
