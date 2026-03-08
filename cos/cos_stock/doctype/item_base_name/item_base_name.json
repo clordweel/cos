@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "base_name",
+  "abbreviation",
   "description",
   "column_break_bzvv",
   "parent_item_base_name",
@@ -25,6 +26,16 @@
    "in_list_view": 1,
    "label": "Base Name",
    "reqd": 1,
+   "unique": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "description": "用于物料编码前缀，便于生成/识别物料编号",
+   "fieldname": "abbreviation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "缩写",
+   "length": 20,
    "unique": 1
   },
   {
