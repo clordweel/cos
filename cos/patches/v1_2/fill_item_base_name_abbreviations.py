@@ -7,13 +7,16 @@
 
 若与库中已有或其他映射冲突，自动追加数字后缀（如 BLT2）确保唯一。
 会按映射强制覆盖所有在映射中的记录（纠正错误或空缩写）；匹配时对 base_name 做 strip。
+映射优先从同目录下 item_base_name_abbreviations.json 加载（UTF-8），避免服务端源码编码差异。
 """
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import frappe
 
-# 基础名 -> 首选缩写（优先英文短词/首字母，其次拼音；execute 内会做唯一性解析）
-# 匹配时用 base_name.strip()，故键不要带首尾空格
+# 基础名 -> 首选缩写（fallback，当 JSON 不存在时使用）
 BASE_NAME_ABBREVIATION = {
     # --- 英文短词 ---
     "螺栓": "BLT",  # Bolt
@@ -147,6 +150,18 @@ BASE_NAME_ABBREVIATION = {
 }
 
 
+def _get_mapping():
+	"""从 UTF-8 JSON 加载映射，避免服务端 Python 源码编码与 DB 不一致导致 key 对不上。"""
+	try:
+		path = Path(__file__).resolve().parent / "item_base_name_abbreviations.json"
+		if path.exists():
+			with open(path, encoding="utf-8") as f:
+				return json.load(f)
+	except Exception:
+		pass
+	return BASE_NAME_ABBREVIATION
+
+
 def _normalize_base_name(s: str | None) -> str:
     """匹配用：去除首尾空格，None 转空串。"""
     return (s or "").strip()
@@ -155,6 +170,7 @@ def _normalize_base_name(s: str | None) -> str:
 def _resolve_unique_abbreviations(
     rows_to_update: list[dict],
     existing_abbreviations: set[str],
+    mapping: dict,
 ) -> dict[str, str]:
     """为待更新的 (docname -> 首选缩写) 解析出最终唯一缩写；冲突时追加数字后缀。"""
     docname_to_abbr = {}
@@ -164,7 +180,7 @@ def _resolve_unique_abbreviations(
         key = _normalize_base_name(row.get("base_name"))
         if not key:
             continue
-        preferred = BASE_NAME_ABBREVIATION.get(key)
+        preferred = mapping.get(key)
         if not preferred:
             continue
         final = preferred
@@ -178,7 +194,7 @@ def _resolve_unique_abbreviations(
 
 
 def run_fill_abbreviations() -> int:
-    """按映射为 Item Base Name 填缩写（保证唯一）。强制覆盖在映射中的记录（空或错误均纠正）。返回更新条数。"""
+    """按映射为 Item Base Name 填缩写（保证唯一）。映射从 UTF-8 JSON 加载，避免编码差异。"""
     if not frappe.db.exists("DocType", "Item Base Name"):
         return 0
     try:
@@ -186,21 +202,20 @@ def run_fill_abbreviations() -> int:
             return 0
     except Exception:
         return 0
+    mapping = _get_mapping()
     rows = frappe.get_all(
         "Item Base Name",
         filters={},
         fields=["name", "base_name", "abbreviation"],
     )
-    # 未在本次更新集合中的记录，其现有缩写视为已占用
     key_to_rows = {}
     for r in rows:
         key = _normalize_base_name(r.get("base_name"))
         if not key:
             continue
         key_to_rows.setdefault(key, []).append(r)
-    # 在映射中的基础名：全部参与更新（不限于缩写为空）
     rows_to_update = []
-    for key, abbr in BASE_NAME_ABBREVIATION.items():
+    for key, abbr in mapping.items():
         if key not in key_to_rows:
             continue
         for r in key_to_rows[key]:
@@ -213,7 +228,7 @@ def run_fill_abbreviations() -> int:
     }
     if not rows_to_update:
         return 0
-    docname_to_abbr = _resolve_unique_abbreviations(rows_to_update, existing_abbreviations)
+    docname_to_abbr = _resolve_unique_abbreviations(rows_to_update, existing_abbreviations, mapping)
     for docname, abbr in docname_to_abbr.items():
         frappe.db.set_value(
             "Item Base Name",
