@@ -167,7 +167,12 @@ def _resolve_unique_abbreviations(
 
 
 def execute():
-    if not frappe.db.has_column("tabItem Base Name", "abbreviation"):
+    if not frappe.db.exists("DocType", "Item Base Name"):
+        return
+    try:
+        if not frappe.db.has_column("tabItem Base Name", "abbreviation"):
+            return
+    except Exception:
         return
     rows = frappe.get_all(
         "Item Base Name",
