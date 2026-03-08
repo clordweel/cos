@@ -6,13 +6,14 @@
   3. 最后才用拼音缩写：如 方管->FG（无通用英文时）
 
 若与库中已有或其他映射冲突，自动追加数字后缀（如 BLT2）确保唯一。
-仅更新当前缩写为空的记录。
+会按映射强制覆盖所有在映射中的记录（纠正错误或空缩写）；匹配时对 base_name 做 strip。
 """
 from __future__ import annotations
 
 import frappe
 
 # 基础名 -> 首选缩写（优先英文短词/首字母，其次拼音；execute 内会做唯一性解析）
+# 匹配时用 base_name.strip()，故键不要带首尾空格
 BASE_NAME_ABBREVIATION = {
     # --- 英文短词 ---
     "螺栓": "BLT",  # Bolt
@@ -146,6 +147,11 @@ BASE_NAME_ABBREVIATION = {
 }
 
 
+def _normalize_base_name(s: str | None) -> str:
+    """匹配用：去除首尾空格，None 转空串。"""
+    return (s or "").strip()
+
+
 def _resolve_unique_abbreviations(
     rows_to_update: list[dict],
     existing_abbreviations: set[str],
@@ -153,9 +159,12 @@ def _resolve_unique_abbreviations(
     """为待更新的 (docname -> 首选缩写) 解析出最终唯一缩写；冲突时追加数字后缀。"""
     docname_to_abbr = {}
     used = set(existing_abbreviations)
-    for row in sorted(rows_to_update, key=lambda r: (r.get("base_name") or "", r["name"])):
+    for row in sorted(rows_to_update, key=lambda r: (_normalize_base_name(r.get("base_name")), r["name"])):
         docname = row["name"]
-        preferred = BASE_NAME_ABBREVIATION.get(row.get("base_name") or "")
+        key = _normalize_base_name(row.get("base_name"))
+        if not key:
+            continue
+        preferred = BASE_NAME_ABBREVIATION.get(key)
         if not preferred:
             continue
         final = preferred
@@ -169,7 +178,7 @@ def _resolve_unique_abbreviations(
 
 
 def run_fill_abbreviations() -> int:
-    """为缩写为空的 Item Base Name 按映射填缩写（保证唯一）。返回更新条数。可在 bench execute 中调用以补填。"""
+    """按映射为 Item Base Name 填缩写（保证唯一）。强制覆盖在映射中的记录（空或错误均纠正）。返回更新条数。"""
     if not frappe.db.exists("DocType", "Item Base Name"):
         return 0
     try:
@@ -182,11 +191,26 @@ def run_fill_abbreviations() -> int:
         filters={},
         fields=["name", "base_name", "abbreviation"],
     )
-    existing_abbreviations = {r["abbreviation"] for r in rows if r.get("abbreviation")}
-    rows_to_update = [
-        r for r in rows
-        if (r.get("base_name") and not r.get("abbreviation") and r["base_name"] in BASE_NAME_ABBREVIATION)
-    ]
+    # 未在本次更新集合中的记录，其现有缩写视为已占用
+    key_to_rows = {}
+    for r in rows:
+        key = _normalize_base_name(r.get("base_name"))
+        if not key:
+            continue
+        key_to_rows.setdefault(key, []).append(r)
+    # 在映射中的基础名：全部参与更新（不限于缩写为空）
+    rows_to_update = []
+    for key, abbr in BASE_NAME_ABBREVIATION.items():
+        if key not in key_to_rows:
+            continue
+        for r in key_to_rows[key]:
+            rows_to_update.append(r)
+    # 已存在且不在本次更新里的缩写，不能重复使用
+    updating_names = {r["name"] for r in rows_to_update}
+    existing_abbreviations = {
+        r["abbreviation"] for r in rows
+        if r.get("abbreviation") and r["name"] not in updating_names
+    }
     if not rows_to_update:
         return 0
     docname_to_abbr = _resolve_unique_abbreviations(rows_to_update, existing_abbreviations)
