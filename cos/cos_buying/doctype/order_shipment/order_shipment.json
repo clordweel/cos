@@ -154,7 +154,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "状态",
-   "options": "待确认\n已签收"
+   "options": "待确认\n已发货\n配送中\n已签收\n异常\n已退回"
   },
   {
    "fieldname": "column_break_receipt_img",
