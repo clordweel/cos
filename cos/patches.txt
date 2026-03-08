@@ -10,4 +10,5 @@ cos.patches.v1_2.sync_print_style_from_fixture
 cos.patches.v1_2.sync_new_print_formats
 cos.patches.v1_2.add_belt_conveyor_item_templates
 cos.patches.v1_2.update_belt_conveyor_item_templates
+cos.patches.v1_2.fill_item_base_name_abbreviations
 # Patches added in this section will be executed after doctypes are migrated
