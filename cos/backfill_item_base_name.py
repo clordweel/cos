@@ -1,17 +1,41 @@
 # -*- coding: utf-8 -*-
 """为 Item 回填 custom_item_base_name；缺失时可选创建 Item Base Name。供 bench execute 在服务器上执行。
 
-用法（在 bench 所在机器）：
-  bench --site junhai.local execute cos.backfill_item_base_name.run_backfill --kwargs '{"allow_create_missing": true}'
-  bench --site junhai.local execute cos.backfill_item_base_name.run_backfill --kwargs '{"allow_create_missing": true, "dry_run": true}'
+基础名具有语义（类别/类型，如 螺栓、螺母），创建缺失时不应盲目复制整条物料名称，而应从名称中
+派生简短候选（如首词、规格前的部分），仅当候选合理且较短时才创建。
 """
 from __future__ import annotations
 
+import re
 import frappe
 
 
 def _norm(s):
     return (s or "").strip()[:200]
+
+
+def _derive_base_name_candidate(item_name: str, description: str) -> str | None:
+    """从物料名称/描述派生候选基础名（类别级，非完整规格）。不宜过长，不含规格数字等。"""
+    raw = _norm(item_name) or _norm(description)
+    if not raw:
+        return None
+    # 规格常见模式：空格/逗号/×/x 后跟数字或尺寸，取之前部分作为类别
+    for sep in [" ", "\t", "，", ",", "×", "x", "X"]:
+        if sep in raw:
+            head = raw.split(sep)[0].strip()
+            if head and len(head) <= 8:
+                return head
+    # 若含数字，取第一个连续非数字片段（如 "M8x30" 取 "M" 太短；"衬板128" 取 "衬板"）
+    m = re.match(r"^([\u4e00-\u9fffA-Za-z]+)", raw)
+    if m:
+        head = m.group(1).strip()
+        if 2 <= len(head) <= 8:
+            return head
+    # 仅取前若干字作为候选（基础名通常 2～6 字）
+    head = raw[:6].strip()
+    if len(head) >= 2 and not head.isdigit():
+        return head
+    return None
 
 
 def run_backfill(allow_create_missing=False, dry_run=False):
@@ -86,7 +110,8 @@ def run_backfill(allow_create_missing=False, dry_run=False):
         if not allow_create_missing:
             skipped += 1
             continue
-        base_name = (iname or desc or it["name"])[:80].strip()
+        # 基础名有语义，不盲目复制整条物料名称；仅用派生的简短候选
+        base_name = _derive_base_name_candidate(it.get("item_name") or "", it.get("description") or "")
         if not base_name:
             skipped += 1
             continue
