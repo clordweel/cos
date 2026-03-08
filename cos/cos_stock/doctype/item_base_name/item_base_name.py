@@ -37,17 +37,15 @@ def get_abbreviation_plan():
 
 	if not frappe.db.exists("DocType", "Item Base Name"):
 		return []
-	try:
-		if not frappe.db.has_column("tabItem Base Name", "abbreviation"):
-			return []
-	except Exception:
-		return []
 	mapping = _get_mapping()
-	rows = frappe.get_all(
+	try:
+		rows = frappe.get_all(
 		"Item Base Name",
 		filters={},
 		fields=["name", "base_name", "abbreviation"],
 	)
+	except Exception:
+		return []
 	key_to_rows = {}
 	for r in rows:
 		key = _norm(r.get("base_name"))
@@ -81,17 +79,16 @@ def get_abbreviation_diagnostic():
 
 	out = {"has_doctype": bool(frappe.db.exists("DocType", "Item Base Name"))}
 	try:
-		out["has_column"] = frappe.db.has_column("tabItem Base Name", "abbreviation")
+		rows = frappe.get_all(
+			"Item Base Name",
+			filters={},
+			fields=["name", "base_name", "abbreviation"],
+		)
+		out["has_column"] = True
 	except Exception as e:
 		out["has_column"] = False
 		out["has_column_error"] = str(e)
-	if not out.get("has_column"):
 		return out
-	rows = frappe.get_all(
-		"Item Base Name",
-		filters={},
-		fields=["name", "base_name", "abbreviation"],
-	)
 	mapping = _get_mapping()
 	out["row_count"] = len(rows)
 	out["mapping_size"] = len(mapping)

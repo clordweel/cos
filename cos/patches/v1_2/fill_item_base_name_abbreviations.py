@@ -197,17 +197,17 @@ def run_fill_abbreviations() -> int:
     """按映射为 Item Base Name 填缩写（保证唯一）。映射从 UTF-8 JSON 加载，避免编码差异。"""
     if not frappe.db.exists("DocType", "Item Base Name"):
         return 0
+    mapping = _get_mapping()
     try:
-        if not frappe.db.has_column("tabItem Base Name", "abbreviation"):
-            return 0
+        rows = frappe.get_all(
+            "Item Base Name",
+            filters={},
+            fields=["name", "base_name", "abbreviation"],
+        )
     except Exception:
         return 0
-    mapping = _get_mapping()
-    rows = frappe.get_all(
-        "Item Base Name",
-        filters={},
-        fields=["name", "base_name", "abbreviation"],
-    )
+    if not rows:
+        return 0
     key_to_rows = {}
     for r in rows:
         key = _normalize_base_name(r.get("base_name"))
