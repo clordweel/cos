@@ -141,6 +141,8 @@ BASE_NAME_ABBREVIATION = {
     "油漆涂料": "YQTL",
     "螺纹胶": "LWJ",
     "密封胶": "MFJA",
+    "键坯": "KB",  # Key blank
+    "平键坯": "FKB",  # Flat key blank
 }
 
 
@@ -166,14 +168,15 @@ def _resolve_unique_abbreviations(
     return docname_to_abbr
 
 
-def execute():
+def run_fill_abbreviations() -> int:
+    """为缩写为空的 Item Base Name 按映射填缩写（保证唯一）。返回更新条数。可在 bench execute 中调用以补填。"""
     if not frappe.db.exists("DocType", "Item Base Name"):
-        return
+        return 0
     try:
         if not frappe.db.has_column("tabItem Base Name", "abbreviation"):
-            return
+            return 0
     except Exception:
-        return
+        return 0
     rows = frappe.get_all(
         "Item Base Name",
         filters={},
@@ -185,7 +188,7 @@ def execute():
         if (r.get("base_name") and not r.get("abbreviation") and r["base_name"] in BASE_NAME_ABBREVIATION)
     ]
     if not rows_to_update:
-        return
+        return 0
     docname_to_abbr = _resolve_unique_abbreviations(rows_to_update, existing_abbreviations)
     for docname, abbr in docname_to_abbr.items():
         frappe.db.set_value(
@@ -196,3 +199,9 @@ def execute():
             update_modified=False,
         )
     frappe.db.commit()
+    return len(docname_to_abbr)
+
+
+def execute():
+    """Patch 入口：migrate 时执行一次。"""
+    run_fill_abbreviations()
