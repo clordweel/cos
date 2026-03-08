@@ -52,8 +52,8 @@ def execute(filters=None):
 			"width": 140,
 		},
 		{
-			"label": "签收状态",
-			"fieldname": "receipt_status",
+			"label": "状态",
+			"fieldname": "status",
 			"fieldtype": "Data",
 			"width": 90,
 		},
@@ -63,14 +63,14 @@ def execute(filters=None):
 		conditions.append("po.company = %(company)s")
 	if supplier:
 		conditions.append("po.supplier = %(supplier)s")
-	# 物流状态：全部=不限制；在途=排除已签收；已签收=仅已签收
+	# 物流状态筛选：全部=不限制；在途=排除已签收；已签收=仅已签收（按 logistics_status）
 	if logistics_status == "在途":
-		conditions.append("(s.status IS NULL OR s.status NOT IN ('签收', '已签收'))")
+		conditions.append("(s.logistics_status IS NULL OR s.logistics_status NOT IN ('签收', '已签收'))")
 	elif logistics_status == "已签收":
-		conditions.append("s.status IN ('签收', '已签收')")
+		conditions.append("s.logistics_status IN ('签收', '已签收')")
 	sql = """
 		SELECT s.purchase_order, po.supplier, s.tracking_no, s.logistics_name,
-			   s.status AS shipment_status, s.last_track_time, s.receipt_status
+			   s.logistics_status AS shipment_status, s.last_track_time, s.status
 		FROM `tabOrder Shipment` s
 		INNER JOIN `tabPurchase Order` po ON po.name = s.purchase_order
 		WHERE """ + " AND ".join(conditions)

@@ -4,6 +4,7 @@
 
 cos.patches.v1_2.rename_uom_cn
 cos.patches.v1_2.drop_order_shipment_recreate
+cos.patches.v1_2.order_shipment_status_logistics_split
 
 [post_model_sync]
 cos.patches.v1_2.sync_print_style_from_fixture

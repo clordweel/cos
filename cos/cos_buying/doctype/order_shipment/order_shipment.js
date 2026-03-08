@@ -41,7 +41,7 @@ frappe.ui.form.on("Order Shipment", {
 			callback: function (r) {
 				if (r.exc) return;
 				if (r.message) {
-					frm.set_value("status", r.message.status);
+					frm.set_value("logistics_status", r.message.logistics_status);
 					frm.set_value("last_track_time", r.message.last_track_time);
 					if (r.message.detail && r.message.detail.length) {
 						frm.set_value("track_detail", JSON.stringify(r.message.detail));

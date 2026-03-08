@@ -90,8 +90,8 @@ def query_tracking(courier_code: str, tracking_no: str, phone: str = "", ship_fr
 
 @frappe.whitelist()
 def refresh_order_shipment(shipment: str):
-	"""根据订单运单 Order Shipment 刷新物流轨迹，仅更新物流状态(status)、last_track_time、track_detail。
-	签收状态(receipt_status)由用户手动确认，不随物流接口结果自动变更。"""
+	"""根据订单运单 Order Shipment 刷新物流轨迹，仅更新 logistics_status、last_track_time、track_detail。
+	status（签收状态）由用户手动确认，不随物流接口结果自动变更。"""
 	doc = frappe.get_doc("Order Shipment", shipment)
 	doc.check_permission("write")
 	if not doc.logistics or not doc.tracking_no:
@@ -104,14 +104,14 @@ def refresh_order_shipment(shipment: str):
 	if courier_code in ("shunfeng", "sf") and not phone:
 		frappe.throw(_("顺丰快递需填写收/寄件人电话"))
 	result = query_tracking(courier_code, doc.tracking_no, phone=phone)
-	status = result.get("state") or result.get("status", "")
+	logistics_status = result.get("state") or result.get("status", "")
 	detail = result.get("data", [])
-	doc.status = status
+	doc.logistics_status = logistics_status
 	doc.last_track_time = frappe.utils.now()
 	doc.track_detail = json.dumps(detail, ensure_ascii=False)
 	doc.save()
 	return {
-		"status": status,
+		"logistics_status": logistics_status,
 		"detail": detail,
 		"last_track_time": doc.last_track_time,
 	}
