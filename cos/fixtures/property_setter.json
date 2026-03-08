@@ -173,7 +173,7 @@
   "property": "naming_rule",
   "property_type": "Data",
   "row_name": null,
-  "value": "By \"Naming Series\" field"
+  "value": "By fieldname"
  },
  {
   "default_value": null,
@@ -189,7 +189,7 @@
   "property": "autoname",
   "property_type": "Data",
   "row_name": null,
-  "value": "naming_series:"
+  "value": "field:item_code"
  },
  {
   "default_value": null,

@@ -152,10 +152,8 @@ doc_events = {
     "New Item Request": {
         "before_save": "cos.cos_stock.utils.new_item_request.calculate_parameters_hash",
     },
-    "Item": {
-        "before_insert": "cos.cos_stock.utils.item.auto_set_item_code",
-        # "validate": "cos.cos_accounts.utils.tax_logic.update_item_tax_data",
-    },
+    # Item 物料：恢复 ERPNext 默认编码逻辑，不再由 COS 在 before_insert 中改写 item_code / naming_series
+    # 如需自定义编码，请通过单独脚本或 Agent 规范，而不是全局 Hook。
     "Project": {
         "before_insert": "cos.cos_stock.utils.project.auto_set_project_code",
     },
