@@ -8,6 +8,7 @@ cos.patches.v1_2.order_shipment_status_logistics_split
 
 [post_model_sync]
 cos.patches.v1_2.add_order_shipment_link_to_purchase_order
+cos.patches.v1_2.remove_duplicate_order_shipment_links
 cos.patches.v1_2.sync_print_style_from_fixture
 cos.patches.v1_2.sync_new_print_formats
 cos.patches.v1_2.add_belt_conveyor_item_templates
