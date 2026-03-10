@@ -16,7 +16,7 @@ cos.patches.v1_2.update_belt_conveyor_item_templates
 cos.patches.v1_2.fill_item_base_name_abbreviations
 cos.patches.v1_2.fill_item_base_name_abbreviations_retrofill
 cos.patches.v1_2.backfill_employee_reimbursed
-cos.patches.v1_2.rebackfill_employee_reimbursed
 cos.patches.v1_2.alter_employee_reimbursed_to_varchar
+cos.patches.v1_2.rebackfill_employee_reimbursed
 cos.patches.v1_2.rebackfill_employee_reimbursed_after_alter
 # Patches added in this section will be executed after doctypes are migrated
