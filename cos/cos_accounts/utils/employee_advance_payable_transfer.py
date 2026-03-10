@@ -319,7 +319,8 @@ def create_employee_advance_payment(docname: str):
 	pe.paid_to = paid_to
 	pe.paid_amount = base_amount
 	pe.received_amount = base_amount
-	pe.reference_no = _("报销 PI {0} 垫付").format(pi.name)
+	# 业务单号：银行科目必填才能保存草稿；预填占位符，用户完成转账后替换为真实电汇/支票单号
+	pe.reference_no = _("待填写")
 	pe.reference_date = pi.posting_date  # 银行科目必填：业务日期
 	pe.remarks = _("应付转员工后付给员工：PI {0}，JE {1}").format(pi.name, je_name)
 
