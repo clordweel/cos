@@ -162,10 +162,9 @@ doc_events = {
         "validate": "cos.cos_share.utils.address.update_address_display",
     },
     # 当发票被税务登记引用时，取消/删除需联动处理（避免链接校验拦截）
-    # 员工垫付：提交时自动创建 JE 应付转员工，取消时自动取消 JE
+    # 员工垫付：提交后手动创建 JE 应付转员工，取消时自动取消已关联 JE
     "Purchase Invoice": {
         "validate": "cos.cos_accounts.utils.employee_advance_payable_transfer.on_purchase_invoice_validate",
-        "on_submit": "cos.cos_accounts.utils.employee_advance_payable_transfer.on_purchase_invoice_submit",
         "before_cancel": "cos.cos_accounts.utils.employee_advance_payable_transfer.purchase_invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },

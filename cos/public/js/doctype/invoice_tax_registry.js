@@ -79,6 +79,40 @@ frappe.ui.form.on("Sales Invoice", {
 frappe.ui.form.on("Purchase Invoice", {
 	refresh(frm) {
 		add_create_tax_registry_button(frm);
+		add_create_payable_transfer_je_button(frm);
 	},
 });
+
+function add_create_payable_transfer_je_button(frm) {
+	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || frm.doc.docstatus !== 1) return;
+	if (!frm.doc.custom_is_employee_advance || !frm.doc.custom_advance_employee) return;
+	if (frm.doc.custom_payable_transfer_je) return;
+
+	frm.add_custom_button(
+		__("创建应付转员工"),
+		() => create_payable_transfer_je_from_pi(frm),
+		__("Create")
+	);
+}
+
+async function create_payable_transfer_je_from_pi(frm) {
+	try {
+		const r = await frappe.call({
+			method: "cos.cos_accounts.utils.employee_advance_payable_transfer.create_payable_transfer_je",
+			args: { docname: frm.doc.name },
+			freeze: true,
+		});
+		if (r.message && r.message.journal_entry) {
+			frappe.show_alert({
+				message: __("已创建应付转员工日记账：{0}", [
+					frappe.utils.get_form_link("Journal Entry", r.message.journal_entry, true),
+				]),
+				indicator: "green",
+			}, 5);
+			frm.reload_doc();
+		}
+	} catch (e) {
+		// frappe.call already shows error
+	}
+}
 

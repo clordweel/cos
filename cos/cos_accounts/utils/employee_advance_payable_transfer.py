@@ -1,7 +1,7 @@
 # Copyright (c) 2026, bit and contributors
 # License: MIT. See LICENSE
 
-"""员工垫付采购：PI 提交时自动创建 JE（应付转员工），取消时自动取消 JE。"""
+"""员工垫付采购：PI 提交后手动创建 JE（应付转员工），取消时自动取消已关联 JE。"""
 
 from __future__ import annotations
 
@@ -49,30 +49,36 @@ def on_purchase_invoice_validate(doc, method=None):
 		)
 
 
-def on_purchase_invoice_submit(doc, method=None):
-	"""PI 提交后：若勾选员工垫付且指定垫付员工，自动创建 JE 应付转员工。"""
-	if not _should_create_payable_transfer_je(doc):
-		return
-
-	employee = doc.get("custom_advance_employee")
+@frappe.whitelist()
+def create_payable_transfer_je(docname: str):
+	"""手动创建应付转员工 JE。PI 需已提交、勾选员工垫付且指定垫付员工。"""
+	pi = frappe.get_doc("Purchase Invoice", docname)
+	if pi.docstatus != 1:
+		frappe.throw(_("采购发票需已提交"), title=_("无法创建"))
+	if not _should_create_payable_transfer_je(pi):
+		frappe.throw(_("请勾选「员工垫付」"), title=_("无法创建"))
+	employee = pi.get("custom_advance_employee")
 	if not employee:
-		return  # validate 已校验，此处不应出现
+		frappe.throw(_("请指定垫付员工"), title=_("无法创建"))
+	if pi.get("custom_payable_transfer_je"):
+		frappe.throw(
+			_("已存在应付转员工日记账 {0}").format(
+				frappe.utils.get_link_to_form("Journal Entry", pi.custom_payable_transfer_je)
+			),
+			title=_("已创建"),
+		)
 
-	je = _create_payable_transfer_journal_entry(doc, employee)
+	je = _create_payable_transfer_journal_entry(pi, employee)
 	if je:
 		frappe.db.set_value(
 			"Purchase Invoice",
-			doc.name,
+			pi.name,
 			"custom_payable_transfer_je",
 			je.name,
 			update_modified=False,
 		)
-		frappe.msgprint(
-			_("已自动创建应付转员工日记账：{0}").format(
-				frappe.utils.get_link_to_form("Journal Entry", je.name)
-			),
-			indicator="blue",
-		)
+		return {"journal_entry": je.name}
+	return None
 
 
 def purchase_invoice_before_cancel(doc, method=None):
@@ -85,7 +91,7 @@ def purchase_invoice_before_cancel(doc, method=None):
 
 
 def _on_purchase_invoice_cancel(doc, method=None):
-	"""PI 取消前：若存在自动创建的 JE，先取消该 JE。"""
+	"""PI 取消前：若存在已关联的应付转员工 JE，先取消该 JE。"""
 	je_name = doc.get("custom_payable_transfer_je")
 	if not je_name:
 		return
@@ -104,7 +110,7 @@ def _on_purchase_invoice_cancel(doc, method=None):
 		update_modified=False,
 	)
 	frappe.msgprint(
-		_("已自动取消应付转员工日记账：{0}").format(je_name),
+		_("已取消应付转员工日记账：{0}").format(je_name),
 		indicator="orange",
 	)
 
@@ -169,7 +175,8 @@ def _create_payable_transfer_journal_entry(pi_doc, employee: str):
 		},
 	)
 
-	# 贷方：应付员工
+	# 贷方：应付员工（不设 reference_type/reference_name，避免 validate_reference_doc 校验失败：
+	# 该行 party=员工、account=应付员工，与 PI 的 Supplier/Credit To 不匹配）
 	je.append(
 		"accounts",
 		{
@@ -181,8 +188,6 @@ def _create_payable_transfer_journal_entry(pi_doc, employee: str):
 			"cost_center": pi_doc.cost_center,
 			"project": pi_doc.project,
 			"against": supplier_payable,
-			"reference_type": "Purchase Invoice",
-			"reference_name": pi_doc.name,
 		},
 	)
 
