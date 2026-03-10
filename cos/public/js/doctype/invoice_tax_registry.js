@@ -80,6 +80,7 @@ frappe.ui.form.on("Purchase Invoice", {
 	refresh(frm) {
 		add_create_tax_registry_button(frm);
 		add_create_payable_transfer_je_button(frm);
+		add_create_employee_advance_payment_button(frm);
 	},
 });
 
@@ -110,6 +111,39 @@ async function create_payable_transfer_je_from_pi(frm) {
 				indicator: "green",
 			}, 5);
 			frm.reload_doc();
+		}
+	} catch (e) {
+		// frappe.call already shows error
+	}
+}
+
+function add_create_employee_advance_payment_button(frm) {
+	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || frm.doc.docstatus !== 1) return;
+	if (!frm.doc.custom_is_employee_advance || !frm.doc.custom_advance_employee) return;
+	if (!frm.doc.custom_payable_transfer_je) return;
+
+	frm.add_custom_button(
+		__("付给员工"),
+		() => create_employee_advance_payment_from_pi(frm),
+		__("Create")
+	);
+}
+
+async function create_employee_advance_payment_from_pi(frm) {
+	try {
+		const r = await frappe.call({
+			method: "cos.cos_accounts.utils.employee_advance_payable_transfer.create_employee_advance_payment",
+			args: { docname: frm.doc.name },
+			freeze: true,
+		});
+		if (r.message && r.message.payment_entry) {
+			frappe.show_alert({
+				message: __("已创建付款条目：{0}，请核对后提交", [
+					frappe.utils.get_form_link("Payment Entry", r.message.payment_entry, true),
+				]),
+				indicator: "green",
+			}, 5);
+			frappe.set_route("Form", "Payment Entry", r.message.payment_entry);
 		}
 	} catch (e) {
 		// frappe.call already shows error

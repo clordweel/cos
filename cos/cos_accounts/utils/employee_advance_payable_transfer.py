@@ -194,3 +194,76 @@ def _create_payable_transfer_journal_entry(pi_doc, employee: str):
 	je.flags.ignore_permissions = True
 	je.submit()
 	return je
+
+
+@frappe.whitelist()
+def create_employee_advance_payment(docname: str):
+	"""从 PI 创建「付给员工」Payment Entry。PI 需已创建应付转员工 JE。"""
+	from frappe.utils import flt
+
+	from erpnext.accounts.doctype.journal_entry.journal_entry import get_default_bank_cash_account
+	from erpnext.accounts.party import get_party_account
+	pi = frappe.get_doc("Purchase Invoice", docname)
+	if pi.docstatus != 1:
+		frappe.throw(_("采购发票需已提交"), title=_("无法创建"))
+	if not pi.get("custom_is_employee_advance") or not pi.get("custom_advance_employee"):
+		frappe.throw(_("仅支持员工垫付发票"), title=_("无法创建"))
+	je_name = pi.get("custom_payable_transfer_je")
+	if not je_name:
+		frappe.throw(
+			_("请先创建应付转员工日记账"),
+			title=_("无法创建"),
+		)
+
+	employee = pi.custom_advance_employee
+	company = pi.company
+	base_amount = (
+		flt(pi.base_rounded_total)
+		if (pi.rounding_adjustment and pi.base_rounded_total)
+		else flt(pi.base_grand_total)
+	)
+	if base_amount <= 0:
+		frappe.throw(_("发票金额无效"), title=_("无法创建"))
+
+	# 应付员工科目（224101）
+	paid_to = get_party_account("Employee", employee, company)
+
+	# 默认银行账户
+	bank_info = get_default_bank_cash_account(company, "Bank", fetch_balance=False)
+	if not bank_info or not bank_info.get("account"):
+		bank_info = get_default_bank_cash_account(company, "Cash", fetch_balance=False)
+	if not bank_info or not bank_info.get("account"):
+		frappe.throw(
+			_("公司 {0} 未配置默认银行/现金账户，请先在会计科目或公司设置中配置").format(company),
+			title=_("无法创建"),
+		)
+	paid_from = bank_info.account
+
+	pe = frappe.new_doc("Payment Entry")
+	pe.payment_type = "Pay"
+	pe.party_type = "Employee"
+	pe.party = employee
+	pe.company = company
+	pe.posting_date = pi.posting_date
+	pe.paid_from = paid_from
+	pe.paid_to = paid_to
+	pe.paid_amount = base_amount
+	pe.received_amount = base_amount
+	pe.reference_no = _("报销 PI {0} 垫付").format(pi.name)
+	pe.remarks = _("应付转员工后付给员工：PI {0}，JE {1}").format(pi.name, je_name)
+
+	pe.append(
+		"references",
+		{
+			"reference_doctype": "Journal Entry",
+			"reference_name": je_name,
+			"allocated_amount": base_amount,
+			"total_amount": base_amount,
+			"outstanding_amount": base_amount,
+			"exchange_rate": 1,
+		},
+	)
+
+	pe.flags.ignore_permissions = True
+	pe.insert()
+	return {"payment_entry": pe.name}
