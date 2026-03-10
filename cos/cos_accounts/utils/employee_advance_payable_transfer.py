@@ -92,8 +92,7 @@ def create_payable_transfer_je(docname: str):
 		frappe.db.set_value(
 			"Purchase Invoice",
 			pi.name,
-			"custom_payable_transfer_je",
-			je.name,
+			{"custom_payable_transfer_je": je.name, "custom_employee_reimbursed": "未报销"},
 			update_modified=False,
 		)
 		return {"journal_entry": je.name}
@@ -135,24 +134,24 @@ def _on_purchase_invoice_cancel(doc, method=None):
 
 
 def payment_entry_on_submit(doc, method=None):
-	"""PE 提交后：若 references 引用应付转员工 JE，将对应 PI 的 custom_employee_reimbursed 置 1。"""
+	"""PE 提交后：若 references 引用应付转员工 JE，将对应 PI 的 custom_employee_reimbursed 置「已报销」。"""
 	for ref in doc.get("references") or []:
 		if ref.get("reference_doctype") == "Journal Entry" and ref.get("reference_name"):
-			_update_pi_employee_reimbursed(ref.reference_name, reimbursed=1)
+			_update_pi_employee_reimbursed(ref.reference_name, status="已报销")
 
 
 def payment_entry_on_cancel(doc, method=None):
-	"""PE 取消后：若 references 引用应付转员工 JE，且无其他已提交 PE 引用该 JE，将对应 PI 置 0。"""
+	"""PE 取消后：若 references 引用应付转员工 JE，且无其他已提交 PE 引用该 JE，将对应 PI 置「未报销」。"""
 	for ref in doc.get("references") or []:
 		if ref.get("reference_doctype") == "Journal Entry" and ref.get("reference_name"):
 			je_name = ref.reference_name
 			if _has_other_submitted_pe_for_je(je_name, exclude_pe=doc.name):
 				continue
-			_update_pi_employee_reimbursed(je_name, reimbursed=0)
+			_update_pi_employee_reimbursed(je_name, status="未报销")
 
 
-def _update_pi_employee_reimbursed(je_name: str, reimbursed: int):
-	"""将 custom_payable_transfer_je=je_name 的 PI 的 custom_employee_reimbursed 更新。"""
+def _update_pi_employee_reimbursed(je_name: str, status: str):
+	"""将 custom_payable_transfer_je=je_name 的 PI 的 custom_employee_reimbursed 更新（未报销/已报销）。"""
 	pi_names = frappe.get_all(
 		"Purchase Invoice",
 		filters={"custom_payable_transfer_je": je_name, "docstatus": 1},
@@ -163,7 +162,7 @@ def _update_pi_employee_reimbursed(je_name: str, reimbursed: int):
 			"Purchase Invoice",
 			name,
 			"custom_employee_reimbursed",
-			reimbursed,
+			status,
 			update_modified=False,
 		)
 

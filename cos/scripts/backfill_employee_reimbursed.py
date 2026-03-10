@@ -26,13 +26,15 @@ def run():
 		if not je_name:
 			continue
 		reimbursed = _has_submitted_pe_for_je(je_name)
+		status = "已报销" if reimbursed else "未报销"
 		current = frappe.db.get_value("Purchase Invoice", pi.name, "custom_employee_reimbursed")
-		if (1 if reimbursed else 0) != (current or 0):
+		# 兼容旧 0/1 值，或需更新为正确状态
+		if current not in ("未报销", "已报销") or status != current:
 			frappe.db.set_value(
 				"Purchase Invoice",
 				pi.name,
 				"custom_employee_reimbursed",
-				1 if reimbursed else 0,
+				status,
 				update_modified=False,
 			)
 			updated += 1
