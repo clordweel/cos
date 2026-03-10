@@ -5,9 +5,22 @@ import frappe
 
 
 def execute():
-	if not frappe.get_meta("Purchase Invoice").has_field("custom_employee_reimbursed"):
+	# 先更新 Custom Field doc，再 ALTER 列（fixture 可能未在 migrate 时重载）
+	cf = frappe.db.get_value(
+		"Custom Field",
+		{"dt": "Purchase Invoice", "fieldname": "custom_employee_reimbursed"},
+		"name",
+	)
+	if not cf:
 		return
-	# Check 字段为 tinyint，Select 需 varchar
+	doc = frappe.get_doc("Custom Field", cf)
+	doc.fieldtype = "Select"
+	doc.options = "未报销\n已报销"
+	doc.default = "未报销"
+	doc.label = "员工报销状态"
+	doc.save(ignore_permissions=True)
+	frappe.db.commit()
+	# 显式 ALTER 列（应对 schema sync 未及时更新）
 	frappe.db.sql(
 		"ALTER TABLE `tabPurchase Invoice` MODIFY COLUMN `custom_employee_reimbursed` VARCHAR(140)"
 	)
