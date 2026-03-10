@@ -1,0 +1,150 @@
+{%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
+	{%- if letter_head and not no_letterhead -%}
+		<div class="letter-head">{{ letter_head }}</div>
+	{%- endif -%}
+	{%- if print_heading_template -%}
+		{{ frappe.render_template(print_heading_template, {"doc":doc}) }}
+	{%- endif -%}
+{%- endmacro -%}
+
+{% set contact_display = "" %}
+{% if doc.contact_person %}
+{% set contact_display = doc.contact_display or doc.contact_person %}
+{% set contact_mobile = frappe.db.get_value("Contact", doc.contact_person, "mobile_no") %}
+{% if contact_mobile %}
+{% set contact_display = contact_display ~ " (" ~ contact_mobile ~ ")" %}
+{% endif %}
+{% endif %}
+
+{% for page in layout %}
+<div class="page-break print-format-wrapper order-wrapper">
+	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
+		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
+	</div>
+
+	<div class="print-format-body">
+		<!-- 基本信息表格 -->
+		<table class="table table-bordered info-table mb-3">
+			<tbody>
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">供应商:</span>
+						<span class="info-value text-bold">{{ doc.supplier_name }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">报价编号:</span>
+						<span class="info-value text-bold">{{ doc.name }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">联系人:</span>
+						<span class="info-value">{{ contact_display or "&nbsp;" }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">报价日期:</span>
+						<span class="info-value">{{ frappe.utils.format_date(doc.transaction_date) }}</span>
+					</td>
+				</tr>
+				{%- if doc.valid_till -%}
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">有效期至:</span>
+						<span class="info-value">{{ frappe.utils.format_date(doc.valid_till) }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						{%- if doc.quotation_number -%}
+						<span class="info-label font-weight-bold">供应商报价单号:</span>
+						<span class="info-value">{{ doc.quotation_number }}</span>
+						{%- endif -%}
+					</td>
+				</tr>
+				{%- elif doc.quotation_number -%}
+				<tr>
+					<td class="info-cell" colspan="2">
+						<span class="info-label font-weight-bold">供应商报价单号:</span>
+						<span class="info-value">{{ doc.quotation_number }}</span>
+					</td>
+				</tr>
+				{%- endif -%}
+			</tbody>
+		</table>
+
+		<!-- 物料明细表格 -->
+		<table class="table table-bordered items-table mb-3">
+			<thead class="table-header">
+				<tr>
+					<th class="text-center" style="width: 5%;">序号</th>
+					<th class="text-left" style="width: 28%;">物料信息</th>
+					<th class="text-right" style="width: 8%;">数量</th>
+					<th class="text-center" style="width: 6%;">单位</th>
+					<th class="text-right" style="width: 12%;">单价（元）</th>
+					<th class="text-right" style="width: 12%;">金额（元）</th>
+					<th class="text-left" style="width: 29%;">备注</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%- for item in doc.items -%}
+				<tr>
+					<td class="text-center">{{ loop.index }}</td>
+					<td class="item-info-cell">
+						<div class="item-code text-bold">{{ item.item_code }}</div>
+						<div class="item-name">{{ item.item_name }}</div>
+						{%- if item.supplier_part_no -%}
+						<div class="secondary-text" style="margin-top: 2px;">[供]: {{ item.supplier_part_no }}</div>
+						{% endif %}
+					</td>
+					<td class="text-right">
+						<span class="quantity-value text-bold">{{ item.qty }}</span>
+					</td>
+					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
+					<td class="text-right" style="white-space: nowrap;">{{ item.get_formatted("rate", doc) }}</td>
+					<td class="text-right text-bold" style="white-space: nowrap;">{{ item.get_formatted("amount", doc) }}</td>
+					<td class="text-left">{{ (item.description or "") | safe }}</td>
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+
+		<!-- 金额汇总表格 -->
+		<div class="mb-3" style="text-align: right;">
+			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
+				<tbody>
+					<tr>
+						<td class="text-right" style="width: 40%;"><strong>小计</strong></td>
+						<td class="text-right text-bold">{{ doc.get_formatted("total") }}</td>
+					</tr>
+					{%- for tax in doc.taxes -%}
+					{%- if tax.tax_amount and tax.tax_amount > 0 -%}
+					<tr>
+						<td class="text-right"><strong>{{ tax.description }}</strong></td>
+						<td class="text-right text-bold">{{ tax.get_formatted("tax_amount") }}</td>
+					</tr>
+					{%- endif -%}
+					{%- endfor -%}
+					<tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+						<td class="text-right"><strong>总计 ({{ doc.currency or "CNY" }})</strong></td>
+						<td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width: 40%;"><strong>大写金额</strong></td>
+						<td class="text-right text-bold">{{ doc.in_words or "&nbsp;" }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- 备注/条款区域 -->
+		<div class="remarks-box mb-3">
+			<div class="remarks-label font-weight-bold mb-2">备注 / 条款:</div>
+			<div class="remarks-content">
+				{%- if doc.terms -%}
+				<div class="secondary-text">{{ doc.terms | safe }}</div>
+				{%- else -%}
+				{{ doc.remarks or "&nbsp;" }}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}

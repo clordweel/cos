@@ -317,7 +317,7 @@ fixtures = [
     },
     {
         "dt": "Print Format",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts", "COS Buying"]]],
     },
     {"dt": "Print Style", "filters": [["name", "in", ["COS 通用打印样式"]]]},
     {
