@@ -10,6 +10,7 @@ import frappe
 from cos.cos_accounts.utils.employee_advance_payable_transfer import _fetch_employee_advance_from_po
 
 
+@frappe.whitelist()
 def make_purchase_invoice(source_name, target_doc=None, args=None):
 	"""包装 ERPNext 的 make_purchase_invoice，在返回前从 PO 带出垫付信息。"""
 	from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_invoice as _original
