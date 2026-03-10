@@ -10,8 +10,9 @@ def execute():
     from cos.scripts.sync_purchase_receipt_print_format import sync as sync_pr
     from cos.scripts.sync_material_request_external import sync as sync_mr_external
     from cos.scripts.sync_supplier_quotation_print_format import sync as sync_sq
+    from cos.scripts.sync_supplier_quotation_external import sync as sync_sq_external
 
-    for sync_fn in (sync_dn, sync_si, sync_pr, sync_mr_external, sync_sq):
+    for sync_fn in (sync_dn, sync_si, sync_pr, sync_mr_external, sync_sq, sync_sq_external):
         try:
             sync_fn()
         except FileNotFoundError as e:
