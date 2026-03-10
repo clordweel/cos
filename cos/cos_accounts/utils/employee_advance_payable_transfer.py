@@ -50,6 +50,25 @@ def on_purchase_invoice_validate(doc, method=None):
 
 
 @frappe.whitelist()
+def set_po_employee_advance(docname: str, is_advance: int = 1, employee: str = ""):
+	"""直接更新 PO 员工垫付信息（绕过提交后修改校验，用于数据修复）。需 System Manager。"""
+	frappe.only_for("System Manager")
+	if not frappe.db.exists("Purchase Order", docname):
+		frappe.throw(_("采购订单 {0} 不存在").format(docname))
+	frappe.db.set_value(
+		"Purchase Order",
+		docname,
+		{
+			"custom_is_employee_advance": 1 if is_advance else 0,
+			"custom_advance_employee": employee or None,
+		},
+		update_modified=True,
+	)
+	frappe.db.commit()
+	return {"ok": True}
+
+
+@frappe.whitelist()
 def create_payable_transfer_je(docname: str):
 	"""手动创建应付转员工 JE。PI 需已提交、勾选员工垫付且指定垫付员工。"""
 	pi = frappe.get_doc("Purchase Invoice", docname)
@@ -113,6 +132,58 @@ def _on_purchase_invoice_cancel(doc, method=None):
 		_("已取消应付转员工日记账：{0}").format(je_name),
 		indicator="orange",
 	)
+
+
+def payment_entry_on_submit(doc, method=None):
+	"""PE 提交后：若 references 引用应付转员工 JE，将对应 PI 的 custom_employee_reimbursed 置 1。"""
+	for ref in doc.get("references") or []:
+		if ref.get("reference_doctype") == "Journal Entry" and ref.get("reference_name"):
+			_update_pi_employee_reimbursed(ref.reference_name, reimbursed=1)
+
+
+def payment_entry_on_cancel(doc, method=None):
+	"""PE 取消后：若 references 引用应付转员工 JE，且无其他已提交 PE 引用该 JE，将对应 PI 置 0。"""
+	for ref in doc.get("references") or []:
+		if ref.get("reference_doctype") == "Journal Entry" and ref.get("reference_name"):
+			je_name = ref.reference_name
+			if _has_other_submitted_pe_for_je(je_name, exclude_pe=doc.name):
+				continue
+			_update_pi_employee_reimbursed(je_name, reimbursed=0)
+
+
+def _update_pi_employee_reimbursed(je_name: str, reimbursed: int):
+	"""将 custom_payable_transfer_je=je_name 的 PI 的 custom_employee_reimbursed 更新。"""
+	pi_names = frappe.get_all(
+		"Purchase Invoice",
+		filters={"custom_payable_transfer_je": je_name, "docstatus": 1},
+		pluck="name",
+	)
+	for name in pi_names:
+		frappe.db.set_value(
+			"Purchase Invoice",
+			name,
+			"custom_employee_reimbursed",
+			reimbursed,
+			update_modified=False,
+		)
+
+
+def _has_other_submitted_pe_for_je(je_name: str, exclude_pe: str) -> bool:
+	"""是否存在其他已提交的 PE 引用该 JE。"""
+	refs = frappe.get_all(
+		"Payment Entry Reference",
+		filters={
+			"reference_doctype": "Journal Entry",
+			"reference_name": je_name,
+			"parent": ["!=", exclude_pe],
+		},
+		fields=["parent"],
+		pluck="parent",
+	)
+	for pe_name in set(refs):
+		if frappe.db.get_value("Payment Entry", pe_name, "docstatus") == 1:
+			return True
+	return False
 
 
 def _should_create_payable_transfer_je(doc) -> bool:

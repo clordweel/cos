@@ -168,6 +168,11 @@ doc_events = {
         "before_cancel": "cos.cos_accounts.utils.employee_advance_payable_transfer.purchase_invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },
+    # 付给员工 PE 提交/取消时，更新 PI 的 custom_employee_reimbursed
+    "Payment Entry": {
+        "on_submit": "cos.cos_accounts.utils.employee_advance_payable_transfer.payment_entry_on_submit",
+        "on_cancel": "cos.cos_accounts.utils.employee_advance_payable_transfer.payment_entry_on_cancel",
+    },
     "Delivery Note": {
         "on_submit": "cos.cos_accounts.utils.delivery_note_auto_invoice.on_delivery_note_submit",
     },
