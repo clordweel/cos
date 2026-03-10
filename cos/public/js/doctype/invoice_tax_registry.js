@@ -90,7 +90,7 @@ function add_create_payable_transfer_je_button(frm) {
 	if (frm.doc.custom_payable_transfer_je) return;
 
 	frm.add_custom_button(
-		__("创建应付转员工"),
+		__("应付转员工"),
 		() => create_payable_transfer_je_from_pi(frm),
 		__("Create")
 	);
