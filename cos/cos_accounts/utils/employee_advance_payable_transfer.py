@@ -9,16 +9,27 @@ import frappe
 from frappe import _
 
 
+def _get_pi_purchase_order(doc) -> str | None:
+	"""获取 PI 关联的 PO。PI 表头无 purchase_order，需从子表 item 取。"""
+	if doc.get("purchase_order"):
+		return doc.purchase_order
+	for item in doc.get("items") or []:
+		if item.get("purchase_order"):
+			return item.purchase_order
+	return None
+
+
 def _fetch_employee_advance_from_po(doc):
 	"""从 PO 带出垫付标记与垫付员工。当 PI 有 purchase_order 且垫付信息未填时执行。"""
-	if not doc.get("purchase_order"):
+	po_name = _get_pi_purchase_order(doc)
+	if not po_name:
 		return
 	# 任一垫付字段为空时从 PO 带出（覆盖 no_copy 导致的 mapper 不复制问题）
 	if doc.get("custom_is_employee_advance") and doc.get("custom_advance_employee"):
 		return
 	po_advance = frappe.db.get_value(
 		"Purchase Order",
-		doc.purchase_order,
+		po_name,
 		["custom_is_employee_advance", "custom_advance_employee"],
 		as_dict=True,
 	)
