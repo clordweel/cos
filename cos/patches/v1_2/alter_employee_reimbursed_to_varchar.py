@@ -25,6 +25,6 @@ def execute():
 	)
 	frappe.db.sql(
 		"ALTER TABLE `tabPurchase Invoice` CHANGE COLUMN `_custom_employee_reimbursed_tmp` "
-	"`custom_employee_reimbursed` VARCHAR(140)"
+		"`custom_employee_reimbursed` VARCHAR(140)"
 	)
 	frappe.db.commit()
