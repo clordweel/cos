@@ -2,6 +2,7 @@
 # Patches added in this section will be executed before doctypes are migrated
 # Read docs to understand patches: https://frappeframework.com/docs/v14/user/en/database-migrations
 
+cos.patches.v1_2.alter_employee_reimbursed_to_varchar
 cos.patches.v1_2.rename_uom_cn
 cos.patches.v1_2.drop_order_shipment_recreate
 cos.patches.v1_2.order_shipment_status_logistics_split
@@ -16,7 +17,6 @@ cos.patches.v1_2.update_belt_conveyor_item_templates
 cos.patches.v1_2.fill_item_base_name_abbreviations
 cos.patches.v1_2.fill_item_base_name_abbreviations_retrofill
 cos.patches.v1_2.backfill_employee_reimbursed
-cos.patches.v1_2.alter_employee_reimbursed_to_varchar
 cos.patches.v1_2.rebackfill_employee_reimbursed
 cos.patches.v1_2.rebackfill_employee_reimbursed_after_alter
 # Patches added in this section will be executed after doctypes are migrated

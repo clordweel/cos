@@ -28,3 +28,10 @@ def execute():
 		"`custom_employee_reimbursed` VARCHAR(140)"
 	)
 	frappe.db.commit()
+	# 更新 Custom Field doc，避免后续 schema sync 将列改回 int
+	frappe.db.sql(
+		"UPDATE `tabCustom Field` SET fieldtype='Select', options='未报销\\n已报销', "
+		"`default`='未报销', label='员工报销状态' "
+		"WHERE dt='Purchase Invoice' AND fieldname='custom_employee_reimbursed'"
+	)
+	frappe.db.commit()
