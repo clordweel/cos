@@ -50,6 +50,13 @@
     margin-bottom: 2px;
 }
 
+.print-format-wrapper .item-description {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+    line-height: 1.3;
+}
+
 .print-format-wrapper .secondary-text {
     font-size: 11px;
     color: #666;
