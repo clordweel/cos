@@ -9,19 +9,27 @@ import frappe
 from frappe import _
 
 
+def _fetch_employee_advance_from_po(doc):
+	"""从 PO 带出垫付标记与垫付员工。当 PI 有 purchase_order 且垫付信息未填时执行。"""
+	if not doc.get("purchase_order"):
+		return
+	# 任一垫付字段为空时从 PO 带出（覆盖 no_copy 导致的 mapper 不复制问题）
+	if doc.get("custom_is_employee_advance") and doc.get("custom_advance_employee"):
+		return
+	po_advance = frappe.db.get_value(
+		"Purchase Order",
+		doc.purchase_order,
+		["custom_is_employee_advance", "custom_advance_employee"],
+		as_dict=True,
+	)
+	if po_advance and po_advance.get("custom_is_employee_advance"):
+		doc.custom_is_employee_advance = 1
+		doc.custom_advance_employee = po_advance.get("custom_advance_employee")
+
+
 def on_purchase_invoice_validate(doc, method=None):
 	"""PI 校验：员工垫付时必填垫付员工；从 PO 创建时带出垫付信息。"""
-	# 从 PO 带出垫付标记与垫付员工（若 PO 有且 PI 未填）
-	if doc.get("purchase_order") and not doc.get("custom_advance_employee"):
-		po_advance = frappe.db.get_value(
-			"Purchase Order",
-			doc.purchase_order,
-			["custom_is_employee_advance", "custom_advance_employee"],
-			as_dict=True,
-		)
-		if po_advance and po_advance.get("custom_is_employee_advance"):
-			doc.custom_is_employee_advance = 1
-			doc.custom_advance_employee = po_advance.get("custom_advance_employee")
+	_fetch_employee_advance_from_po(doc)
 
 	if _should_create_payable_transfer_je(doc) and not doc.get("custom_advance_employee"):
 		frappe.throw(

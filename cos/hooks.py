@@ -222,6 +222,7 @@ doc_events = {
 #
 override_whitelisted_methods = {
     "frappe.desk.search.search_link": "cos.cos_share.controllers.search.custom_search_link",
+    "erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_invoice": "cos.cos_accounts.overrides.purchase_invoice_from_po.make_purchase_invoice",
 }
 #
 # each overriding function accepts a `data` argument;
