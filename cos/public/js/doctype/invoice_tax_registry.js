@@ -143,6 +143,7 @@ async function create_employee_advance_payment_from_pi(frm) {
 			doc.__islocal = 1;
 			doc.__unsaved = 1;
 			frappe.model.add_to_locals(doc);
+			frappe.provide("frappe.model.docinfo." + doc.doctype + "." + doc.name);
 			frappe.show_alert({ message: __("已带出付款数据，请核对后保存草稿并提交"), indicator: "green" }, 5);
 			frappe.ui.form.make_quick_entry("Payment Entry", null, null, doc);
 		}
