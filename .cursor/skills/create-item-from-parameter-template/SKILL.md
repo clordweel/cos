@@ -55,7 +55,7 @@ description: 基于 Item Parameter Template（及其子表 Item Parameter Templa
 - 子表 `parameters`（每行是 `Item Parameter Template Definition`）
   - `parameter_name`
   - `constraint_type`（Data/Integer/Float/Format/Doctype）
-  - `parameter_default_value`
+  - `parameter_default_value`（**Format 类型时需与 value_format 一致**）
   - `allowed_data`（Data 的可选值/正则）
   - `doctype_selector`（Doctype 的允许 DocType 列表）
   - `join_to_hash`（是否参与 MD5 指纹）
