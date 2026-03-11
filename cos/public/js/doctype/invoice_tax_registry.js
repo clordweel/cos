@@ -132,18 +132,13 @@ function add_create_employee_advance_payment_button(frm) {
 async function create_employee_advance_payment_from_pi(frm) {
 	try {
 		const r = await frappe.call({
-			method: "cos.cos_accounts.utils.employee_advance_payable_transfer.create_employee_advance_payment",
+			method: "cos.cos_accounts.utils.employee_advance_payable_transfer.get_employee_advance_payment_draft_data",
 			args: { docname: frm.doc.name },
 			freeze: true,
 		});
-		if (r.message && r.message.payment_entry) {
-			frappe.show_alert({
-				message: __("已创建付款条目：{0}，请核对后提交", [
-					frappe.utils.get_form_link("Payment Entry", r.message.payment_entry, true),
-				]),
-				indicator: "green",
-			}, 5);
-			frappe.set_route("Form", "Payment Entry", r.message.payment_entry);
+		if (r.message) {
+			frappe.show_alert({ message: __("已带出付款数据，请核对后保存草稿并提交"), indicator: "green" }, 5);
+			frappe.new_doc("Payment Entry", r.message);
 		}
 	} catch (e) {
 		// frappe.call already shows error

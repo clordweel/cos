@@ -266,24 +266,11 @@ def _create_payable_transfer_journal_entry(pi_doc, employee: str):
 	return je
 
 
-@frappe.whitelist()
-def create_employee_advance_payment(docname: str):
-	"""从 PI 创建「付给员工」Payment Entry。PI 需已创建应付转员工 JE。"""
+def _build_employee_advance_payment_doc(pi, paid_from: str):
+	"""构建付给员工 PE 文档（不 insert）。"""
 	from frappe.utils import flt
 
-	from erpnext.accounts.doctype.journal_entry.journal_entry import get_default_bank_cash_account
 	from erpnext.accounts.party import get_party_account
-	pi = frappe.get_doc("Purchase Invoice", docname)
-	if pi.docstatus != 1:
-		frappe.throw(_("采购发票需已提交"), title=_("无法创建"))
-	if not pi.get("custom_is_employee_advance") or not pi.get("custom_advance_employee"):
-		frappe.throw(_("仅支持员工垫付发票"), title=_("无法创建"))
-	je_name = pi.get("custom_payable_transfer_je")
-	if not je_name:
-		frappe.throw(
-			_("请先创建应付转员工日记账"),
-			title=_("无法创建"),
-		)
 
 	employee = pi.custom_advance_employee
 	company = pi.company
@@ -292,22 +279,8 @@ def create_employee_advance_payment(docname: str):
 		if (pi.rounding_adjustment and pi.base_rounded_total)
 		else flt(pi.base_grand_total)
 	)
-	if base_amount <= 0:
-		frappe.throw(_("发票金额无效"), title=_("无法创建"))
-
-	# 应付员工科目（224101）
+	je_name = pi.get("custom_payable_transfer_je")
 	paid_to = get_party_account("Employee", employee, company)
-
-	# 默认银行账户
-	bank_info = get_default_bank_cash_account(company, "Bank", fetch_balance=False)
-	if not bank_info or not bank_info.get("account"):
-		bank_info = get_default_bank_cash_account(company, "Cash", fetch_balance=False)
-	if not bank_info or not bank_info.get("account"):
-		frappe.throw(
-			_("公司 {0} 未配置默认银行/现金账户，请先在会计科目或公司设置中配置").format(company),
-			title=_("无法创建"),
-		)
-	paid_from = bank_info.account
 
 	pe = frappe.new_doc("Payment Entry")
 	pe.payment_type = "Pay"
@@ -319,8 +292,8 @@ def create_employee_advance_payment(docname: str):
 	pe.paid_to = paid_to
 	pe.paid_amount = base_amount
 	pe.received_amount = base_amount
-	# 业务单号：留空，由用户完成转账后填写电汇/支票等支付单据号
-	pe.reference_date = pi.posting_date  # 银行科目必填：业务日期
+	# 业务单号留空；默认现金科目时不必填，用户可切换银行后填写
+	pe.reference_date = pi.posting_date
 	pe.remarks = _("应付转员工后付给员工：PI {0}，JE {1}").format(pi.name, je_name)
 
 	pe.append(
@@ -334,7 +307,85 @@ def create_employee_advance_payment(docname: str):
 			"exchange_rate": 1,
 		},
 	)
+	return pe
 
+
+@frappe.whitelist()
+def get_employee_advance_payment_draft_data(docname: str):
+	"""返回付给员工 PE 的草稿数据（不 insert），供客户端用 frappe.new_doc 打开。
+	默认使用现金科目，业务单号可留空，用户保存草稿后按需填写。
+	"""
+	from erpnext.accounts.doctype.journal_entry.journal_entry import get_default_bank_cash_account
+
+	pi = frappe.get_doc("Purchase Invoice", docname)
+	if pi.docstatus != 1:
+		frappe.throw(_("采购发票需已提交"), title=_("无法创建"))
+	if not pi.get("custom_is_employee_advance") or not pi.get("custom_advance_employee"):
+		frappe.throw(_("仅支持员工垫付发票"), title=_("无法创建"))
+	if not pi.get("custom_payable_transfer_je"):
+		frappe.throw(_("请先创建应付转员工日记账"), title=_("无法创建"))
+	from frappe.utils import flt
+	base_amount = (
+		flt(pi.base_rounded_total)
+		if (pi.rounding_adjustment and pi.base_rounded_total)
+		else flt(pi.base_grand_total)
+	)
+	if base_amount <= 0:
+		frappe.throw(_("发票金额无效"), title=_("无法创建"))
+
+	# 优先现金科目，避免银行科目必填业务单号导致无法保存草稿
+	cash_info = get_default_bank_cash_account(pi.company, "Cash", fetch_balance=False)
+	if not cash_info or not cash_info.get("account"):
+		bank_info = get_default_bank_cash_account(pi.company, "Bank", fetch_balance=False)
+		if not bank_info or not bank_info.get("account"):
+			frappe.throw(
+				_("公司 {0} 未配置默认现金/银行账户").format(pi.company),
+				title=_("无法创建"),
+			)
+		paid_from = bank_info.account
+	else:
+		paid_from = cash_info.account
+
+	pe = _build_employee_advance_payment_doc(pi, paid_from)
+	d = pe.as_dict()
+	d.pop("name", None)  # 由客户端生成新 doc 名称
+	return d
+
+
+@frappe.whitelist()
+def create_employee_advance_payment(docname: str):
+	"""从 PI 创建「付给员工」Payment Entry（服务端 insert，保留兼容）。"""
+	from erpnext.accounts.doctype.journal_entry.journal_entry import get_default_bank_cash_account
+
+	pi = frappe.get_doc("Purchase Invoice", docname)
+	if pi.docstatus != 1:
+		frappe.throw(_("采购发票需已提交"), title=_("无法创建"))
+	if not pi.get("custom_is_employee_advance") or not pi.get("custom_advance_employee"):
+		frappe.throw(_("仅支持员工垫付发票"), title=_("无法创建"))
+	je_name = pi.get("custom_payable_transfer_je")
+	if not je_name:
+		frappe.throw(_("请先创建应付转员工日记账"), title=_("无法创建"))
+	from frappe.utils import flt
+	base_amount = (
+		flt(pi.base_rounded_total)
+		if (pi.rounding_adjustment and pi.base_rounded_total)
+		else flt(pi.base_grand_total)
+	)
+	if base_amount <= 0:
+		frappe.throw(_("发票金额无效"), title=_("无法创建"))
+
+	bank_info = get_default_bank_cash_account(pi.company, "Bank", fetch_balance=False)
+	if not bank_info or not bank_info.get("account"):
+		bank_info = get_default_bank_cash_account(pi.company, "Cash", fetch_balance=False)
+	if not bank_info or not bank_info.get("account"):
+		frappe.throw(
+			_("公司 {0} 未配置默认银行/现金账户").format(pi.company),
+			title=_("无法创建"),
+		)
+	paid_from = bank_info.account
+
+	pe = _build_employee_advance_payment_doc(pi, paid_from)
+	pe.reference_no = _("待填写")  # 银行科目必填，预填占位符
 	pe.flags.ignore_permissions = True
 	pe.insert()
 	return {"payment_entry": pe.name}
