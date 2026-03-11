@@ -103,7 +103,7 @@
 					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
 					<td class="text-right cell-supplier-fill">&nbsp;</td>
 					<td class="text-right cell-supplier-fill">&nbsp;</td>
-					<td class="text-left cell-supplier-fill">&nbsp;</td>
+					<td class="text-left">{{ (item.description | striptags) if item.description else "&nbsp;" }}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
