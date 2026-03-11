@@ -291,6 +291,18 @@ def _build_employee_advance_payment_doc(pi, paid_from: str):
 	pe.posting_date = pi.posting_date
 	pe.paid_from = paid_from
 	pe.paid_to = paid_to
+	# 源科目货币、目标科目货币、科目类型（必填，从科目带出）
+	paid_from_acc = frappe.db.get_value(
+		"Account", paid_from, ["account_currency", "account_type"], as_dict=True
+	)
+	paid_to_acc = frappe.db.get_value(
+		"Account", paid_to, ["account_currency", "account_type"], as_dict=True
+	)
+	default_currency = frappe.get_cached_value("Company", company, "default_currency")
+	pe.paid_from_account_currency = (paid_from_acc and paid_from_acc.account_currency) or default_currency
+	pe.paid_to_account_currency = (paid_to_acc and paid_to_acc.account_currency) or pe.paid_from_account_currency
+	pe.paid_from_account_type = paid_from_acc and paid_from_acc.account_type
+	pe.paid_to_account_type = paid_to_acc and paid_to_acc.account_type
 	pe.paid_amount = base_amount
 	pe.received_amount = base_amount
 	# 业务单号留空；默认现金科目时不必填，用户可切换银行后填写
