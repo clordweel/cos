@@ -286,6 +286,7 @@ def _build_employee_advance_payment_doc(pi, paid_from: str):
 	pe.payment_type = "Pay"
 	pe.party_type = "Employee"
 	pe.party = employee
+	pe.party_name = frappe.db.get_value("Employee", employee, "employee_name") or employee
 	pe.company = company
 	pe.posting_date = pi.posting_date
 	pe.paid_from = paid_from

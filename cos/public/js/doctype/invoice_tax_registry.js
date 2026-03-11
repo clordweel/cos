@@ -137,8 +137,14 @@ async function create_employee_advance_payment_from_pi(frm) {
 			freeze: true,
 		});
 		if (r.message) {
+			const doc = r.message;
+			doc.doctype = "Payment Entry";
+			doc.name = doc.name || frappe.model.get_new_name("Payment Entry");
+			doc.__islocal = 1;
+			doc.__unsaved = 1;
+			frappe.model.add_to_locals(doc);
 			frappe.show_alert({ message: __("已带出付款数据，请核对后保存草稿并提交"), indicator: "green" }, 5);
-			frappe.new_doc("Payment Entry", r.message);
+			frappe.ui.form.make_quick_entry("Payment Entry", null, null, doc, true);
 		}
 	} catch (e) {
 		// frappe.call already shows error
