@@ -63,10 +63,15 @@ description: 从粗略用户描述创建物料的端到端标准流程：解析�
 
 ## 阶段 4：在模板约束下创建物料
 
-按 [create-item-from-parameter-template](../create-item-from-parameter-template/SKILL.md) 执行：
+按 [create-item-from-parameter-template](../create-item-from-parameter-template/SKILL.md) 与 [item-creation-guide-for-agent](../../../../../docs/item-creation-guide-for-agent.md) 执行：
 
-- 读取模板、校验 Doctype 约束、查重、创建 Item
-- 新建基础资料（材质、表面处理、执行标准）时输出复核理由
+- **基础名**：必填；不存在则创建 Item Base Name
+- **技术标准号**：推荐；不存在则创建 Executive Standard
+- **规格**：必填
+- **品牌、材质、表面处理、颜色**：建议填写
+- **单位**：必要时创建多单位并配置转换系数
+- **描述**：严格按照物料参数模板的「详细描述」Format 规范格式
+- 新建基础资料时输出复核理由
 
 ## 交叉引用
 

@@ -32,6 +32,16 @@ description: 基于 Item Parameter Template（及其子表 Item Parameter Templa
 - **uoms**：计量单位换算（可不传，优先从模板复制）
 - **是否允许自动新建“参数约束引用的基础资料”**：默认 **否**（除非必要且理由充分）
 
+## 物料数据填写要求（Agent 必读）
+
+- **基础名**：必填；不存在则创建 Item Base Name
+- **技术标准号**：推荐；不存在则创建 Executive Standard
+- **规格**：必填（`custom_specification`）
+- **品牌、材质、表面处理、颜色**：建议填写
+- **单位**：必要时创建多单位并配置 `uoms` 子表（`conversion_factor`）
+- **描述**：严格按照物料参数模板「详细描述」参数的 `value_format` 规范格式，不得自由发挥
+- **物料参数模板引用**：推荐填写 `custom_item_parameter_template`，指向创建该物料所依据的 Item Parameter Template，便于追溯与校验
+
 ## 工作流（推荐：FAC MCP）
 
 ### 0) 工具探测（Schema First）
@@ -85,7 +95,7 @@ description: 基于 Item Parameter Template（及其子表 Item Parameter Templa
 2. **是否真的不存在可复用记录**（先查重，再谈新建）
 3. **新建是否会引入数据污染**（同义词/别名/编码不一致）
 
-> 默认策略：**不自动新建基础资料**；只有在“必须新建”且理由充分时才新建，并输出复核理由。
+> **基础名**（Item Base Name）与**技术标准号**（Executive Standard）：若不存在应创建。其他 Doctype 约束：默认**不自动新建**；只有在“必须新建”且理由充分时才新建，并输出复核理由。
 
 ##### “必须新建”复核理由模板（创建前必须输出）
 
@@ -149,6 +159,7 @@ description: 基于 Item Parameter Template（及其子表 Item Parameter Templa
 
 - `item_group`（必须；触发 COS 的自动编码逻辑）
 - 模板绑定字段映射得到的各字段值
+-（推荐）`custom_item_parameter_template`：填写所用模板名，便于追溯
 -（可选）`custom_unique_code`
 -（可选）`uoms`（若你已确认子表结构与字段一致）
 

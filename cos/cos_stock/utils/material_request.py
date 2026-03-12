@@ -7,6 +7,18 @@ import frappe
 from frappe import _
 
 
+def can_update_material_request_items(mr_name: str) -> bool:
+	"""是否允许变更物料需求单明细（提交后）。供 onload 与前端使用。"""
+	if not mr_name:
+		return False
+	mr = frappe.get_cached_doc("Material Request", mr_name)
+	if mr.docstatus != 1:
+		return False
+	if mr.status in ("Stopped", "Cancelled"):
+		return False
+	return frappe.has_permission("Material Request", "write", mr)
+
+
 def validate_no_virtual_items_in_material_request(doc, method=None):
 	"""提交前校验：明细中不得包含标记为虚拟物料的 Item。
 

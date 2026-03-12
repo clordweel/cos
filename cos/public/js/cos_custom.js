@@ -38,6 +38,7 @@ const get_company_abbreviation = () => {
     });
 };
 
+
 // 重写 Code 字段的初始化逻辑
 const patch_code_field = () => {
     if (frappe.ui.form.ControlCode) {

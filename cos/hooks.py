@@ -60,6 +60,8 @@ doctype_js = {
     "Purchase Invoice": "public/js/doctype/invoice_tax_registry.js",
     # 采购运单：物流查询
     "Purchase Order": "public/js/doctype/purchase_order.js",
+    # 物料需求单：提交后 Update Items 变更明细
+    "Material Request": "public/js/doctype/material_request.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -181,8 +183,11 @@ doc_events = {
         "before_save": "cos.cos_buying.purchase_order_ecommerce.on_purchase_order_before_save",
     },
     # 虚拟占位物料（custom_is_virtual_item）仅允许草稿，提交前必须转换为真实物料
+    # 提交后变更明细时校验 qty >= ordered_qty，变更完成后更新 indented_qty
     "Material Request": {
         "before_submit": "cos.cos_stock.utils.material_request.validate_no_virtual_items_in_material_request",
+        "before_update_after_submit": "cos.cos_stock.material_request_order_change.validate_mr_item_qty_on_update",
+        "on_update_after_submit": "cos.cos_stock.material_request_order_change.on_mr_update_after_submit",
     },
     "Sales Invoice": {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
@@ -322,7 +327,7 @@ fixtures = [
     {"dt": "Source Type", "filters": [["module", "in", ["COS Share", "COS Buying"]]]},
     {"dt": "Logistics Company", "filters": [["module", "=", "COS Buying"]]},
     {"dt": "Item Parameter Template", "filters": [["module", "=", "COS Stock"]]},
-    {"dt": "Item Base Name", "filters": [["name", "=", "虚拟"]]},
+    {"dt": "Item Base Name", "filters": [["name", "in", ["虚拟", "切削液"]]]},
     {"dt": "External Link", "filters": [["module", "=", "COS Share"]]},
     {"dt": "Currency", "filters": [["name", "in", ["CNY"]]]},
     {
