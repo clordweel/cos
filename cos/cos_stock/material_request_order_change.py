@@ -100,6 +100,7 @@ def update_material_request_items(mr_name: str, trans_items: str) -> None:
 				child.uom = d.get("uom")
 			if flt(d.get("conversion_factor")) > 0:
 				child.conversion_factor = flt(d.get("conversion_factor"))
+			child.stock_qty = flt(child.qty) * flt(child.conversion_factor)
 			child.idx = idx + 1
 			new_items.append(child)
 			seen_docnames.add(docname)
@@ -132,6 +133,7 @@ def _make_new_mr_item(mr, trans_item: dict, idx: int):
 
 	conv = get_conversion_factor(item.item_code, child.uom)
 	child.conversion_factor = flt(trans_item.get("conversion_factor")) or flt(conv.get("conversion_factor")) or 1
+	child.stock_qty = flt(child.qty) * flt(child.conversion_factor)
 	child.schedule_date = trans_item.get("schedule_date") or mr.schedule_date
 	child.warehouse = trans_item.get("warehouse") or mr.set_warehouse
 	return child
