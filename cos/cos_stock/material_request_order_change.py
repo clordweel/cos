@@ -110,7 +110,7 @@ def update_material_request_items(mr_name: str, trans_items: str) -> None:
 			new_items.append(child)
 
 	mr.items = new_items
-	mr.flags.ignore_validate_update_after_submit = False
+	mr.flags.ignore_validate_update_after_submit = True  # 跳过 Frappe 默认校验，由 validate_mr_item_qty_on_update 做业务校验
 	mr._action = "update_after_submit"
 	mr.save()
 
