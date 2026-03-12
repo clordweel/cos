@@ -180,6 +180,10 @@ doc_events = {
     "Purchase Order": {
         "before_save": "cos.cos_buying.purchase_order_ecommerce.on_purchase_order_before_save",
     },
+    # 虚拟占位物料（custom_is_virtual_item）仅允许草稿，提交前必须转换为真实物料
+    "Material Request": {
+        "before_submit": "cos.cos_stock.utils.material_request.validate_no_virtual_items_in_material_request",
+    },
     "Sales Invoice": {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
