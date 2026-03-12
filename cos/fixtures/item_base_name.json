@@ -1,6 +1,7 @@
 [
 	{
 		"doctype": "Item Base Name",
+		"name": "虚拟",
 		"base_name": "虚拟",
 		"abbreviation": "VIRT",
 		"description": "虚拟占位物料基础名，用于 MR 草稿占位。需求写在行描述中，Agent 提取后创建真实物料再替换。"
