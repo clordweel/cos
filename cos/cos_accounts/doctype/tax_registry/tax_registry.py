@@ -228,10 +228,10 @@ class TaxRegistry(Document):
 					item.invoice_doctype, item.invoice, "custom_tax_registry_reference"
 				)
 				if ref and ref != self.name:
-				frappe.throw(
-					_("发票 {0} 已被税务登记单 {1} 引用，无法重复引用。").format(item.invoice, ref),
-					title=_("发票已被引用"),
-				)
+					frappe.throw(
+						_("发票 {0} 已被税务登记单 {1} 引用，无法重复引用。").format(item.invoice, ref),
+						title=_("发票已被引用"),
+					)
 
 	def _validate_tax_accounts_match_company_config(self):
 		"""校验借、贷科目与公司配置一致，避免手动选错科目导致借贷方向颠倒。
