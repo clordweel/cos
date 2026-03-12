@@ -3,6 +3,19 @@
 
 frappe.provide("cos.utils");
 
+frappe.ui.form.on("Material Request", {
+	refresh: function (frm) {
+		if (!frm.doc.name || frm.doc.__islocal) return;
+		if (frm.doc.docstatus !== 1) return;
+		if (["Stopped", "Cancelled"].includes(frm.doc.status)) return;
+		if (!frm.has_perm("write")) return;
+
+		frm.add_custom_button(__("Update Items"), () => {
+			cos.utils.update_material_request_items_dialog(frm);
+		});
+	},
+});
+
 cos.utils.update_material_request_items_dialog = function (frm) {
 	const child_meta = frappe.get_meta("Material Request Item");
 	const get_precision = (fieldname) => {
