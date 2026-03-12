@@ -322,6 +322,7 @@ fixtures = [
     {"dt": "Source Type", "filters": [["module", "in", ["COS Share", "COS Buying"]]]},
     {"dt": "Logistics Company", "filters": [["module", "=", "COS Buying"]]},
     {"dt": "Item Parameter Template", "filters": [["module", "=", "COS Stock"]]},
+    {"dt": "Item Base Name", "filters": [["name", "=", "虚拟"]]},
     {"dt": "External Link", "filters": [["module", "=", "COS Share"]]},
     {"dt": "Currency", "filters": [["name", "in", ["CNY"]]]},
     {
