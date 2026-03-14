@@ -1,8 +1,9 @@
 # Copyright (c) 2025, cos and contributors
 # License: GNU General Public License v3. See license.txt
 """
-电商采购：Purchase Order 保存前，根据 Item 的 custom_purchase_sources 自动填充
+电商采购：Purchase Order 保存前/创建时，根据 Item 的 custom_purchase_sources 自动填充
 采购平台、平台 SKU、采购链接。支持主采购链接（is_primary）优先带出。
+从物料需求（MR）创建 PO 时也会自动带出。
 """
 
 import frappe
@@ -98,3 +99,32 @@ def get_primary_purchase_source(item_code):
         return None
     sources = _get_primary_or_first_source(item_code)
     return sources[0] if sources else None
+
+
+def fill_po_items_from_item_sources(po_doc):
+    """对 PO 文档的所有明细行从 Item 采购来源带出平台、SKU、链接。"""
+    for item in po_doc.items or []:
+        if item.item_code:
+            _fill_from_item_sources(item)
+
+
+def make_purchase_order(source_name, target_doc=None, args=None):
+    """从物料需求创建采购订单时，自动带出采购平台、SKU、链接。"""
+    from erpnext.stock.doctype.material_request.material_request import (
+        make_purchase_order as _original,
+    )
+
+    doc = _original(source_name, target_doc, args)
+    fill_po_items_from_item_sources(doc)
+    return doc
+
+
+def make_purchase_order_based_on_supplier(source_name, target_doc=None, args=None):
+    """按供应商从物料需求创建采购订单时，自动带出采购平台、SKU、链接。"""
+    from erpnext.stock.doctype.material_request.material_request import (
+        make_purchase_order_based_on_supplier as _original,
+    )
+
+    doc = _original(source_name, target_doc, args)
+    fill_po_items_from_item_sources(doc)
+    return doc
