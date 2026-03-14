@@ -3,6 +3,10 @@
 
 frappe.ui.form.on("Purchase Order", {
 	refresh: function (frm) {
+		// 垫付员工：强制使用自定义查询以忽略 User Permission，采购经理可选取任意员工
+		frm.set_query("custom_advance_employee", function () {
+			return { query: "cos.cos_accounts.queries.advance_employee_query" };
+		});
 		if (!frm.doc.name || frm.doc.__islocal) return;
 		frm.add_custom_button(__("添加运单"), function () {
 			frappe.new_doc("Order Shipment", { purchase_order: frm.doc.name });
@@ -10,6 +14,12 @@ frappe.ui.form.on("Purchase Order", {
 		frm.add_custom_button(__("查看运单列表"), function () {
 			frappe.set_route("List", "Order Shipment", { purchase_order: frm.doc.name });
 		}, __("物流运单"));
+	},
+	custom_is_employee_advance: function (frm) {
+		// 勾选员工垫付且垫付员工为空时，默认填充当前登录用户的员工
+		if (frm.doc.custom_is_employee_advance && !frm.doc.custom_advance_employee && frappe.boot.user?.employee) {
+			frm.set_value("custom_advance_employee", frappe.boot.user.employee);
+		}
 	},
 });
 

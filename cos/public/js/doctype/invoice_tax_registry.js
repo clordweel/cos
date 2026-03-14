@@ -78,9 +78,19 @@ frappe.ui.form.on("Sales Invoice", {
 
 frappe.ui.form.on("Purchase Invoice", {
 	refresh(frm) {
+		// 垫付员工：强制使用自定义查询以忽略 User Permission，采购经理可选取任意员工
+		frm.set_query("custom_advance_employee", function () {
+			return { query: "cos.cos_accounts.queries.advance_employee_query" };
+		});
 		add_create_tax_registry_button(frm);
 		add_create_payable_transfer_je_button(frm);
 		add_create_employee_advance_payment_button(frm);
+	},
+	custom_is_employee_advance: function (frm) {
+		// 勾选员工垫付且垫付员工为空时，默认填充当前登录用户的员工
+		if (frm.doc.custom_is_employee_advance && !frm.doc.custom_advance_employee && frappe.boot.user?.employee) {
+			frm.set_value("custom_advance_employee", frappe.boot.user.employee);
+		}
 	},
 });
 
