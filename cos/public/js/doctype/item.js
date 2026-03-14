@@ -1,5 +1,14 @@
 frappe.ui.form.on('Item', {
     refresh: function (frm) {
+        // 确保 Item Code 模式下 item_code 可写（覆盖 Customize Form 等可能造成的只读）
+        const item_naming_by = frappe.defaults.get_default('item_naming_by');
+        if (item_naming_by !== 'Naming Series' || frm.doc.variant_of) {
+            frm.set_df_property('item_code', 'read_only', 0);
+        }
+
+        // 物料默认（item_defaults）区域：提示需先创建物料税费模板
+        show_item_defaults_tax_hint(frm);
+
         if (!frm.is_new()) {
             // 添加诊断按钮
             frm.add_custom_button(__('Diagnose Item Tax Settings'), function () {
@@ -23,6 +32,21 @@ frappe.ui.form.on('Item', {
         }
     }
 });
+
+// --- 物料默认区域：税费模板提示 ---
+function show_item_defaults_tax_hint(frm) {
+    if (!frm.fields_dict.item_defaults || !frm.fields_dict.item_defaults.grid) return;
+    const grid = frm.fields_dict.item_defaults.grid;
+    const hintClass = 'cos-item-defaults-tax-hint';
+    if (grid.wrapper && !grid.wrapper.find('.' + hintClass).length) {
+        const msg = $('<div class="alert alert-info ' + hintClass + '" style="margin-bottom: 8px;">' +
+            '<strong>' + __('Item Defaults') + '：</strong>' +
+            __('When configuring company defaults, ensure the company has initialized Item Tax Templates.') + ' ' +
+            __('You can click "Initialize Tax Templates" in the Company form, or use "Update Item Tax Templates" under Tax Tools after saving.') +
+            '</div>');
+        grid.wrapper.prepend(msg);
+    }
+}
 
 // --- 诊断逻辑 ---
 function handle_diagnose_tax(frm) {

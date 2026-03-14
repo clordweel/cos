@@ -111,6 +111,13 @@ Please save the current item group changes before syncing.,请先保存当前物
 "<b>Dangerous Operation:</b> This will globally delete all legacy templates with titles containing ""(Output)"" or ""(Input)"" and force unbind items. Are you sure?","<b>危险操作：</b>此功能将全局删除所有标题含""(销项)""或""(进项)""的旧版模板并强制解绑物料。确定执行吗？"
 Diagnose Item Tax Settings,诊断物料税费设置
 Update Item Tax Templates,更新物料税费模板
+Item Defaults,物料默认
+When configuring company defaults, ensure the company has initialized Item Tax Templates.,配置公司默认时，请确保该公司已初始化物料税费模板。
+You can click "Initialize Tax Templates" in the Company form, or use "Update Item Tax Templates" under Tax Tools after saving.,可在 Company 文档中点击「初始化税费模板」按钮，或保存后使用本表单 Tax Tools 下的「更新物料税费模板」按钮。
+Non-deductible Tax Account,普票税额计入科目
+Invoice Type,发票类型
+Special Invoice,专票
+General Invoice,普票
 Logto User Settings,Logto 用户设置
 Extended Item Tools,物料扩展工具
 Material Planning,物料计划

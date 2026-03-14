@@ -1,6 +1,50 @@
+"""
+物料税费模板逻辑（COS 二开）
+
+- 统一名称格式：中国增值税 {rate}% ({company})
+- 税率展示：整数不保留小数（13% 非 13.0%），小数保留一位（6.5%）
+"""
 import frappe
 from frappe import _
 from frappe.utils import flt
+
+# 物料税费模板 title 前缀，便于筛选与清理
+ITEM_TAX_TEMPLATE_TITLE_PREFIX = "中国增值税"
+
+
+def _format_tax_rate_display(rate):
+    """税率展示：整数去尾零（13 非 13.0），小数保留一位（6.5）。"""
+    r = flt(rate, 1)
+    if r == int(r):
+        return str(int(r))
+    return str(r)
+
+
+def _format_item_tax_template_title(company, rate):
+    """物料税费模板 title 标准格式：中国增值税 {rate}% ({company})。"""
+    rate_str = _format_tax_rate_display(rate)
+    return f"{ITEM_TAX_TEMPLATE_TITLE_PREFIX} {rate_str}% ({company})"
+
+
+def _find_existing_item_tax_template(company, rate):
+    """
+    查找已存在的物料税费模板，兼容新旧 title 格式。
+    新格式：中国增值税 13% (公司)
+    旧格式：中国增值税 13.0% (公司)
+    """
+    title_new = _format_item_tax_template_title(company, rate)
+    existing = frappe.db.get_value(
+        "Item Tax Template", {"title": title_new, "company": company}, "name"
+    )
+    if existing:
+        return existing
+    # 兼容旧格式（如 13.0%）
+    title_old = f"{ITEM_TAX_TEMPLATE_TITLE_PREFIX} {flt(rate, 1)}% ({company})"
+    if title_old != title_new:
+        existing = frappe.db.get_value(
+            "Item Tax Template", {"title": title_old, "company": company}, "name"
+        )
+    return existing
 
 
 def update_item_tax_data(doc, method=None):
@@ -73,15 +117,15 @@ def update_item_tax_data(doc, method=None):
 
 def ensure_combined_tax_template(company, rate):
     """
-    改进后的模板生成：严格筛选公司科目
-    使用公司文档中的自定义字段获取进销项税科目
-    """
-    title = f"中国增值税 {rate}% ({company})"
+    创建或获取物料税费模板（销项+进项合并）。
 
-    # 1. 检查是否存在该模板
-    existing_name = frappe.db.get_value(
-        "Item Tax Template", {"title": title, "company": company}, "name"
-    )
+    名称格式：中国增值税 {rate}% ({company})
+    税率展示：整数不保留小数（13%），小数保留一位（6.5%）
+    """
+    title = _format_item_tax_template_title(company, rate)
+
+    # 1. 检查是否存在该模板（兼容新旧格式）
+    existing_name = _find_existing_item_tax_template(company, rate)
 
     # 2. 核心改进：从公司文档获取进销项税科目
     company_doc = frappe.get_cached_doc("Company", company)
