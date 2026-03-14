@@ -38,8 +38,42 @@ def _fetch_employee_advance_from_po(doc):
 		doc.custom_advance_employee = po_advance.get("custom_advance_employee")
 
 
+def _get_advance_employee_editable_users() -> set[str]:
+	"""从采购设置获取可提交后修改垫付员工字段的用户（逗号分隔邮箱）。"""
+	val = frappe.db.get_single_value("Buying Settings", "custom_advance_employee_editable_users") or ""
+	return {u.strip().lower() for u in val.split(",") if u.strip()}
+
+
+def _validate_advance_employee_edit_permission(doc):
+	"""提交后修改垫付员工字段时，校验当前用户是否在采购设置允许列表中。"""
+	if doc.docstatus != 1:
+		return
+	allowed = _get_advance_employee_editable_users()
+	if not allowed:
+		return  # 未配置则不允许任何人提交后修改
+	if frappe.session.user.lower() in allowed:
+		return
+	# 检查是否修改了垫付相关字段
+	old = frappe.db.get_value(
+		doc.doctype,
+		doc.name,
+		["custom_is_employee_advance", "custom_advance_employee"],
+		as_dict=True,
+	)
+	if not old:
+		return
+	if (
+		doc.get("custom_is_employee_advance") != old.get("custom_is_employee_advance")
+		or doc.get("custom_advance_employee") != old.get("custom_advance_employee")
+	):
+		frappe.throw(
+			_("您无权限在提交后修改垫付员工相关字段。请在采购设置中配置「可提交后修改垫付员工字段的用户」。"),
+			title=_("无权限"),
+		)
+
+
 def on_purchase_invoice_validate(doc, method=None):
-	"""PI 校验：员工垫付时必填垫付员工；从 PO 创建时带出垫付信息。"""
+	"""PI 校验：员工垫付时必填垫付员工；从 PO 创建时带出垫付信息；提交后修改权限校验。"""
 	_fetch_employee_advance_from_po(doc)
 
 	if _should_create_payable_transfer_je(doc) and not doc.get("custom_advance_employee"):
@@ -47,6 +81,13 @@ def on_purchase_invoice_validate(doc, method=None):
 			_("已勾选「员工垫付」，请指定垫付员工"),
 			title=_("员工垫付配置不完整"),
 		)
+
+	_validate_advance_employee_edit_permission(doc)
+
+
+def validate_purchase_order_advance_employee(doc, method=None):
+	"""PO 校验：提交后修改垫付员工字段时，校验当前用户是否在采购设置允许列表中。"""
+	_validate_advance_employee_edit_permission(doc)
 
 
 @frappe.whitelist()

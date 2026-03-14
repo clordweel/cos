@@ -76,12 +76,25 @@ frappe.ui.form.on("Sales Invoice", {
 	},
 });
 
+function apply_advance_employee_readonly_pi(frm) {
+	if (frm.is_new() || frm.doc.docstatus !== 1) return;
+	frappe.db.get_single_value("Buying Settings", "custom_advance_employee_editable_users").then((val) => {
+		const allowed = (val || "").split(",").map((u) => u.trim().toLowerCase()).filter(Boolean);
+		const current = (frappe.session.user || "").toLowerCase();
+		if (!allowed.includes(current)) {
+			frm.set_df_property("custom_is_employee_advance", "read_only", 1);
+			frm.set_df_property("custom_advance_employee", "read_only", 1);
+		}
+	});
+}
+
 frappe.ui.form.on("Purchase Invoice", {
 	refresh(frm) {
 		// 垫付员工：强制使用自定义查询以忽略 User Permission，采购经理可选取任意员工
 		frm.set_query("custom_advance_employee", function () {
 			return { query: "cos.cos_accounts.queries.advance_employee_query" };
 		});
+		apply_advance_employee_readonly_pi(frm);
 		add_create_tax_registry_button(frm);
 		add_create_payable_transfer_je_button(frm);
 		add_create_employee_advance_payment_button(frm);

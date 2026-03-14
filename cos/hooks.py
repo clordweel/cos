@@ -181,6 +181,7 @@ doc_events = {
     },
     "Purchase Order": {
         "before_save": "cos.cos_buying.purchase_order_ecommerce.on_purchase_order_before_save",
+        "validate": "cos.cos_accounts.utils.employee_advance_payable_transfer.validate_purchase_order_advance_employee",
     },
     # 虚拟占位物料（custom_is_virtual_item）仅允许草稿，提交前必须转换为真实物料
     # 提交后变更明细时校验 qty >= ordered_qty，变更完成后更新 indented_qty
