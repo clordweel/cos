@@ -6,12 +6,20 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "is_primary",
   "platform",
   "platform_sku",
   "purchase_url",
   "supplier"
  ],
  "fields": [
+  {
+   "default": "0",
+   "fieldname": "is_primary",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "主采购链接"
+  },
   {
    "fieldname": "platform",
    "fieldtype": "Link",

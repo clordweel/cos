@@ -22,4 +22,5 @@ cos.patches.v1_2.add_item_base_name_cutting_fluid
 cos.patches.v1_2.backfill_employee_reimbursed
 cos.patches.v1_2.rebackfill_employee_reimbursed
 cos.patches.v1_2.rebackfill_employee_reimbursed_after_alter
+cos.patches.v1_2.add_is_primary_to_item_purchase_source
 # Patches added in this section will be executed after doctypes are migrated
