@@ -108,6 +108,7 @@ def fill_po_items_from_item_sources(po_doc):
             _fill_from_item_sources(item)
 
 
+@frappe.whitelist()
 def make_purchase_order(source_name, target_doc=None, args=None):
     """从物料需求创建采购订单时，自动带出采购平台、SKU、链接。"""
     from erpnext.stock.doctype.material_request.material_request import (
@@ -119,6 +120,7 @@ def make_purchase_order(source_name, target_doc=None, args=None):
     return doc
 
 
+@frappe.whitelist()
 def make_purchase_order_based_on_supplier(source_name, target_doc=None, args=None):
     """按供应商从物料需求创建采购订单时，自动带出采购平台、SKU、链接。"""
     from erpnext.stock.doctype.material_request.material_request import (
