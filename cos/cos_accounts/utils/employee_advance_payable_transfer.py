@@ -38,21 +38,20 @@ def _fetch_employee_advance_from_po(doc):
 		doc.custom_advance_employee = po_advance.get("custom_advance_employee")
 
 
-def _get_advance_employee_editable_users() -> set[str]:
-	"""从采购设置获取可提交后修改垫付员工字段的用户（逗号分隔邮箱）。"""
-	val = frappe.db.get_single_value("Buying Settings", "custom_advance_employee_editable_users") or ""
-	return {u.strip().lower() for u in val.split(",") if u.strip()}
+def _get_advance_employee_editable_role() -> str | None:
+	"""从采购设置获取可提交后修改垫付员工字段的角色。"""
+	return frappe.db.get_single_value("Buying Settings", "custom_advance_employee_editable_role")
 
 
 def _validate_advance_employee_edit_permission(doc):
-	"""提交后修改垫付员工字段时，校验当前用户是否在采购设置允许列表中。"""
+	"""提交后修改垫付员工字段时，校验当前用户是否拥有采购设置中配置的角色。"""
 	if doc.docstatus != 1:
 		return
-	allowed = _get_advance_employee_editable_users()
-	if not allowed:
-		return  # 未配置则不允许任何人提交后修改
-	if frappe.session.user.lower() in allowed:
-		return
+	role = _get_advance_employee_editable_role()
+	if role:
+		user_roles = {r.lower() for r in frappe.get_roles(frappe.session.user, include_default=True)}
+		if role.lower() in user_roles:
+			return
 	# 检查是否修改了垫付相关字段
 	old = frappe.db.get_value(
 		doc.doctype,
@@ -67,7 +66,7 @@ def _validate_advance_employee_edit_permission(doc):
 		or doc.get("custom_advance_employee") != old.get("custom_advance_employee")
 	):
 		frappe.throw(
-			_("您无权限在提交后修改垫付员工相关字段。请在采购设置中配置「可提交后修改垫付员工字段的用户」。"),
+			_("您无权限在提交后修改垫付员工相关字段。请在采购设置中配置「可修改垫付员工的角色」。"),
 			title=_("无权限"),
 		)
 

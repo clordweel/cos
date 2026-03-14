@@ -3,10 +3,10 @@
 
 function _apply_advance_employee_readonly(frm) {
 	if (frm.is_new() || frm.doc.docstatus !== 1) return;
-	frappe.db.get_single_value("Buying Settings", "custom_advance_employee_editable_users").then((val) => {
-		const allowed = (val || "").split(",").map((u) => u.trim().toLowerCase()).filter(Boolean);
-		const current = (frappe.session.user || "").toLowerCase();
-		if (!allowed.includes(current)) {
+	frappe.db.get_single_value("Buying Settings", "custom_advance_employee_editable_role").then((role) => {
+		const user_roles = (frappe.user_roles || []).map((r) => r.toLowerCase());
+		const allowed = role && user_roles.includes(role.toLowerCase());
+		if (!allowed) {
 			frm.set_df_property("custom_is_employee_advance", "read_only", 1);
 			frm.set_df_property("custom_advance_employee", "read_only", 1);
 		}
