@@ -89,15 +89,16 @@ def update_item_tax_data(doc, method=None, company=None):
     target_templates = []
     skipped_companies = []
     for c in companies:
-        template_name = ensure_combined_tax_template(c.name, tax_rate)
+        cname = c["name"]
+        template_name = ensure_combined_tax_template(cname, tax_rate)
         if template_name:
             target_templates.append(template_name)
         else:
-            skipped_companies.append(c.name)
+            skipped_companies.append(cname)
 
     if not target_templates:
         warning_msg = f"Item {doc.name} (item_group: {doc.item_group}, rate: {tax_rate}%): "
-        warning_msg += f"No tax templates found. Companies checked: {[c.name for c in companies]}"
+        warning_msg += f"No tax templates found. Companies checked: {[x['name'] for x in companies]}"
         if skipped_companies:
             warning_msg += f"\nSkipped (missing tax account fields): {', '.join(skipped_companies)}"
         frappe.logger().warning(warning_msg)
