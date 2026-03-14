@@ -47,9 +47,13 @@ def _find_existing_item_tax_template(company, rate):
     return existing
 
 
-def update_item_tax_data(doc, method=None):
+def update_item_tax_data(doc, method=None, company=None):
     """
     更新物料税率逻辑：增加多公司适配和科目存在性筛选
+
+    :param doc: Item 文档
+    :param method: 保留（doc_events 调用时传入）
+    :param company: 可选，仅处理指定公司；为 None 时处理所有非集团公司
     """
     if not doc.item_group:
         frappe.log_error(
@@ -66,8 +70,15 @@ def update_item_tax_data(doc, method=None):
         )
         return False
 
-    # 获取所有非集团公司
-    companies = frappe.get_all("Company", filters={"is_group": 0})
+    # 获取目标公司列表
+    if company:
+        if not frappe.db.exists("Company", company):
+            frappe.logger().warning(f"Company {company} not found")
+            return False
+        companies = [{"name": company}]
+    else:
+        companies = frappe.get_all("Company", filters={"is_group": 0})
+
     if not companies:
         frappe.log_error(
             f"No companies found for tax template creation",
@@ -82,35 +93,38 @@ def update_item_tax_data(doc, method=None):
         if template_name:
             target_templates.append(template_name)
         else:
-            # 记录跳过的公司（可能是字段未设置或其他原因）
             skipped_companies.append(c.name)
 
-    # 如果没有找到任何模板，记录警告
     if not target_templates:
         warning_msg = f"Item {doc.name} (item_group: {doc.item_group}, rate: {tax_rate}%): "
-        warning_msg += f"No tax templates found for any company. Companies checked: {[c.name for c in companies]}"
+        warning_msg += f"No tax templates found. Companies checked: {[c.name for c in companies]}"
         if skipped_companies:
-            warning_msg += f"\nSkipped companies (missing tax account fields): {', '.join(skipped_companies)}"
+            warning_msg += f"\nSkipped (missing tax account fields): {', '.join(skipped_companies)}"
         frappe.logger().warning(warning_msg)
         return False
 
-    # 性能优化：检查当前物料的税率表是否已符合目标
     current_templates = [d.item_tax_template for d in doc.get("taxes")]
 
+    if company:
+        # 仅当前公司：合并模式，确保目标模板在列表中
+        if target_templates[0] in current_templates:
+            return False
+        doc.append(
+            "taxes",
+            {"item_tax_template": target_templates[0], "tax_category": ""},
+        )
+        return True
+
+    # 全部公司：替换模式
     if set(target_templates) == set(current_templates) and len(target_templates) == len(
         current_templates
     ):
         return False
-
-    # 执行更新
     doc.set("taxes", [])
     for t_name in target_templates:
         doc.append(
             "taxes",
-            {
-                "item_tax_template": t_name,
-                "tax_category": "",
-            },
+            {"item_tax_template": t_name, "tax_category": ""},
         )
     return True
 

@@ -133,12 +133,36 @@ function handle_diagnose_tax(frm) {
 
 // --- 手动更新税率逻辑 ---
 function handle_update_tax(frm) {
-    frappe.confirm(__('确定要手动更新此物料的税率模板吗？'), () => {
+    const default_company = frappe.defaults.get_user_default("company");
+    frappe.prompt([
+        {
+            fieldtype: "Check",
+            fieldname: "only_current_company",
+            label: __("仅更新/创建当前公司"),
+            default: 0,
+            description: __("勾选后只处理当前公司，否则更新所有公司")
+        },
+        {
+            fieldtype: "Link",
+            fieldname: "company",
+            label: __("公司"),
+            options: "Company",
+            default: default_company,
+            depends_on: "eval:doc.only_current_company",
+            mandatory_depends_on: "eval:doc.only_current_company"
+        }
+    ], (values) => {
+        const company = values.only_current_company ? values.company : null;
+        if (values.only_current_company && !company) {
+            frappe.msgprint({ title: __('错误'), message: __('请选择公司'), indicator: 'red' });
+            return;
+        }
         frappe.show_alert({ message: __('正在更新，请稍候...'), indicator: 'blue' }, 5);
         frappe.call({
             method: "cos.cos_accounts.controllers.tax.update_single_item_tax",
             args: {
-                item_code: frm.doc.name
+                item_code: frm.doc.name,
+                company: company
             },
             callback: function (r) {
                 if (r.exc) {
@@ -164,7 +188,7 @@ function handle_update_tax(frm) {
                 });
             }
         });
-    });
+    }, __('更新物料税费模板'));
 }
 
 // --- 从 New Item Request 同步绑定字段 ---
