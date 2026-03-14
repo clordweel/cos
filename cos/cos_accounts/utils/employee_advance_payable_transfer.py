@@ -49,7 +49,7 @@ def _validate_advance_employee_edit_permission(doc):
 		return
 	role = _get_advance_employee_editable_role()
 	if role:
-		user_roles = {r.lower() for r in frappe.get_roles(frappe.session.user, include_default=True)}
+		user_roles = {r.lower() for r in frappe.get_roles(frappe.session.user)}
 		if role.lower() in user_roles:
 			return
 	# 检查是否修改了垫付相关字段
