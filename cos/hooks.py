@@ -152,6 +152,9 @@ before_uninstall = ["cos.setup.coa_setup.remove_custom_charts"]
 # Hook on document methods and events
 
 doc_events = {
+    "Company": {
+        "validate": "cos.cos_accounts.utils.company_tax_validation.validate_company_tax_accounts",
+    },
     "New Item Request": {
         "before_save": "cos.cos_stock.utils.new_item_request.calculate_parameters_hash",
     },

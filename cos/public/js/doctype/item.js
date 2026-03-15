@@ -93,6 +93,8 @@ function handle_diagnose_tax(frm) {
                         let status = '';
                         if (company.template_created) {
                             status = `<span style="color: green;">✓ 已创建模板: ${company.template_name}</span>`;
+                        } else if (company.account_not_found && company.account_not_found.length > 0) {
+                            status = `<span style="color: red;">✗ 所指科目不存在或归属错误: ${company.account_not_found.join('; ')}</span>`;
                         } else if (company.missing_accounts) {
                             status = `<span style="color: red;">✗ 缺少科目: ${company.missing_accounts.join(', ')}</span>`;
                         } else {

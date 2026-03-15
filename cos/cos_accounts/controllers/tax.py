@@ -1,6 +1,11 @@
 import frappe
 from frappe import _
-from cos.cos_accounts.utils.tax_logic import update_item_tax_data, get_tax_rate_hierarchy, ensure_combined_tax_template
+from cos.cos_accounts.utils.tax_logic import (
+    update_item_tax_data,
+    get_tax_rate_hierarchy,
+    ensure_combined_tax_template,
+    _account_exists_and_belongs_to_company,
+)
 
 
 # --- 供按钮调用的函数保持不变，但内部逻辑已更新 ---
@@ -198,7 +203,17 @@ def diagnose_item_tax(item_code):
             company_info["has_sales_account"] = bool(sales_account)
             company_info["has_purchase_account"] = bool(purchase_account)
             
-            if sales_account and purchase_account:
+            # 检查科目已设置但不存在或归属错误
+            account_not_found = []
+            if sales_account and not _account_exists_and_belongs_to_company(sales_account, c.name):
+                account_not_found.append(f"销售税科目: {sales_account}")
+            if purchase_account and not _account_exists_and_belongs_to_company(purchase_account, c.name):
+                account_not_found.append(f"采购税科目: {purchase_account}")
+
+            if account_not_found:
+                company_info["account_not_found"] = account_not_found
+                company_info["error_message"] = f"公司 {c.name} 所指科目不存在或不属于该公司：{'；'.join(account_not_found)}。请在公司文档中修正。"
+            elif sales_account and purchase_account:
                 template_name = ensure_combined_tax_template(c.name, tax_rate)
                 if template_name:
                     company_info["template_created"] = True
@@ -224,20 +239,33 @@ def diagnose_item_tax(item_code):
         
         # 检查是否有公司缺少科目字段
         companies_with_missing_fields = [
-            c for c in result["companies"] 
+            c for c in result["companies"]
             if c.get("missing_fields")
         ]
         if companies_with_missing_fields:
             missing_companies = [c["name"] for c in companies_with_missing_fields]
             result["diagnosis"].append({
                 "level": "error",
-                "message": f"以下公司未设置税费科目字段：{', '.join(missing_companies)}。请在公司文档中设置相应的科目字段。"
+                "message": f"以下公司未设置税费科目字段：{', '.join(missing_companies)}。请在公司文档中设置相应的科目字段（custom_selling_tax_account、custom_buying_tax_account）。"
             })
+
+        # 检查是否有公司科目已设置但所指科目不存在
+        companies_with_account_not_found = [
+            c for c in result["companies"]
+            if c.get("account_not_found")
+        ]
+        if companies_with_account_not_found:
+            for c in companies_with_account_not_found:
+                result["diagnosis"].append({
+                    "level": "error",
+                    "message": c.get("error_message", f"公司 {c['name']} 税费科目所指科目不存在或归属错误。")
+                })
         
         # 比较当前和目标
         current_templates = [d.item_tax_template for d in doc.get("taxes")]
+        has_company_issues = companies_with_missing_fields or companies_with_account_not_found
         if set(target_templates) != set(current_templates):
-            if not companies_with_missing_fields:  # 只有在没有科目字段缺失的情况下才显示模板不匹配警告
+            if not has_company_issues:  # 只有在没有科目问题时才显示模板不匹配警告
                 result["diagnosis"].append({
                     "level": "warning",
                     "message": f"物料的税率模板不匹配。当前: {current_templates}, 期望: {target_templates}"

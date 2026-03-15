@@ -26,6 +26,14 @@ def _format_item_tax_template_title(company, rate):
     return f"{ITEM_TAX_TEMPLATE_TITLE_PREFIX} {rate_str}% ({company})"
 
 
+def _account_exists_and_belongs_to_company(account_name, company):
+    """验证科目存在且属于指定公司。"""
+    if not account_name:
+        return False
+    acc = frappe.db.get_value("Account", account_name, ["name", "company"], as_dict=True)
+    return acc and acc.company == company
+
+
 def _find_existing_item_tax_template(company, rate):
     """
     查找已存在的物料税费模板，兼容新旧 title 格式。
@@ -153,6 +161,14 @@ def ensure_combined_tax_template(company, rate):
     company_doc = frappe.get_cached_doc("Company", company)
     sales_account = company_doc.get("custom_selling_tax_account")
     purchase_account = company_doc.get("custom_buying_tax_account")
+
+    # 2.1 验证科目存在且归属该公司
+    for acc, label in [(sales_account, _("销售税科目")), (purchase_account, _("采购税科目"))]:
+        if acc and not _account_exists_and_belongs_to_company(acc, company):
+            frappe.logger().warning(
+                f"Company {company} {label} '{acc}' 不存在或不属于该公司，跳过模板创建"
+            )
+            return None
 
     # 如果该公司不具备这两个科目，抛出错误提示用户
     if not sales_account or not purchase_account:
