@@ -34,7 +34,7 @@ app_include_js = [
     "/assets/cos/js/update_items_float_patch.js",
     "/assets/cos/js/sub_form_json_tools.js",
     "/assets/cos/js/text_editor_source_toggle.js",
-    "/assets/cos/js/doctype/sales_order_tax_update.js",
+    "/assets/cos/js/doctype/purchase_tax_update.js",
 ]
 
 # include js, css files in header of web template
