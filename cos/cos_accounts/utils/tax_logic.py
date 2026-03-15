@@ -112,6 +112,12 @@ def update_item_tax_data(doc, method=None, company=None, tax_rate=None):
             skipped_companies.append(cname)
 
     if not target_templates:
+        if company:
+            frappe.throw(
+                _("公司「{0}」未设置销售税科目或采购税科目，或所指科目不存在。请在公司文档中设置 custom_selling_tax_account、custom_buying_tax_account 后重试。").format(
+                    company
+                )
+            )
         warning_msg = f"Item {doc.name} (item_group: {doc.item_group}, rate: {tax_rate}%): "
         warning_msg += f"No tax templates found. Companies checked: {[x['name'] for x in companies]}"
         if skipped_companies:

@@ -158,7 +158,7 @@ function handle_update_tax(frm) {
                     fieldtype: "Check",
                     fieldname: "only_current_company",
                     label: __("仅更新/创建当前公司"),
-                    default: 0,
+                    default: 1,
                     description: __("勾选后只处理所选公司，否则更新所有公司")
                 },
                 {
@@ -188,6 +188,12 @@ function handle_update_tax(frm) {
                             frappe.msgprint({
                                 title: __('Error'),
                                 message: __('更新失败: {0}', [r.exc]),
+                                indicator: 'red'
+                            });
+                        } else if (r.message && r.message.warning) {
+                            frappe.msgprint({
+                                title: __('错误'),
+                                message: r.message.message || __('更新失败'),
                                 indicator: 'red'
                             });
                         } else {
