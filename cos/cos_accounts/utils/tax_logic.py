@@ -128,7 +128,7 @@ def update_item_tax_data(doc, method=None, company=None, tax_rate=None):
     current_templates = [d.item_tax_template for d in doc.get("taxes")]
 
     if company:
-        # 仅当前公司：合并模式，确保目标模板在列表中
+        # 仅当前公司：追加模式，只创建/追加所选公司的模板，不创建其它公司、不清空已有
         if target_templates[0] in current_templates:
             return False
         doc.append(
