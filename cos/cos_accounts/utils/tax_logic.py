@@ -47,13 +47,14 @@ def _find_existing_item_tax_template(company, rate):
     return existing
 
 
-def update_item_tax_data(doc, method=None, company=None):
+def update_item_tax_data(doc, method=None, company=None, tax_rate=None):
     """
     更新物料税率逻辑：增加多公司适配和科目存在性筛选
 
     :param doc: Item 文档
     :param method: 保留（doc_events 调用时传入）
     :param company: 可选，仅处理指定公司；为 None 时处理所有非集团公司
+    :param tax_rate: 可选，指定税率；为 None 时从物料组层级获取
     """
     if not doc.item_group:
         frappe.log_error(
@@ -62,13 +63,19 @@ def update_item_tax_data(doc, method=None, company=None):
         )
         return False
 
-    tax_rate = get_tax_rate_hierarchy(doc.item_group)
+    if tax_rate is not None and str(tax_rate).strip() != "":
+        tax_rate = flt(tax_rate, 1)
+    else:
+        tax_rate = get_tax_rate_hierarchy(doc.item_group)
     if tax_rate is None:
         frappe.log_error(
             f"Item {doc.name} (item_group: {doc.item_group}) has no tax rate in hierarchy",
             "Tax Update Warning"
         )
         return False
+
+    # 规范化 company：空字符串/空白视为 None
+    company = (company or "").strip() or None
 
     # 获取目标公司列表
     if company:
@@ -243,6 +250,15 @@ def get_tax_rate_hierarchy(group_name):
     if parent and parent != "All Item Groups":
         return get_tax_rate_hierarchy(parent)
     return None
+
+
+@frappe.whitelist()
+def get_tax_rate_for_item_group(item_group):
+    """供前端调用：获取物料组层级税率，用于更新物料税费模板对话框默认值。"""
+    if not item_group:
+        return None
+    rate = get_tax_rate_hierarchy(item_group)
+    return flt(rate, 1) if rate is not None else None
 
 
 def daily_tax_audit():

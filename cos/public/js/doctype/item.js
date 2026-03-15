@@ -133,62 +133,80 @@ function handle_diagnose_tax(frm) {
 
 // --- 手动更新税率逻辑 ---
 function handle_update_tax(frm) {
+    if (!frm.doc.item_group) {
+        frappe.msgprint({ title: __('错误'), message: __('物料未设置物料组，无法更新税费模板'), indicator: 'red' });
+        return;
+    }
     const default_company = frappe.defaults.get_user_default("company");
-    frappe.prompt([
-        {
-            fieldtype: "Check",
-            fieldname: "only_current_company",
-            label: __("仅更新/创建当前公司"),
-            default: 0,
-            description: __("勾选后只处理当前公司，否则更新所有公司")
-        },
-        {
-            fieldtype: "Link",
-            fieldname: "company",
-            label: __("公司"),
-            options: "Company",
-            default: default_company,
-            depends_on: "eval:doc.only_current_company",
-            mandatory_depends_on: "eval:doc.only_current_company"
-        }
-    ], (values) => {
-        const company = values.only_current_company ? values.company : null;
-        if (values.only_current_company && !company) {
-            frappe.msgprint({ title: __('错误'), message: __('请选择公司'), indicator: 'red' });
-            return;
-        }
-        frappe.show_alert({ message: __('正在更新，请稍候...'), indicator: 'blue' }, 5);
-        frappe.call({
-            method: "cos.cos_accounts.controllers.tax.update_single_item_tax",
-            args: {
-                item_code: frm.doc.name,
-                company: company
-            },
-            callback: function (r) {
-                if (r.exc) {
-                    frappe.msgprint({
-                        title: __('Error'),
-                        message: __('更新失败: {0}', [r.exc]),
-                        indicator: 'red'
-                    });
-                } else {
-                    frappe.show_alert({
-                        message: __('税率模板已更新'),
-                        indicator: 'green'
-                    });
-                    // 刷新表单以显示最新状态
-                    frm.reload_doc();
+    frappe.call({
+        method: "cos.cos_accounts.utils.tax_logic.get_tax_rate_for_item_group",
+        args: { item_group: frm.doc.item_group },
+        async: false,
+        callback: function (r) {
+            const default_tax_rate = r.message != null ? r.message : "";
+            frappe.prompt([
+                {
+                    fieldtype: "Float",
+                    fieldname: "tax_rate",
+                    label: __("税率 (%)"),
+                    default: default_tax_rate,
+                    description: __("默认从物料组层级带出，可修改")
+                },
+                {
+                    fieldtype: "Check",
+                    fieldname: "only_current_company",
+                    label: __("仅更新/创建当前公司"),
+                    default: 0,
+                    description: __("勾选后只处理所选公司，否则更新所有公司")
+                },
+                {
+                    fieldtype: "Link",
+                    fieldname: "company",
+                    label: __("公司"),
+                    options: "Company",
+                    default: default_company,
+                    description: __("勾选「仅当前公司」时生效")
                 }
-            },
-            error: function (r) {
-                frappe.msgprint({
-                    title: __('Error'),
-                    message: __('更新失败，请检查错误日志。'),
-                    indicator: 'red'
+            ], (values) => {
+                const company = values.only_current_company ? (values.company || "").trim() : null;
+                if (values.only_current_company && !company) {
+                    frappe.msgprint({ title: __('错误'), message: __('请选择公司'), indicator: 'red' });
+                    return;
+                }
+                const tax_rate_val = values.tax_rate != null && values.tax_rate !== "" ? values.tax_rate : null;
+                const args = { item_code: frm.doc.name };
+                if (company) args.company = company;
+                if (tax_rate_val != null) args.tax_rate = tax_rate_val;
+                frappe.show_alert({ message: __('正在更新，请稍候...'), indicator: 'blue' }, 5);
+                frappe.call({
+                    method: "cos.cos_accounts.controllers.tax.update_single_item_tax",
+                    args: args,
+                    callback: function (r) {
+                        if (r.exc) {
+                            frappe.msgprint({
+                                title: __('Error'),
+                                message: __('更新失败: {0}', [r.exc]),
+                                indicator: 'red'
+                            });
+                        } else {
+                            frappe.show_alert({
+                                message: __('税率模板已更新'),
+                                indicator: 'green'
+                            });
+                            frm.reload_doc();
+                        }
+                    },
+                    error: function (r) {
+                        frappe.msgprint({
+                            title: __('Error'),
+                            message: __('更新失败，请检查错误日志。'),
+                            indicator: 'red'
+                        });
+                    }
                 });
-            }
-        });
-    }, __('更新物料税费模板'));
+            }, __('更新物料税费模板'));
+        }
+    });
 }
 
 // --- 从 New Item Request 同步绑定字段 ---

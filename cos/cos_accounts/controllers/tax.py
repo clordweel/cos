@@ -104,16 +104,17 @@ def bulk_cleanup_tax_templates(keyword="(Output)"):
 
 
 @frappe.whitelist()
-def update_single_item_tax(item_code, company=None):
+def update_single_item_tax(item_code, company=None, tax_rate=None):
     """
     手动更新单个物料的税率模板
 
     :param item_code: 物料编码
     :param company: 可选，仅更新/创建指定公司的税费模板；为 None 时更新所有公司
+    :param tax_rate: 可选，指定税率；为 None 时从物料组层级获取
     """
     try:
         doc = frappe.get_doc("Item", item_code)
-        updated = update_item_tax_data(doc, company=company)
+        updated = update_item_tax_data(doc, company=company, tax_rate=tax_rate)
         if updated:
             doc.save(ignore_permissions=True)
             frappe.db.commit()
