@@ -106,9 +106,7 @@
 		const original_refresh = grid.refresh.bind(grid);
 		grid.refresh = function () {
 			original_refresh.apply(this, arguments);
-			frappe.run_after_ajax(() => {
-				setup_column_resize(this);
-			});
+			setTimeout(() => setup_column_resize(this), 0);
 		};
 		grid._cos_resize_patched = true;
 	}
