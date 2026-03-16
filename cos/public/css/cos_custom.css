@@ -64,25 +64,4 @@ body {
 .expanded .body-sidebar #abbr-company-abbreviation-badge {
     display: none; /* 展开时隐藏缩写 */
 }
-/* Grid column resize handle */
-.grid-col-resize-handle {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 6px;
-	height: 100%;
-	cursor: col-resize;
-	z-index: 2;
-}
-.grid-col-resize-handle:hover {
-	background-color: var(--primary, #2490ef);
-	opacity: 0.3;
-}
-body.grid-col-resizing {
-	cursor: col-resize;
-}
-body.grid-col-resizing * {
-	cursor: col-resize !important;
-}
-
 /* Custom Styles */
