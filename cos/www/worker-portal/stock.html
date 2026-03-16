@@ -1,11 +1,11 @@
-{% extends "templates/web.html" %}
+{% extends "cos/templates/cos_work_base.html" %}
 
-{% block title %}入库盘点{% endblock %}
+{% block title %}{{ _("Inbound Stocktaking") }}{% endblock %}
 
 {% block page_content %}
 <div class="worker-portal container py-5">
-	<h2 class="mb-4">入库盘点</h2>
-	<p class="text-muted">入库盘点功能开发中。</p>
-	<a href="/worker-portal" class="btn btn-outline-secondary">返回工作台</a>
+	<h2 class="mb-4">{{ _("Inbound Stocktaking") }}</h2>
+	<p class="text-muted">{{ _("Inbound stocktaking feature in development.") }}</p>
+	<a href="/worker-portal" class="btn btn-outline-secondary">{{ _("Back to Workbench") }}</a>
 </div>
 {% endblock %}

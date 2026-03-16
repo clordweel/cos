@@ -1,11 +1,11 @@
-{% extends "templates/web.html" %}
+{% extends "cos/templates/cos_work_base.html" %}
 
-{% block title %}审批{% endblock %}
+{% block title %}{{ _("Approval") }}{% endblock %}
 
 {% block page_content %}
 <div class="worker-portal container py-5">
-	<h2 class="mb-4">审批</h2>
-	<p class="text-muted">审批功能开发中。可通过链接直接审批：<code>/worker-portal/approval?token=xxx</code></p>
-	<a href="/worker-portal" class="btn btn-outline-secondary">返回工作台</a>
+	<h2 class="mb-4">{{ _("Approval") }}</h2>
+	<p class="text-muted">{{ _("Approval feature in development. Direct link:") }} <code>/worker-portal/approval?token=xxx</code></p>
+	<a href="/worker-portal" class="btn btn-outline-secondary">{{ _("Back to Workbench") }}</a>
 </div>
 {% endblock %}

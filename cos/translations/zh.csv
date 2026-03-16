@@ -208,3 +208,16 @@ Edit Posting Date and Time,编辑过账日期时间
 Posting Date,过账日期
 Tax ID,税务登记号
 Invoice,发票
+
+# COS Work (worker-portal)
+Workbench,工作台
+Approval,审批
+Purchase order approval, etc.,采购订单等审批
+Inbound Stocktaking,入库盘点
+Inventory count and adjustment,库存盘点与调整
+Username,账号
+Redirect to workbench after login,登录成功后将跳转到工作台
+Login failed,登录失败
+Approval feature in development. Direct link:,审批功能开发中。可通过链接直接审批：
+Back to Workbench,返回工作台
+Inbound stocktaking feature in development.,入库盘点功能开发中。

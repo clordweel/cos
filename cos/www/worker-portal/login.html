@@ -1,6 +1,6 @@
-{% extends "templates/web.html" %}
+{% extends "cos/templates/cos_work_base.html" %}
 
-{% block title %}登录{% endblock %}
+{% block title %}{{ _("Login") }}{% endblock %}
 
 {% block page_content %}
 <script>
@@ -16,19 +16,19 @@
 })();
 </script>
 <div class="worker-portal-login container py-5" style="max-width: 400px;">
-	<h2 class="mb-4">登录</h2>
+	<h2 class="mb-4">{{ _("Login") }}</h2>
 	<form id="login-form" method="post" action="/api/method/login">
 		<div class="mb-3">
-			<label for="usr" class="form-label">账号</label>
+			<label for="usr" class="form-label">{{ _("Username") }}</label>
 			<input type="text" class="form-control form-control-lg" id="usr" name="usr" required autocomplete="username">
 		</div>
 		<div class="mb-3">
-			<label for="pwd" class="form-label">密码</label>
+			<label for="pwd" class="form-label">{{ _("Password") }}</label>
 			<input type="password" class="form-control form-control-lg" id="pwd" name="pwd" required autocomplete="current-password">
 		</div>
-		<button type="submit" class="btn btn-primary btn-lg w-100">登录</button>
+		<button type="submit" class="btn btn-primary btn-lg w-100">{{ _("Login") }}</button>
 	</form>
-	<p class="text-muted mt-3 small">登录成功后将跳转到工作台</p>
+	<p class="text-muted mt-3 small">{{ _("Redirect to workbench after login") }}</p>
 </div>
 <script>
 document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -45,11 +45,11 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
 		if (data.message === 'Logged In') {
 			window.location.href = '/worker-portal';
 		} else {
-			alert(data.message || '登录失败');
+			alert(data.message || '{{ _("Login failed") }}');
 			btn.disabled = false;
 		}
 	}).catch(function(err) {
-		alert('登录失败');
+		alert('{{ _("Login failed") }}');
 		btn.disabled = false;
 	});
 });

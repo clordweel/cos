@@ -1,6 +1,6 @@
-{% extends "templates/web.html" %}
+{% extends "cos/templates/cos_work_base.html" %}
 
-{% block title %}工作台{% endblock %}
+{% block title %}{{ _("Workbench") }}{% endblock %}
 
 {% block page_content %}
 <script>
@@ -17,15 +17,15 @@
 })();
 </script>
 <div class="worker-portal container py-5">
-	<h2 class="mb-4">工作台</h2>
+	<h2 class="mb-4">{{ _("Workbench") }}</h2>
 	<div class="list-group">
 		<a href="/worker-portal/approval" class="list-group-item list-group-item-action py-4">
-			<h5>审批</h5>
-			<p class="text-muted mb-0">采购订单等审批</p>
+			<h5>{{ _("Approval") }}</h5>
+			<p class="text-muted mb-0">{{ _("Purchase order approval, etc.") }}</p>
 		</a>
 		<a href="/worker-portal/stock" class="list-group-item list-group-item-action py-4">
-			<h5>入库盘点</h5>
-			<p class="text-muted mb-0">库存盘点与调整</p>
+			<h5>{{ _("Inbound Stocktaking") }}</h5>
+			<p class="text-muted mb-0">{{ _("Inventory count and adjustment") }}</p>
 		</a>
 	</div>
 </div>
