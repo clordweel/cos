@@ -38,5 +38,6 @@ def _patched_validate_csrf_token(self):
 def patch():
 	"""Patch HTTPRequest.validate_csrf_token，对有效 wpt token 跳过 CSRF。"""
 	global _original_validate_csrf_token
-	_original_validate_csrf_token = frappe.auth.HTTPRequest.validate_csrf_token
-	frappe.auth.HTTPRequest.validate_csrf_token = _patched_validate_csrf_token
+	import frappe.auth as auth_module  # 确保 auth 已加载（cos 加载时可能尚未加载）
+	_original_validate_csrf_token = auth_module.HTTPRequest.validate_csrf_token
+	auth_module.HTTPRequest.validate_csrf_token = _patched_validate_csrf_token
