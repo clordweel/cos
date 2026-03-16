@@ -29,8 +29,18 @@ def _is_valid_worker_portal_token() -> bool:
 	return bool(frappe.cache.get_value(f"{CACHE_KEY_PREFIX}{raw}"))
 
 
+def _is_login_for_token_request() -> bool:
+	"""检查是否为 Worker Portal 登录接口（首次登录无 token，需豁免 CSRF）。"""
+	if not getattr(frappe.local, "request", None):
+		return False
+	path = getattr(frappe.request, "path", "") or ""
+	return "login_for_token" in path or "worker_portal_api.login_for_token" in path
+
+
 def _patched_validate_csrf_token(self):
 	if _is_valid_worker_portal_token():
+		return
+	if _is_login_for_token_request():
 		return
 	return _original_validate_csrf_token(self)
 
