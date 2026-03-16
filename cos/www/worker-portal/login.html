@@ -1,0 +1,57 @@
+{% extends "templates/web.html" %}
+
+{% block title %}登录{% endblock %}
+
+{% block page_content %}
+<script>
+(function() {
+	fetch('/api/method/frappe.auth.get_logged_user', { credentials: 'same-origin' })
+		.then(function(r) { return r.json(); })
+		.then(function(data) {
+			var user = (data.message || '').trim();
+			if (user && user !== 'Guest') {
+				window.location.href = '/worker-portal';
+			}
+		});
+})();
+</script>
+<div class="worker-portal-login container py-5" style="max-width: 400px;">
+	<h2 class="mb-4">登录</h2>
+	<form id="login-form" method="post" action="/api/method/login">
+		<div class="mb-3">
+			<label for="usr" class="form-label">账号</label>
+			<input type="text" class="form-control form-control-lg" id="usr" name="usr" required autocomplete="username">
+		</div>
+		<div class="mb-3">
+			<label for="pwd" class="form-label">密码</label>
+			<input type="password" class="form-control form-control-lg" id="pwd" name="pwd" required autocomplete="current-password">
+		</div>
+		<button type="submit" class="btn btn-primary btn-lg w-100">登录</button>
+	</form>
+	<p class="text-muted mt-3 small">登录成功后将跳转到工作台</p>
+</div>
+<script>
+document.getElementById('login-form').addEventListener('submit', function(e) {
+	e.preventDefault();
+	var form = this;
+	var btn = form.querySelector('button[type=submit]');
+	btn.disabled = true;
+	var fd = new FormData(form);
+	fetch('/api/method/login', {
+		method: 'POST',
+		body: fd,
+		credentials: 'same-origin'
+	}).then(function(r) { return r.json(); }).then(function(data) {
+		if (data.message === 'Logged In') {
+			window.location.href = '/worker-portal';
+		} else {
+			alert(data.message || '登录失败');
+			btn.disabled = false;
+		}
+	}).catch(function(err) {
+		alert('登录失败');
+		btn.disabled = false;
+	});
+});
+</script>
+{% endblock %}

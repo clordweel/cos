@@ -1,0 +1,32 @@
+{% extends "templates/web.html" %}
+
+{% block title %}工作台{% endblock %}
+
+{% block page_content %}
+<script>
+(function() {
+	fetch('/api/method/frappe.auth.get_logged_user', { credentials: 'same-origin' })
+		.then(function(r) { return r.json(); })
+		.then(function(data) {
+			var user = (data.message || '').trim();
+			if (!user || user === 'Guest') {
+				window.location.href = '/worker-portal/login';
+				return;
+			}
+		});
+})();
+</script>
+<div class="worker-portal container py-5">
+	<h2 class="mb-4">工作台</h2>
+	<div class="list-group">
+		<a href="/worker-portal/approval" class="list-group-item list-group-item-action py-4">
+			<h5>审批</h5>
+			<p class="text-muted mb-0">采购订单等审批</p>
+		</a>
+		<a href="/worker-portal/stock" class="list-group-item list-group-item-action py-4">
+			<h5>入库盘点</h5>
+			<p class="text-muted mb-0">库存盘点与调整</p>
+		</a>
+	</div>
+</div>
+{% endblock %}
