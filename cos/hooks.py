@@ -41,6 +41,11 @@ app_include_js = [
 # web_include_css = "/assets/cos/css/cos.css"
 # web_include_js = "/assets/cos/js/cos.js"
 
+# Worker Portal SPA：/worker-portal/approval/<id> 统一由 approval 页面渲染
+website_route_rules = [
+	{"from_route": "/worker-portal/approval/<path:id>", "to_route": "worker-portal/approval"},
+]
+
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "cos/public/scss/website"
 
@@ -304,6 +309,9 @@ override_whitelisted_methods = {
 
 on_login = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
 on_session_creation = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
+
+# Worker Portal: Bearer token 鉴权（替代 cookies，解决 iOS WebView 问题）
+auth_hooks = ["cos.worker_portal_api.validate_worker_portal_token"]
 
 # auth_hooks = [
 # 	"cos.auth.validate"

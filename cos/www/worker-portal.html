@@ -3,30 +3,10 @@
 {% block title %}{{ _("Workbench") }}{% endblock %}
 
 {% block page_content %}
+<div id="worker-portal-root" class="min-h-screen"></div>
 <script>
-(function() {
-	fetch('/api/method/cos.worker_portal_api.get_logged_user', { credentials: 'same-origin' })
-		.then(function(r) { return r.json(); })
-		.then(function(data) {
-			var user = (data.message || '').trim();
-			if (!user || user === 'Guest') {
-				window.location.href = '/worker-portal/login';
-				return;
-			}
-		});
-})();
+window.__WORKER_PORTAL_CONFIG__ = { apiBase: "", initialToken: null };
 </script>
-<div class="worker-portal container py-5">
-	<h2 class="mb-4">{{ _("Workbench") }}</h2>
-	<div class="list-group">
-		<a href="/worker-portal/approval" class="list-group-item list-group-item-action py-4">
-			<h5>{{ _("Approval") }}</h5>
-			<p class="text-muted mb-0">{{ _("Purchase order approval, etc.") }}</p>
-		</a>
-		<a href="/worker-portal/stock" class="list-group-item list-group-item-action py-4">
-			<h5>{{ _("Inbound Stocktaking") }}</h5>
-			<p class="text-muted mb-0">{{ _("Inventory count and adjustment") }}</p>
-		</a>
-	</div>
-</div>
+<link rel="stylesheet" href="/assets/cos/worker_portal/worker-portal.css">
+<script type="module" src="/assets/cos/worker_portal/worker-portal.js"></script>
 {% endblock %}
