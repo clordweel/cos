@@ -5,7 +5,7 @@
 {% block page_content %}
 <script>
 (function() {
-	fetch('/api/method/frappe.auth.get_logged_user', { credentials: 'same-origin' })
+	fetch('/api/method/cos.worker_portal_api.get_logged_user', { credentials: 'same-origin' })
 		.then(function(r) { return r.json(); })
 		.then(function(data) {
 			var user = (data.message || '').trim();
