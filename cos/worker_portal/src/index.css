@@ -49,3 +49,9 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+/* Worker Portal：去除 Frappe 模板 .page-content-wrapper .container 的 padding */
+.page-content-wrapper .container {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
