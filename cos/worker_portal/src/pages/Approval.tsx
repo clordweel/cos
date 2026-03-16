@@ -54,40 +54,40 @@ export function Approval() {
 					返回工作台
 				</Link>
 			</header>
-			<main className="container max-w-4xl py-8 px-4">
+			<main className="container max-w-4xl py-4 px-3 sm:px-4">
 				<Card>
-					<CardHeader>
-						<CardTitle>采购垫付报销审批</CardTitle>
-						<CardDescription>
-							员工垫付未报销的采购发票列表，点击行可查看详情并创建应付转员工日记账
+					<CardHeader className="p-4 pb-2">
+						<CardTitle className="text-lg">采购垫付报销审批</CardTitle>
+						<CardDescription className="text-xs mt-0.5">
+							员工垫付未报销的采购发票，点击行查看详情并创建应付转员工 JE
 						</CardDescription>
 					</CardHeader>
-					<CardContent>
+					<CardContent className="p-4 pt-0">
 						{loading && (
-							<div className="flex items-center justify-center py-12 text-muted-foreground">
-								<Loader2 className="h-8 w-8 animate-spin mr-2" />
+							<div className="flex items-center justify-center py-8 text-muted-foreground text-sm">
+								<Loader2 className="h-6 w-6 animate-spin mr-2" />
 								加载中...
 							</div>
 						)}
 						{error && (
-							<div className="py-8 text-center text-destructive">{error}</div>
+							<div className="py-6 text-center text-destructive text-sm">{error}</div>
 						)}
 						{!loading && !error && items.length === 0 && (
-							<div className="py-12 text-center text-muted-foreground">
+							<div className="py-8 text-center text-muted-foreground text-sm">
 								暂无待审批记录
 							</div>
 						)}
 						{!loading && !error && items.length > 0 && (
-							<Table>
+							<Table className="min-w-[32rem]">
 								<TableHeader>
 									<TableRow>
-										<TableHead>单据号</TableHead>
-										<TableHead>供应商</TableHead>
-										<TableHead>垫付员工</TableHead>
-										<TableHead className="text-right">金额</TableHead>
-										<TableHead>过账日期</TableHead>
-										<TableHead>JE 状态</TableHead>
-										<TableHead className="w-10" />
+										<TableHead className="h-9 px-2 py-2 text-xs font-medium">单据号</TableHead>
+										<TableHead className="h-9 px-2 py-2 text-xs font-medium">供应商</TableHead>
+										<TableHead className="h-9 px-2 py-2 text-xs font-medium">垫付员工</TableHead>
+										<TableHead className="h-9 px-2 py-2 text-xs font-medium text-right">金额</TableHead>
+										<TableHead className="h-9 px-2 py-2 text-xs font-medium">过账日期</TableHead>
+										<TableHead className="h-9 px-2 py-2 text-xs font-medium">JE 状态</TableHead>
+										<TableHead className="h-9 w-8 px-1" />
 									</TableRow>
 								</TableHeader>
 								<TableBody>
@@ -97,22 +97,24 @@ export function Approval() {
 											className="cursor-pointer"
 											onClick={() => navigate(`/worker-portal/approval/${row.name}`)}
 										>
-											<TableCell className="font-medium">{row.name}</TableCell>
-											<TableCell>{row.supplier || "-"}</TableCell>
-											<TableCell>{row.custom_advance_employee || "-"}</TableCell>
-											<TableCell className="text-right">
+											<TableCell className="px-2 py-2 text-xs font-medium whitespace-nowrap">{row.name}</TableCell>
+											<TableCell className="px-2 py-2 text-xs whitespace-nowrap">{row.supplier || "-"}</TableCell>
+											<TableCell className="px-2 py-2 text-xs whitespace-nowrap">{row.custom_advance_employee || "-"}</TableCell>
+											<TableCell className="px-2 py-2 text-xs text-right whitespace-nowrap">
 												{formatCurrency(row.grand_total ?? 0)}
 											</TableCell>
-											<TableCell>{formatDate(row.posting_date)}</TableCell>
-											<TableCell>
+											<TableCell className="px-2 py-2 text-xs whitespace-nowrap">
+												{formatDate(row.posting_date)}
+											</TableCell>
+											<TableCell className="px-2 py-2">
 												{row.custom_payable_transfer_je ? (
-													<Badge variant="success">已创建 JE</Badge>
+													<Badge variant="success" className="text-[10px] px-1.5 py-0">已创建</Badge>
 												) : (
-													<Badge variant="warning">待创建</Badge>
+													<Badge variant="warning" className="text-[10px] px-1.5 py-0">待创建</Badge>
 												)}
 											</TableCell>
-											<TableCell>
-												<ChevronRight className="h-4 w-4 text-muted-foreground" />
+											<TableCell className="px-1 py-2">
+												<ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
 											</TableCell>
 										</TableRow>
 									))}
