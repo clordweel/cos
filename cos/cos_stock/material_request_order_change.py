@@ -129,7 +129,7 @@ def _make_new_mr_item(mr, trans_item: dict, idx: int):
 	child.uom = trans_item.get("uom") or item.stock_uom
 	child.stock_uom = item.stock_uom
 
-	from erpnext.stock.utils import get_conversion_factor
+	from erpnext.stock.get_item_details import get_conversion_factor
 
 	conv = get_conversion_factor(item.item_code, child.uom)
 	child.conversion_factor = flt(trans_item.get("conversion_factor")) or flt(conv.get("conversion_factor")) or 1
