@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,6 +12,7 @@ interface LoginProps {
 
 export function Login({ onLogin }: LoginProps) {
 	const location = useLocation()
+	const navigate = useNavigate()
 	const from = (location.state as { from?: string })?.from || "/worker-portal"
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
@@ -26,6 +27,7 @@ export function Login({ onLogin }: LoginProps) {
 			const res = await login(username, password)
 			setToken(res.token)
 			onLogin(res.user, from)
+			navigate(from, { replace: true })
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "登录失败")
 		} finally {

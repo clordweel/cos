@@ -63,7 +63,8 @@ export async function login(username: string, password: string) {
 	if (data.exc) {
 		throw new Error(data.message || "登录失败")
 	}
-	return data
+	// Frappe 将方法返回值放在 message 中
+	return (data.message ?? data) as { token: string; user: string }
 }
 
 export async function getLoggedUser(): Promise<string> {
