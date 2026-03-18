@@ -1,7 +1,23 @@
 $(document).on('app_ready', () => {
+    patch_erpnext_buying_prevent_past_schedule_dates();
     get_company_abbreviation();
     patch_code_field();
 });
+
+// COS doctype_js 覆盖了 Purchase Order 的 ERPNext 脚本，需补上 erpnext.buying.prevent_past_schedule_dates
+// 供 BuyingController / 采购订单表单使用
+function patch_erpnext_buying_prevent_past_schedule_dates() {
+    frappe.provide('erpnext.buying');
+    if (typeof erpnext.buying.prevent_past_schedule_dates !== 'function') {
+        erpnext.buying.prevent_past_schedule_dates = function (frm) {
+            if (frm.doc.transaction_date && frm.fields_dict?.schedule_date?.datepicker) {
+                frm.fields_dict.schedule_date.datepicker.update({
+                    minDate: new Date(frm.doc.transaction_date),
+                });
+            }
+        };
+    }
+}
 
 // 获取当前会话公司的缩写并设置到body的data-company属性
 const get_company_abbreviation = () => {
