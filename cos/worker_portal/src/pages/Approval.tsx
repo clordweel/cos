@@ -37,46 +37,48 @@ export function Approval() {
 
 	return (
 		<div className="min-h-screen bg-muted/30">
-			<header className="border-b bg-background px-4 py-3">
+			<header className="border-b bg-background px-4 py-4 sm:px-6">
 				<Link
 					to="/worker-portal"
-					className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+					className="inline-flex items-center gap-2 rounded-md px-1 py-1.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground -ml-1"
 				>
-					<ArrowLeft className="h-4 w-4 mr-2" />
+					<ArrowLeft className="h-4 w-4 shrink-0" />
 					返回工作台
 				</Link>
 			</header>
-			<main className="container max-w-md py-4 px-3 sm:px-4">
-				<div className="space-y-4">
-					<div>
-						<h1 className="text-lg font-semibold">采购垫付报销审批</h1>
-						<p className="text-sm text-muted-foreground mt-0.5">
+			<main className="container max-w-md px-4 py-6 sm:px-6 sm:py-8">
+				<div className="space-y-6">
+					<div className="space-y-1.5">
+						<h1 className="text-lg font-semibold leading-tight tracking-tight">
+							采购垫付报销审批
+						</h1>
+						<p className="text-sm text-muted-foreground leading-relaxed">
 							点击卡片查看详情并创建应付转员工 JE
 						</p>
 					</div>
 					{loading && (
-						<div className="flex items-center justify-center py-12 text-muted-foreground text-sm">
+						<div className="flex items-center justify-center py-16 text-muted-foreground text-sm">
 							<Loader2 className="h-6 w-6 animate-spin mr-2" />
 							加载中...
 						</div>
 					)}
 					{error && (
-						<div className="py-6 text-center text-destructive text-sm">{error}</div>
+						<div className="py-12 text-center text-destructive text-sm">{error}</div>
 					)}
 					{!loading && !error && items.length === 0 && (
-						<div className="py-12 text-center text-muted-foreground text-sm rounded-lg border border-dashed bg-background">
+						<div className="py-16 px-6 text-center text-muted-foreground text-sm rounded-lg border border-dashed bg-background">
 							暂无待审批记录
 						</div>
 					)}
 					{!loading && !error && items.length > 0 && (
-						<ul className="space-y-3">
+						<ul className="space-y-4">
 							{items.map((row) => (
 								<li key={row.name}>
 									<Card className="overflow-hidden">
-										<CardContent className="p-4 pb-3">
+										<CardContent className="p-6 space-y-3">
 											{/* 标题：强调金额 */}
-											<div className="flex items-start justify-between gap-2 mb-1">
-												<span className="text-xl font-semibold tracking-tight">
+											<div className="flex items-start justify-between gap-3">
+												<span className="text-xl font-semibold tracking-tight leading-tight">
 													{formatCurrency(row.grand_total ?? 0)}
 												</span>
 												{row.custom_payable_transfer_je ? (
@@ -90,16 +92,16 @@ export function Approval() {
 												)}
 											</div>
 											{/* 弱化：单据号 */}
-											<p className="text-xs text-muted-foreground mb-2">
+											<p className="text-xs text-muted-foreground leading-relaxed">
 												{row.name}
 											</p>
 											{/* 正文：员工、日期 */}
-											<p className="text-sm text-foreground/90">
+											<p className="text-sm text-foreground/90 leading-relaxed">
 												{row.custom_advance_employee || "未知员工"} · {formatDate(row.posting_date)}
 											</p>
 										</CardContent>
-										{/* 底部操作 */}
-										<div className="border-t px-4 py-2.5 bg-muted/30">
+										{/* 底部操作：shadcn CardFooter 风格 */}
+										<div className="border-t px-6 py-4 bg-muted/30">
 											<Button
 												variant="outline"
 												size="sm"
