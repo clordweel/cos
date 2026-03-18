@@ -46,7 +46,7 @@ export function Approval() {
 					返回工作台
 				</Link>
 			</header>
-			<main className="container max-w-md px-4 py-6 sm:px-6 sm:py-8">
+			<main className="w-full max-w-md mx-auto px-6 py-6 sm:px-8 sm:py-8">
 				<div className="space-y-6">
 					<div className="space-y-1.5">
 						<h1 className="text-lg font-semibold leading-tight tracking-tight">

@@ -93,8 +93,9 @@ def list_employee_advance_pending(limit=50):
 
 
 @frappe.whitelist()
-def get_purchase_invoice_detail(name: str):
+def get_purchase_invoice_detail(name: str = None):
 	"""返回采购发票详情，供审批详情页展示。"""
+	name = name or frappe.form_dict.get("name")
 	if not name or not frappe.db.exists("Purchase Invoice", name):
 		frappe.throw(_("Purchase Invoice not found"), frappe.DoesNotExistError)
 	doc = frappe.get_doc("Purchase Invoice", name)
@@ -124,8 +125,11 @@ def get_purchase_invoice_detail(name: str):
 
 
 @frappe.whitelist()
-def create_payable_transfer_je(docname: str):
+def create_payable_transfer_je(docname: str = None):
 	"""创建应付转员工日记账。包装 cos_accounts 方法。"""
+	docname = docname or frappe.form_dict.get("docname")
+	if not docname:
+		frappe.throw(_("docname is required"), frappe.ValidationError)
 	from cos.cos_accounts.utils.employee_advance_payable_transfer import create_payable_transfer_je as _create
 
 	return _create(docname)
