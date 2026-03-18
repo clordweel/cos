@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, ChevronRight, Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ArrowLeft, Loader2 } from "lucide-react"
 import { listEmployeeAdvancePending, type EmployeeAdvanceItem } from "@/lib/api"
 
 function formatCurrency(n: number): string {
@@ -71,38 +72,43 @@ export function Approval() {
 						<ul className="space-y-3">
 							{items.map((row) => (
 								<li key={row.name}>
-									<Card
-										className="cursor-pointer transition-colors hover:bg-accent/50 active:bg-accent"
-										onClick={() => navigate(`/worker-portal/approval/${row.name}`)}
-									>
-										<CardContent className="p-4">
-											<div className="flex items-start justify-between gap-3">
-												<div className="min-w-0 flex-1 space-y-1">
-													<p className="font-medium text-sm truncate">
-														{row.custom_advance_employee || "未知员工"}
-													</p>
-													<div className="flex items-center gap-2 text-xs text-muted-foreground">
-														<span className="font-medium text-foreground">
-															{formatCurrency(row.grand_total ?? 0)}
-														</span>
-														<span>·</span>
-														<span>{formatDate(row.posting_date)}</span>
-													</div>
-												</div>
-												<div className="flex shrink-0 items-center gap-2">
-													{row.custom_payable_transfer_je ? (
-														<Badge variant="success" className="text-[10px] px-2 py-0.5">
-															已创建
-														</Badge>
-													) : (
-														<Badge variant="warning" className="text-[10px] px-2 py-0.5">
-															待创建
-														</Badge>
-													)}
-													<ChevronRight className="h-4 w-4 text-muted-foreground" />
-												</div>
+									<Card className="overflow-hidden">
+										<CardContent className="p-4 pb-3">
+											{/* 标题：强调金额 */}
+											<div className="flex items-start justify-between gap-2 mb-1">
+												<span className="text-xl font-semibold tracking-tight">
+													{formatCurrency(row.grand_total ?? 0)}
+												</span>
+												{row.custom_payable_transfer_je ? (
+													<Badge variant="success" className="text-[10px] px-2 py-0.5 shrink-0">
+														已创建
+													</Badge>
+												) : (
+													<Badge variant="warning" className="text-[10px] px-2 py-0.5 shrink-0">
+														待创建
+													</Badge>
+												)}
 											</div>
+											{/* 弱化：单据号 */}
+											<p className="text-xs text-muted-foreground mb-2">
+												{row.name}
+											</p>
+											{/* 正文：员工、日期 */}
+											<p className="text-sm text-foreground/90">
+												{row.custom_advance_employee || "未知员工"} · {formatDate(row.posting_date)}
+											</p>
 										</CardContent>
+										{/* 底部操作 */}
+										<div className="border-t px-4 py-2.5 bg-muted/30">
+											<Button
+												variant="outline"
+												size="sm"
+												className="w-full"
+												onClick={() => navigate(`/worker-portal/approval/${row.name}`)}
+											>
+												查看详情
+											</Button>
+										</div>
 									</Card>
 								</li>
 							))}
