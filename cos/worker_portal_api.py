@@ -89,6 +89,12 @@ def list_employee_advance_pending(limit=50):
 		order_by="posting_date desc",
 		limit=limit,
 	)
+	# 补充员工真实姓名
+	for row in data:
+		emp_id = row.get("custom_advance_employee")
+		row["employee_name"] = (
+			frappe.db.get_value("Employee", emp_id, "employee_name") if emp_id else None
+		)
 	return data
 
 
@@ -103,10 +109,13 @@ def get_purchase_invoice_detail(name: str = None):
 		frappe.throw(_("Purchase Invoice must be submitted"))
 	if not doc.get("custom_is_employee_advance"):
 		frappe.throw(_("Not an employee advance invoice"))
+	emp_id = doc.get("custom_advance_employee")
+	employee_name = frappe.db.get_value("Employee", emp_id, "employee_name") if emp_id else None
 	return {
 		"name": doc.name,
 		"supplier": doc.supplier,
-		"custom_advance_employee": doc.get("custom_advance_employee"),
+		"custom_advance_employee": emp_id,
+		"employee_name": employee_name,
 		"grand_total": doc.grand_total,
 		"posting_date": str(doc.posting_date) if doc.posting_date else None,
 		"custom_payable_transfer_je": doc.get("custom_payable_transfer_je"),

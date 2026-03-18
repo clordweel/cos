@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
+import dayjs from "dayjs"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -27,11 +28,8 @@ function formatCurrency(n: number): string {
 
 function formatDate(s: string | null): string {
 	if (!s) return "-"
-	try {
-		return new Date(s).toLocaleDateString("zh-CN")
-	} catch {
-		return s
-	}
+	const d = dayjs(s)
+	return d.isValid() ? d.format("YYYY/M/D") : s
 }
 
 export function ApprovalDetail() {
@@ -137,7 +135,7 @@ export function ApprovalDetail() {
 									</div>
 									<div>
 										<span className="text-muted-foreground">垫付员工：</span>
-										{detail.custom_advance_employee || "-"}
+										{detail.employee_name || detail.custom_advance_employee || "-"}
 									</div>
 									<div>
 										<span className="text-muted-foreground">报销状态：</span>

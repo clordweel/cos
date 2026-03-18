@@ -85,6 +85,7 @@ export interface EmployeeAdvanceItem {
 	name: string
 	supplier: string
 	custom_advance_employee: string | null
+	employee_name?: string | null
 	grand_total: number
 	posting_date: string | null
 	custom_payable_transfer_je: string | null
@@ -102,6 +103,7 @@ export interface PurchaseInvoiceDetail {
 	name: string
 	supplier: string
 	custom_advance_employee: string | null
+	employee_name?: string | null
 	grand_total: number
 	posting_date: string | null
 	custom_payable_transfer_je: string | null

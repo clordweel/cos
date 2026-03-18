@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import dayjs from "dayjs"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -15,11 +16,8 @@ function formatCurrency(n: number): string {
 
 function formatDate(s: string | null): string {
 	if (!s) return "-"
-	try {
-		return new Date(s).toLocaleDateString("zh-CN")
-	} catch {
-		return s
-	}
+	const d = dayjs(s)
+	return d.isValid() ? d.format("YYYY/M/D") : s
 }
 
 export function Approval() {
@@ -76,10 +74,10 @@ export function Approval() {
 								<li key={row.name}>
 									<Card className="overflow-hidden">
 										<CardContent className="p-6 space-y-3">
-											{/* 标题：强调金额 */}
-											<div className="flex items-start justify-between gap-3">
-												<span className="text-xl font-semibold tracking-tight leading-tight">
-													{formatCurrency(row.grand_total ?? 0)}
+											{/* 首行：单据号左上角最小字，报销状态右上角 */}
+											<div className="flex items-start justify-between gap-2">
+												<span className="text-[10px] text-muted-foreground leading-none">
+													{row.name}
 												</span>
 												{row.custom_payable_transfer_je ? (
 													<Badge variant="success" className="text-[10px] px-2 py-0.5 shrink-0">
@@ -91,13 +89,13 @@ export function Approval() {
 													</Badge>
 												)}
 											</div>
-											{/* 弱化：单据号 */}
-											<p className="text-xs text-muted-foreground leading-relaxed">
-												{row.name}
-											</p>
-											{/* 正文：员工、日期 */}
+											{/* 金额 */}
+											<span className="text-xl font-semibold tracking-tight leading-tight block">
+												{formatCurrency(row.grand_total ?? 0)}
+											</span>
+											{/* 员工姓名、日期 */}
 											<p className="text-sm text-foreground/90 leading-relaxed">
-												{row.custom_advance_employee || "未知员工"} · {formatDate(row.posting_date)}
+												{row.employee_name || row.custom_advance_employee || "未知员工"} · {formatDate(row.posting_date)}
 											</p>
 										</CardContent>
 										{/* 底部操作：shadcn CardFooter 风格 */}
