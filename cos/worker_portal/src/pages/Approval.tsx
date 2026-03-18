@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, ChevronRight, Loader2 } from "lucide-react"
 import { listEmployeeAdvancePending, type EmployeeAdvanceItem } from "@/lib/api"
@@ -54,75 +45,70 @@ export function Approval() {
 					返回工作台
 				</Link>
 			</header>
-			<main className="container max-w-4xl py-4 px-3 sm:px-4">
-				<Card>
-					<CardHeader className="p-4 pb-2">
-						<CardTitle className="text-lg">采购垫付报销审批</CardTitle>
-						<CardDescription className="text-xs mt-0.5">
-							员工垫付未报销的采购发票，点击行查看详情并创建应付转员工 JE
-						</CardDescription>
-					</CardHeader>
-					<CardContent className="p-4 pt-0">
-						{loading && (
-							<div className="flex items-center justify-center py-8 text-muted-foreground text-sm">
-								<Loader2 className="h-6 w-6 animate-spin mr-2" />
-								加载中...
-							</div>
-						)}
-						{error && (
-							<div className="py-6 text-center text-destructive text-sm">{error}</div>
-						)}
-						{!loading && !error && items.length === 0 && (
-							<div className="py-8 text-center text-muted-foreground text-sm">
-								暂无待审批记录
-							</div>
-						)}
-						{!loading && !error && items.length > 0 && (
-							<Table className="min-w-[32rem]">
-								<TableHeader>
-									<TableRow>
-										<TableHead className="h-9 px-2 py-2 text-xs font-medium">单据号</TableHead>
-										<TableHead className="h-9 px-2 py-2 text-xs font-medium">供应商</TableHead>
-										<TableHead className="h-9 px-2 py-2 text-xs font-medium">垫付员工</TableHead>
-										<TableHead className="h-9 px-2 py-2 text-xs font-medium text-right">金额</TableHead>
-										<TableHead className="h-9 px-2 py-2 text-xs font-medium">过账日期</TableHead>
-										<TableHead className="h-9 px-2 py-2 text-xs font-medium">JE 状态</TableHead>
-										<TableHead className="h-9 w-8 px-1" />
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									{items.map((row) => (
-										<TableRow
-											key={row.name}
-											className="cursor-pointer"
-											onClick={() => navigate(`/worker-portal/approval/${row.name}`)}
-										>
-											<TableCell className="px-2 py-2 text-xs font-medium whitespace-nowrap">{row.name}</TableCell>
-											<TableCell className="px-2 py-2 text-xs whitespace-nowrap">{row.supplier || "-"}</TableCell>
-											<TableCell className="px-2 py-2 text-xs whitespace-nowrap">{row.custom_advance_employee || "-"}</TableCell>
-											<TableCell className="px-2 py-2 text-xs text-right whitespace-nowrap">
-												{formatCurrency(row.grand_total ?? 0)}
-											</TableCell>
-											<TableCell className="px-2 py-2 text-xs whitespace-nowrap">
-												{formatDate(row.posting_date)}
-											</TableCell>
-											<TableCell className="px-2 py-2">
-												{row.custom_payable_transfer_je ? (
-													<Badge variant="success" className="text-[10px] px-1.5 py-0">已创建</Badge>
-												) : (
-													<Badge variant="warning" className="text-[10px] px-1.5 py-0">待创建</Badge>
-												)}
-											</TableCell>
-											<TableCell className="px-1 py-2">
-												<ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-						)}
-					</CardContent>
-				</Card>
+			<main className="container max-w-md py-4 px-3 sm:px-4">
+				<div className="space-y-4">
+					<div>
+						<h1 className="text-lg font-semibold">采购垫付报销审批</h1>
+						<p className="text-sm text-muted-foreground mt-0.5">
+							点击卡片查看详情并创建应付转员工 JE
+						</p>
+					</div>
+					{loading && (
+						<div className="flex items-center justify-center py-12 text-muted-foreground text-sm">
+							<Loader2 className="h-6 w-6 animate-spin mr-2" />
+							加载中...
+						</div>
+					)}
+					{error && (
+						<div className="py-6 text-center text-destructive text-sm">{error}</div>
+					)}
+					{!loading && !error && items.length === 0 && (
+						<div className="py-12 text-center text-muted-foreground text-sm rounded-lg border border-dashed bg-background">
+							暂无待审批记录
+						</div>
+					)}
+					{!loading && !error && items.length > 0 && (
+						<ul className="space-y-3">
+							{items.map((row) => (
+								<li key={row.name}>
+									<Card
+										className="cursor-pointer transition-colors hover:bg-accent/50 active:bg-accent"
+										onClick={() => navigate(`/worker-portal/approval/${row.name}`)}
+									>
+										<CardContent className="p-4">
+											<div className="flex items-start justify-between gap-3">
+												<div className="min-w-0 flex-1 space-y-1">
+													<p className="font-medium text-sm truncate">
+														{row.custom_advance_employee || "未知员工"}
+													</p>
+													<div className="flex items-center gap-2 text-xs text-muted-foreground">
+														<span className="font-medium text-foreground">
+															{formatCurrency(row.grand_total ?? 0)}
+														</span>
+														<span>·</span>
+														<span>{formatDate(row.posting_date)}</span>
+													</div>
+												</div>
+												<div className="flex shrink-0 items-center gap-2">
+													{row.custom_payable_transfer_je ? (
+														<Badge variant="success" className="text-[10px] px-2 py-0.5">
+															已创建
+														</Badge>
+													) : (
+														<Badge variant="warning" className="text-[10px] px-2 py-0.5">
+															待创建
+														</Badge>
+													)}
+													<ChevronRight className="h-4 w-4 text-muted-foreground" />
+												</div>
+											</div>
+										</CardContent>
+									</Card>
+								</li>
+							))}
+						</ul>
+					)}
+				</div>
 			</main>
 		</div>
 	)

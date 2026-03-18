@@ -30,11 +30,22 @@ def _is_valid_worker_portal_token() -> bool:
 
 
 def _is_login_for_token_request() -> bool:
-	"""检查是否为 Worker Portal 登录接口（首次登录无 token，需豁免 CSRF）。"""
-	if not getattr(frappe.local, "request", None):
+	"""检查是否为 Worker Portal 登录接口（首次登录无 token，需豁免 CSRF）。
+
+	validate_csrf_token 在 HTTPRequest 中执行，早于 frappe.api.handle，
+	此时 form_dict.cmd 可能尚未从 URL 解析，故优先用 request.path 判断。
+	"""
+	req = getattr(frappe.local, "request", None)
+	if not req:
 		return False
-	path = getattr(frappe.request, "path", "") or ""
-	return "login_for_token" in path or "worker_portal_api.login_for_token" in path
+	path = getattr(req, "path", "") or ""
+	url = getattr(req, "url", "") or ""
+	if "login_for_token" in path or "login_for_token" in url:
+		return True
+	cmd = getattr(frappe.local, "form_dict", None)
+	if cmd and getattr(cmd, "cmd", None):
+		return "login_for_token" in str(cmd.cmd)
+	return False
 
 
 def _patched_validate_csrf_token(self):
