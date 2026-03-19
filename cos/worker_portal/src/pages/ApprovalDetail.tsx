@@ -138,6 +138,10 @@ export function ApprovalDetail() {
 										{detail.employee_name || detail.custom_advance_employee || "-"}
 									</div>
 									<div>
+										<span className="text-muted-foreground">报销审批：</span>
+										{detail.custom_reimbursement_approval_status || "Pending"}
+									</div>
+									<div>
 										<span className="text-muted-foreground">报销状态：</span>
 										{detail.custom_employee_reimbursed || "未报销"}
 									</div>
@@ -155,20 +159,34 @@ export function ApprovalDetail() {
 									)}
 								</div>
 								{!detail.custom_payable_transfer_je && (
-									<Button
-										onClick={handleCreateJe}
-										disabled={creating}
-										className="w-full sm:w-auto"
-									>
-										{creating ? (
-											<>
-												<Loader2 className="h-4 w-4 mr-2 animate-spin" />
-												创建中...
-											</>
-										) : (
-											"创建应付转员工日记账"
-										)}
-									</Button>
+									<>
+										{(() => {
+											const status = detail.custom_reimbursement_approval_status || ""
+											const needsApproval = status && status !== "Approved"
+											return needsApproval ? (
+												<p className="text-sm text-muted-foreground">
+													报销审批未通过（{status}），无法创建应付转员工日记账。请先在 Frappe 中生成审批链接并完成审批。
+												</p>
+											) : null
+										})()}
+										<Button
+											onClick={handleCreateJe}
+											disabled={creating || (() => {
+												const status = detail.custom_reimbursement_approval_status || ""
+												return status === "Pending" || status === "Rejected"
+											})()}
+											className="w-full sm:w-auto"
+										>
+											{creating ? (
+												<>
+													<Loader2 className="h-4 w-4 mr-2 animate-spin" />
+													创建中...
+												</>
+											) : (
+												"创建应付转员工日记账"
+											)}
+										</Button>
+									</>
 								)}
 							</CardContent>
 						</Card>

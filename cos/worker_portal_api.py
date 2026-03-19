@@ -68,16 +68,22 @@ def validate_worker_portal_token():
 
 
 @frappe.whitelist()
-def list_employee_advance_pending(limit=50):
-	"""返回员工垫付未报销的采购发票列表，供审批页展示。"""
+def list_employee_advance_pending(limit=50, approved_only=1):
+	"""返回员工垫付未报销的采购发票列表，供审批页展示。
+	approved_only=1 时仅返回报销审批已通过的 PI，便于财务创建 JE。"""
 	limit = int(limit) if limit is not None else 50
+	approved_only = int(approved_only) if approved_only is not None else 1
+	filters = {
+		"docstatus": 1,
+		"custom_is_employee_advance": 1,
+		"custom_employee_reimbursed": "未报销",
+	}
+	if approved_only:
+		# 仅展示审批通过的；历史数据无此字段视为通过（向后兼容）
+		filters["custom_reimbursement_approval_status"] = ["in", ["Approved", None, ""]]
 	data = frappe.get_all(
 		"Purchase Invoice",
-		filters={
-			"docstatus": 1,
-			"custom_is_employee_advance": 1,
-			"custom_employee_reimbursed": "未报销",
-		},
+		filters=filters,
 		fields=[
 			"name",
 			"supplier",
@@ -85,6 +91,7 @@ def list_employee_advance_pending(limit=50):
 			"grand_total",
 			"posting_date",
 			"custom_payable_transfer_je",
+			"custom_reimbursement_approval_status",
 		],
 		order_by="posting_date desc",
 		limit=limit,
@@ -120,6 +127,10 @@ def get_purchase_invoice_detail(name: str = None):
 		"posting_date": str(doc.posting_date) if doc.posting_date else None,
 		"custom_payable_transfer_je": doc.get("custom_payable_transfer_je"),
 		"custom_employee_reimbursed": doc.get("custom_employee_reimbursed") or "未报销",
+		"custom_reimbursement_approval_status": doc.get("custom_reimbursement_approval_status") or "Pending",
+		"custom_reimbursement_approved_by": doc.get("custom_reimbursement_approved_by"),
+		"custom_reimbursement_approved_on": str(doc.custom_reimbursement_approved_on) if doc.get("custom_reimbursement_approved_on") else None,
+		"custom_reimbursement_remark": doc.get("custom_reimbursement_remark"),
 		"items": [
 			{
 				"item_code": row.item_code,

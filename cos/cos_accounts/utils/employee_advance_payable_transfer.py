@@ -127,6 +127,7 @@ def create_payable_transfer_je(docname: str):
 			title=_("已创建"),
 		)
 
+	_validate_reimbursement_approval(pi)
 	je = _create_payable_transfer_journal_entry(pi, employee)
 	if je:
 		frappe.db.set_value(
@@ -228,6 +229,18 @@ def _has_other_submitted_pe_for_je(je_name: str, exclude_pe: str) -> bool:
 def _should_create_payable_transfer_je(doc) -> bool:
 	"""判断是否需创建应付转员工 JE。"""
 	return bool(doc.get("custom_is_employee_advance"))
+
+
+def _validate_reimbursement_approval(pi_doc):
+	"""员工垫付时，报销审批需为 Approved 才能创建 JE 或付给员工。"""
+	if not _should_create_payable_transfer_je(pi_doc):
+		return
+	status = pi_doc.get("custom_reimbursement_approval_status") or "Pending"
+	if status != "Approved":
+		frappe.throw(
+			_("员工垫付报销需审批通过后才能创建应付转员工日记账/付给员工"),
+			title=_("报销审批未通过"),
+		)
 
 
 def _create_payable_transfer_journal_entry(pi_doc, employee: str):
@@ -377,6 +390,7 @@ def get_employee_advance_payment_draft_data(docname: str):
 		frappe.throw(_("仅支持员工垫付发票"), title=_("无法创建"))
 	if not pi.get("custom_payable_transfer_je"):
 		frappe.throw(_("请先创建应付转员工日记账"), title=_("无法创建"))
+	_validate_reimbursement_approval(pi)
 	from frappe.utils import flt
 	base_amount = (
 		flt(pi.base_rounded_total)
@@ -418,6 +432,7 @@ def create_employee_advance_payment(docname: str):
 	je_name = pi.get("custom_payable_transfer_je")
 	if not je_name:
 		frappe.throw(_("请先创建应付转员工日记账"), title=_("无法创建"))
+	_validate_reimbursement_approval(pi)
 	from frappe.utils import flt
 	base_amount = (
 		flt(pi.base_rounded_total)

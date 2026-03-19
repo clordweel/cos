@@ -96,6 +96,7 @@ frappe.ui.form.on("Purchase Invoice", {
 		});
 		apply_advance_employee_readonly_pi(frm);
 		add_create_tax_registry_button(frm);
+		add_reimbursement_approval_url_button(frm);
 		add_create_payable_transfer_je_button(frm);
 		add_create_employee_advance_payment_button(frm);
 	},
@@ -106,6 +107,55 @@ frappe.ui.form.on("Purchase Invoice", {
 		}
 	},
 });
+
+function add_reimbursement_approval_url_button(frm) {
+	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || !frm.doc.name) return;
+	if (!frm.doc.custom_is_employee_advance || !frm.doc.custom_advance_employee) return;
+
+	frm.add_custom_button(
+		__("生成报销审批链接"),
+		() => get_reimbursement_approval_url(frm),
+		__("Create")
+	);
+}
+
+async function get_reimbursement_approval_url(frm) {
+	try {
+		const base_url = window.location.origin || "";
+		const r = await frappe.call({
+			method: "cos.cos_accounts.pi_reimbursement_approval.get_approval_url",
+			args: {
+				pi_name: frm.doc.name,
+				approver_user: frm.doc.custom_reimbursement_approver || "",
+				base_url: base_url,
+			},
+			freeze: true,
+		});
+		if (r.message) {
+			const url = r.message;
+			const d = new frappe.ui.Dialog({
+				title: __("报销审批链接"),
+				fields: [
+					{
+						fieldtype: "Small Text",
+						fieldname: "url",
+						read_only: 1,
+						default: url,
+					},
+				],
+				primary_action_label: __("复制链接"),
+				primary_action: function () {
+					navigator.clipboard.writeText(url).then(() => {
+						frappe.show_alert({ message: __("已复制到剪贴板"), indicator: "green" }, 3);
+					});
+				},
+			});
+			d.show();
+		}
+	} catch (e) {
+		// frappe.call already shows error
+	}
+}
 
 function add_create_payable_transfer_je_button(frm) {
 	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || frm.doc.docstatus !== 1) return;

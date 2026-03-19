@@ -89,6 +89,7 @@ export interface EmployeeAdvanceItem {
 	grand_total: number
 	posting_date: string | null
 	custom_payable_transfer_je: string | null
+	custom_reimbursement_approval_status?: string | null
 }
 
 export async function listEmployeeAdvancePending(limit = 50): Promise<EmployeeAdvanceItem[]> {
@@ -108,6 +109,10 @@ export interface PurchaseInvoiceDetail {
 	posting_date: string | null
 	custom_payable_transfer_je: string | null
 	custom_employee_reimbursed: string
+	custom_reimbursement_approval_status?: string | null
+	custom_reimbursement_approved_by?: string | null
+	custom_reimbursement_approved_on?: string | null
+	custom_reimbursement_remark?: string | null
 	items: { item_code: string; item_name: string; qty: number; rate: number; amount: number }[]
 }
 
