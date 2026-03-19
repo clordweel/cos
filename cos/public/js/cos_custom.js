@@ -1,7 +1,20 @@
 // 立即执行：Material Request 等表单可能在 app_ready 之前加载，需尽早补丁
-if (typeof frappe !== "undefined") {
-	patch_erpnext_buying_prevent_past_schedule_dates();
-}
+(function try_patch() {
+	function run() {
+		if (typeof frappe !== "undefined" && typeof frappe.provide === "function") {
+			patch_erpnext_buying_prevent_past_schedule_dates();
+			return true;
+		}
+		return false;
+	}
+	if (run()) return;
+	// frappe 未就绪时：DOMContentLoaded 后再试（若已过则立即执行）
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", run);
+	} else {
+		setTimeout(run, 0);
+	}
+})();
 
 $(document).on('app_ready', () => {
     patch_erpnext_buying_prevent_past_schedule_dates();
