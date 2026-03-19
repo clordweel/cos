@@ -34,6 +34,7 @@ cos.utils.update_material_request_items_dialog = function (frm) {
 		uom: d.uom,
 		warehouse: d.warehouse,
 		description: d.description || "",
+		custom_supplier_provides_drawing: d.custom_supplier_provides_drawing || 0,
 	}));
 
 	const fields = [
@@ -72,6 +73,9 @@ cos.utils.update_material_request_items_dialog = function (frm) {
 							me.doc.conversion_factor = r.message.conversion_factor || 1;
 							me.doc.warehouse = r.message.warehouse || frm.doc.set_warehouse;
 							me.doc.description = r.message.description || "";
+							if (r.message.custom_supplier_provides_drawing !== undefined) {
+								me.doc.custom_supplier_provides_drawing = r.message.custom_supplier_provides_drawing;
+							}
 							dialog.fields_dict.trans_items.grid.refresh();
 						}
 					},
@@ -111,6 +115,12 @@ cos.utils.update_material_request_items_dialog = function (frm) {
 			get_query: () => ({ filters: { company: frm.doc.company, is_group: 0 } }),
 		},
 		{ fieldtype: "Small Text", fieldname: "description", label: __("Description") },
+		{
+			fieldtype: "Check",
+			fieldname: "custom_supplier_provides_drawing",
+			label: __("是否供应商提供图纸"),
+			in_list_view: 1,
+		},
 	];
 
 	const dialog = new frappe.ui.Dialog({

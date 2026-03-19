@@ -34,6 +34,35 @@ def on_mr_update_after_submit(doc, method=None):
 
 
 @frappe.whitelist()
+def append_material_request_items(mr_name: str, items_json: str) -> dict:
+	"""向草稿状态 MR 追加明细行。items_json 为 JSON 数组，每项含 item_code、qty、schedule_date、description。"""
+	if not mr_name:
+		frappe.throw(_("物料需求单名称不能为空"))
+	data = json.loads(items_json) if isinstance(items_json, str) else items_json
+	if not data:
+		frappe.throw(_("明细不能为空"))
+
+	mr = frappe.get_doc("Material Request", mr_name)
+	mr.check_permission("write")
+	if mr.docstatus != 0:
+		frappe.throw(_("仅草稿状态可追加明细，当前 docstatus={0}").format(mr.docstatus))
+
+	schedule_date = mr.schedule_date or frappe.utils.add_days(mr.transaction_date, 14)
+	for d in data:
+		if not d.get("item_code"):
+			continue
+		mr.append("items", {
+			"item_code": d.get("item_code"),
+			"qty": flt(d.get("qty"), 1) or 1,
+			"schedule_date": d.get("schedule_date") or schedule_date,
+			"description": d.get("description") or "",
+		})
+	mr.save()
+	frappe.db.commit()
+	return {"name": mr.name, "appended": len(data)}
+
+
+@frappe.whitelist()
 def update_material_request_items(mr_name: str, trans_items: str) -> None:
 	"""更新物料需求单明细（提交后）。trans_items 为 JSON 数组，每项含 docname、item_code、qty、schedule_date、warehouse、description 等。"""
 	if not mr_name:
@@ -96,6 +125,8 @@ def update_material_request_items(mr_name: str, trans_items: str) -> None:
 			child.schedule_date = d.get("schedule_date") or mr.schedule_date
 			child.warehouse = d.get("warehouse") or mr.set_warehouse
 			child.description = d.get("description") or ""
+			if "custom_supplier_provides_drawing" in d:
+				child.custom_supplier_provides_drawing = 1 if d.get("custom_supplier_provides_drawing") else 0
 			if d.get("uom"):
 				child.uom = d.get("uom")
 			if flt(d.get("conversion_factor")) > 0:
@@ -136,4 +167,6 @@ def _make_new_mr_item(mr, trans_item: dict, idx: int):
 	child.stock_qty = flt(child.qty) * flt(child.conversion_factor)
 	child.schedule_date = trans_item.get("schedule_date") or mr.schedule_date
 	child.warehouse = trans_item.get("warehouse") or mr.set_warehouse
+	if "custom_supplier_provides_drawing" in trans_item:
+		child.custom_supplier_provides_drawing = 1 if trans_item.get("custom_supplier_provides_drawing") else 0
 	return child
