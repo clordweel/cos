@@ -715,7 +715,7 @@
   "button_color": "",
   "collapsible": 0,
   "collapsible_depends_on": null,
-  "columns": 0,
+  "columns": 1,
   "default": "0",
   "depends_on": null,
   "description": "勾选表示该行物料由供应商提供图纸；可从物料主数据自动带出",
