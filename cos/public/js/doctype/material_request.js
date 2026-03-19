@@ -3,14 +3,19 @@
 
 frappe.provide("cos.utils");
 
-// 兼容 ERPNext v16：prevent_past_schedule_dates 可能不存在，补丁避免 refresh 报错导致订单变更按钮不显示
-frappe.provide("erpnext.buying");
-if (typeof erpnext.buying.prevent_past_schedule_dates !== "function") {
-	erpnext.buying.prevent_past_schedule_dates = function () {};
+function ensure_prevent_past_schedule_dates() {
+	frappe.provide("erpnext.buying");
+	if (typeof erpnext.buying.prevent_past_schedule_dates !== "function") {
+		erpnext.buying.prevent_past_schedule_dates = function () {};
+	}
 }
 
 frappe.ui.form.on("Material Request", {
+	onload: function (frm) {
+		ensure_prevent_past_schedule_dates();
+	},
 	refresh: function (frm) {
+		ensure_prevent_past_schedule_dates();
 		if (!frm.doc.name || frm.doc.__islocal) return;
 		if (frm.doc.docstatus !== 1) return;
 		if (["Stopped", "Cancelled"].includes(frm.doc.status)) return;

@@ -1,3 +1,8 @@
+// 立即执行：Material Request 等表单可能在 app_ready 之前加载，需尽早补丁
+if (typeof frappe !== "undefined") {
+	patch_erpnext_buying_prevent_past_schedule_dates();
+}
+
 $(document).on('app_ready', () => {
     patch_erpnext_buying_prevent_past_schedule_dates();
     get_company_abbreviation();
@@ -5,7 +10,7 @@ $(document).on('app_ready', () => {
 });
 
 // COS doctype_js 覆盖了 Purchase Order 的 ERPNext 脚本，需补上 erpnext.buying.prevent_past_schedule_dates
-// 供 BuyingController / 采购订单表单使用
+// 供 BuyingController / 物料需求单 / 采购订单表单使用
 function patch_erpnext_buying_prevent_past_schedule_dates() {
     frappe.provide('erpnext.buying');
     if (typeof erpnext.buying.prevent_past_schedule_dates !== 'function') {
