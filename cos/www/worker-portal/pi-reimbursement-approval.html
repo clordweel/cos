@@ -1,0 +1,12 @@
+{% extends "cos/templates/cos_work_base.html" %}
+
+{% block title %}{{ _("采购发票报销审批") }}{% endblock %}
+
+{% block page_content %}
+<div id="worker-portal-root" class="min-h-screen"></div>
+<script>
+window.__WORKER_PORTAL_CONFIG__ = { apiBase: "", initialToken: null };
+</script>
+<link rel="stylesheet" href="/assets/cos/worker_portal/worker-portal.css">
+<script type="module" src="/assets/cos/worker_portal/worker-portal.js"></script>
+{% endblock %}

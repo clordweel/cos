@@ -73,8 +73,8 @@ def get_approval_url(pi_name: str, approver_user: str = "", base_url: str = "") 
 	query = urllib.parse.urlencode(params)
 	if not base_url:
 		base_url = frappe.utils.get_url()
-	# 审批页部署在 apps/web，若与 COS 同域则用 /pi-reimbursement-approval
-	path = "/pi-reimbursement-approval"
+	# 审批页部署在 Worker Portal
+	path = "/worker-portal/pi-reimbursement-approval"
 	if base_url.rstrip("/").endswith("/app") or "/app/" in base_url:
 		base_url = base_url.split("/app")[0]
 	url = f"{base_url.rstrip('/')}{path}?{query}"

@@ -5,6 +5,7 @@ import { Login } from "./pages/Login"
 import { Approval } from "./pages/Approval"
 import { ApprovalDetail } from "./pages/ApprovalDetail"
 import { Stock } from "./pages/Stock"
+import { PiReimbursementApproval } from "./pages/PiReimbursementApproval"
 import { getToken, getLoggedUser, clearToken } from "./lib/api"
 
 function ProtectedRedirect() {
@@ -62,6 +63,7 @@ function App() {
 				<Route path="/worker-portal/approval" element={user ? <Approval /> : <ProtectedRedirect />} />
 				<Route path="/worker-portal/approval/:id" element={user ? <ApprovalDetail /> : <ProtectedRedirect />} />
 				<Route path="/worker-portal/stock" element={user ? <Stock /> : <ProtectedRedirect />} />
+				<Route path="/worker-portal/pi-reimbursement-approval" element={<PiReimbursementApproval />} />
 				<Route path="*" element={<Navigate to={user ? "/worker-portal" : "/worker-portal/login"} replace />} />
 			</Routes>
 		</BrowserRouter>

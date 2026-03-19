@@ -129,3 +129,60 @@ export async function createPayableTransferJe(docname: string): Promise<{ messag
 		docname,
 	})
 }
+
+// --- 采购发票报销链接审批（免登录）---
+
+export interface PiReimbursementSummary {
+	name: string
+	supplier: string
+	grand_total: number
+	advance_employee: string
+	employee_name: string | null
+	bill_no: string
+	posting_date: string | null
+}
+
+export interface PiReimbursementApproveResult {
+	success: boolean
+	status: string
+	message: string
+}
+
+async function guestFetch<T>(path: string, init?: RequestInit): Promise<{ message?: T }> {
+	const base = getApiBase()
+	const url = base ? `${base}${path}` : path
+	const res = await fetch(url, { ...init, credentials: "same-origin" })
+	const data = await res.json().catch(() => ({}))
+	if (data.exc) throw new Error(data.message || data.exc || "请求失败")
+	if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`)
+	return data
+}
+
+export async function getPiSummaryForApproval(query: string): Promise<PiReimbursementSummary> {
+	const data = await guestFetch<PiReimbursementSummary>(
+		`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_approval?${query}`
+	)
+	return data.message as PiReimbursementSummary
+}
+
+export async function approvePiReimbursement(
+	query: string,
+	action: "approve" | "reject",
+	remark = ""
+): Promise<PiReimbursementApproveResult> {
+	const params = new URLSearchParams(query)
+	const body = new URLSearchParams({
+		token: query.startsWith("?") ? query : `?${query}`,
+		action,
+		remark,
+	})
+	const data = await guestFetch<PiReimbursementApproveResult>(
+		"/api/method/cos.cos_accounts.pi_reimbursement_approval.approve_pi",
+		{
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded" },
+			body: body.toString(),
+		}
+	)
+	return data.message as PiReimbursementApproveResult
+}

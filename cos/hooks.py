@@ -43,6 +43,7 @@ app_include_js = [
 # Worker Portal SPA：/worker-portal/approval/<id> 统一由 approval 页面渲染
 website_route_rules = [
 	{"from_route": "/worker-portal/approval/<path:id>", "to_route": "worker-portal/approval"},
+	{"from_route": "/worker-portal/pi-reimbursement-approval", "to_route": "worker-portal/pi-reimbursement-approval"},
 ]
 
 # include custom scss in every website theme (without file extension ".scss")
