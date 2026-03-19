@@ -62,3 +62,6 @@ jspm_packages/
 __resources__
 docs/outline/cache/*
 !docs/outline/cache/README.md
+
+# worker_portal 构建产物（deploy 时在服务器执行 npm run build）
+cos/public/worker_portal/

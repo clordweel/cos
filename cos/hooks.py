@@ -29,7 +29,6 @@ app_include_css = [
     "/assets/cos/css/cos_custom.css",
 ]
 app_include_js = [
-    # "/assets/cos/js/v16_link_hotfix.js",
     "/assets/cos/js/cos_custom.js",
     "/assets/cos/js/update_items_float_patch.js",
     "/assets/cos/js/sub_form_json_tools.js",

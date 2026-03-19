@@ -27,14 +27,10 @@ pnpm build
 
 ## 部署
 
-在 ai_cos_ops 根目录：
+构建产物 `cos/public/worker_portal/` 已加入 .gitignore，不再纳入版本控制。
 
-```bash
-pnpm install   # 安装 workspace 依赖
-cd vendor/cos/cos/worker_portal && pnpm build
-```
-
-然后按常规流程部署 cos 到 dev/prod。
+- **本地**：首次 clone 或 pull 后执行 `cd cos/worker_portal && npm install && npm run build`
+- **服务器**：`deploy_cos_to_dev.py` / `deploy_cos_to_prod.py` 会在 deploy 时自动执行 `npm install && npm run build`
 
 ## 功能
 
