@@ -186,3 +186,57 @@ export async function approvePiReimbursement(
 	)
 	return data.message as PiReimbursementApproveResult
 }
+
+// --- 采购发票报销审批（Worker Portal 已登录）---
+
+export interface PiReimbursementPendingRow {
+	name: string
+	supplier: string
+	custom_advance_employee: string | null
+	employee_name?: string | null
+	grand_total: number
+	posting_date: string | null
+	bill_no: string | null
+	custom_reimbursement_approval_status?: string | null
+}
+
+export async function listPiReimbursementPendingApproval(
+	limit = 50
+): Promise<PiReimbursementPendingRow[]> {
+	const res = await apiRequest<
+		{ message?: PiReimbursementPendingRow[] } | PiReimbursementPendingRow[]
+	>(
+		"GET",
+		`/api/method/cos.worker_portal_api.list_pi_reimbursement_pending_approval?limit=${limit}`
+	)
+	return Array.isArray(res) ? res : (res?.message ?? [])
+}
+
+export async function getPiSummaryForLoggedInApproval(
+	piName: string
+): Promise<PiReimbursementSummary> {
+	const res = await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
+		"GET",
+		`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${encodeURIComponent(piName)}`
+	)
+	if (res && typeof res === "object" && "message" in res && res.message !== undefined) {
+		return res.message as PiReimbursementSummary
+	}
+	return res as PiReimbursementSummary
+}
+
+export async function approvePiLoggedIn(
+	piName: string,
+	action: "approve" | "reject",
+	remark = ""
+): Promise<PiReimbursementApproveResult> {
+	const res = await apiRequest<{ message?: PiReimbursementApproveResult }>(
+		"POST",
+		"/api/method/cos.cos_accounts.pi_reimbursement_approval.approve_pi_logged_in",
+		{ pi_name: piName, action, remark }
+	)
+	if (res && typeof res === "object" && "message" in res && res.message !== undefined) {
+		return res.message as PiReimbursementApproveResult
+	}
+	return res as PiReimbursementApproveResult
+}

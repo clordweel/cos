@@ -88,7 +88,7 @@ export function ApprovalDetail() {
 					className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
 				>
 					<ArrowLeft className="h-4 w-4 mr-2" />
-					返回审批列表
+					返回已批待 JE 列表
 				</Link>
 			</header>
 			<main className="container max-w-3xl py-8 px-4">
@@ -165,7 +165,7 @@ export function ApprovalDetail() {
 											const needsApproval = status && status !== "Approved"
 											return needsApproval ? (
 												<p className="text-sm text-muted-foreground">
-													报销审批未通过（{status}），无法创建应付转员工日记账。请先在 Frappe 中生成审批链接并完成审批。
+													报销审批未通过（{status}），无法创建应付转员工日记账。请在工作台「待报销审批」或 Desk「生成报销审批链接」完成审批后再试。
 												</p>
 											) : null
 										})()}

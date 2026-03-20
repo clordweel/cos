@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ClipboardList, Package, LogOut } from "lucide-react"
+import { ClipboardList, Package, LogOut, FileCheck } from "lucide-react"
 import { clearToken } from "@/lib/api"
 
 interface WorkbenchProps {
@@ -11,8 +11,15 @@ interface WorkbenchProps {
 
 const modules = [
 	{
-		title: "采购垫付报销审批",
-		description: "员工垫付未报销的采购发票，创建应付转员工 JE",
+		title: "待报销审批",
+		description: "登录后审批待处理的员工垫付采购发票（不依赖邮件链接）",
+		href: "/worker-portal/pi-reimbursement-pending",
+		icon: FileCheck,
+	},
+	{
+		title: "垫付 · 已批待 JE",
+		description:
+			"仅含报销审批已通过、尚未报销的采购发票，用于创建应付转员工 JE（不是待审批列表）",
 		href: "/worker-portal/approval",
 		icon: ClipboardList,
 	},

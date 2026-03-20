@@ -48,11 +48,14 @@ export function Approval() {
 				<div className="space-y-6">
 					<div className="space-y-1.5">
 						<h1 className="text-lg font-semibold leading-tight tracking-tight">
-							垫付 · 应付转员工 JE
+							垫付 · 应付转员工 JE（已批）
 						</h1>
 						<p className="text-sm text-muted-foreground leading-relaxed">
-							仅展示<strong>报销审批已通过</strong>且<strong>尚未报销</strong>的采购发票，用于创建应付转员工 JE。
-							待批/外链审批请使用 Desk「生成报销审批链接」，不在本页。
+							本页<strong>不做报销审批</strong>，只处理「审批已结束」之后的会计步骤：仅列出
+							<strong>报销审批已通过</strong>且<strong>尚未报销</strong>的采购发票，用于创建应付转员工 JE。
+						</p>
+						<p className="text-sm text-muted-foreground leading-relaxed">
+							需要<strong>待报销审批</strong>请回工作台进入「待报销审批」；Desk 上也可用「生成报销审批链接」走外链。
 						</p>
 					</div>
 					{loading && (
@@ -66,9 +69,10 @@ export function Approval() {
 					)}
 					{!loading && !error && items.length === 0 && (
 						<div className="py-16 px-6 text-center text-muted-foreground text-sm rounded-lg border border-dashed bg-background space-y-2">
-							<p>暂无待处理记录</p>
+							<p>暂无待创建 JE 的记录</p>
 							<p className="text-xs">
-								当前列表仅展示「报销已通过并已提交」的垫付发票。若仍无数据，请先在 Desk 完成发票上的报销审批并提交采购发票。
+								此处只显示「报销审批已通过」的垫付发票。若你要找<strong>待审批</strong>的单据，请从工作台打开「待报销审批」。
+								若已通过但仍无数据，请确认 PI 已提交且垫付字段与报销状态正确。
 							</p>
 						</div>
 					)}

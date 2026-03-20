@@ -68,6 +68,42 @@ def validate_worker_portal_token():
 
 
 @frappe.whitelist()
+def list_pi_reimbursement_pending_approval(limit=50):
+	"""返回「员工垫付 + 已提交 + 报销审批待处理」的采购发票列表，供 Worker Portal 登录审批。"""
+	limit = int(limit) if limit is not None else 50
+	or_filters = [
+		["custom_reimbursement_approval_status", "=", "Pending"],
+		["custom_reimbursement_approval_status", "is", "not set"],
+		["custom_reimbursement_approval_status", "=", ""],
+	]
+	data = frappe.get_all(
+		"Purchase Invoice",
+		filters={
+			"docstatus": 1,
+			"custom_is_employee_advance": 1,
+		},
+		or_filters=or_filters,
+		fields=[
+			"name",
+			"supplier",
+			"custom_advance_employee",
+			"grand_total",
+			"posting_date",
+			"bill_no",
+			"custom_reimbursement_approval_status",
+		],
+		order_by="posting_date desc",
+		limit=limit,
+	)
+	for row in data:
+		emp_id = row.get("custom_advance_employee")
+		row["employee_name"] = (
+			frappe.db.get_value("Employee", emp_id, "employee_name") if emp_id else None
+		)
+	return data
+
+
+@frappe.whitelist()
 def list_employee_advance_pending(limit=50, approved_only=1):
 	"""返回员工垫付未报销的采购发票列表，供审批页展示。
 	approved_only=1 时仅返回报销审批已通过的 PI，便于财务创建 JE。"""
