@@ -5,28 +5,30 @@
 
 auth_hooks 在 validate_auth() 中执行，晚于 HTTPRequest.validate_csrf_token。
 使用 Bearer wpt.xxx 的 POST 请求会因无 CSRF token 被拒绝。
-本模块在应用加载时 patch validate_csrf_token，对有效 wpt token 放行。
+本模块在应用加载时 patch validate_csrf_token：对携带 ``Bearer wpt.`` 的请求跳过 CSRF
+（不依赖缓存是否命中）；登录接口单独豁免。
 """
 
 import frappe
 
 WPT_PREFIX = "wpt."
-CACHE_KEY_PREFIX = "worker_portal_token:"
 
 
-def _is_valid_worker_portal_token() -> bool:
-	"""检查当前请求是否携带有效的 Worker Portal Bearer token。"""
+def _looks_like_worker_portal_bearer() -> bool:
+	"""请求是否携带 Portal 约定的 Bearer（前缀 wpt.）。
+
+	说明：原先仅在 cache 命中时才跳过 CSRF；若 Redis 丢键、多 worker 缓存不一致、
+	或 token 仍有效但缓存未命中，会导致 POST（如 approve_pi_logged_in）误报 CSRF，
+	而 GET 正常。凡显式携带 ``Bearer wpt.`` 的 API 调用均视为 Portal 客户端发起：
+	跨站表单无法伪造此头，后续仍由 auth_hooks 与 whitelist 校验 token/权限。
+	"""
 	if not getattr(frappe.local, "request", None):
 		return False
 	auth = frappe.get_request_header("Authorization") or ""
 	parts = auth.split(" ", 1)
 	if len(parts) != 2 or parts[0].lower() != "bearer":
 		return False
-	token = parts[1].strip()
-	if not token.startswith(WPT_PREFIX):
-		return False
-	raw = token[len(WPT_PREFIX) :]
-	return bool(frappe.cache.get_value(f"{CACHE_KEY_PREFIX}{raw}"))
+	return parts[1].strip().startswith(WPT_PREFIX)
 
 
 def _is_login_for_token_request() -> bool:
@@ -49,7 +51,7 @@ def _is_login_for_token_request() -> bool:
 
 
 def _patched_validate_csrf_token(self):
-	if _is_valid_worker_portal_token():
+	if _looks_like_worker_portal_bearer():
 		return
 	if _is_login_for_token_request():
 		return
@@ -57,7 +59,7 @@ def _patched_validate_csrf_token(self):
 
 
 def patch():
-	"""Patch HTTPRequest.validate_csrf_token，对有效 wpt token 跳过 CSRF。"""
+	"""Patch HTTPRequest.validate_csrf_token：Portal Bearer wpt. 与 login_for_token 跳过 CSRF。"""
 	global _original_validate_csrf_token
 	import importlib
 	auth_module = importlib.import_module("frappe.auth")
