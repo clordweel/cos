@@ -48,6 +48,27 @@ website_route_rules = [
 	{"from_route": "/worker-portal/pi-reimbursement-approval", "to_route": "worker-portal/pi-reimbursement-approval"},
 ]
 
+
+def extend_website_context_for_worker_portal(context):
+	"""Worker Portal 构建产物为固定文件名 worker-portal.js，易被移动端强缓存；用文件 mtime 作 query 破坏缓存。"""
+	import os
+
+	import frappe
+
+	try:
+		path = frappe.get_app_path("cos", "public", "worker_portal", "worker-portal.js")
+		if os.path.isfile(path):
+			context["cos_wp_asset_ver"] = str(int(os.path.getmtime(path)))
+		else:
+			context["cos_wp_asset_ver"] = "0"
+	except Exception:
+		context["cos_wp_asset_ver"] = "0"
+
+
+update_website_context = [
+	"cos.hooks.extend_website_context_for_worker_portal",
+]
+
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "cos/public/scss/website"
 

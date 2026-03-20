@@ -46,6 +46,18 @@ export function Approval() {
 			</header>
 			<main className="w-full max-w-md mx-auto px-6 py-6 sm:px-8 sm:py-8">
 				<div className="space-y-6">
+					<div className="rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm leading-relaxed">
+						<strong className="text-foreground">找「待报销审批」？</strong>
+						请打开{" "}
+						<Link
+							to="/worker-portal/pi-reimbursement-pending"
+							className="font-medium text-primary underline underline-offset-2"
+						>
+							待报销审批
+						</Link>
+						。本页 URL 为 <code className="text-xs">/approval</code>，只列<strong>已通过</strong>报销审批、待做
+						JE 的发票。
+					</div>
 					<div className="space-y-1.5">
 						<h1 className="text-lg font-semibold leading-tight tracking-tight">
 							垫付 · 应付转员工 JE（已批）

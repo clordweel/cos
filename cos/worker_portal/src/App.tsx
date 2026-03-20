@@ -59,24 +59,47 @@ function App() {
 		)
 	}
 
+	// 注意：更长的 /worker-portal/... 必须写在精确路径 /worker-portal 之前，避免部分环境下误匹配。
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/worker-portal/login" element={user ? <Navigate to={loginRedirectTo || "/worker-portal"} replace state={null} /> : <Login onLogin={onLogin} />} />
-				<Route path="/worker-portal" element={user ? <Workbench user={user} onLogout={onLogout} /> : <ProtectedRedirect />} />
-				<Route path="/worker-portal/approval" element={user ? <Approval /> : <ProtectedRedirect />} />
 				<Route path="/worker-portal/approval/:id" element={user ? <ApprovalDetail /> : <ProtectedRedirect />} />
+				<Route path="/worker-portal/approval" element={user ? <Approval /> : <ProtectedRedirect />} />
 				<Route path="/worker-portal/stock" element={user ? <Stock /> : <ProtectedRedirect />} />
-				<Route
-					path="/worker-portal/pi-reimbursement-pending"
-					element={user ? <PiReimbursementPendingList /> : <ProtectedRedirect />}
-				/>
 				<Route
 					path="/worker-portal/pi-reimbursement-pending/:piName"
 					element={user ? <PiReimbursementPendingDetail /> : <ProtectedRedirect />}
 				/>
+				<Route
+					path="/worker-portal/pi-reimbursement-pending"
+					element={user ? <PiReimbursementPendingList /> : <ProtectedRedirect />}
+				/>
 				<Route path="/worker-portal/pi-reimbursement-approval" element={<PiReimbursementApproval />} />
-				<Route path="*" element={<Navigate to={user ? "/worker-portal" : "/worker-portal/login"} replace />} />
+				<Route path="/worker-portal" element={user ? <Workbench user={user} onLogout={onLogout} /> : <ProtectedRedirect />} />
+				{/* 未注册路径：勿静默回工作台（易掩盖旧 JS 无新路由）；已登录时提示并给出待批入口 */}
+				<Route
+					path="*"
+					element={
+						user ? (
+							<div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 text-center text-sm">
+								<p className="text-muted-foreground max-w-md">
+									当前页面路径未识别（可能是浏览器仍在使用旧版 Worker Portal 脚本）。
+									请<strong>强刷</strong>或清除站点数据后重试；完整地址应为{" "}
+									<code className="text-xs break-all">/worker-portal/pi-reimbursement-pending</code>。
+								</p>
+								<a className="text-primary underline" href="/worker-portal/pi-reimbursement-pending">
+									打开待报销审批
+								</a>
+								<a className="text-muted-foreground underline text-xs" href="/worker-portal">
+									回工作台
+								</a>
+							</div>
+						) : (
+							<ProtectedRedirect />
+						)
+					}
+				/>
 			</Routes>
 		</BrowserRouter>
 	)
