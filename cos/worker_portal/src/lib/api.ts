@@ -140,6 +140,9 @@ export interface PiReimbursementSummary {
 	employee_name: string | null
 	bill_no: string
 	posting_date: string | null
+	/** 服务端：非 Pending 时为 true，仅展示不可再批 */
+	readonly?: boolean
+	reimbursement_approval_status?: string
 }
 
 export interface PiReimbursementApproveResult {

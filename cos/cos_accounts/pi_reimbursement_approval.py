@@ -191,12 +191,12 @@ def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
 	if not pi.get("custom_is_employee_advance"):
 		frappe.throw(_("该发票未勾选员工垫付"), title=_("无法审批"))
 	status = pi.get("custom_reimbursement_approval_status") or "Pending"
+	payload = _pi_summary_payload(pi)
+	# 已决状态：允许只读打开详情（书签/双开/列表滞后），避免抛错；批准/拒绝仍由 approve_pi_logged_in 拦截
 	if status != "Pending":
-		frappe.throw(
-			_("该发票已审批，当前状态：{0}").format(status),
-			title=_("无法重复审批"),
-		)
-	return _pi_summary_payload(pi)
+		payload["readonly"] = True
+		payload["reimbursement_approval_status"] = status
+	return payload
 
 
 @frappe.whitelist()

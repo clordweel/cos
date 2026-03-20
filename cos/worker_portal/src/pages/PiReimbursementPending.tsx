@@ -281,9 +281,27 @@ export function PiReimbursementPendingDetail() {
 							</div>
 						</div>
 
+						{summary.readonly && (
+							<div className="rounded-md border bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
+								<p className="font-medium text-foreground">
+									报销审批状态：{summary.reimbursement_approval_status || "-"}
+								</p>
+								<p className="mt-1">
+									{summary.reimbursement_approval_status === "Approved"
+										? "已通过审批，无需再次操作。如需做应付转员工 JE，请在工作台打开「垫付 · 已批待 JE」。"
+										: summary.reimbursement_approval_status === "Rejected"
+											? "已为拒绝状态，无法在此再次审批。如需调整请在 Desk 处理。"
+											: "当前不可在此审批。"}
+								</p>
+								<Button asChild variant="secondary" className="mt-3 w-full">
+									<Link to="/worker-portal/pi-reimbursement-pending">返回待审批列表</Link>
+								</Button>
+							</div>
+						)}
+
 						{error && <p className="text-sm text-destructive">{error}</p>}
 
-						{showRejectInput ? (
+						{!summary.readonly && showRejectInput ? (
 							<div className="space-y-2">
 								<Label htmlFor="remark">拒绝原因（必填）</Label>
 								<Input
@@ -310,7 +328,7 @@ export function PiReimbursementPendingDetail() {
 									</Button>
 								</div>
 							</div>
-						) : (
+						) : !summary.readonly ? (
 							<div className="flex gap-3">
 								<Button
 									onClick={handleApprove}
@@ -328,7 +346,7 @@ export function PiReimbursementPendingDetail() {
 									拒绝
 								</Button>
 							</div>
-						)}
+						) : null}
 					</CardContent>
 				</Card>
 			</main>
