@@ -48,10 +48,11 @@ export function Approval() {
 				<div className="space-y-6">
 					<div className="space-y-1.5">
 						<h1 className="text-lg font-semibold leading-tight tracking-tight">
-							采购垫付报销审批
+							垫付 · 应付转员工 JE
 						</h1>
 						<p className="text-sm text-muted-foreground leading-relaxed">
-							点击卡片查看详情并创建应付转员工 JE
+							仅展示<strong>报销审批已通过</strong>且<strong>尚未报销</strong>的采购发票，用于创建应付转员工 JE。
+							待批/外链审批请使用 Desk「生成报销审批链接」，不在本页。
 						</p>
 					</div>
 					{loading && (
@@ -64,8 +65,11 @@ export function Approval() {
 						<div className="py-12 text-center text-destructive text-sm">{error}</div>
 					)}
 					{!loading && !error && items.length === 0 && (
-						<div className="py-16 px-6 text-center text-muted-foreground text-sm rounded-lg border border-dashed bg-background">
-							暂无待审批记录
+						<div className="py-16 px-6 text-center text-muted-foreground text-sm rounded-lg border border-dashed bg-background space-y-2">
+							<p>暂无待处理记录</p>
+							<p className="text-xs">
+								当前列表仅展示「报销已通过并已提交」的垫付发票。若仍无数据，请先在 Desk 完成发票上的报销审批并提交采购发票。
+							</p>
 						</div>
 					)}
 					{!loading && !error && items.length > 0 && (
