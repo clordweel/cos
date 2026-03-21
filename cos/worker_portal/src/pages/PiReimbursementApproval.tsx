@@ -152,9 +152,24 @@ export function PiReimbursementApproval() {
 							</div>
 						</div>
 
+						{summary.readonly && (
+							<div className="rounded-md border bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
+								<p className="font-medium text-foreground">
+									报销审批状态：{summary.reimbursement_approval_status || "-"}
+								</p>
+								<p className="mt-1">
+									{summary.reimbursement_approval_status === "Approved"
+										? "该发票报销审批已完成（已通过），无需在本链接再次操作。"
+										: summary.reimbursement_approval_status === "Rejected"
+											? "该发票已为「已拒绝」状态，无法通过本链接再次审批。"
+											: "当前不可通过本链接审批。"}
+								</p>
+							</div>
+						)}
+
 						{error && <p className="text-sm text-destructive">{error}</p>}
 
-						{showRejectInput ? (
+						{!summary.readonly && showRejectInput ? (
 							<div className="space-y-2">
 								<Label htmlFor="remark">拒绝原因（必填）</Label>
 								<Input
@@ -181,7 +196,7 @@ export function PiReimbursementApproval() {
 									</Button>
 								</div>
 							</div>
-						) : (
+						) : !summary.readonly ? (
 							<div className="flex gap-3">
 								<Button
 									onClick={handleApprove}
@@ -199,7 +214,7 @@ export function PiReimbursementApproval() {
 									拒绝
 								</Button>
 							</div>
-						)}
+						) : null}
 					</CardContent>
 				</Card>
 			</main>

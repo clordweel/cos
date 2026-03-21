@@ -156,12 +156,12 @@ def get_pi_summary_for_approval(token: str = None, pi_name: str = None, expiry: 
 	if not pi.get("custom_is_employee_advance"):
 		frappe.throw(_("该发票未勾选员工垫付"), title=_("无法审批"))
 	status = pi.get("custom_reimbursement_approval_status") or "Pending"
+	payload = _pi_summary_payload(pi)
+	# 已决：仍返回摘要供外链页只读展示（他人已批、或登录审批后点旧链接）
 	if status != "Pending":
-		frappe.throw(
-			_("该发票已审批，当前状态：{0}").format(status),
-			title=_("无法重复审批"),
-		)
-	return _pi_summary_payload(pi)
+		payload["readonly"] = True
+		payload["reimbursement_approval_status"] = status
+	return payload
 
 
 @frappe.whitelist(allow_guest=True)
