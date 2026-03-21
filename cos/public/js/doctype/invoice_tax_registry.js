@@ -111,6 +111,8 @@ frappe.ui.form.on("Purchase Invoice", {
 function add_reimbursement_approval_url_button(frm) {
 	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || !frm.doc.name) return;
 	if (!frm.doc.custom_is_employee_advance || !frm.doc.custom_advance_employee) return;
+	// 已通过报销审批时无需再生成外链（打开页亦为只读）
+	if (frm.doc.custom_reimbursement_approval_status === "Approved") return;
 
 	frm.add_custom_button(
 		__("生成报销审批链接"),

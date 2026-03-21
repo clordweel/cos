@@ -66,6 +66,9 @@ def get_approval_url(pi_name: str, approver_user: str = "", base_url: str = "") 
 	pi = frappe.get_doc("Purchase Invoice", pi_name)
 	if not pi.get("custom_is_employee_advance"):
 		frappe.throw(_("该发票未勾选员工垫付"), title=_("无法生成链接"))
+	approval_status = pi.get("custom_reimbursement_approval_status") or "Pending"
+	if approval_status == "Approved":
+		frappe.throw(_("报销审批已通过，无需再生成审批链接"), title=_("无法生成链接"))
 	exp_ts = int(time.time()) + TOKEN_EXPIRY_DAYS * 24 * 3600
 	params = {"pi_name": pi_name, "expiry": str(exp_ts)}
 	signature = _sign_params(params)
