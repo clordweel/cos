@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { Workbench } from "./pages/Workbench"
 import { Login } from "./pages/Login"
-import { Approval } from "./pages/Approval"
-import { ApprovalDetail } from "./pages/ApprovalDetail"
 import { Stock } from "./pages/Stock"
 import { PiReimbursementApproval } from "./pages/PiReimbursementApproval"
 import {
@@ -64,8 +62,6 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/worker-portal/login" element={user ? <Navigate to={loginRedirectTo || "/worker-portal"} replace state={null} /> : <Login onLogin={onLogin} />} />
-				<Route path="/worker-portal/approval/:id" element={user ? <ApprovalDetail /> : <ProtectedRedirect />} />
-				<Route path="/worker-portal/approval" element={user ? <Approval /> : <ProtectedRedirect />} />
 				<Route path="/worker-portal/stock" element={user ? <Stock /> : <ProtectedRedirect />} />
 				<Route
 					path="/worker-portal/pi-reimbursement-pending/:piName"

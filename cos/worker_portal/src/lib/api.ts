@@ -79,56 +79,8 @@ export async function getLoggedUser(): Promise<string> {
 	return typeof msg === "string" ? msg : "Guest"
 }
 
-// --- 采购垫付报销审批 ---
-
-export interface EmployeeAdvanceItem {
-	name: string
-	supplier: string
-	custom_advance_employee: string | null
-	employee_name?: string | null
-	grand_total: number
-	posting_date: string | null
-	custom_payable_transfer_je: string | null
-	custom_reimbursement_approval_status?: string | null
-}
-
-export async function listEmployeeAdvancePending(limit = 50): Promise<EmployeeAdvanceItem[]> {
-	const res = await apiRequest<{ message?: EmployeeAdvanceItem[] } | EmployeeAdvanceItem[]>(
-		"GET",
-		`/api/method/cos.worker_portal_api.list_employee_advance_pending?limit=${limit}`
-	)
-	return Array.isArray(res) ? res : (res?.message ?? [])
-}
-
-export interface PurchaseInvoiceDetail {
-	name: string
-	supplier: string
-	custom_advance_employee: string | null
-	employee_name?: string | null
-	grand_total: number
-	posting_date: string | null
-	custom_payable_transfer_je: string | null
-	custom_employee_reimbursed: string
-	custom_reimbursement_approval_status?: string | null
-	custom_reimbursement_approved_by?: string | null
-	custom_reimbursement_approved_on?: string | null
-	custom_reimbursement_remark?: string | null
-	items: { item_code: string; item_name: string; qty: number; rate: number; amount: number }[]
-}
-
-export async function getPurchaseInvoiceDetail(name: string): Promise<PurchaseInvoiceDetail> {
-	const res = await apiRequest<PurchaseInvoiceDetail>(
-		"GET",
-		`/api/method/cos.worker_portal_api.get_purchase_invoice_detail?name=${encodeURIComponent(name)}`
-	)
-	return res?.message ?? res
-}
-
-export async function createPayableTransferJe(docname: string): Promise<{ message?: unknown }> {
-	return apiRequest("POST", "/api/method/cos.worker_portal_api.create_payable_transfer_je", {
-		docname,
-	})
-}
+// 已批待 JE 已从 Worker Portal 移除；list_employee_advance_pending / get_purchase_invoice_detail /
+// create_payable_transfer_je 仍可在服务端供 Desk 等调用，前端不再封装。
 
 // --- 采购发票报销链接审批（免登录）---
 

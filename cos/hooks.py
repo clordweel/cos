@@ -40,9 +40,8 @@ app_include_js = [
 # web_include_css = "/assets/cos/css/cos.css"
 # web_include_js = "/assets/cos/js/cos.js"
 
-# Worker Portal SPA：/worker-portal/approval/<id> 统一由 approval 页面渲染
+# Worker Portal SPA 路由（已批待 JE 已简化移除，应付转员工请在 Desk PI 上操作）
 website_route_rules = [
-	{"from_route": "/worker-portal/approval/<path:id>", "to_route": "worker-portal/approval"},
 	{"from_route": "/worker-portal/pi-reimbursement-pending/<path:id>", "to_route": "worker-portal/pi-reimbursement-pending"},
 	{"from_route": "/worker-portal/pi-reimbursement-pending", "to_route": "worker-portal/pi-reimbursement-pending"},
 	{"from_route": "/worker-portal/pi-reimbursement-approval", "to_route": "worker-portal/pi-reimbursement-approval"},
