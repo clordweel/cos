@@ -149,6 +149,10 @@ async function get_reimbursement_approval_url(frm) {
 						frappe.show_alert({ message: __("已复制到剪贴板"), indicator: "green" }, 3);
 					});
 				},
+				secondary_action_label: __("打开审批页"),
+				secondary_action: function () {
+					window.open(url, "_blank", "noopener,noreferrer");
+				},
 			});
 			d.show();
 		}
