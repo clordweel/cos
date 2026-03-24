@@ -10,6 +10,8 @@ Worker Portal 前端，使用 React + Vite + shadcn 风格组件，嵌入 Frappe
 - 后续请求：`Authorization: Bearer wpt.<token>`
 - Token 存于 localStorage，有效期 7 天（移动端 WebView 关闭后仍可保持登录）
 
+Flutter 壳侧若以 **Token 为主**、Desk 允许站内重登的端到端约定，见主仓库：`docs/cos-mini-program-token-auth-plan.md`。
+
 ## 开发
 
 ```bash
