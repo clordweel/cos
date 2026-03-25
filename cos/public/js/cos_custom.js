@@ -37,6 +37,9 @@ function patch_erpnext_buying_prevent_past_schedule_dates() {
     }
 }
 
+// 向 .body-sidebar append 公司徽章会与 v16 侧栏/Vue 结构干扰，排查用户菜单期间可关闭
+const COS_INJECT_SIDEBAR_COMPANY_BADGES = false;
+
 // 获取当前会话公司的缩写并设置到body的data-company属性
 const get_company_abbreviation = () => {
     const company = frappe.defaults.get_default('company');
@@ -46,6 +49,10 @@ const get_company_abbreviation = () => {
         if (r?.message?.abbr) {
             const { abbr } = r.message;
             $('body').attr('data-company', abbr);
+
+            if (!COS_INJECT_SIDEBAR_COMPANY_BADGES) {
+                return;
+            }
 
             // 注入公司标签
             // 全称标签（展开时显示）
