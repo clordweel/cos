@@ -24,4 +24,5 @@ cos.patches.v1_2.rebackfill_employee_reimbursed
 cos.patches.v1_2.rebackfill_employee_reimbursed_after_alter
 cos.patches.v1_2.add_is_primary_to_item_purchase_source
 cos.patches.v1_2.remove_advance_employee_editable_users_field
+cos.patches.v1_2.fix_po_payment_tab_insert_after
 # Patches added in this section will be executed after doctypes are migrated
