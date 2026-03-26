@@ -70,7 +70,7 @@
 			</tbody>
 		</table>
 
-		<!-- 物料明细表格（外部版：单价、金额、备注留空供供应商填写） -->
+		<!-- 物料明细：系统已填单价则带出并格式化；未填则留空（供供应商补填） -->
 		<table class="table table-bordered items-table mb-3">
 			<thead class="table-header">
 				<tr>
@@ -101,29 +101,67 @@
 						<span class="quantity-value text-bold">{{ item.qty }}</span>
 					</td>
 					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
-					<td class="text-right cell-supplier-fill">&nbsp;</td>
-					<td class="text-right cell-supplier-fill">&nbsp;</td>
+					<td class="text-right {% if not frappe.utils.flt(item.rate) %}cell-supplier-fill{% endif %}" style="white-space: nowrap;">
+						{%- if frappe.utils.flt(item.rate) != 0 -%}
+						{{ item.get_formatted("rate", doc) }}
+						{%- else -%}
+						&nbsp;
+						{%- endif -%}
+					</td>
+					<td class="text-right text-bold {% if not frappe.utils.flt(item.rate) %}cell-supplier-fill{% endif %}" style="white-space: nowrap;">
+						{%- if frappe.utils.flt(item.rate) != 0 -%}
+						{{ item.get_formatted("amount", doc) }}
+						{%- else -%}
+						&nbsp;
+						{%- endif -%}
+					</td>
 					<td class="text-left">{{ (item.description | striptags) if item.description else "&nbsp;" }}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
 		</table>
 
-		<!-- 金额汇总（外部版：留空供供应商填写） -->
+		<!-- 金额汇总：有金额时与标准版一致；无金额时留空供供应商填写 -->
 		<div class="mb-3" style="text-align: right;">
 			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
 				<tbody>
 					<tr>
 						<td class="text-right" style="width: 40%;"><strong>小计</strong></td>
-						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+						<td class="text-right text-bold {% if not frappe.utils.flt(doc.total) %}cell-supplier-fill{% endif %}" style="min-width: 120px;">
+							{%- if frappe.utils.flt(doc.total) != 0 -%}
+							{{ doc.get_formatted("total") }}
+							{%- else -%}
+							&nbsp;
+							{%- endif -%}
+						</td>
 					</tr>
+					{%- for tax in doc.taxes -%}
+					{%- if tax.tax_amount and tax.tax_amount > 0 -%}
+					<tr>
+						<td class="text-right"><strong>{{ tax.description }}</strong></td>
+						<td class="text-right text-bold">{{ tax.get_formatted("tax_amount") }}</td>
+					</tr>
+					{%- endif -%}
+					{%- endfor -%}
 					<tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
 						<td class="text-right"><strong>总计 ({{ doc.currency or "CNY" }})</strong></td>
-						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+						<td class="text-right text-bold {% if not frappe.utils.flt(doc.grand_total) %}cell-supplier-fill{% endif %}" style="min-width: 120px;">
+							{%- if frappe.utils.flt(doc.grand_total) != 0 -%}
+							{{ doc.get_formatted("grand_total") }}
+							{%- else -%}
+							&nbsp;
+							{%- endif -%}
+						</td>
 					</tr>
 					<tr>
 						<td class="text-right" style="width: 40%;"><strong>大写金额</strong></td>
-						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+						<td class="text-right text-bold {% if not frappe.utils.flt(doc.grand_total) %}cell-supplier-fill{% endif %}" style="min-width: 120px;">
+							{%- if frappe.utils.flt(doc.grand_total) != 0 -%}
+							{{ doc.in_words or "&nbsp;" }}
+							{%- else -%}
+							&nbsp;
+							{%- endif -%}
+						</td>
 					</tr>
 				</tbody>
 			</table>
