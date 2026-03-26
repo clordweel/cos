@@ -60,7 +60,10 @@
 	<p class="sha">SHA256: {{ latest.sha256|e }}</p>
 	{% endif %}
 	{% else %}
-	<p class="empty">{{ _("当前渠道暂无可用发布，请稍后再试或更换渠道。") }}</p>
+	<p class="empty">{{ _("当前渠道暂无可用发布。") }}</p>
+	<p class="empty" style="font-size:0.875rem;">
+		{{ _("请使用管理员账号在 Desk 打开：工作台 COS → 版本与分发（Cos Work App Release），新建记录并勾选「启用」，分发渠道需与上方所选一致（stable / beta / internal），并填写下载链接或上传 APK。") }}
+	</p>
 	{% endif %}
 </div>
 {% endblock %}

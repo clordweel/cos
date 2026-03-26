@@ -14,9 +14,21 @@ from cos.cos_share.utils.cos_work_app_release_public import (
 no_cache = 1
 
 
+def _channel_from_request():
+	"""GET 查询参数在部分站点上下文中不会写入 form_dict，需同时读 request.args。"""
+	q = None
+	try:
+		if getattr(frappe.local, "request", None) is not None:
+			q = frappe.request.args.get("channel")
+	except Exception:
+		q = None
+	if q:
+		return q
+	return frappe.form_dict.get("channel")
+
+
 def get_context(context):
-	channel = frappe.form_dict.get("channel")
-	ch = resolve_channel(channel)
+	ch = resolve_channel(_channel_from_request())
 	data = get_public_latest_release(ch)
 	context.update(data)
 	context.allowed_channels = sorted(ALLOWED_CHANNELS)
