@@ -96,6 +96,9 @@
 						{%- if item.supplier_part_no -%}
 						<div class="secondary-text" style="margin-top: 2px;">[供]: {{ item.supplier_part_no }}</div>
 						{% endif %}
+						{%- if item.custom_supplier_provides_drawing -%}
+						<div class="item-supplier-drawing-note">供应商提供图纸</div>
+						{% endif %}
 					</td>
 					<td class="text-right">
 						<span class="quantity-value text-bold">{{ item.qty }}</span>

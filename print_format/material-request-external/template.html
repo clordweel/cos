@@ -71,6 +71,9 @@
                         {%- if item.description and item.description != item.item_name -%}
                         <div class="item-description secondary-text">{{ item.description | striptags }}</div>
                         {% endif %}
+                        {%- if item.custom_supplier_provides_drawing -%}
+                        <div class="item-supplier-drawing-note">供应商提供图纸</div>
+                        {% endif %}
                     </td>
                     <td>{{ frappe.utils.format_date(item.schedule_date) }}</td>
                     <td class="text-right quantity-cell">
