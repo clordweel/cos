@@ -90,9 +90,6 @@
 					<td class="item-info-cell">
 						<div class="item-code text-bold">{{ item.item_code }}</div>
 						<div class="item-name">{{ item.item_name }}</div>
-						{%- if item.description and item.description != item.item_name -%}
-						<div class="item-description secondary-text">{{ item.description | striptags }}</div>
-						{% endif %}
 						{%- if item.supplier_part_no -%}
 						<div class="secondary-text" style="margin-top: 2px;">[供]: {{ item.supplier_part_no }}</div>
 						{% endif %}
