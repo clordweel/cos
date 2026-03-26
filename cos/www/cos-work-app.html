@@ -1,0 +1,66 @@
+{% extends "cos/templates/cos_work_base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_content %}
+<style>
+	.cos-wa-dl { max-width: 40rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; font-family: system-ui, sans-serif; color: #1a1a1a; }
+	.cos-wa-dl h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem; }
+	.cos-wa-dl .sub { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+	.cos-wa-dl .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+	.cos-wa-dl .chips a {
+		display: inline-block; padding: 0.35rem 0.75rem; border-radius: 6px;
+		text-decoration: none; font-size: 0.875rem; border: 1px solid #ccc; color: #333;
+		background: #fafafa;
+	}
+	.cos-wa-dl .chips a.active { border-color: #111; background: #111; color: #fff; }
+	.cos-wa-dl .meta { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+	.cos-wa-dl .btn {
+		display: inline-block; margin: 0.5rem 0 1.25rem; padding: 0.65rem 1.25rem;
+		background: #111; color: #fff !important; text-decoration: none; border-radius: 8px; font-weight: 500;
+	}
+	.cos-wa-dl .btn:hover { opacity: 0.9; }
+	.cos-wa-dl .notes {
+		white-space: pre-wrap; word-break: break-word; font-size: 0.9rem; line-height: 1.55;
+		padding: 1rem; background: #f6f6f6; border-radius: 8px; border: 1px solid #e8e8e8;
+	}
+	.cos-wa-dl .empty { color: #666; padding: 1rem 0; }
+	.cos-wa-dl .sha { font-size: 0.75rem; color: #888; word-break: break-all; margin-top: 0.75rem; }
+</style>
+<div class="cos-wa-dl">
+	<h1>{{ _("合思协产 App 下载") }}</h1>
+	<p class="sub">{{ _("选择分发渠道后下载最新安装包（数据由系统发布记录自动同步）。") }}</p>
+
+	<div class="chips" role="navigation" aria-label="{{ _('分发渠道') }}">
+		{% for c in allowed_channels %}
+		<a href="/cos-work-app?channel={{ c|e }}" class="{% if c == channel %}active{% endif %}">{{ c }}</a>
+		{% endfor %}
+	</div>
+
+	{% if latest %}
+	<div class="meta">
+		<strong>{{ _("当前版本") }}</strong> {{ latest.version }}（{{ _("构建") }} {{ latest.build_number }}）<br>
+		{% if latest.force_update %}
+		<span style="color:#b71c1c;">{{ _("管理员标记：建议尽快更新") }}</span><br>
+		{% endif %}
+		{% if latest.min_supported_build is not none %}
+		{{ _("最低支持构建号") }}：{{ latest.min_supported_build }}<br>
+		{% endif %}
+	</div>
+	{% if latest.download_url %}
+	<p><a class="btn" href="{{ latest.download_url|e }}" rel="noopener">{{ _("下载安装包") }}</a></p>
+	{% else %}
+	<p class="empty">{{ _("暂无下载链接，请联系管理员配置。") }}</p>
+	{% endif %}
+	{% if latest.release_notes %}
+	<h2 style="font-size:1rem;margin:1.25rem 0 0.5rem;">{{ _("更新说明") }}</h2>
+	<div class="notes">{{ latest.release_notes|e }}</div>
+	{% endif %}
+	{% if latest.sha256 %}
+	<p class="sha">SHA256: {{ latest.sha256|e }}</p>
+	{% endif %}
+	{% else %}
+	<p class="empty">{{ _("当前渠道暂无可用发布，请稍后再试或更换渠道。") }}</p>
+	{% endif %}
+</div>
+{% endblock %}
