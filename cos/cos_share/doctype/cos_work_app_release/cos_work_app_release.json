@@ -1,0 +1,152 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "format:CWAR-{channel}-{build_number}",
+ "creation": "2026-03-26 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "channel",
+  "version",
+  "build_number",
+  "column_break_meta",
+  "is_active",
+  "force_update",
+  "section_download",
+  "download_url",
+  "apk_file",
+  "column_break_dl",
+  "sha256",
+  "section_notes",
+  "release_notes",
+  "section_policy",
+  "min_supported_build"
+ ],
+ "fields": [
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "分发渠道",
+   "options": "stable\nbeta\ninternal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "版本号",
+   "description": "与 Flutter pubspec 语义版本一致，例如 0.1.0",
+   "reqd": 1
+  },
+  {
+   "fieldname": "build_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "构建号",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "启用",
+   "description": "仅启用的记录参与「最新版本」查询"
+  },
+  {
+   "default": "0",
+   "fieldname": "force_update",
+   "fieldtype": "Check",
+   "label": "建议强制更新"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_download",
+   "fieldtype": "Section Break",
+   "label": "分发与校验"
+  },
+  {
+   "fieldname": "download_url",
+   "fieldtype": "Data",
+   "label": "下载链接",
+   "length": 500,
+   "options": "URL",
+   "description": "推荐使用对象存储或 CDN 直链；与 APK 附件二选一或同时提供（优先使用链接）"
+  },
+  {
+   "fieldname": "apk_file",
+   "fieldtype": "Attach",
+   "label": "APK 附件",
+   "description": "小范围内测可用；公开分发建议用下载链接"
+  },
+  {
+   "fieldname": "column_break_dl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sha256",
+   "fieldtype": "Data",
+   "label": "SHA256",
+   "description": "可选，供客户端校验包完整性"
+  },
+  {
+   "fieldname": "section_notes",
+   "fieldtype": "Section Break",
+   "label": "更新说明"
+  },
+  {
+   "fieldname": "release_notes",
+   "fieldtype": "Text",
+   "label": "发行说明"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_policy",
+   "fieldtype": "Section Break",
+   "label": "策略（可选）"
+  },
+  {
+   "fieldname": "min_supported_build",
+   "fieldtype": "Int",
+   "label": "最低支持构建号",
+   "description": "低于此构建的客户端应提示升级（由 App 端解释）",
+   "non_negative": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "make_attachments_public": 1,
+ "modified": "2026-03-26 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Share",
+ "name": "Cos Work App Release",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
