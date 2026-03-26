@@ -98,8 +98,20 @@
 						<span class="quantity-value text-bold">{{ item.qty }}</span>
 					</td>
 					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
-					<td class="text-right" style="white-space: nowrap;">{{ item.get_formatted("rate", doc) }}</td>
-					<td class="text-right text-bold" style="white-space: nowrap;">{{ item.get_formatted("amount", doc) }}</td>
+					<td class="text-right" style="white-space: nowrap;">
+						{%- if frappe.utils.flt(item.rate) != 0 -%}
+						{{ item.get_formatted("rate", doc) }}
+						{%- else -%}
+						&nbsp;
+						{%- endif -%}
+					</td>
+					<td class="text-right text-bold" style="white-space: nowrap;">
+						{%- if frappe.utils.flt(item.rate) != 0 -%}
+						{{ item.get_formatted("amount", doc) }}
+						{%- else -%}
+						&nbsp;
+						{%- endif -%}
+					</td>
 					<td class="text-left">{{ (item.description or "") | safe }}</td>
 				</tr>
 				{%- endfor -%}
@@ -112,7 +124,13 @@
 				<tbody>
 					<tr>
 						<td class="text-right" style="width: 40%;"><strong>小计</strong></td>
-						<td class="text-right text-bold">{{ doc.get_formatted("total") }}</td>
+						<td class="text-right text-bold">
+							{%- if frappe.utils.flt(doc.total) != 0 -%}
+							{{ doc.get_formatted("total") }}
+							{%- else -%}
+							&nbsp;
+							{%- endif -%}
+						</td>
 					</tr>
 					{%- for tax in doc.taxes -%}
 					{%- if tax.tax_amount and tax.tax_amount > 0 -%}
@@ -124,11 +142,23 @@
 					{%- endfor -%}
 					<tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
 						<td class="text-right"><strong>总计 ({{ doc.currency or "CNY" }})</strong></td>
-						<td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
+						<td class="text-right text-bold">
+							{%- if frappe.utils.flt(doc.grand_total) != 0 -%}
+							{{ doc.get_formatted("grand_total") }}
+							{%- else -%}
+							&nbsp;
+							{%- endif -%}
+						</td>
 					</tr>
 					<tr>
 						<td class="text-right" style="width: 40%;"><strong>大写金额</strong></td>
-						<td class="text-right text-bold">{{ doc.in_words or "&nbsp;" }}</td>
+						<td class="text-right text-bold">
+							{%- if frappe.utils.flt(doc.grand_total) != 0 -%}
+							{{ doc.in_words or "&nbsp;" }}
+							{%- else -%}
+							&nbsp;
+							{%- endif -%}
+						</td>
 					</tr>
 				</tbody>
 			</table>
