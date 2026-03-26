@@ -8,6 +8,7 @@ import frappe
 from cos.cos_share.utils.cos_work_app_release_public import (
 	ALLOWED_CHANNELS,
 	get_public_latest_release,
+	list_channels_with_active_releases,
 	resolve_channel,
 )
 
@@ -32,5 +33,8 @@ def get_context(context):
 	data = get_public_latest_release(ch)
 	context.update(data)
 	context.allowed_channels = sorted(ALLOWED_CHANNELS)
+	context.active_channels_hint = (
+		list_channels_with_active_releases() if data.get("latest") is None else []
+	)
 	context.title = "合思协产 App 下载"
 	context.no_sitemap = 1

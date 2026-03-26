@@ -61,8 +61,17 @@
 	{% endif %}
 	{% else %}
 	<p class="empty">{{ _("当前渠道暂无可用发布。") }}</p>
+	{% if active_channels_hint %}
+	<p class="empty" style="font-size:0.9rem;color:#1565c0;">
+		{{ _("以下渠道已有启用中的发布，请点击页面上方对应标签切换：") }}
+		<strong>{{ active_channels_hint | join(", ") }}</strong>
+	</p>
+	{% endif %}
 	<p class="empty" style="font-size:0.875rem;">
-		{{ _("请使用管理员账号在 Desk 打开：工作台 COS → 版本与分发（Cos Work App Release），新建记录并勾选「启用」，分发渠道需与上方所选一致（stable / beta / internal），并填写下载链接或上传 APK。") }}
+		{{ _("若各渠道均无数据：请使用管理员账号在 Desk 打开「工作台 COS → 版本与分发（Cos Work App Release）」，新建记录并勾选「启用」，分发渠道须与下载页所选一致，并填写下载链接或上传 APK。") }}
+	</p>
+	<p class="empty" style="font-size:0.8rem;color:#888;">
+		{{ _("提示：列表与 API/网站均按字段「分发渠道」筛选，与编号（如 CWAR-stable-1）中的文字无关；若曾修改过渠道，请以当前「分发渠道」为准，或点击上方匹配该字段的标签。") }}
 	</p>
 	{% endif %}
 </div>

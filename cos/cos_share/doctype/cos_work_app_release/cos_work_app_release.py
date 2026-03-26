@@ -16,6 +16,7 @@ class CosWorkAppRelease(Document):
 		self._validate_download_source()
 		self._validate_unique_channel_build()
 		self._validate_url()
+		self._warn_name_channel_mismatch()
 
 	def _validate_download_source(self):
 		if not (self.download_url or "").strip() and not (self.apk_file or "").strip():
@@ -38,3 +39,22 @@ class CosWorkAppRelease(Document):
 			return
 		if not _URL_RE.match(url):
 			frappe.throw(_("下载链接须以 http:// 或 https:// 开头"))
+
+	def _warn_name_channel_mismatch(self):
+		"""编号在首次保存后固定；若之后改「分发渠道」，编号中的渠道段会与字段不一致，易误解。"""
+		name = (self.name or "").strip()
+		if not name.startswith("CWAR-") or not self.channel:
+			return
+		parts = name.split("-")
+		if len(parts) < 3:
+			return
+		segment = parts[1]
+		if segment != self.channel:
+			frappe.msgprint(
+				_(
+					"当前编号「{0}」中的渠道为「{1}」，与字段「分发渠道」（{2}）不一致。"
+					"网站与 API 仅按「分发渠道」筛选；若需编号与之一致，请另存为新单据。"
+				).format(name, segment, self.channel),
+				title=_("渠道与编号不一致"),
+				indicator="orange",
+			)

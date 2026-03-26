@@ -29,6 +29,17 @@ def resolve_channel(channel: str | None, *, fallback: str = "stable") -> str:
 	return ch
 
 
+def list_channels_with_active_releases() -> list[str]:
+	"""存在「启用」发布记录的分发渠道（供网站空态提示）。"""
+	chs = frappe.get_all(
+		"Cos Work App Release",
+		filters={"is_active": 1},
+		pluck="channel",
+		ignore_permissions=True,
+	)
+	return sorted({c for c in (chs or []) if c in ALLOWED_CHANNELS})
+
+
 def get_public_latest_release(channel: str | None = "stable") -> dict:
 	"""返回 { ok, channel, latest }；latest 为 None 表示当前渠道无启用发布。"""
 	ch = resolve_channel(channel)
