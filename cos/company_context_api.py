@@ -12,6 +12,11 @@ def _require_login():
 		frappe.throw(_("Login required"), frappe.AuthenticationError)
 
 
+def _company_has_disabled_column():
+	"""部分旧库/未完整 migrate 的站点无 `Company.disabled`，避免 get_list/get_value 报错。"""
+	return bool(frappe.db.has_column("Company", "disabled"))
+
+
 @frappe.whitelist()
 def get_session_company():
 	"""返回当前用户默认公司（ERPNext 会话公司）。"""
@@ -27,9 +32,12 @@ def get_session_company():
 def list_accessible_companies():
 	"""列出当前用户有读权限且未禁用的公司（受 User Permission 等约束）。"""
 	_require_login()
+	filters = {}
+	if _company_has_disabled_column():
+		filters["disabled"] = 0
 	return frappe.get_list(
 		"Company",
-		filters={"disabled": 0},
+		filters=filters,
 		fields=["name", "company_name"],
 		order_by="name",
 		limit_page_length=0,
@@ -45,11 +53,14 @@ def set_default_company(company=None):
 		frappe.throw(_("Company is required"), frappe.ValidationError)
 	if not frappe.db.exists("Company", company):
 		frappe.throw(_("Company not found"), frappe.DoesNotExistError)
-	if frappe.db.get_value("Company", company, "disabled"):
+	if _company_has_disabled_column() and frappe.db.get_value("Company", company, "disabled"):
 		frappe.throw(_("Company is disabled"), frappe.ValidationError)
+	filters = {"name": company}
+	if _company_has_disabled_column():
+		filters["disabled"] = 0
 	allowed = frappe.get_list(
 		"Company",
-		filters={"name": company, "disabled": 0},
+		filters=filters,
 		fields=["name"],
 		limit_page_length=1,
 	)
