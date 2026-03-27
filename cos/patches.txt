@@ -28,6 +28,7 @@ cos.patches.v1_2.fix_po_payment_tab_insert_after
 cos.patches.v1_2.ensure_po_payment_tab
 cos.patches.v1_2.reset_po_property_setter_for_payment_tab
 cos.patches.v1_2.ensure_cos_workspace_work_app_release
+cos.patches.v1_2.ensure_cos_workspace_work_mini_program_links
 cos.patches.v1_2.add_supplier_quotation_item_supplier_provides_drawing
 cos.patches.v1_2.resync_supplier_quotation_external_print
 cos.patches.v1_2.resync_supplier_quotation_standard_print

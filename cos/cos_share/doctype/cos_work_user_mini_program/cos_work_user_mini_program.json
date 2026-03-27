@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "hash",
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "mini_program",
+  "sort_weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "用户",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mini_program",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "工作台小程序",
+   "options": "COS Work Mini Program",
+   "reqd": 1
+  },
+  {
+   "default": "50",
+   "fieldname": "sort_weight",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "排序权重",
+   "description": "用户自选通常优于角色默认时可设更小数值"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Share",
+ "name": "COS Work User Mini Program",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

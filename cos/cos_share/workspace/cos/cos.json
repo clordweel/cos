@@ -48,7 +48,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "\u5408\u601d\u534f\u4ea7 App",
-   "link_count": 1,
+   "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -59,6 +59,36 @@
    "label": "\u7248\u672c\u4e0e\u5206\u53d1",
    "link_count": 0,
    "link_to": "Cos Work App Release",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5de5\u4f5c\u53f0\u5c0f\u7a0b\u5e8f",
+   "link_count": 0,
+   "link_to": "COS Work Mini Program",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u89d2\u8272\u9ed8\u8ba4\u5c0f\u7a0b\u5e8f",
+   "link_count": 0,
+   "link_to": "COS Work Mini Program Role",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u7528\u6237\u81ea\u9009\u5c0f\u7a0b\u5e8f",
+   "link_count": 0,
+   "link_to": "COS Work User Mini Program",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"

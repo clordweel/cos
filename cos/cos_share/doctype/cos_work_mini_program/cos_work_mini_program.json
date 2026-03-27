@@ -1,0 +1,148 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:program_id",
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "program_id",
+  "title",
+  "description",
+  "column_break_1",
+  "launch_path",
+  "auth_kind",
+  "section_visual",
+  "icon_key",
+  "icon_url",
+  "accent_color",
+  "section_flags",
+  "enabled",
+  "show_in_market",
+  "sort_order"
+ ],
+ "fields": [
+  {
+   "fieldname": "program_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "程序标识",
+   "description": "移动端稳定 ID，与壳内映射一致，如 desk_home",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "名称",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "描述",
+   "description": "在移动端显示为副标题"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "launch_path",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "入口路径",
+   "description": "站内路径，必须以 / 开头，如 /desk、/worker-portal/...",
+   "reqd": 1
+  },
+  {
+   "default": "frappe_session",
+   "fieldname": "auth_kind",
+   "fieldtype": "Select",
+   "label": "认证方式",
+   "options": "frappe_session\nworker_portal_token",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_visual",
+   "fieldtype": "Section Break",
+   "label": "图标与样式"
+  },
+  {
+   "fieldname": "icon_key",
+   "fieldtype": "Data",
+   "label": "Material 图标键",
+   "description": "与移动端内置映射表对应，如 dashboard_outlined；与图标 URL 二选一或同时存在时优先 URL"
+  },
+  {
+   "fieldname": "icon_url",
+   "fieldtype": "Data",
+   "label": "图标 URL",
+   "length": 500,
+   "description": "完整 https 链接，或以 / 开头的站内路径（如 /files/...）"
+  },
+  {
+   "fieldname": "accent_color",
+   "fieldtype": "Data",
+   "label": "强调色",
+   "description": "可选，#RRGGBB"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_flags",
+   "fieldtype": "Section Break",
+   "label": "状态与市场"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "启用"
+  },
+  {
+   "default": "1",
+   "fieldname": "show_in_market",
+   "fieldtype": "Check",
+   "label": "在市场展示",
+   "description": "供用户自选添加（需配合「用户工作台小程序」维护）"
+  },
+  {
+   "default": "0",
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "目录排序",
+   "description": "同权重下按此升序"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Share",
+ "name": "COS Work Mini Program",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

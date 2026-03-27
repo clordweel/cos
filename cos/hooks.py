@@ -474,4 +474,34 @@ fixtures = [
             ]
         ],
     },
+    {
+        "dt": "COS Work Mini Program",
+        "filters": [
+            [
+                "program_id",
+                "in",
+                [
+                    "pi_reimbursement_pending",
+                    "pi_reimbursement_approval",
+                    "stock_reconciliation",
+                    "desk_home",
+                ],
+            ]
+        ],
+    },
+    {
+        "dt": "COS Work Mini Program Role",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "CWMPR-ALL-PI-PENDING",
+                    "CWMPR-ALL-PI-APPR",
+                    "CWMPR-ALL-STOCK",
+                    "CWMPR-ALL-DESK",
+                ],
+            ]
+        ],
+    },
 ]

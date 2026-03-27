@@ -1,0 +1,42 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "COS Work Mini Program Role",
+  "mini_program": "pi_reimbursement_pending",
+  "modified": "2026-03-27 12:00:00.000000",
+  "module": "COS Share",
+  "name": "CWMPR-ALL-PI-PENDING",
+  "role": "All",
+  "sort_weight": 10
+ },
+ {
+  "docstatus": 0,
+  "doctype": "COS Work Mini Program Role",
+  "mini_program": "pi_reimbursement_approval",
+  "modified": "2026-03-27 12:00:00.000000",
+  "module": "COS Share",
+  "name": "CWMPR-ALL-PI-APPR",
+  "role": "All",
+  "sort_weight": 20
+ },
+ {
+  "docstatus": 0,
+  "doctype": "COS Work Mini Program Role",
+  "mini_program": "stock_reconciliation",
+  "modified": "2026-03-27 12:00:00.000000",
+  "module": "COS Share",
+  "name": "CWMPR-ALL-STOCK",
+  "role": "All",
+  "sort_weight": 30
+ },
+ {
+  "docstatus": 0,
+  "doctype": "COS Work Mini Program Role",
+  "mini_program": "desk_home",
+  "modified": "2026-03-27 12:00:00.000000",
+  "module": "COS Share",
+  "name": "CWMPR-ALL-DESK",
+  "role": "All",
+  "sort_weight": 40
+ }
+]
