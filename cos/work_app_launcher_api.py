@@ -100,6 +100,7 @@ def get_launcher_programs():
 	for r in rows:
 		out.append(
 			{
+				"doc_name": r.get("name"),
 				"id": r.get("program_id"),
 				"title": r.get("title"),
 				"subtitle": (r.get("description") or ""),
@@ -111,3 +112,117 @@ def get_launcher_programs():
 			}
 		)
 	return out
+
+
+@frappe.whitelist()
+def get_market_programs():
+	"""返回「在市场展示」且已启用的小程序，并标注当前用户是否在首页可见、是否自选添加。
+
+	首页可见 = 与 get_launcher_programs 相同（角色默认 ∪ 用户自选）。
+	自选 = 存在「用户自选小程序」记录。
+	"""
+	_require_login()
+	user = frappe.session.user
+	roles = frappe.get_roles(user)
+
+	role_rows = frappe.get_all(
+		"COS Work Mini Program Role",
+		filters={"role": ["in", roles]},
+		fields=["mini_program", "sort_weight"],
+	)
+	user_rows = frappe.get_all(
+		"COS Work User Mini Program",
+		filters={"user": user},
+		fields=["mini_program", "sort_weight"],
+	)
+	user_pinned_names = {r.get("mini_program") for r in user_rows if r.get("mini_program")}
+	weights = _merge_weights(role_rows, user_rows)
+
+	market_rows = frappe.get_all(
+		"COS Work Mini Program",
+		filters={"enabled": 1, "show_in_market": 1},
+		fields=[
+			"name",
+			"program_id",
+			"title",
+			"description",
+			"launch_path",
+			"auth_kind",
+			"icon_key",
+			"icon_url",
+			"accent_color",
+			"sort_order",
+		],
+		order_by="sort_order asc, title asc",
+	)
+
+	out = []
+	for r in market_rows:
+		nm = r.get("name")
+		out.append(
+			{
+				"doc_name": nm,
+				"id": r.get("program_id"),
+				"title": r.get("title"),
+				"subtitle": (r.get("description") or ""),
+				"launch_path": r.get("launch_path"),
+				"auth_kind": r.get("auth_kind") or "frappe_session",
+				"icon_key": (r.get("icon_key") or "").strip(),
+				"icon_url": (r.get("icon_url") or "").strip(),
+				"accent_color": _parse_accent(r.get("accent_color")),
+				"in_launcher": bool(nm in weights),
+				"user_pinned": bool(nm in user_pinned_names),
+			}
+		)
+	return out
+
+
+@frappe.whitelist()
+def add_user_mini_program(mini_program):
+	"""将小程序加入当前用户的「自选」，首页宫格会出现（若已因角色可见则仅补自选记录）。"""
+	_require_login()
+	mini_program = (mini_program or "").strip()
+	if not mini_program:
+		frappe.throw(_("未指定小程序"))
+	if not frappe.db.exists("COS Work Mini Program", mini_program):
+		frappe.throw(_("小程序不存在"))
+	doc = frappe.get_cached_doc("COS Work Mini Program", mini_program)
+	if not doc.enabled:
+		frappe.throw(_("小程序已停用"))
+	if not doc.show_in_market:
+		frappe.throw(_("该小程序未对市场开放"))
+	user = frappe.session.user
+	if frappe.db.exists(
+		"COS Work User Mini Program",
+		{"user": user, "mini_program": mini_program},
+	):
+		return {"ok": True, "already": True}
+	row = frappe.get_doc(
+		{
+			"doctype": "COS Work User Mini Program",
+			"user": user,
+			"mini_program": mini_program,
+			"sort_weight": 50,
+		}
+	)
+	row.insert()
+	return {"ok": True, "already": False}
+
+
+@frappe.whitelist()
+def remove_user_mini_program(mini_program):
+	"""移除当前用户自选；若仍绑定角色，首页仍可能显示该小程序。"""
+	_require_login()
+	mini_program = (mini_program or "").strip()
+	if not mini_program:
+		frappe.throw(_("未指定小程序"))
+	user = frappe.session.user
+	name = frappe.db.get_value(
+		"COS Work User Mini Program",
+		{"user": user, "mini_program": mini_program},
+		"name",
+	)
+	if not name:
+		frappe.throw(_("没有可移除的自选记录"))
+	frappe.delete_doc("COS Work User Mini Program", name)
+	return {"ok": True}
