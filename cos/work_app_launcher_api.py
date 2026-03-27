@@ -46,10 +46,13 @@ def _parse_accent(hex_str):
 
 @frappe.whitelist()
 def get_launcher_programs():
-	"""返回当前用户可见、已启用的小程序列表（供移动端渲染宫格）。
+	"""返回当前用户首页小程序列表（供移动端渲染宫格）。
 
 	合并规则：用户「自选」与当前用户任一「角色默认」绑定的小程序取并集，
 	同一小程序的多条绑定取最小 sort_weight 排序；再按目录 sort_order、标题排序。
+
+	管理员取消「启用」后仍返回该条目，并带 program_enabled=false，
+	便于客户端灰显占位；用户自选记录不会在后台被自动删除。
 	"""
 	_require_login()
 	user = frappe.session.user
@@ -65,6 +68,7 @@ def get_launcher_programs():
 		filters={"user": user},
 		fields=["mini_program", "sort_weight"],
 	)
+	user_pinned_names = {r.get("mini_program") for r in user_rows if r.get("mini_program")}
 
 	weights = _merge_weights(role_rows, user_rows)
 	if not weights:
@@ -73,7 +77,7 @@ def get_launcher_programs():
 	names = list(weights.keys())
 	rows = frappe.get_all(
 		"COS Work Mini Program",
-		filters={"name": ["in", names], "enabled": 1},
+		filters={"name": ["in", names]},
 		fields=[
 			"name",
 			"program_id",
@@ -85,6 +89,7 @@ def get_launcher_programs():
 			"icon_url",
 			"accent_color",
 			"sort_order",
+			"enabled",
 		],
 	)
 
@@ -92,15 +97,18 @@ def get_launcher_programs():
 		doc_name = r.get("name")
 		w = weights.get(doc_name, 999)
 		so = cint(r.get("sort_order"))
-		return (w, so, r.get("title") or "")
+		en = cint(r.get("enabled"))
+		# 已启用的排在前，停用仍保留在首页时排在后
+		return (0 if en else 1, w, so, r.get("title") or "")
 
 	rows.sort(key=sort_key)
 
 	out = []
 	for r in rows:
+		nm = r.get("name")
 		out.append(
 			{
-				"doc_name": r.get("name"),
+				"doc_name": nm,
 				"id": r.get("program_id"),
 				"title": r.get("title"),
 				"subtitle": (r.get("description") or ""),
@@ -109,6 +117,8 @@ def get_launcher_programs():
 				"icon_key": (r.get("icon_key") or "").strip(),
 				"icon_url": (r.get("icon_url") or "").strip(),
 				"accent_color": _parse_accent(r.get("accent_color")),
+				"program_enabled": bool(cint(r.get("enabled"))),
+				"user_pinned": bool(nm in user_pinned_names),
 			}
 		)
 	return out
