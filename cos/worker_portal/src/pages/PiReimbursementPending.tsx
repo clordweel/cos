@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ArrowLeft, SearchX } from "lucide-react"
+import { ArrowLeft, Search, SearchX } from "lucide-react"
 import {
 	WpEmptyState,
 	WpLoadingState,
@@ -27,6 +27,7 @@ import {
 	wpText,
 } from "@/lib/wp-layout"
 import { sanitizePiRemarkHtml } from "@/lib/sanitize-html"
+import { cn } from "@/lib/utils"
 
 function decodePiNameFromRoute(raw: string | undefined): string {
 	if (!raw) return ""
@@ -185,106 +186,122 @@ export function PiReimbursementPendingList() {
 				<>
 					<div
 						id="pi-pending-toolbar"
-						className="sticky top-0 z-20 -mx-0 mb-3"
+						className="sticky top-0 z-30 mb-3 scroll-mt-0"
 					>
-						<div className="rounded-xl border border-border/60 bg-card/95 p-3 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85">
-							<Input
-								id="pi-pending-search-input"
-								placeholder="搜索单号、供应商、员工、发票号…"
-								value={searchQuery}
-								onChange={(e) => setSearchQuery(e.target.value)}
-								className="h-10"
-							/>
+						<div className="overflow-hidden rounded-2xl border border-border/50 bg-card shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/92">
+							{/* 首行：左侧圆角搜索条；App 壳内右侧留白对齐胶囊（图2）；浏览器独占一行 */}
+							<div className="flex items-center gap-2 px-3 pt-3">
+								<div
+									className={cn(
+										"flex min-w-0 items-center gap-2 rounded-full border border-border/70 bg-muted/45 px-3 h-10",
+										isCosFlutterShell() ? "flex-1" : "w-full",
+									)}
+								>
+									<Search
+										className="h-4 w-4 shrink-0 text-muted-foreground"
+										strokeWidth={2}
+										aria-hidden
+									/>
+									<Input
+										id="pi-pending-search-input"
+										placeholder="单号 / 供应商 / 员工 / 发票号"
+										value={searchQuery}
+										onChange={(e) => setSearchQuery(e.target.value)}
+										className="h-9 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
+									/>
+								</div>
+								{isCosFlutterShell() ? (
+									<div
+										className="shrink-0 w-[76px] sm:w-[88px]"
+										aria-hidden
+									/>
+								) : null}
+							</div>
+
 							<div
 								id="pi-pending-filter-body"
-								className="mt-3 space-y-3 border-t border-border/40 pt-3"
+								className="space-y-3 border-t border-border/40 px-3 pb-3 pt-3"
 							>
-									<div className="flex flex-wrap items-center gap-2">
-										<span className="shrink-0 text-xs text-muted-foreground">
-											排序
-										</span>
-										<div className="flex flex-wrap gap-1.5">
-											<Button
-												type="button"
-												size="sm"
-												variant={
-													sortKey === "posting_desc"
-														? "default"
-														: "outline"
-												}
-												className="h-8 text-xs"
-												onClick={() => setSortKey("posting_desc")}
-											>
-												过账从新到旧
-											</Button>
-											<Button
-												type="button"
-												size="sm"
-												variant={
-													sortKey === "amount_desc"
-														? "default"
-														: "outline"
-												}
-												className="h-8 text-xs"
-												onClick={() => setSortKey("amount_desc")}
-											>
-												金额从高到低
-											</Button>
-											<Button
-												type="button"
-												size="sm"
-												variant={
-													sortKey === "amount_asc"
-														? "default"
-														: "outline"
-												}
-												className="h-8 text-xs"
-												onClick={() => setSortKey("amount_asc")}
-											>
-												金额从低到高
-											</Button>
-										</div>
+								<div>
+									<p className="mb-2 text-xs font-medium text-muted-foreground">
+										排序
+									</p>
+									<div className="flex flex-wrap gap-2">
+										<Button
+											type="button"
+											size="sm"
+											variant={
+												sortKey === "posting_desc" ? "default" : "outline"
+											}
+											className="h-8 rounded-full px-3 text-xs"
+											onClick={() => setSortKey("posting_desc")}
+										>
+											过账从新到旧
+										</Button>
+										<Button
+											type="button"
+											size="sm"
+											variant={
+												sortKey === "amount_desc" ? "default" : "outline"
+											}
+											className="h-8 rounded-full px-3 text-xs"
+											onClick={() => setSortKey("amount_desc")}
+										>
+											金额从高到低
+										</Button>
+										<Button
+											type="button"
+											size="sm"
+											variant={
+												sortKey === "amount_asc" ? "default" : "outline"
+											}
+											className="h-8 rounded-full px-3 text-xs"
+											onClick={() => setSortKey("amount_asc")}
+										>
+											金额从低到高
+										</Button>
 									</div>
-									<div className="flex flex-wrap items-center gap-2">
-										<span className="shrink-0 text-xs text-muted-foreground">
-											金额
-										</span>
-										<div className="flex flex-wrap gap-1.5">
-											<Button
-												type="button"
-												size="sm"
-												variant={
-													amountFilter === "all" ? "default" : "outline"
-												}
-												className="h-8 text-xs"
-												onClick={() => setAmountFilter("all")}
-											>
-												全部
-											</Button>
-											<Button
-												type="button"
-												size="sm"
-												variant={
-													amountFilter === "gte500" ? "default" : "outline"
-												}
-												className="h-8 text-xs"
-												onClick={() => setAmountFilter("gte500")}
-											>
-												≥ ¥500
-											</Button>
-											<Button
-												type="button"
-												size="sm"
-												variant={
-													amountFilter === "gte1000" ? "default" : "outline"
-												}
-												className="h-8 text-xs"
-												onClick={() => setAmountFilter("gte1000")}
-											>
-												≥ ¥1000
-											</Button>
-										</div>
+								</div>
+								<div>
+									<p className="mb-2 text-xs font-medium text-muted-foreground">
+										金额
+									</p>
+									<div className="flex flex-wrap gap-2">
+										<Button
+											type="button"
+											size="sm"
+											variant={
+												amountFilter === "all" ? "default" : "outline"
+											}
+											className="h-8 rounded-full px-3 text-xs"
+											onClick={() => setAmountFilter("all")}
+										>
+											全部
+										</Button>
+										<Button
+											type="button"
+											size="sm"
+											variant={
+												amountFilter === "gte500" ? "default" : "outline"
+											}
+											className="h-8 rounded-full px-3 text-xs"
+											onClick={() => setAmountFilter("gte500")}
+										>
+											≥ ¥500
+										</Button>
+										<Button
+											type="button"
+											size="sm"
+											variant={
+												amountFilter === "gte1000" ? "default" : "outline"
+											}
+											className="h-8 rounded-full px-3 text-xs"
+											onClick={() => setAmountFilter("gte1000")}
+										>
+											≥ ¥1000
+										</Button>
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>
