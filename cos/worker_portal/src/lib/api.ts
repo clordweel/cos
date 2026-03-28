@@ -1,5 +1,4 @@
 import { normalizeFrappeRpcErrorMessage } from "@/lib/frappe-rpc-error"
-import { isCosFlutterShell } from "@/lib/clientEnv"
 
 const TOKEN_KEY = "cos_worker_portal_token"
 
@@ -25,11 +24,14 @@ export function getApiBase(): string {
 }
 
 export function getToken(): string | null {
-	return (
-		typeof window !== "undefined" && window.__WORKER_PORTAL_CONFIG__?.initialToken
-			? window.__WORKER_PORTAL_CONFIG__.initialToken
-			: localStorage.getItem(TOKEN_KEY)
-	)
+	if (typeof window === "undefined") return null
+	// 必须优先 localStorage：壳通过 hash 写入的 wpt 在这里；HTML 里 initialToken 常为 null，
+	// 若反客为主用 initialToken，易被占位/错误注入覆盖，导致列表能带旧缓存、详情等新请求丢 Bearer。
+	const ls = localStorage.getItem(TOKEN_KEY)
+	if (ls != null && ls.trim() !== "") return ls.trim()
+	const init = window.__WORKER_PORTAL_CONFIG__?.initialToken
+	if (typeof init === "string" && init.trim() !== "") return init.trim()
+	return null
 }
 
 export function setToken(token: string): void {
@@ -201,21 +203,14 @@ export async function listPiReimbursementPendingApproval(
 export async function getPiSummaryForLoggedInApproval(
 	piName: string
 ): Promise<PiReimbursementSummary> {
-	// 浏览器：GET + query，免 CSRF（纯 Cookie 会话）。
-	// Flutter 壳 WebView：部分机型对带长 query 的 GET 处理异常，导致 pi_name 丢失 →「采购发票不存在」；
-	// 在已持有 wpt 时用 POST + JSON，由服务端对 Bearer wpt. 豁免 CSRF（见 worker_portal_csrf_patch）。
-	const usePostBody =
-		isCosFlutterShell() && !!getToken()
-	const res = usePostBody
-		? await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
-				"POST",
-				"/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval",
-				{ pi_name: piName },
-			)
-		: await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
-				"GET",
-				`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${encodeURIComponent(piName)}`,
-			)
+	// 统一 POST + JSON：避免 WebView/代理对 GET query 异常；无 wpt 时 apiRequest 会带 Cookie CSRF。
+	// URL 上再带一份 pi_name，与服务端多重解析形成兜底。
+	const q = encodeURIComponent(piName)
+	const res = await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
+		"POST",
+		`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${q}`,
+		{ pi_name: piName },
+	)
 	if (res && typeof res === "object" && "message" in res && res.message !== undefined) {
 		return res.message as PiReimbursementSummary
 	}

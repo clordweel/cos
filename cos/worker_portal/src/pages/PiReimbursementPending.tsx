@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -38,6 +38,15 @@ function decodePiNameFromRoute(raw: string | undefined): string {
 	const hashIdx = s.indexOf("#")
 	if (hashIdx >= 0) s = s.slice(0, hashIdx).trim()
 	return s
+}
+
+/** useParams 异常时从 pathname 解析最后一段（与路由 `/pi-reimbursement-pending/:piName` 一致） */
+function piNameFromPathname(pathname: string): string {
+	const prefix = "/worker-portal/pi-reimbursement-pending/"
+	if (!pathname.startsWith(prefix)) return ""
+	const rest = pathname.slice(prefix.length).replace(/\/$/, "")
+	if (!rest || rest.includes("/")) return ""
+	return decodePiNameFromRoute(rest)
 }
 
 function formatCurrency(n: number): string {
@@ -114,7 +123,9 @@ export function PiReimbursementPendingList() {
 /** 单张 PI 审批（需登录 + 写权限） */
 export function PiReimbursementPendingDetail() {
 	const { piName: raw } = useParams<{ piName: string }>()
-	const piName = decodePiNameFromRoute(raw)
+	const { pathname } = useLocation()
+	const piName =
+		decodePiNameFromRoute(raw) || piNameFromPathname(pathname)
 	const [summary, setSummary] = useState<PiReimbursementSummary | null>(null)
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)

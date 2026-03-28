@@ -17,6 +17,23 @@ from frappe import _
 TOKEN_EXPIRY_DAYS = 7
 
 
+def _resolve_whitelisted_pi_name(pi_name: str | None) -> str:
+	"""从函数参数、form_dict、query、JSON body 合并 pi_name（兼容 Portal WebView / 多客户端）。"""
+	name = (pi_name or frappe.form_dict.get("pi_name") or "").strip()
+	if name:
+		return name
+	try:
+		name = (frappe.request.args.get("pi_name") or "").strip()
+	except Exception:
+		name = ""
+	if name:
+		return name
+	data = frappe.request.get_json(silent=True)
+	if isinstance(data, dict) and data.get("pi_name") is not None:
+		name = str(data.get("pi_name") or "").strip()
+	return name or ""
+
+
 def _get_secret() -> str:
 	"""获取签名密钥。"""
 	secret = frappe.conf.get("encryption_key") or frappe.conf.get("secret_key") or ""
@@ -187,7 +204,7 @@ def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
 
 	同时支持 GET query 与 POST JSON（Portal 小程序 WebView 下 POST 更不易丢 pi_name）。
 	"""
-	pi_name = (pi_name or frappe.form_dict.get("pi_name") or "").strip()
+	pi_name = _resolve_whitelisted_pi_name(pi_name)
 	if frappe.session.user == "Guest":
 		frappe.throw(_("请先登录"), title=_("无法审批"))
 	if not pi_name or not frappe.db.exists("Purchase Invoice", pi_name):
@@ -208,7 +225,7 @@ def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
 @frappe.whitelist()
 def approve_pi_logged_in(pi_name: str = None, action: str = "approve", remark: str = "") -> dict:
 	"""已登录用户批准/拒绝报销审批（需 Purchase Invoice 写权限）。"""
-	pi_name = (pi_name or frappe.form_dict.get("pi_name") or "").strip()
+	pi_name = _resolve_whitelisted_pi_name(pi_name)
 	if frappe.session.user == "Guest":
 		frappe.throw(_("请先登录"), title=_("无法审批"))
 	if not pi_name or not frappe.db.exists("Purchase Invoice", pi_name):
