@@ -1,4 +1,5 @@
 import { normalizeFrappeRpcErrorMessage } from "@/lib/frappe-rpc-error"
+import { isCosFlutterShell } from "@/lib/clientEnv"
 
 const TOKEN_KEY = "cos_worker_portal_token"
 
@@ -200,11 +201,21 @@ export async function listPiReimbursementPendingApproval(
 export async function getPiSummaryForLoggedInApproval(
 	piName: string
 ): Promise<PiReimbursementSummary> {
-	// GET 免 CSRF；配合 fetch cache:no-store，降低 WebView/代理错误缓存或截断 query 的风险
-	const res = await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
-		"GET",
-		`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${encodeURIComponent(piName)}`
-	)
+	// 浏览器：GET + query，免 CSRF（纯 Cookie 会话）。
+	// Flutter 壳 WebView：部分机型对带长 query 的 GET 处理异常，导致 pi_name 丢失 →「采购发票不存在」；
+	// 在已持有 wpt 时用 POST + JSON，由服务端对 Bearer wpt. 豁免 CSRF（见 worker_portal_csrf_patch）。
+	const usePostBody =
+		isCosFlutterShell() && !!getToken()
+	const res = usePostBody
+		? await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
+				"POST",
+				"/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval",
+				{ pi_name: piName },
+			)
+		: await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
+				"GET",
+				`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${encodeURIComponent(piName)}`,
+			)
 	if (res && typeof res === "object" && "message" in res && res.message !== undefined) {
 		return res.message as PiReimbursementSummary
 	}

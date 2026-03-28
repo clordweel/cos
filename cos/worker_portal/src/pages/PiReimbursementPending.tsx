@@ -28,11 +28,16 @@ import {
 
 function decodePiNameFromRoute(raw: string | undefined): string {
 	if (!raw) return ""
+	let s = raw.trim()
 	try {
-		return decodeURIComponent(raw).trim()
+		s = decodeURIComponent(s).trim()
 	} catch {
-		return raw.trim()
+		// 保持原样
 	}
+	// 少数 WebView 会把 # 后内容错误并入 path
+	const hashIdx = s.indexOf("#")
+	if (hashIdx >= 0) s = s.slice(0, hashIdx).trim()
+	return s
 }
 
 function formatCurrency(n: number): string {
