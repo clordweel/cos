@@ -1,0 +1,121 @@
+{%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
+	{%- if letter_head and not no_letterhead -%}
+		<div class="letter-head">{{ letter_head }}</div>
+	{%- endif -%}
+	{%- if print_heading_template -%}
+		{{ frappe.render_template(print_heading_template, {"doc":doc}) }}
+	{%- endif -%}
+{%- endmacro -%}
+
+{% set contact_display = "" %}
+{% if doc.contact_person %}
+{% set contact_display = doc.contact_display or doc.contact_person %}
+{% set contact_mobile = frappe.db.get_value("Contact", doc.contact_person, "mobile_no") %}
+{% if contact_mobile %}
+{% set contact_display = contact_display ~ " (" ~ contact_mobile ~ ")" %}
+{% endif %}
+{% endif %}
+
+{% for page in layout %}
+<div class="page-break print-format-wrapper order-wrapper sq-external-no-price">
+	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
+		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
+	</div>
+
+	<div class="print-format-body">
+		<!-- 基本信息表格（与「供应商报价单 - 外部」一致，不含任何单价/金额展示） -->
+		<table class="table table-bordered info-table mb-3">
+			<tbody>
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">供应商:</span>
+						<span class="info-value text-bold">{{ doc.supplier_name }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">报价编号:</span>
+						<span class="info-value text-bold">{{ doc.name }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">联系人:</span>
+						<span class="info-value">{{ contact_display or "&nbsp;" }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">报价日期:</span>
+						<span class="info-value">{{ frappe.utils.format_date(doc.transaction_date) }}</span>
+					</td>
+				</tr>
+				{%- if doc.valid_till -%}
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">有效期至:</span>
+						<span class="info-value">{{ frappe.utils.format_date(doc.valid_till) }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						{%- if doc.quotation_number -%}
+						<span class="info-label font-weight-bold">供应商报价单号:</span>
+						<span class="info-value">{{ doc.quotation_number }}</span>
+						{%- endif -%}
+					</td>
+				</tr>
+				{%- elif doc.quotation_number -%}
+				<tr>
+					<td class="info-cell" colspan="2">
+						<span class="info-label font-weight-bold">供应商报价单号:</span>
+						<span class="info-value">{{ doc.quotation_number }}</span>
+					</td>
+				</tr>
+				{%- endif -%}
+			</tbody>
+		</table>
+
+		<!-- 物料明细：无单价、金额、汇总区 -->
+		<table class="table table-bordered items-table mb-3">
+			<thead class="table-header">
+				<tr>
+					<th class="text-center col-serial" style="width: 6%; min-width: 2.5em; white-space: nowrap;">序号</th>
+					<th class="text-left" style="width: 38%;">物料信息</th>
+					<th class="text-right" style="width: 10%;">数量</th>
+					<th class="text-center" style="width: 8%;">单位</th>
+					<th class="text-left" style="width: 38%;">备注</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%- for item in doc.items -%}
+				<tr>
+					<td class="text-center">{{ loop.index }}</td>
+					<td class="item-info-cell">
+						<div class="item-code text-bold">{{ item.item_code }}</div>
+						<div class="item-name">{{ item.item_name }}</div>
+						{%- if item.supplier_part_no -%}
+						<div class="secondary-text" style="margin-top: 2px;">[供]: {{ item.supplier_part_no }}</div>
+						{% endif %}
+						{%- if item.custom_supplier_provides_drawing -%}
+						<div class="item-supplier-drawing-note">供应商提供图纸</div>
+						{% endif %}
+					</td>
+					<td class="text-right">
+						<span class="quantity-value text-bold">{{ item.qty }}</span>
+					</td>
+					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
+					<td class="text-left">{{ (item.description | striptags) if item.description else "&nbsp;" }}</td>
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+
+		<!-- 备注/条款区域 -->
+		<div class="remarks-box mb-3">
+			<div class="remarks-label font-weight-bold mb-2">备注 / 条款:</div>
+			<div class="remarks-content">
+				{%- if doc.terms -%}
+				<div class="secondary-text">{{ doc.terms | safe }}</div>
+				{%- else -%}
+				{{ doc.remarks or "&nbsp;" }}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}

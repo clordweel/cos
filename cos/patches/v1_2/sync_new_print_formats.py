@@ -11,8 +11,17 @@ def execute():
     from cos.scripts.sync_material_request_external import sync as sync_mr_external
     from cos.scripts.sync_supplier_quotation_print_format import sync as sync_sq
     from cos.scripts.sync_supplier_quotation_external import sync as sync_sq_external
+    from cos.scripts.sync_supplier_quotation_external_no_price import sync as sync_sq_external_no_price
 
-    for sync_fn in (sync_dn, sync_si, sync_pr, sync_mr_external, sync_sq, sync_sq_external):
+    for sync_fn in (
+        sync_dn,
+        sync_si,
+        sync_pr,
+        sync_mr_external,
+        sync_sq,
+        sync_sq_external,
+        sync_sq_external_no_price,
+    ):
         try:
             sync_fn()
         except FileNotFoundError as e:
