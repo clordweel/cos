@@ -175,7 +175,12 @@ function add_reset_reimbursement_approval_button(frm) {
 	const has_residual =
 		st === "Approved" ||
 		st === "Rejected" ||
-		!!(frm.doc.custom_reimbursement_approved_by || frm.doc.custom_reimbursement_remark);
+		!!(
+			frm.doc.custom_reimbursement_approver ||
+			frm.doc.custom_reimbursement_approved_by ||
+			frm.doc.custom_reimbursement_approved_on ||
+			frm.doc.custom_reimbursement_remark
+		);
 	if (!has_residual) return;
 
 	frm.add_custom_button(
@@ -188,7 +193,7 @@ function add_reset_reimbursement_approval_button(frm) {
 function reset_reimbursement_approval_from_pi(frm) {
 	frappe.confirm(
 		__(
-			"将报销审批状态设为「待审批」，并清空审批人、审批时间与备注。已存在应付转员工日记账时服务端将拒绝。是否继续？"
+			"将「报销审批状态」设为待审批，并清空「报销审批人」「报销实际审批人」「报销审批时间」「报销审批备注」。不校验应付转员工日记账。是否继续？"
 		),
 		async () => {
 			try {

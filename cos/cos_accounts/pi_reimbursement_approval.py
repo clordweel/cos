@@ -260,10 +260,10 @@ def approve_pi_logged_in(pi_name: str = None, action: str = "approve", remark: s
 
 @frappe.whitelist()
 def reset_pi_reimbursement_approval(pi_name: str = None) -> dict:
-	"""将员工垫付采购发票的报销审批结果清空为待审批（仅系统管理员）。
+	"""将员工垫付采购发票界面「报销审批」区字段恢复为初始态（仅系统管理员）。
 
-	已存在应付转员工日记账时禁止重置，避免与账务不一致。
-	不修改「报销审批人」配置字段，仅清除审批结果相关字段。
+	重置：报销审批状态→Pending；报销审批人、实际审批人、审批时间、备注 清空。
+	不校验是否已存在应付转员工日记账（由管理员自行承担与账务一致性责任）。
 	"""
 	_require_system_manager_for_pi_reset()
 	pi_name = _resolve_whitelisted_pi_name(pi_name)
@@ -275,16 +275,12 @@ def reset_pi_reimbursement_approval(pi_name: str = None) -> dict:
 	frappe.has_permission("Purchase Invoice", "write", doc=pi, throw=True)
 	if not pi.get("custom_is_employee_advance"):
 		frappe.throw(_("该发票未勾选员工垫付"), title=_("无法重置"))
-	if pi.get("custom_payable_transfer_je"):
-		frappe.throw(
-			_("已存在应付转员工日记账，无法重置报销审批"),
-			title=_("无法重置"),
-		)
 	frappe.db.set_value(
 		"Purchase Invoice",
 		pi_name,
 		{
 			"custom_reimbursement_approval_status": "Pending",
+			"custom_reimbursement_approver": None,
 			"custom_reimbursement_approved_by": None,
 			"custom_reimbursement_approved_on": None,
 			"custom_reimbursement_remark": "",
@@ -292,4 +288,4 @@ def reset_pi_reimbursement_approval(pi_name: str = None) -> dict:
 		update_modified=True,
 	)
 	frappe.db.commit()
-	return {"success": True, "message": _("已重置报销审批为待审批")}
+	return {"success": True, "message": _("已重置报销审批相关字段")}
