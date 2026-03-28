@@ -17,13 +17,13 @@
 {% endif %}
 
 {% for page in layout %}
-<div class="page-break print-format-wrapper order-wrapper sq-external-no-price">
+<div class="page-break print-format-wrapper order-wrapper sq-external-price-blank">
 	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
 		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
 	</div>
 
 	<div class="print-format-body">
-		<!-- 基本信息表格（与「供应商报价单 - 外部」一致，不含任何单价/金额展示） -->
+		<!-- 基本信息表格（与「供应商报价单 - 外部」一致） -->
 		<table class="table table-bordered info-table mb-3">
 			<tbody>
 				<tr>
@@ -70,15 +70,20 @@
 			</tbody>
 		</table>
 
-		<!-- 物料明细：无单价、金额、汇总区 -->
+		<!--
+			与外部版相同列布局；单价、金额始终留空（不打印系统已有价税），供供应商手填。
+			与「供应商报价单 - 外部」区别：外部在系统已填单价/合计时会带出数值。
+		-->
 		<table class="table table-bordered items-table mb-3">
 			<thead class="table-header">
 				<tr>
 					<th class="text-center col-serial" style="width: 6%; min-width: 2.5em; white-space: nowrap;">序号</th>
-					<th class="text-left" style="width: 38%;">物料信息</th>
-					<th class="text-right" style="width: 10%;">数量</th>
-					<th class="text-center" style="width: 8%;">单位</th>
-					<th class="text-left" style="width: 38%;">备注</th>
+					<th class="text-left" style="width: 28%;">物料信息</th>
+					<th class="text-right" style="width: 8%;">数量</th>
+					<th class="text-center" style="width: 6%;">单位</th>
+					<th class="text-right" style="width: 12%;">单价（元）</th>
+					<th class="text-right" style="width: 12%;">金额（元）</th>
+					<th class="text-left" style="width: 28%;">备注</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -99,13 +104,41 @@
 						<span class="quantity-value text-bold">{{ item.qty }}</span>
 					</td>
 					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
+					<td class="text-right cell-supplier-fill" style="white-space: nowrap;">&nbsp;</td>
+					<td class="text-right text-bold cell-supplier-fill" style="white-space: nowrap;">&nbsp;</td>
 					<td class="text-left">{{ (item.description | striptags) if item.description else "&nbsp;" }}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
 		</table>
 
-		<!-- 备注/条款区域 -->
+		<div class="mb-3" style="text-align: right;">
+			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
+				<tbody>
+					<tr>
+						<td class="text-right" style="width: 40%;"><strong>小计</strong></td>
+						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+					</tr>
+					{%- for tax in doc.taxes -%}
+					{%- if tax.description -%}
+					<tr>
+						<td class="text-right"><strong>{{ tax.description }}</strong></td>
+						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+					</tr>
+					{%- endif -%}
+					{%- endfor -%}
+					<tr style="background-color: #e0e0e0; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+						<td class="text-right"><strong>总计 ({{ doc.currency or "CNY" }})</strong></td>
+						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width: 40%;"><strong>大写金额</strong></td>
+						<td class="text-right text-bold cell-supplier-fill" style="min-width: 120px;">&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 		<div class="remarks-box mb-3">
 			<div class="remarks-label font-weight-bold mb-2">备注 / 条款:</div>
 			<div class="remarks-content">

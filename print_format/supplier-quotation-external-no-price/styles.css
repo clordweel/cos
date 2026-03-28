@@ -1,6 +1,6 @@
 /* ============================================
-   打印格式样式 - 供应商报价单 外部版（无价格）
-   基于「供应商报价单 - 外部」，不展示单价、金额与汇总
+   打印格式样式 - 供应商报价单 外部版（价格留空）
+   列布局同「供应商报价单 - 外部」；单价/金额/汇总格始终留空供供应商填写
    ============================================ */
 
 .print-format-wrapper .info-table {
@@ -68,6 +68,15 @@
     font-size: 13px;
     font-weight: 600;
     color: #171717;
+}
+
+.print-format-wrapper .cell-supplier-fill {
+    min-height: 1.5em;
+}
+
+.print-format-wrapper .totals-table td {
+    padding: 4px;
+    vertical-align: middle;
 }
 
 .print-format-wrapper .remarks-box {

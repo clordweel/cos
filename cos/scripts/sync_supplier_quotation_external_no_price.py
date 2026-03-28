@@ -1,6 +1,8 @@
 # Copyright (c) 2026, COS and contributors
 """从 print_format/supplier-quotation-external-no-price 同步到 Print Format「供应商报价单 - 外部（无价格）」。
 
+价税列与汇总区保留版面，始终留空供供应商填写（不打印系统内已有单价/合计）。
+
 用法:
   bench --site <site> execute cos.scripts.sync_supplier_quotation_external_no_price.sync
 """

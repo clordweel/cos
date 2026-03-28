@@ -1,5 +1,5 @@
 # Copyright (c) 2026, COS and contributors
-"""创建/更新「供应商报价单 - 外部（无价格）」打印格式（单价/金额/汇总格始终留空供供应商填写）。"""
+"""重新同步「供应商报价单 - 外部（无价格）」：保留价税列与汇总区，格内始终留空供供应商填写。"""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ def execute():
 		sync_sq_external_no_price()
 	except FileNotFoundError:
 		frappe.log_error(
-			title="Print Format sync skipped: supplier quotation external no price",
+			title="Print Format sync skipped: supplier quotation external price blank",
 			message="template or styles.css missing",
 		)
 	frappe.db.commit()
