@@ -2,6 +2,7 @@
  {
   "accent_color": "#1565C0",
   "auth_kind": "worker_portal_token",
+  "nav_bar_inset_mode": "app_provided",
   "description": "员工垫付 · 待审批",
   "docstatus": 0,
   "doctype": "COS Work Mini Program",
@@ -20,6 +21,7 @@
  {
   "accent_color": "#5E35B1",
   "auth_kind": "worker_portal_token",
+  "nav_bar_inset_mode": "app_provided",
   "description": "审批处理入口",
   "docstatus": 0,
   "doctype": "COS Work Mini Program",
@@ -38,6 +40,7 @@
  {
   "accent_color": "#2E7D32",
   "auth_kind": "frappe_session",
+  "nav_bar_inset_mode": "app_provided",
   "description": "库存盘点单据",
   "docstatus": 0,
   "doctype": "COS Work Mini Program",
@@ -56,6 +59,7 @@
  {
   "accent_color": "#37474F",
   "auth_kind": "frappe_session",
+  "nav_bar_inset_mode": "app_provided",
   "description": "完整管理界面",
   "docstatus": 0,
   "doctype": "COS Work Mini Program",

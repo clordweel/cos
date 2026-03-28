@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { cosFlutterShellContentInsetStyle } from "./clientEnv"
 
 /** 全页浅灰底 + 内容区（与 shadcn Card 边距对齐） */
 export function WpPage({
@@ -12,7 +13,10 @@ export function WpPage({
 	narrow?: boolean
 }) {
 	return (
-		<div className={cn("min-h-screen bg-muted/30", className)}>
+		<div
+			className={cn("min-h-screen bg-muted/30", className)}
+			style={cosFlutterShellContentInsetStyle()}
+		>
 			<div
 				className={cn(
 					"mx-auto w-full px-4 pb-8 pt-4 space-y-4",
@@ -28,7 +32,10 @@ export function WpPage({
 /** 登录等居中页 */
 export function WpAuthPage({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
+		<div
+			className="min-h-screen bg-muted/30 flex items-center justify-center p-4"
+			style={cosFlutterShellContentInsetStyle()}
+		>
 			<div className="w-full max-w-md">{children}</div>
 		</div>
 	)
@@ -37,7 +44,10 @@ export function WpAuthPage({ children }: { children: React.ReactNode }) {
 /** 全屏居中（加载中、短提示） */
 export function WpCentered({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="min-h-screen bg-muted/30 flex items-center justify-center px-4 py-8">
+		<div
+			className="min-h-screen bg-muted/30 flex items-center justify-center px-4 py-8"
+			style={cosFlutterShellContentInsetStyle()}
+		>
 			{children}
 		</div>
 	)

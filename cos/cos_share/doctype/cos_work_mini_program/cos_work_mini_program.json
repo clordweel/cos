@@ -12,6 +12,7 @@
   "column_break_1",
   "launch_path",
   "auth_kind",
+  "nav_bar_inset_mode",
   "section_visual",
   "icon_key",
   "icon_url",
@@ -63,6 +64,14 @@
    "label": "认证方式",
    "options": "frappe_session\nworker_portal_token",
    "reqd": 1
+  },
+  {
+   "default": "app_provided",
+   "description": "Cos Work App WebView 内 H5 顶部留白：无/仅状态栏/App 提供（状态栏+仿微信 44px）/页面自定义（由 H5 自行处理，壳仍注入 CSS 变量）",
+   "fieldname": "nav_bar_inset_mode",
+   "fieldtype": "Select",
+   "label": "壳内顶栏占位",
+   "options": "none\nstatus_bar_only\napp_provided\npage_custom"
   },
   {
    "collapsible": 1,
