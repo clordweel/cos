@@ -9,19 +9,9 @@
 
 {% set pr_type_map = {"Inward": "收款", "Outward": "付款"} %}
 {% set pr_type_label = pr_type_map.get(doc.payment_request_type, doc.payment_request_type or "") %}
-{% set status_map = {
-	"Draft": "草稿",
-	"Requested": "已请求",
-	"Initiated": "已发起",
-	"Partially Paid": "部分已付",
-	"Payment Ordered": "已下付款指令",
-	"Paid": "已付讫",
-	"Failed": "失败",
-	"Cancelled": "已取消"
-} %}
-{% set status_label = status_map.get((doc.status or "").strip(), doc.status or "") %}
 {% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
 {% set ref_label = (doc.reference_doctype or "") ~ (": " if doc.reference_doctype and doc.reference_name else "") ~ (doc.reference_name or "") %}
+{% set project_display = (frappe.db.get_value("Project", doc.project, "project_name") or doc.project) if doc.project else "" %}
 
 {% for page in layout %}
 <div class="page-break print-format-wrapper order-wrapper">
@@ -40,13 +30,6 @@
 	{%- endif -%}
 
 	<div class="print-format-body">
-		<div class="text-center mb-3 mt-2">
-			<div style="font-size: 17px; font-weight: bold;">收付款申请</div>
-			{%- if pr_type_label -%}
-			<div class="secondary-text mt-1" style="font-size: 13px;">（{{ pr_type_label }}）</div>
-			{%- endif -%}
-		</div>
-
 		<table class="table table-bordered info-table mb-3">
 			<tbody>
 				<tr>
@@ -65,8 +48,8 @@
 						<span class="info-value">{{ doc.company or "&nbsp;" }}</span>
 					</td>
 					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">状态:</span>
-						<span class="info-value">{{ status_label or "&nbsp;" }}</span>
+						<span class="info-label font-weight-bold">申请类型:</span>
+						<span class="info-value text-bold">{{ pr_type_label or "&nbsp;" }}</span>
 					</td>
 				</tr>
 				<tr>
@@ -80,16 +63,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">结算方式:</span>
-						<span class="info-value">{{ doc.mode_of_payment or "&nbsp;" }}</span>
-					</td>
-					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">币种:</span>
-						<span class="info-value">{{ doc.currency or "&nbsp;" }}</span>
-					</td>
-				</tr>
-				<tr>
 					<td class="info-cell" colspan="2">
 						<span class="info-label font-weight-bold">关联单据:</span>
 						<span class="info-value">{{ ref_label or "&nbsp;" }}</span>
@@ -98,7 +71,7 @@
 				<tr>
 					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">项目:</span>
-						<span class="info-value">{{ doc.project or "&nbsp;" }}</span>
+						<span class="info-value">{{ project_display or "&nbsp;" }}</span>
 					</td>
 					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">成本中心:</span>
@@ -185,11 +158,6 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<div class="remarks-box mb-3">
-			<div class="remarks-label font-weight-bold mb-2">说明 / 邮件正文:</div>
-			<div class="remarks-content">{{ (doc.message or "") | striptags | trim or "&nbsp;" }}</div>
-		</div>
 
 		<table class="table table-borderless signature-table">
 			<tbody>

@@ -38,29 +38,6 @@
 	line-height: 1.3;
 }
 
-.print-format-wrapper .remarks-box {
-	border: 1px solid #333;
-	padding: 10px;
-	font-size: 12px;
-	margin-bottom: 16px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-}
-
-.print-format-wrapper .remarks-label {
-	margin-bottom: 6px;
-	color: #171717;
-}
-
-.print-format-wrapper .remarks-content {
-	color: #171717;
-	line-height: 1.6;
-	margin: 0;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-}
-
 .print-format-wrapper .totals-table td {
 	padding: 4px;
 	vertical-align: middle;
