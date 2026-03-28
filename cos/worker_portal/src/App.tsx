@@ -16,16 +16,18 @@ import { FlutterShellAuthRequired } from "./pages/FlutterShellAuthRequired"
 
 const DEFAULT_LOGGED_IN_LANDING = "/worker-portal/pi-reimbursement-pending"
 
+function loginPageState(fromPath: string): { from: string } {
+	return { from: fromPath }
+}
+
+/** 受保护路由：未登录时去 Portal 自带登录页（勿整页跳 /login，否则仅有 Cookie、无 localStorage wpt 时会与 App 启动逻辑冲突形成死循环）。 */
 function ProtectedRedirect() {
 	const loc = useLocation()
 	if (isCosFlutterShell()) {
 		return <FlutterShellAuthRequired attemptedPath={loc.pathname + (loc.search || "")} />
 	}
-	// 浏览器：勿跳 Frappe `/login`。该登录只写 Cookie，不会写入 Portal 所需的
-	// `localStorage.cos_worker_portal_token`（wpt），回到 SPA 后仍无 token → 无限重定向。
-	// 必须走 `/worker-portal/login`（login_for_token）与壳一致。
-	const from = (loc.pathname + (loc.search || "")).trim() || DEFAULT_LOGGED_IN_LANDING
-	return <Navigate to="/worker-portal/login" replace state={{ from }} />
+	const full = loc.pathname + (loc.search || "")
+	return <Navigate to="/worker-portal/login" replace state={loginPageState(full)} />
 }
 
 function App() {
@@ -34,21 +36,29 @@ function App() {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		const token = getToken()
-		if (!token) {
-			setUser(null)
-			setLoading(false)
-			return
-		}
-		getLoggedUser()
-			.then((u) => {
+		let cancelled = false
+		;(async () => {
+			try {
+				// 必须始终探测服务端会话：浏览器常仅有 Frappe Cookie、无 localStorage wpt；
+				// 旧逻辑在 !token 时直接判未登录并跳 /login，会在「已 Desk 登录」场景下死循环。
+				let u = await getLoggedUser()
+				if (cancelled) return
+				if ((!u || u === "Guest") && getToken()) {
+					clearToken()
+					u = await getLoggedUser()
+					if (cancelled) return
+				}
 				setUser(u && u !== "Guest" ? u : null)
-			})
-			.catch(() => {
+			} catch {
 				clearToken()
-				setUser(null)
-			})
-			.finally(() => setLoading(false))
+				if (!cancelled) setUser(null)
+			} finally {
+				if (!cancelled) setLoading(false)
+			}
+		})()
+		return () => {
+			cancelled = true
+		}
 	}, [])
 
 	const onLogin = (username: string, redirectTo?: string) => {
