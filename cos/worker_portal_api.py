@@ -78,6 +78,14 @@ def validate_worker_portal_token():
 	user = frappe.cache.get_value(cache_key)
 	if user:
 		frappe.set_user(user)
+		# Frappe LoginManager 在 Guest 会话初始化（非 resume）时会对 Website User 写入
+		# frappe.local.response["message"] = "No App" 等登录占位字段（见 frappe/auth.py set_user_info）。
+		# 若后续 handler 未覆盖 message（例如返回 None），API JSON 会错误携带该串。
+		# Bearer wpt 已成功鉴权后应清除这些与当前 RPC 无关的字段。
+		banner = frappe.local.response.get("message")
+		if banner in ("No App", "Logged In", "Password Reset"):
+			frappe.local.response.pop("message", None)
+			frappe.local.response.pop("home_page", None)
 
 
 # --- 采购垫付报销审批 ---
