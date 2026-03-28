@@ -48,6 +48,22 @@ def login_for_token(usr: str = None, pwd: str = None):
 	return {"token": f"{WPT_PREFIX}{token}", "user": user.name}
 
 
+@frappe.whitelist(allow_guest=True, methods=["GET", "POST"])
+def issue_token_from_session():
+	"""在已具备 Frappe 登录会话（Cookie sid 等）时签发 Worker Portal Bearer token。
+
+	供移动端壳在打开 WebView 前刷新 wpt，避免仅依赖密码登录时写入的 token 过期、
+	或冷启动仅恢复 sid 而未带 wpt 导致 Portal 无法鉴权。
+	"""
+	if frappe.session.user == "Guest":
+		frappe.throw(_("Login required"), frappe.AuthenticationError)
+	raw = frappe.generate_hash(length=32)
+	cache_key = f"{CACHE_KEY_PREFIX}{raw}"
+	expires_in_sec = TOKEN_EXPIRY_DAYS * 24 * 3600
+	frappe.cache.set_value(cache_key, frappe.session.user, expires_in_sec=expires_in_sec)
+	return {"token": f"{WPT_PREFIX}{raw}"}
+
+
 def validate_worker_portal_token():
 	"""auth_hooks：校验 Authorization: Bearer wpt.xxx 并设置用户。"""
 	auth = frappe.get_request_header("Authorization") or ""
