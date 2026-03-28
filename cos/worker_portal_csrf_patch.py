@@ -1,12 +1,13 @@
 # Copyright (c) 2025, bit and contributors
 # License: MIT. See LICENSE
 
-"""Worker Portal Bearer token 鉴权时跳过 CSRF 校验。
+"""Worker Portal Bearer 与 COS 原生壳 API 的 CSRF 豁免。
 
 auth_hooks 在 validate_auth() 中执行，晚于 HTTPRequest.validate_csrf_token。
 使用 Bearer wpt.xxx 的 POST 请求会因无 CSRF token 被拒绝。
 本模块在应用加载时 patch validate_csrf_token：对携带 ``Bearer wpt.`` 的请求跳过 CSRF
-（不依赖缓存是否命中）；登录接口单独豁免。
+（不依赖缓存是否命中）；登录接口单独豁免；另对原生 App 以会话 Cookie 调用的少数
+白名单方法（切换默认公司、小程序自选）跳过 CSRF。
 """
 
 import frappe
@@ -50,16 +51,37 @@ def _is_login_for_token_request() -> bool:
 	return False
 
 
+# 原生壳（Flutter）仅用 sid + Cookie 头调用白名单 API，不经浏览器 Desk 下发 csrf_token；
+# 与 Bearer wpt. 同理：跨站页面无法伪造本机 HttpClient 的 Cookie，仍由会话与 whitelist 鉴权。
+_COS_NATIVE_COOKIE_API_MARKERS = (
+	"company_context_api.set_default_company",
+	"work_app_launcher_api.add_user_mini_program",
+	"work_app_launcher_api.remove_user_mini_program",
+)
+
+
+def _is_cos_native_shell_cookie_api() -> bool:
+	req = getattr(frappe.local, "request", None)
+	if not req:
+		return False
+	path = (getattr(req, "path", "") or "").lower()
+	url = (getattr(req, "url", "") or "").lower()
+	combined = f"{path} {url}"
+	return any(m in combined for m in _COS_NATIVE_COOKIE_API_MARKERS)
+
+
 def _patched_validate_csrf_token(self):
 	if _looks_like_worker_portal_bearer():
 		return
 	if _is_login_for_token_request():
 		return
+	if _is_cos_native_shell_cookie_api():
+		return
 	return _original_validate_csrf_token(self)
 
 
 def patch():
-	"""Patch HTTPRequest.validate_csrf_token：Portal Bearer wpt. 与 login_for_token 跳过 CSRF。"""
+	"""Patch HTTPRequest.validate_csrf_token：Portal / 原生壳约定路径跳过 CSRF。"""
 	global _original_validate_csrf_token
 	import importlib
 	auth_module = importlib.import_module("frappe.auth")
