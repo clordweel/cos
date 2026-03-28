@@ -5,6 +5,11 @@
 - **组件**：以 **shadcn/ui**（Radix + `class-variance-authority` + Tailwind）为主，放在 `src/components/ui/`。
 - **新页面**：优先组合现有 `Button` / `Card` / `Input` / `Label` / `Table` / `Badge`，避免裸写大量自定义 class。
 
+## 空态 / 权限 / 失败
+
+- **组件**：`src/components/wp-states.tsx` — `WpEmptyState`（无数据、占位）、`WpRequestFailed`（接口失败；结合 `classifyWorkerPortalError` 自动区分权限/不存在/网络等）、`WpSuccessState`、`WpNotFoundState`、`WpLoadingState`。
+- **归类**：`src/lib/wp-error-kind.ts` 供 `WpRequestFailed` 选用图标与默认引导文案。
+
 ## 布局
 
 - **内容区**：使用 `WpPage`（`src/lib/wp-layout.tsx`）。默认 `max-w-2xl`、水平 `px-4`、上 `pt-4`、下 `pb-8`；表单/结果窄页传 `narrow` → `max-w-md`。

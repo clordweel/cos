@@ -9,6 +9,11 @@ import {
 	approvePiReimbursement,
 	type PiReimbursementSummary,
 } from "@/lib/api"
+import {
+	WpLoadingState,
+	WpRequestFailed,
+	WpSuccessState,
+} from "@/components/wp-states"
 import { WpPage, WpCentered, wpText } from "@/lib/wp-layout"
 
 function formatCurrency(n: number): string {
@@ -81,7 +86,7 @@ export function PiReimbursementApproval() {
 	if (loading) {
 		return (
 			<WpCentered>
-				<p className={wpText.muted}>加载中...</p>
+				<WpLoadingState />
 			</WpCentered>
 		)
 	}
@@ -89,12 +94,10 @@ export function PiReimbursementApproval() {
 	if (error && !summary) {
 		return (
 			<WpPage narrow>
-				<Card>
-					<CardContent className="pt-6 space-y-2">
-						<p className={wpText.error}>{error}</p>
-						<p className={wpText.muted}>链接可能已过期，请联系财务重新生成。</p>
-					</CardContent>
-				</Card>
+				<WpRequestFailed
+					message={error}
+					hint="若为外链审批，请确认链接完整、未过期；也可联系财务重新生成。"
+				/>
 			</WpPage>
 		)
 	}
@@ -102,14 +105,10 @@ export function PiReimbursementApproval() {
 	if (result) {
 		return (
 			<WpPage narrow>
-				<Card>
-					<CardContent className="pt-6 space-y-2">
-						<p className="text-lg font-semibold tracking-tight">
-							{result === "approved" ? "已批准" : "已拒绝"}
-						</p>
-						<p className={wpText.muted}>该链接已失效，无需再次操作。</p>
-					</CardContent>
-				</Card>
+				<WpSuccessState
+					title={result === "approved" ? "已批准" : "已拒绝"}
+					description="该链接已失效，无需再次操作。"
+				/>
 			</WpPage>
 		)
 	}

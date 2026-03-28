@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate, useLocation, Link } from "react-router-dom"
 import { Login } from "./pages/Login"
 import { Stock } from "./pages/Stock"
 import { PiReimbursementApproval } from "./pages/PiReimbursementApproval"
@@ -9,7 +9,9 @@ import {
 } from "./pages/PiReimbursementPending"
 import { getToken, getLoggedUser, clearToken } from "./lib/api"
 import { isCosFlutterShell } from "./lib/clientEnv"
-import { WpCentered, WpPage, wpText } from "./lib/wp-layout"
+import { Button } from "./components/ui/button"
+import { WpLoadingState, WpNotFoundState } from "./components/wp-states"
+import { WpAuthPage, WpCentered, WpPage } from "./lib/wp-layout"
 import { FlutterShellAuthRequired } from "./pages/FlutterShellAuthRequired"
 
 const DEFAULT_LOGGED_IN_LANDING = "/worker-portal/pi-reimbursement-pending"
@@ -23,9 +25,9 @@ function ProtectedRedirect() {
 	const q = encodeURIComponent(full)
 	window.location.replace(`/login?redirect-to=${q}`)
 	return (
-		<WpCentered>
-			<p className={wpText.muted}>正在跳转系统登录…</p>
-		</WpCentered>
+		<WpAuthPage>
+			<WpLoadingState label="正在跳转系统登录…" />
+		</WpAuthPage>
 	)
 }
 
@@ -60,7 +62,7 @@ function App() {
 	if (loading) {
 		return (
 			<WpCentered>
-				<div className="animate-pulse text-muted-foreground text-sm">加载中...</div>
+				<WpLoadingState />
 			</WpCentered>
 		)
 	}
@@ -107,23 +109,17 @@ function App() {
 					element={
 						user ? (
 							<WpPage>
-								<p className={`${wpText.muted} text-center`}>
-									路径未识别，请强刷后重试。
-								</p>
-								<div className="flex flex-col gap-2 sm:flex-row sm:justify-center">
-									<a
-										className="text-sm font-medium text-primary underline underline-offset-4 text-center"
-										href="/worker-portal/pi-reimbursement-pending"
-									>
-										待报销审批
-									</a>
-									<a
-										className="text-sm text-muted-foreground underline underline-offset-4 text-center"
-										href="/worker-portal/stock"
-									>
-										入库盘点
-									</a>
-								</div>
+								<WpNotFoundState
+									title="页面不存在"
+									description="地址可能已变更或输入有误。请强刷缓存后从下方入口进入。"
+								>
+									<Button asChild className="w-full">
+										<Link to="/worker-portal/pi-reimbursement-pending">待报销审批</Link>
+									</Button>
+									<Button variant="outline" asChild className="w-full">
+										<Link to="/worker-portal/stock">入库盘点</Link>
+									</Button>
+								</WpNotFoundState>
 							</WpPage>
 						) : (
 							<ProtectedRedirect />

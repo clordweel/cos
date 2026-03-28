@@ -6,6 +6,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ArrowLeft } from "lucide-react"
 import {
+	WpEmptyState,
+	WpLoadingState,
+	WpRequestFailed,
+	WpSuccessState,
+} from "@/components/wp-states"
+import {
 	listPiReimbursementPendingApproval,
 	getPiSummaryForLoggedInApproval,
 	approvePiLoggedIn,
@@ -43,7 +49,7 @@ export function PiReimbursementPendingList() {
 	if (loading) {
 		return (
 			<WpCentered>
-				<p className={wpText.muted}>加载中...</p>
+				<WpLoadingState />
 			</WpCentered>
 		)
 	}
@@ -51,18 +57,17 @@ export function PiReimbursementPendingList() {
 	return (
 		<WpPage>
 			{!isCosFlutterShell() && <WpPageTitle>待报销审批</WpPageTitle>}
-			{error && <p className={wpText.error}>{error}</p>}
-			{!error && rows.length === 0 && (
-				<Card>
-					<CardContent className="pt-6">
-						<p className={wpText.body}>暂无待审批的采购发票</p>
-						<p className={`mt-2 ${wpText.muted}`}>
-							请确认 Desk 中已提交、员工垫付且报销审批仍为 Pending 的 PI；若仍无数据，请检查当前账号对该单据的读权限。
-						</p>
-					</CardContent>
-				</Card>
-			)}
-			{rows.map((r) => (
+			{error ? (
+				<WpRequestFailed message={error} />
+			) : null}
+			{!error && rows.length === 0 ? (
+				<WpEmptyState
+					title="暂无待审批"
+					description="当前没有符合「已提交、员工垫付、报销审批 Pending」的采购发票，或您暂无相关单据的读权限。"
+				/>
+			) : null}
+			{!error &&
+				rows.map((r) => (
 				<Link
 					key={r.name}
 					to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
@@ -87,7 +92,7 @@ export function PiReimbursementPendingList() {
 						</CardContent>
 					</Card>
 				</Link>
-			))}
+				))}
 		</WpPage>
 	)
 }
@@ -151,7 +156,7 @@ export function PiReimbursementPendingDetail() {
 	if (loading) {
 		return (
 			<WpCentered>
-				<p className={wpText.muted}>加载中...</p>
+				<WpLoadingState />
 			</WpCentered>
 		)
 	}
@@ -165,12 +170,10 @@ export function PiReimbursementPendingDetail() {
 						返回列表
 					</Link>
 				</Button>
-				<Card>
-					<CardContent className="pt-6 space-y-2">
-						<p className={wpText.error}>{error}</p>
-						<p className={wpText.muted}>若无读权限或单据已审批，将无法打开。</p>
-					</CardContent>
-				</Card>
+				<WpRequestFailed
+					message={error}
+					hint="若无读权限、单据编号有误或审批已结束，将无法打开详情。"
+				/>
 			</WpPage>
 		)
 	}
@@ -178,16 +181,14 @@ export function PiReimbursementPendingDetail() {
 	if (result) {
 		return (
 			<WpPage narrow>
-				<Card>
-					<CardContent className="pt-6 space-y-4">
-						<p className="text-lg font-semibold tracking-tight">
-							{result === "approved" ? "已批准" : "已拒绝"}
-						</p>
-						<Button asChild className="w-full">
-							<Link to="/worker-portal/pi-reimbursement-pending">返回待审批列表</Link>
-						</Button>
-					</CardContent>
-				</Card>
+				<WpSuccessState
+					title={result === "approved" ? "已批准" : "已拒绝"}
+					description="可返回列表继续处理其他单据。"
+				>
+					<Button asChild className="w-full">
+						<Link to="/worker-portal/pi-reimbursement-pending">返回待审批列表</Link>
+					</Button>
+				</WpSuccessState>
 			</WpPage>
 		)
 	}

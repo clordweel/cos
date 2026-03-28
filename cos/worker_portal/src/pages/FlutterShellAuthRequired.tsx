@@ -1,4 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { WpEmptyState } from "@/components/wp-states"
+import { KeyRound } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { WpAuthPage, wpText } from "@/lib/wp-layout"
 
@@ -6,17 +7,13 @@ import { WpAuthPage, wpText } from "@/lib/wp-layout"
 export function FlutterShellAuthRequired({ attemptedPath }: { attemptedPath: string }) {
 	return (
 		<WpAuthPage>
-			<Card className="w-full text-center">
-				<CardHeader>
-					<CardTitle className="text-lg">无法验证登录状态</CardTitle>
-				</CardHeader>
-				<CardContent className="space-y-3">
-					<p className={wpText.muted}>
-						请返回应用首页后重新进入；若反复出现，请检查网络与服务器地址。
-					</p>
-					<p className={cn(wpText.caption, "break-all")}>{attemptedPath}</p>
-				</CardContent>
-			</Card>
+			<WpEmptyState
+				icon={KeyRound}
+				title="无法验证登录状态"
+				description="请在企业 App 内从首页重新进入本功能；若反复出现，请检查网络与服务器地址。"
+			>
+				<p className={cn(wpText.caption, "break-all text-left w-full")}>{attemptedPath}</p>
+			</WpEmptyState>
 		</WpAuthPage>
 	)
 }
