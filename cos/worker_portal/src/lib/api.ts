@@ -44,6 +44,8 @@ export async function apiRequest<T>(
 		headers,
 		body: body ? JSON.stringify(body) : undefined,
 		credentials: "same-origin",
+		// WebView/企业网关偶发缓存或丢弃带长 query 的 GET，导致详情误判「采购发票不存在」
+		cache: "no-store",
 	})
 	const data = (await res.json().catch(() => ({}))) as Record<string, unknown>
 	if (!res.ok) {
@@ -60,6 +62,7 @@ export async function login(username: string, password: string) {
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ usr: username, pwd: password }),
 		credentials: "same-origin",
+		cache: "no-store",
 	})
 	const data = (await res.json()) as Record<string, unknown>
 	if (data.exc) {
@@ -75,7 +78,11 @@ export async function getLoggedUser(): Promise<string> {
 	const url = base ? `${base}/api/method/cos.worker_portal_api.get_logged_user` : "/api/method/cos.worker_portal_api.get_logged_user"
 	const headers: Record<string, string> = {}
 	if (token) headers["Authorization"] = `Bearer ${token}`
-	const res = await fetch(url, { credentials: "same-origin", headers })
+	const res = await fetch(url, {
+		credentials: "same-origin",
+		headers,
+		cache: "no-store",
+	})
 	const data = await res.json().catch(() => ({}))
 	const msg = data.message ?? data
 	return typeof msg === "string" ? msg : "Guest"
@@ -108,7 +115,11 @@ export interface PiReimbursementApproveResult {
 async function guestFetch<T>(path: string, init?: RequestInit): Promise<{ message?: T }> {
 	const base = getApiBase()
 	const url = base ? `${base}${path}` : path
-	const res = await fetch(url, { ...init, credentials: "same-origin" })
+	const res = await fetch(url, {
+		...init,
+		credentials: "same-origin",
+		cache: "no-store",
+	})
 	const data = (await res.json().catch(() => ({}))) as Record<string, unknown>
 	if (data.exc) throw new Error(normalizeFrappeRpcErrorMessage(data))
 	if (!res.ok) throw new Error(normalizeFrappeRpcErrorMessage(data) || `HTTP ${res.status}`)
@@ -172,9 +183,11 @@ export async function listPiReimbursementPendingApproval(
 export async function getPiSummaryForLoggedInApproval(
 	piName: string
 ): Promise<PiReimbursementSummary> {
+	// 使用 POST + JSON 传 pi_name：避免 WebView/代理对 GET query 截断或错误缓存，导致服务端收不到编号而报「采购发票不存在」
 	const res = await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
-		"GET",
-		`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${encodeURIComponent(piName)}`
+		"POST",
+		"/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval",
+		{ pi_name: piName }
 	)
 	if (res && typeof res === "object" && "message" in res && res.message !== undefined) {
 		return res.message as PiReimbursementSummary

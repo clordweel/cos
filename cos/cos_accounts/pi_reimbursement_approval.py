@@ -181,9 +181,12 @@ def approve_pi(token: str = None, pi_name: str = None, expiry: str = None, _sign
 	return _apply_pi_reimbursement_decision(pi_name, action, remark)
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["GET", "POST"])
 def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
-	"""已登录用户查看某张 PI 的报销审批摘要（需 Purchase Invoice 读权限）。"""
+	"""已登录用户查看某张 PI 的报销审批摘要（需 Purchase Invoice 读权限）。
+
+	同时支持 GET query 与 POST JSON（Portal 小程序 WebView 下 POST 更不易丢 pi_name）。
+	"""
 	pi_name = (pi_name or frappe.form_dict.get("pi_name") or "").strip()
 	if frappe.session.user == "Guest":
 		frappe.throw(_("请先登录"), title=_("无法审批"))
