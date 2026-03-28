@@ -26,6 +26,15 @@ import {
 	wpText,
 } from "@/lib/wp-layout"
 
+function decodePiNameFromRoute(raw: string | undefined): string {
+	if (!raw) return ""
+	try {
+		return decodeURIComponent(raw).trim()
+	} catch {
+		return raw.trim()
+	}
+}
+
 function formatCurrency(n: number): string {
 	return new Intl.NumberFormat("zh-CN", {
 		style: "currency",
@@ -100,7 +109,7 @@ export function PiReimbursementPendingList() {
 /** 单张 PI 审批（需登录 + 写权限） */
 export function PiReimbursementPendingDetail() {
 	const { piName: raw } = useParams<{ piName: string }>()
-	const piName = raw ? decodeURIComponent(raw) : ""
+	const piName = decodePiNameFromRoute(raw)
 	const [summary, setSummary] = useState<PiReimbursementSummary | null>(null)
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)

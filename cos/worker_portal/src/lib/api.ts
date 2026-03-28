@@ -1,3 +1,5 @@
+import { normalizeFrappeRpcErrorMessage } from "@/lib/frappe-rpc-error"
+
 const TOKEN_KEY = "cos_worker_portal_token"
 
 export function getApiBase(): string {
@@ -43,11 +45,11 @@ export async function apiRequest<T>(
 		body: body ? JSON.stringify(body) : undefined,
 		credentials: "same-origin",
 	})
-	const data = await res.json().catch(() => ({}))
+	const data = (await res.json().catch(() => ({}))) as Record<string, unknown>
 	if (!res.ok) {
-		throw new Error(data.message || data.exc || "Request failed")
+		throw new Error(normalizeFrappeRpcErrorMessage(data))
 	}
-	return data
+	return data as T
 }
 
 export async function login(username: string, password: string) {
@@ -59,9 +61,9 @@ export async function login(username: string, password: string) {
 		body: JSON.stringify({ usr: username, pwd: password }),
 		credentials: "same-origin",
 	})
-	const data = await res.json()
+	const data = (await res.json()) as Record<string, unknown>
 	if (data.exc) {
-		throw new Error(data.message || "登录失败")
+		throw new Error(normalizeFrappeRpcErrorMessage(data) || "登录失败")
 	}
 	// Frappe 将方法返回值放在 message 中
 	return (data.message ?? data) as { token: string; user: string }
@@ -107,9 +109,9 @@ async function guestFetch<T>(path: string, init?: RequestInit): Promise<{ messag
 	const base = getApiBase()
 	const url = base ? `${base}${path}` : path
 	const res = await fetch(url, { ...init, credentials: "same-origin" })
-	const data = await res.json().catch(() => ({}))
-	if (data.exc) throw new Error(data.message || data.exc || "请求失败")
-	if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`)
+	const data = (await res.json().catch(() => ({}))) as Record<string, unknown>
+	if (data.exc) throw new Error(normalizeFrappeRpcErrorMessage(data))
+	if (!res.ok) throw new Error(normalizeFrappeRpcErrorMessage(data) || `HTTP ${res.status}`)
 	return data
 }
 

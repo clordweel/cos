@@ -184,7 +184,7 @@ def approve_pi(token: str = None, pi_name: str = None, expiry: str = None, _sign
 @frappe.whitelist()
 def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
 	"""已登录用户查看某张 PI 的报销审批摘要（需 Purchase Invoice 读权限）。"""
-	pi_name = pi_name or frappe.form_dict.get("pi_name")
+	pi_name = (pi_name or frappe.form_dict.get("pi_name") or "").strip()
 	if frappe.session.user == "Guest":
 		frappe.throw(_("请先登录"), title=_("无法审批"))
 	if not pi_name or not frappe.db.exists("Purchase Invoice", pi_name):
@@ -205,7 +205,7 @@ def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
 @frappe.whitelist()
 def approve_pi_logged_in(pi_name: str = None, action: str = "approve", remark: str = "") -> dict:
 	"""已登录用户批准/拒绝报销审批（需 Purchase Invoice 写权限）。"""
-	pi_name = pi_name or frappe.form_dict.get("pi_name")
+	pi_name = (pi_name or frappe.form_dict.get("pi_name") or "").strip()
 	if frappe.session.user == "Guest":
 		frappe.throw(_("请先登录"), title=_("无法审批"))
 	if not pi_name or not frappe.db.exists("Purchase Invoice", pi_name):
