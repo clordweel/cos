@@ -189,12 +189,14 @@ export function PiReimbursementPendingDetail() {
 	if (error && !summary) {
 		return (
 			<WpPage narrow>
-				<Button variant="ghost" size="sm" asChild className="-ml-2 w-fit">
-					<Link to="/worker-portal/pi-reimbursement-pending">
-						<ArrowLeft className="h-4 w-4 mr-1" />
-						返回列表
-					</Link>
-				</Button>
+				{!isCosFlutterShell() ? (
+					<Button variant="ghost" size="sm" asChild className="-ml-2 w-fit">
+						<Link to="/worker-portal/pi-reimbursement-pending">
+							<ArrowLeft className="h-4 w-4 mr-1" />
+							返回列表
+						</Link>
+					</Button>
+				) : null}
 				<WpRequestFailed
 					message={error}
 					hint="若无读权限、单据编号有误或审批已结束，将无法打开详情。"
@@ -222,12 +224,14 @@ export function PiReimbursementPendingDetail() {
 
 	return (
 		<WpPage narrow>
-			<Button variant="ghost" size="sm" asChild className="-ml-2 w-fit">
-				<Link to="/worker-portal/pi-reimbursement-pending">
-					<ArrowLeft className="h-4 w-4 mr-1" />
-					列表
-				</Link>
-			</Button>
+			{!isCosFlutterShell() ? (
+				<Button variant="ghost" size="sm" asChild className="-ml-2 w-fit">
+					<Link to="/worker-portal/pi-reimbursement-pending">
+						<ArrowLeft className="h-4 w-4 mr-1" />
+						列表
+					</Link>
+				</Button>
+			) : null}
 			<Card>
 				<CardHeader>
 					<CardTitle className="text-base">{summary.name}</CardTitle>
