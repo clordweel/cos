@@ -53,20 +53,51 @@ def _is_login_for_token_request() -> bool:
 
 # 原生壳（Flutter）仅用 sid + Cookie 头调用白名单 API，不经浏览器 Desk 下发 csrf_token；
 # 与 Bearer wpt. 同理：跨站页面无法伪造本机 HttpClient 的 Cookie，仍由会话与 whitelist 鉴权。
+# 同时匹配「完整方法名」与「仅模块后缀」，兼容反代改写 path、cmd 在 form 等形态。
 _COS_NATIVE_COOKIE_API_MARKERS = (
+	"cos.company_context_api.set_default_company",
 	"company_context_api.set_default_company",
+	"cos.work_app_launcher_api.add_user_mini_program",
 	"work_app_launcher_api.add_user_mini_program",
+	"cos.work_app_launcher_api.remove_user_mini_program",
 	"work_app_launcher_api.remove_user_mini_program",
 )
 
 
 def _is_cos_native_shell_cookie_api() -> bool:
-	req = getattr(frappe.local, "request", None)
-	if not req:
-		return False
-	path = (getattr(req, "path", "") or "").lower()
-	url = (getattr(req, "url", "") or "").lower()
-	combined = f"{path} {url}"
+	blobs = []
+	try:
+		req = getattr(frappe.local, "request", None)
+		if req is not None:
+			blobs.append(getattr(req, "path", "") or "")
+			fp = getattr(req, "full_path", None)
+			if fp is not None:
+				blobs.append(str(fp))
+			url = getattr(req, "url", None)
+			if url:
+				blobs.append(str(url))
+			env = getattr(req, "environ", None)
+			if isinstance(env, dict):
+				for key in ("PATH_INFO", "REQUEST_URI", "RAW_URI"):
+					val = env.get(key)
+					if not val:
+						continue
+					if isinstance(val, bytes):
+						try:
+							blobs.append(val.decode("utf-8", errors="ignore"))
+						except Exception:
+							pass
+					else:
+						blobs.append(str(val))
+	except Exception:
+		pass
+	try:
+		fd = frappe.form_dict
+		if fd and fd.get("cmd"):
+			blobs.append(str(fd.get("cmd")))
+	except Exception:
+		pass
+	combined = " ".join(x.lower() for x in blobs if x)
 	return any(m in combined for m in _COS_NATIVE_COOKIE_API_MARKERS)
 
 

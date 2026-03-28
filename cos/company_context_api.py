@@ -44,6 +44,16 @@ def list_accessible_companies():
 	)
 
 
+@frappe.whitelist()
+def get_csrf_token_for_native_shell():
+	"""供原生壳在 POST 前获取与当前登录会话一致的 CSRF（仅 GET，不经 Desk /app）。"""
+	_require_login()
+	token = frappe.session.data.get("csrf_token")
+	if not token:
+		return {}
+	return {"csrf_token": token}
+
+
 @frappe.whitelist(methods=["POST"])
 def set_default_company(company=None):
 	"""设置当前用户默认公司；后续 Frappe / ERPNext API 按此公司上下文执行。"""
