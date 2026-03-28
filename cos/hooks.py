@@ -334,7 +334,11 @@ on_login = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
 on_session_creation = ["cos.cos_logto.controllers.oauth2_handler.on_login"]
 
 # Worker Portal: Bearer token 鉴权（替代 cookies，解决 iOS WebView 问题）
-auth_hooks = ["cos.worker_portal_api.validate_worker_portal_token"]
+# normalize_session_user_none_to_guest 必须排在 validate 之后，避免 wpt 无效时会话仍为 None
+auth_hooks = [
+	"cos.worker_portal_api.validate_worker_portal_token",
+	"cos.worker_portal_api.normalize_session_user_none_to_guest",
+]
 
 # auth_hooks = [
 # 	"cos.auth.validate"

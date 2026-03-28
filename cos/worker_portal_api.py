@@ -33,6 +33,37 @@ def _session_user_ok_for_wpt() -> str | None:
 	return su
 
 
+def _wpt_cache_value_to_username(cached) -> str | None:
+	"""Redis/pickle 可能返回 str 或 bytes；非法类型视为无缓存。"""
+	if cached is None:
+		return None
+	if isinstance(cached, (bytes, bytearray)):
+		try:
+			cached = cached.decode("utf-8")
+		except Exception:
+			return None
+	if not isinstance(cached, str):
+		return None
+	u = cached.strip()
+	return u if u else None
+
+
+def normalize_session_user_none_to_guest():
+	"""auth_hooks 收尾：在部分请求下 LoginManager 结束后 session.user 仍为 None（既非 Guest）。
+
+	此时若未成功通过 Bearer wpt 换身份，下游会把 None 当作 User 主键查询，触发 **User None not found**。
+	强制回落为 Guest，使权限与 API 与「未登录」语义一致（如请先登录），而非框架级 DoesNotExist。
+	"""
+	if not getattr(frappe.local, "initialised", False):
+		return
+	try:
+		su = frappe.session.user
+	except Exception:
+		su = None
+	if su is None:
+		frappe.set_user("Guest")
+
+
 @frappe.whitelist(allow_guest=True)
 def get_logged_user():
 	"""返回当前登录用户，Guest 时返回 'Guest'。供 worker-portal 登录页判断是否已登录。"""
@@ -96,7 +127,7 @@ def validate_worker_portal_token():
 	raw = token[len(WPT_PREFIX) :]
 	cache_key = f"{CACHE_KEY_PREFIX}{raw}"
 	cached = frappe.cache.get_value(cache_key)
-	user = cached.strip() if isinstance(cached, str) else None
+	user = _wpt_cache_value_to_username(cached)
 	if not user or user == "Guest" or not frappe.db.exists("User", user):
 		# 坏缓存（历史 bug 曾写入 None/非法串）：删掉以免客户端长期携带无效 wpt
 		if cached is not None:
