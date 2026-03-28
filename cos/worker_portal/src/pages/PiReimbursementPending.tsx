@@ -26,6 +26,7 @@ import {
 	WpCentered,
 	wpText,
 } from "@/lib/wp-layout"
+import { sanitizePiRemarkHtml } from "@/lib/sanitize-html"
 
 function decodePiNameFromRoute(raw: string | undefined): string {
 	if (!raw) return ""
@@ -82,9 +83,12 @@ function PiDetailLineRow({ line }: { line: PiReimbursementLineItem }) {
 						{open ? "收起备注" : "查看备注"}
 					</button>
 					{open ? (
-						<p className="mt-1.5 border-l-2 border-muted pl-2 text-xs leading-relaxed text-muted-foreground">
-							{remark}
-						</p>
+						<div
+							className="pi-remark-html mt-1.5 border-l-2 border-muted pl-2 text-xs leading-relaxed text-muted-foreground [&_a]:break-all [&_a]:text-primary [&_a]:underline [&_img]:max-h-40 [&_img]:max-w-full [&_ol]:my-1 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-1 [&_p]:last:mb-0 [&_ul]:my-1 [&_ul]:list-disc [&_ul]:pl-4"
+							dangerouslySetInnerHTML={{
+								__html: sanitizePiRemarkHtml(remark),
+							}}
+						/>
 					) : null}
 				</div>
 			) : null}
@@ -125,45 +129,50 @@ export function PiReimbursementPendingList() {
 					description="当前没有符合「已提交、员工垫付、报销审批 Pending」的采购发票，或您暂无相关单据的读权限。"
 				/>
 			) : null}
-			{!error &&
-				rows.map((r) => (
-				<Link
-					key={r.name}
-					to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
-					className="block"
-				>
-					<Card className="gap-0 py-0 shadow-sm transition-colors hover:bg-accent/50">
-						<CardHeader className="space-y-1 px-3 py-2 pb-1.5">
-							<div className="flex flex-wrap items-center gap-x-1.5 text-[11px] leading-tight text-muted-foreground/75">
-								<span className="font-mono tabular-nums tracking-tight">{r.name}</span>
-								<span className="text-muted-foreground/45">·</span>
-								<span>过账 {r.posting_date || "—"}</span>
-							</div>
-							{r.supplier ? (
-								<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
-									{r.supplier}
-								</p>
-							) : null}
-						</CardHeader>
-						<CardContent className="px-3 pb-2.5 pt-0">
-							<div className="flex items-end justify-between gap-3">
-								<div className="min-w-0 flex-1">
-									<p className="text-[10px] text-muted-foreground/65">垫付员工</p>
-									<p className="mt-0.5 truncate text-sm font-semibold text-foreground">
-										{r.employee_name || r.custom_advance_employee || "—"}
-									</p>
+			{!error && rows.length > 0 ? (
+				<div className="flex flex-col gap-2">
+					{rows.map((r) => (
+						<Link
+							key={r.name}
+							to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
+							className="block"
+						>
+							<Card className="gap-0 overflow-hidden py-0 shadow-sm transition-colors hover:bg-accent/50">
+								<div className="flex flex-col gap-1 px-3 py-1.5">
+									<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[11px] leading-none text-muted-foreground/75">
+										<span className="font-mono tabular-nums tracking-tight">{r.name}</span>
+										<span className="text-muted-foreground/45">·</span>
+										<span>过账 {r.posting_date || "—"}</span>
+									</div>
+									{r.supplier ? (
+										<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
+											{r.supplier}
+										</p>
+									) : null}
+									<div className="flex items-start justify-between gap-3 border-t border-border/35 pt-1.5">
+										<div className="flex min-w-0 flex-1 flex-col gap-px">
+											<span className="text-[10px] leading-none text-muted-foreground/65">
+												垫付员工
+											</span>
+											<span className="truncate text-sm font-semibold leading-tight text-foreground">
+												{r.employee_name || r.custom_advance_employee || "—"}
+											</span>
+										</div>
+										<div className="flex shrink-0 flex-col items-end gap-px text-right">
+											<span className="text-[10px] leading-none text-muted-foreground/65">
+												金额
+											</span>
+											<span className="text-base font-semibold leading-tight tabular-nums text-foreground">
+												{formatCurrency(r.grand_total ?? 0)}
+											</span>
+										</div>
+									</div>
 								</div>
-								<div className="shrink-0 text-right">
-									<p className="text-[10px] text-muted-foreground/65">金额</p>
-									<p className="mt-0.5 text-base font-semibold tabular-nums text-foreground">
-										{formatCurrency(r.grand_total ?? 0)}
-									</p>
-								</div>
-							</div>
-						</CardContent>
-					</Card>
-				</Link>
-				))}
+							</Card>
+						</Link>
+					))}
+				</div>
+			) : null}
 		</WpPage>
 	)
 }
