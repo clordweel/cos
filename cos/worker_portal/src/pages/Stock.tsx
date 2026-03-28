@@ -10,10 +10,10 @@ export function Stock() {
 			<WpEmptyState
 				icon={Construction}
 				title="功能筹备中"
-				description="入库盘点将在后续版本开放，请从待报销审批等已上线功能进入。"
+				description="入库盘点将在后续版本开放，请从「待报销采购发票」等已上线功能进入。"
 			>
 				<Button variant="default" asChild className="w-full">
-					<Link to="/worker-portal/pi-reimbursement-pending">前往待报销审批</Link>
+					<Link to="/worker-portal/pi-reimbursement-pending">前往待报销采购发票</Link>
 				</Button>
 			</WpEmptyState>
 		</WpPage>

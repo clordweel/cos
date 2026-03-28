@@ -114,7 +114,7 @@ function App() {
 									description="地址可能已变更或输入有误。请强刷缓存后从下方入口进入。"
 								>
 									<Button asChild className="w-full">
-										<Link to="/worker-portal/pi-reimbursement-pending">待报销审批</Link>
+										<Link to="/worker-portal/pi-reimbursement-pending">待报销采购发票</Link>
 									</Button>
 									<Button variant="outline" asChild className="w-full">
 										<Link to="/worker-portal/stock">入库盘点</Link>

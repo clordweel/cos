@@ -2,7 +2,7 @@
  {
   "accent_color": "#1565C0",
   "auth_kind": "worker_portal_token",
-  "description": "待审批采购发票",
+  "description": "员工垫付 · 待审批",
   "docstatus": 0,
   "doctype": "COS Work Mini Program",
   "enabled": 1,
@@ -15,7 +15,7 @@
   "program_id": "pi_reimbursement_pending",
   "show_in_market": 1,
   "sort_order": 10,
-  "title": "报销待办"
+  "title": "待报销采购发票"
  },
  {
   "accent_color": "#5E35B1",

@@ -42,7 +42,7 @@ function formatCurrency(n: number): string {
 	}).format(n)
 }
 
-/** 待审批列表（需登录） */
+/** 待报销采购发票列表（需登录） */
 export function PiReimbursementPendingList() {
 	const [rows, setRows] = useState<PiReimbursementPendingRow[]>([])
 	const [loading, setLoading] = useState(true)
@@ -65,13 +65,13 @@ export function PiReimbursementPendingList() {
 
 	return (
 		<WpPage>
-			{!isCosFlutterShell() && <WpPageTitle>待报销审批</WpPageTitle>}
+			{!isCosFlutterShell() && <WpPageTitle>待报销采购发票</WpPageTitle>}
 			{error ? (
 				<WpRequestFailed message={error} />
 			) : null}
 			{!error && rows.length === 0 ? (
 				<WpEmptyState
-					title="暂无待审批"
+					title="暂无待报销采购发票"
 					description="当前没有符合「已提交、员工垫付、报销审批 Pending」的采购发票，或您暂无相关单据的读权限。"
 				/>
 			) : null}
@@ -195,7 +195,7 @@ export function PiReimbursementPendingDetail() {
 					description="可返回列表继续处理其他单据。"
 				>
 					<Button asChild className="w-full">
-						<Link to="/worker-portal/pi-reimbursement-pending">返回待审批列表</Link>
+						<Link to="/worker-portal/pi-reimbursement-pending">返回列表</Link>
 					</Button>
 				</WpSuccessState>
 			</WpPage>
