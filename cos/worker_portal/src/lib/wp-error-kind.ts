@@ -28,7 +28,9 @@ export function classifyWorkerPortalError(message: string): WpErrorKind {
 		return "not_found"
 	}
 	if (
-		/登录|guest|未登录|token|凭据|\b401\b|authentication|unauthoriz|session/i.test(raw)
+		/登录|guest|未登录|token|凭据|\b401\b|authentication|unauthoriz|session|user\s+none\s+not\s+found/i.test(
+			raw,
+		)
 	) {
 		return "auth"
 	}

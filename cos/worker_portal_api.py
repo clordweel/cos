@@ -6,6 +6,8 @@
 Token 鉴权：使用 Bearer token 替代 cookies，解决 iOS WebView 下 cookie 不可靠问题。
 """
 
+from __future__ import annotations
+
 import frappe
 from frappe import _
 from frappe.utils.password import check_password
@@ -14,6 +16,21 @@ from frappe.utils.password import check_password
 WPT_PREFIX = "wpt."
 CACHE_KEY_PREFIX = "worker_portal_token:"
 TOKEN_EXPIRY_DAYS = 7
+
+
+def _session_user_ok_for_wpt() -> str | None:
+	"""返回可用于签发/恢复 wpt 的登录用户名；Guest/None/空/库中不存在 均视为未登录。"""
+	su = frappe.session.user
+	if not su or su == "Guest":
+		return None
+	if not isinstance(su, str):
+		return None
+	su = su.strip()
+	if not su:
+		return None
+	if not frappe.db.exists("User", su):
+		return None
+	return su
 
 
 @frappe.whitelist(allow_guest=True)
@@ -55,12 +72,15 @@ def issue_token_from_session():
 	供移动端壳在打开 WebView 前刷新 wpt，避免仅依赖密码登录时写入的 token 过期、
 	或冷启动仅恢复 sid 而未带 wpt 导致 Portal 无法鉴权。
 	"""
-	if frappe.session.user == "Guest":
+	su = _session_user_ok_for_wpt()
+	if not su:
+		# 勿仅用 == Guest：session.user 在部分边界请求下可能为 None，若仍写入 cache
+		# 会导致后续 Bearer 请求不 set_user 却带着「伪 token」，进而触发 User None not found。
 		frappe.throw(_("Login required"), frappe.AuthenticationError)
 	raw = frappe.generate_hash(length=32)
 	cache_key = f"{CACHE_KEY_PREFIX}{raw}"
 	expires_in_sec = TOKEN_EXPIRY_DAYS * 24 * 3600
-	frappe.cache.set_value(cache_key, frappe.session.user, expires_in_sec=expires_in_sec)
+	frappe.cache.set_value(cache_key, su, expires_in_sec=expires_in_sec)
 	return {"token": f"{WPT_PREFIX}{raw}"}
 
 
@@ -75,17 +95,25 @@ def validate_worker_portal_token():
 		return
 	raw = token[len(WPT_PREFIX) :]
 	cache_key = f"{CACHE_KEY_PREFIX}{raw}"
-	user = frappe.cache.get_value(cache_key)
-	if user:
-		frappe.set_user(user)
-		# Frappe LoginManager 在 Guest 会话初始化（非 resume）时会对 Website User 写入
-		# frappe.local.response["message"] = "No App" 等登录占位字段（见 frappe/auth.py set_user_info）。
-		# 若后续 handler 未覆盖 message（例如返回 None），API JSON 会错误携带该串。
-		# Bearer wpt 已成功鉴权后应清除这些与当前 RPC 无关的字段。
-		banner = frappe.local.response.get("message")
-		if banner in ("No App", "Logged In", "Password Reset"):
-			frappe.local.response.pop("message", None)
-			frappe.local.response.pop("home_page", None)
+	cached = frappe.cache.get_value(cache_key)
+	user = cached.strip() if isinstance(cached, str) else None
+	if not user or user == "Guest" or not frappe.db.exists("User", user):
+		# 坏缓存（历史 bug 曾写入 None/非法串）：删掉以免客户端长期携带无效 wpt
+		if cached is not None:
+			try:
+				frappe.cache.delete_value(cache_key)
+			except Exception:
+				pass
+		return
+	frappe.set_user(user)
+	# Frappe LoginManager 在 Guest 会话初始化（非 resume）时会对 Website User 写入
+	# frappe.local.response["message"] = "No App" 等登录占位字段（见 frappe/auth.py set_user_info）。
+	# 若后续 handler 未覆盖 message（例如返回 None），API JSON 会错误携带该串。
+	# Bearer wpt 已成功鉴权后应清除这些与当前 RPC 无关的字段。
+	banner = frappe.local.response.get("message")
+	if banner in ("No App", "Logged In", "Password Reset"):
+		frappe.local.response.pop("message", None)
+		frappe.local.response.pop("home_page", None)
 
 
 # --- 采购垫付报销审批 ---
