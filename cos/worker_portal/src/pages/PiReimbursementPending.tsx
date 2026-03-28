@@ -45,12 +45,6 @@ export function PiReimbursementPendingList() {
 		<div className="min-h-screen bg-muted/30">
 			<header className="border-b bg-background px-4 py-3">
 				<div className="container max-w-2xl flex items-center gap-3">
-					<Button variant="ghost" size="sm" asChild>
-						<Link to="/worker-portal">
-							<ArrowLeft className="h-4 w-4 mr-1" />
-							工作台
-						</Link>
-					</Button>
 					<h1 className="text-lg font-semibold">待报销审批</h1>
 				</div>
 			</header>

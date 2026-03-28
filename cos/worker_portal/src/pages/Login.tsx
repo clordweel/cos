@@ -7,13 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { login, setToken } from "@/lib/api"
 
 interface LoginProps {
-	onLogin: (user: string) => void
+	onLogin: (user: string, redirectTo?: string) => void
 }
 
 export function Login({ onLogin }: LoginProps) {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const from = (location.state as { from?: string })?.from || "/worker-portal"
+	const from = (location.state as { from?: string })?.from || "/worker-portal/pi-reimbursement-pending"
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 	const [error, setError] = useState("")
@@ -40,7 +40,7 @@ export function Login({ onLogin }: LoginProps) {
 			<Card className="w-full max-w-md">
 				<CardHeader>
 					<CardTitle>登录</CardTitle>
-					<CardDescription>登录成功后将跳转到工作台</CardDescription>
+					<CardDescription>登录成功后将进入您要访问的业务页</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="space-y-4">

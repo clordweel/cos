@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom"
-import { Workbench } from "./pages/Workbench"
 import { Login } from "./pages/Login"
 import { Stock } from "./pages/Stock"
 import { PiReimbursementApproval } from "./pages/PiReimbursementApproval"
@@ -9,10 +8,24 @@ import {
 	PiReimbursementPendingDetail,
 } from "./pages/PiReimbursementPending"
 import { getToken, getLoggedUser, clearToken } from "./lib/api"
+import { isCosFlutterShell } from "./lib/clientEnv"
+import { FlutterShellAuthRequired } from "./pages/FlutterShellAuthRequired"
+
+const DEFAULT_LOGGED_IN_LANDING = "/worker-portal/pi-reimbursement-pending"
 
 function ProtectedRedirect() {
 	const loc = useLocation()
-	return <Navigate to="/worker-portal/login" replace state={{ from: loc.pathname }} />
+	if (isCosFlutterShell()) {
+		return <FlutterShellAuthRequired attemptedPath={loc.pathname + (loc.search || "")} />
+	}
+	const full = loc.pathname + (loc.search || "")
+	const q = encodeURIComponent(full)
+	window.location.replace(`/login?redirect-to=${q}`)
+	return (
+		<div className="min-h-screen flex items-center justify-center">
+			<p className="text-muted-foreground text-sm">正在跳转系统登录…</p>
+		</div>
+	)
 }
 
 function App() {
@@ -43,12 +56,6 @@ function App() {
 		setLoginRedirectTo(redirectTo || null)
 	}
 
-	const onLogout = () => {
-		clearToken()
-		setUser(null)
-		setLoginRedirectTo(null)
-	}
-
 	if (loading) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
@@ -57,11 +64,23 @@ function App() {
 		)
 	}
 
-	// 注意：更长的 /worker-portal/... 必须写在精确路径 /worker-portal 之前，避免部分环境下误匹配。
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/worker-portal/login" element={user ? <Navigate to={loginRedirectTo || "/worker-portal"} replace state={null} /> : <Login onLogin={onLogin} />} />
+				<Route
+					path="/worker-portal/login"
+					element={
+						user ? (
+							<Navigate
+								to={loginRedirectTo || DEFAULT_LOGGED_IN_LANDING}
+								replace
+								state={null}
+							/>
+						) : (
+							<Login onLogin={onLogin} />
+						)
+					}
+				/>
 				<Route path="/worker-portal/stock" element={user ? <Stock /> : <ProtectedRedirect />} />
 				<Route
 					path="/worker-portal/pi-reimbursement-pending/:piName"
@@ -72,8 +91,16 @@ function App() {
 					element={user ? <PiReimbursementPendingList /> : <ProtectedRedirect />}
 				/>
 				<Route path="/worker-portal/pi-reimbursement-approval" element={<PiReimbursementApproval />} />
-				<Route path="/worker-portal" element={user ? <Workbench user={user} onLogout={onLogout} /> : <ProtectedRedirect />} />
-				{/* 未注册路径：勿静默回工作台（易掩盖旧 JS 无新路由）；已登录时提示并给出待批入口 */}
+				<Route
+					path="/worker-portal"
+					element={
+						user ? (
+							<Navigate to={DEFAULT_LOGGED_IN_LANDING} replace />
+						) : (
+							<ProtectedRedirect />
+						)
+					}
+				/>
 				<Route
 					path="*"
 					element={
@@ -87,8 +114,8 @@ function App() {
 								<a className="text-primary underline" href="/worker-portal/pi-reimbursement-pending">
 									打开待报销审批
 								</a>
-								<a className="text-muted-foreground underline text-xs" href="/worker-portal">
-									回工作台
+								<a className="text-muted-foreground underline text-xs" href="/worker-portal/stock">
+									打开入库盘点
 								</a>
 							</div>
 						) : (
