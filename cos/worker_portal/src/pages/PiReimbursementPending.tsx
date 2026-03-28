@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -17,6 +17,7 @@ import {
 	approvePiLoggedIn,
 	type PiReimbursementSummary,
 	type PiReimbursementPendingRow,
+	type PiReimbursementLineItem,
 } from "@/lib/api"
 import { isCosFlutterShell } from "@/lib/clientEnv"
 import {
@@ -54,6 +55,41 @@ function formatCurrency(n: number): string {
 		style: "currency",
 		currency: "CNY",
 	}).format(n)
+}
+
+function PiDetailLineRow({ line }: { line: PiReimbursementLineItem }) {
+	const [open, setOpen] = useState(false)
+	const remark = (line.remark ?? "").trim()
+	const hasRemark = remark.length > 0
+
+	return (
+		<div className="border-b border-border/50 last:border-0 px-2 py-2">
+			<div className="flex justify-between gap-2 text-sm">
+				<span className="min-w-0 flex-1 font-medium leading-snug text-foreground">
+					{line.item_name?.trim() || "—"}
+				</span>
+				<span className="shrink-0 font-semibold tabular-nums text-foreground">
+					{formatCurrency(line.amount ?? 0)}
+				</span>
+			</div>
+			{hasRemark ? (
+				<div className="mt-1.5">
+					<button
+						type="button"
+						onClick={() => setOpen((v) => !v)}
+						className="text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+					>
+						{open ? "收起备注" : "查看备注"}
+					</button>
+					{open ? (
+						<p className="mt-1.5 border-l-2 border-muted pl-2 text-xs leading-relaxed text-muted-foreground">
+							{remark}
+						</p>
+					) : null}
+				</div>
+			) : null}
+		</div>
+	)
 }
 
 /** 待报销采购发票列表（需登录） */
@@ -96,21 +132,33 @@ export function PiReimbursementPendingList() {
 					to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
 					className="block"
 				>
-					<Card className="hover:bg-accent/50 transition-colors">
-						<CardHeader className="py-3">
-							<CardTitle className="text-base">{r.name}</CardTitle>
-							<p className="text-sm text-muted-foreground">
-								{r.supplier || "-"} · 过账 {r.posting_date || "-"}
-							</p>
-						</CardHeader>
-						<CardContent className="pt-0 pb-3 text-sm">
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">垫付员工</span>
-								<span>{r.employee_name || r.custom_advance_employee || "-"}</span>
+					<Card className="gap-0 py-0 shadow-sm transition-colors hover:bg-accent/50">
+						<CardHeader className="space-y-1 px-3 py-2 pb-1.5">
+							<div className="flex flex-wrap items-center gap-x-1.5 text-[11px] leading-tight text-muted-foreground/75">
+								<span className="font-mono tabular-nums tracking-tight">{r.name}</span>
+								<span className="text-muted-foreground/45">·</span>
+								<span>过账 {r.posting_date || "—"}</span>
 							</div>
-							<div className="flex justify-between mt-1">
-								<span className="text-muted-foreground">金额</span>
-								<span className="font-medium">{formatCurrency(r.grand_total ?? 0)}</span>
+							{r.supplier ? (
+								<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
+									{r.supplier}
+								</p>
+							) : null}
+						</CardHeader>
+						<CardContent className="px-3 pb-2.5 pt-0">
+							<div className="flex items-end justify-between gap-3">
+								<div className="min-w-0 flex-1">
+									<p className="text-[10px] text-muted-foreground/65">垫付员工</p>
+									<p className="mt-0.5 truncate text-sm font-semibold text-foreground">
+										{r.employee_name || r.custom_advance_employee || "—"}
+									</p>
+								</div>
+								<div className="shrink-0 text-right">
+									<p className="text-[10px] text-muted-foreground/65">金额</p>
+									<p className="mt-0.5 text-base font-semibold tabular-nums text-foreground">
+										{formatCurrency(r.grand_total ?? 0)}
+									</p>
+								</div>
 							</div>
 						</CardContent>
 					</Card>
@@ -232,33 +280,51 @@ export function PiReimbursementPendingDetail() {
 					</Link>
 				</Button>
 			) : null}
-			<Card>
-				<CardHeader>
-					<CardTitle className="text-base">{summary.name}</CardTitle>
-					<p className="text-sm text-muted-foreground">
-						采购发票 · 过账日期 {summary.posting_date || "-"}
+			<Card className="gap-0 py-0 shadow-sm">
+				<CardHeader className="space-y-1 px-3 py-2.5 pb-2">
+					<div className="flex flex-wrap items-center gap-x-1.5 text-[11px] leading-tight text-muted-foreground/75">
+						<span className="font-mono tabular-nums tracking-tight">{summary.name}</span>
+						<span className="text-muted-foreground/45">·</span>
+						<span>过账 {summary.posting_date || "—"}</span>
+					</div>
+					<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
+						采购发票 · {summary.supplier || "—"}
 					</p>
 				</CardHeader>
-				<CardContent className="space-y-4">
-					<div className="grid gap-2 text-sm">
-						<div className="flex justify-between">
-							<span className="text-muted-foreground">供应商</span>
-							<span>{summary.supplier || "-"}</span>
+				<CardContent className="space-y-3 px-3 pb-3 pt-0">
+					<div className="flex items-end justify-between gap-3 border-b border-border/40 pb-3">
+						<div className="min-w-0 flex-1">
+							<p className="text-[10px] text-muted-foreground/65">垫付员工</p>
+							<p className="mt-0.5 truncate text-sm font-semibold text-foreground">
+								{summary.employee_name || summary.advance_employee || "—"}
+							</p>
 						</div>
-						<div className="flex justify-between">
-							<span className="text-muted-foreground">垫付员工</span>
-							<span>{summary.employee_name || summary.advance_employee || "-"}</span>
-						</div>
-						<div className="flex justify-between">
-							<span className="text-muted-foreground">发票号</span>
-							<span>{summary.bill_no || "-"}</span>
-						</div>
-						<div className="flex justify-between">
-							<span className="text-muted-foreground">总金额</span>
-							<span className="font-medium">
+						<div className="shrink-0 text-right">
+							<p className="text-[10px] text-muted-foreground/65">总金额</p>
+							<p className="mt-0.5 text-base font-semibold tabular-nums text-foreground">
 								{formatCurrency(summary.grand_total ?? 0)}
-							</span>
+							</p>
 						</div>
+					</div>
+
+					<div className="flex justify-between gap-2 text-xs text-muted-foreground">
+						<span>发票号</span>
+						<span className="max-w-[65%] break-all text-right text-foreground/80">
+							{summary.bill_no || "—"}
+						</span>
+					</div>
+
+					<div className="overflow-hidden rounded-md border border-border/60 bg-muted/25">
+						<p className="border-b border-border/50 bg-muted/40 px-3 py-2 text-xs font-medium text-muted-foreground">
+							物料明细
+						</p>
+						{summary.items && summary.items.length > 0 ? (
+							summary.items.map((line, i) => (
+								<PiDetailLineRow key={`${line.item_name}-${i}`} line={line} />
+							))
+						) : (
+							<p className="px-3 py-3 text-xs text-muted-foreground">暂无明细</p>
+						)}
 					</div>
 
 					{summary.readonly && (

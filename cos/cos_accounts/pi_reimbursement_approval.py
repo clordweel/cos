@@ -12,6 +12,7 @@ import urllib.parse
 
 import frappe
 from frappe import _
+from frappe.utils import flt
 
 
 TOKEN_EXPIRY_DAYS = 7
@@ -122,6 +123,22 @@ def get_approval_url(pi_name: str, approver_user: str = "", base_url: str = "") 
 	return url
 
 
+def _pi_item_lines_for_summary(pi) -> list[dict]:
+	"""采购发票明细：物料名称、金额、行备注（description）。"""
+	out = []
+	for row in pi.get("items") or []:
+		item_name = (row.get("item_name") or row.get("item_code") or "").strip()
+		remark = (row.get("description") or "").strip() or None
+		out.append(
+			{
+				"item_name": item_name,
+				"amount": flt(row.get("amount")),
+				"remark": remark,
+			}
+		)
+	return out
+
+
 def _pi_summary_payload(pi) -> dict:
 	"""从 Purchase Invoice 文档构造审批页摘要（与链接审批、登录审批共用）。"""
 	emp_id = pi.get("custom_advance_employee")
@@ -134,6 +151,7 @@ def _pi_summary_payload(pi) -> dict:
 		"employee_name": employee_name,
 		"bill_no": pi.get("bill_no") or "-",
 		"posting_date": str(pi.posting_date) if pi.posting_date else None,
+		"items": _pi_item_lines_for_summary(pi),
 	}
 
 

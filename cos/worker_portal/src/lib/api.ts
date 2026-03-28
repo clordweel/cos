@@ -113,6 +113,14 @@ export async function getLoggedUser(): Promise<string> {
 
 // --- 采购发票报销链接审批（免登录）---
 
+export interface PiReimbursementLineItem {
+	/** 物料名称（或物料编码兜底） */
+	item_name: string
+	amount: number
+	/** 行备注（Purchase Invoice Item.description） */
+	remark?: string | null
+}
+
 export interface PiReimbursementSummary {
 	name: string
 	supplier: string
@@ -121,6 +129,8 @@ export interface PiReimbursementSummary {
 	employee_name: string | null
 	bill_no: string
 	posting_date: string | null
+	/** 发票明细行 */
+	items?: PiReimbursementLineItem[]
 	/** 服务端：非 Pending 时为 true，仅展示不可再批 */
 	readonly?: boolean
 	reimbursement_approval_status?: string
