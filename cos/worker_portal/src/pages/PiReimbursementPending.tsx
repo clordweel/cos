@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, SearchX } from "lucide-react"
 import {
 	WpEmptyState,
 	WpLoadingState,
@@ -58,6 +58,49 @@ function formatCurrency(n: number): string {
 	}).format(n)
 }
 
+type PiPendingSortKey = "posting_desc" | "amount_desc" | "amount_asc"
+type PiPendingAmountFilter = "all" | "gte500" | "gte1000"
+
+function filterAndSortPiPendingRows(
+	rows: PiReimbursementPendingRow[],
+	query: string,
+	sort: PiPendingSortKey,
+	amount: PiPendingAmountFilter,
+): PiReimbursementPendingRow[] {
+	const q = query.trim().toLowerCase()
+	let out = rows.filter((r) => {
+		if (!q) return true
+		const hay = [
+			r.name,
+			r.supplier,
+			r.employee_name ?? "",
+			r.custom_advance_employee ?? "",
+			r.bill_no ?? "",
+			r.posting_date ?? "",
+		]
+			.join(" ")
+			.toLowerCase()
+		return hay.includes(q)
+	})
+	if (amount === "gte500") {
+		out = out.filter((r) => (r.grand_total ?? 0) >= 500)
+	}
+	if (amount === "gte1000") {
+		out = out.filter((r) => (r.grand_total ?? 0) >= 1000)
+	}
+	const sorted = [...out]
+	if (sort === "posting_desc") {
+		sorted.sort((a, b) =>
+			(b.posting_date || "").localeCompare(a.posting_date || ""),
+		)
+	} else if (sort === "amount_desc") {
+		sorted.sort((a, b) => (b.grand_total ?? 0) - (a.grand_total ?? 0))
+	} else {
+		sorted.sort((a, b) => (a.grand_total ?? 0) - (b.grand_total ?? 0))
+	}
+	return sorted
+}
+
 function PiDetailLineRow({ line }: { line: PiReimbursementLineItem }) {
 	const [open, setOpen] = useState(false)
 	const remark = (line.remark ?? "").trim()
@@ -101,6 +144,10 @@ export function PiReimbursementPendingList() {
 	const [rows, setRows] = useState<PiReimbursementPendingRow[]>([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
+	const [searchQuery, setSearchQuery] = useState("")
+	const [sortKey, setSortKey] = useState<PiPendingSortKey>("posting_desc")
+	const [amountFilter, setAmountFilter] =
+		useState<PiPendingAmountFilter>("all")
 
 	useEffect(() => {
 		listPiReimbursementPendingApproval(100)
@@ -108,6 +155,11 @@ export function PiReimbursementPendingList() {
 			.catch((e) => setError(e?.message ?? "加载失败"))
 			.finally(() => setLoading(false))
 	}, [])
+
+	const filteredRows = useMemo(
+		() => filterAndSortPiPendingRows(rows, searchQuery, sortKey, amountFilter),
+		[rows, searchQuery, sortKey, amountFilter],
+	)
 
 	if (loading) {
 		return (
@@ -130,48 +182,179 @@ export function PiReimbursementPendingList() {
 				/>
 			) : null}
 			{!error && rows.length > 0 ? (
-				<div className="flex flex-col gap-2">
-					{rows.map((r) => (
-						<Link
-							key={r.name}
-							to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
-							className="block"
+				<>
+					<div
+						id="pi-pending-toolbar"
+						className="sticky top-0 z-20 -mx-0 mb-3"
+					>
+						<div className="rounded-xl border border-border/60 bg-card/95 p-3 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85">
+							<Input
+								id="pi-pending-search-input"
+								placeholder="搜索单号、供应商、员工、发票号…"
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)}
+								className="h-10"
+							/>
+							<div
+								id="pi-pending-filter-body"
+								className="mt-3 space-y-3 border-t border-border/40 pt-3"
+							>
+									<div className="flex flex-wrap items-center gap-2">
+										<span className="shrink-0 text-xs text-muted-foreground">
+											排序
+										</span>
+										<div className="flex flex-wrap gap-1.5">
+											<Button
+												type="button"
+												size="sm"
+												variant={
+													sortKey === "posting_desc"
+														? "default"
+														: "outline"
+												}
+												className="h-8 text-xs"
+												onClick={() => setSortKey("posting_desc")}
+											>
+												过账从新到旧
+											</Button>
+											<Button
+												type="button"
+												size="sm"
+												variant={
+													sortKey === "amount_desc"
+														? "default"
+														: "outline"
+												}
+												className="h-8 text-xs"
+												onClick={() => setSortKey("amount_desc")}
+											>
+												金额从高到低
+											</Button>
+											<Button
+												type="button"
+												size="sm"
+												variant={
+													sortKey === "amount_asc"
+														? "default"
+														: "outline"
+												}
+												className="h-8 text-xs"
+												onClick={() => setSortKey("amount_asc")}
+											>
+												金额从低到高
+											</Button>
+										</div>
+									</div>
+									<div className="flex flex-wrap items-center gap-2">
+										<span className="shrink-0 text-xs text-muted-foreground">
+											金额
+										</span>
+										<div className="flex flex-wrap gap-1.5">
+											<Button
+												type="button"
+												size="sm"
+												variant={
+													amountFilter === "all" ? "default" : "outline"
+												}
+												className="h-8 text-xs"
+												onClick={() => setAmountFilter("all")}
+											>
+												全部
+											</Button>
+											<Button
+												type="button"
+												size="sm"
+												variant={
+													amountFilter === "gte500" ? "default" : "outline"
+												}
+												className="h-8 text-xs"
+												onClick={() => setAmountFilter("gte500")}
+											>
+												≥ ¥500
+											</Button>
+											<Button
+												type="button"
+												size="sm"
+												variant={
+													amountFilter === "gte1000" ? "default" : "outline"
+												}
+												className="h-8 text-xs"
+												onClick={() => setAmountFilter("gte1000")}
+											>
+												≥ ¥1000
+											</Button>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+
+					{filteredRows.length === 0 ? (
+						<WpEmptyState
+							icon={SearchX}
+							title="无匹配单据"
+							description="没有符合当前搜索或筛选条件的发票，可清空搜索或调整筛选。"
 						>
-							<Card className="gap-0 overflow-hidden py-0 shadow-sm transition-colors hover:bg-accent/50">
-								<div className="flex flex-col gap-1 px-3 py-1.5">
-									<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[11px] leading-none text-muted-foreground/75">
-										<span className="font-mono tabular-nums tracking-tight">{r.name}</span>
-										<span className="text-muted-foreground/45">·</span>
-										<span>过账 {r.posting_date || "—"}</span>
-									</div>
-									{r.supplier ? (
-										<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
-											{r.supplier}
-										</p>
-									) : null}
-									<div className="flex items-start justify-between gap-3 border-t border-border/35 pt-1.5">
-										<div className="flex min-w-0 flex-1 flex-col gap-px">
-											<span className="text-[10px] leading-none text-muted-foreground/65">
-												垫付员工
-											</span>
-											<span className="truncate text-sm font-semibold leading-tight text-foreground">
-												{r.employee_name || r.custom_advance_employee || "—"}
-											</span>
+							<Button
+								type="button"
+								variant="secondary"
+								className="mt-2"
+								onClick={() => {
+									setSearchQuery("")
+									setSortKey("posting_desc")
+									setAmountFilter("all")
+								}}
+							>
+								清空条件
+							</Button>
+						</WpEmptyState>
+					) : (
+						<div className="flex flex-col gap-3">
+							{filteredRows.map((r) => (
+								<Link
+									key={r.name}
+									to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
+									className="block"
+								>
+									<Card className="gap-0 overflow-hidden py-0 shadow-sm transition-colors hover:bg-accent/50">
+										<div className="flex flex-col gap-2 px-3.5 py-2.5">
+											<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[11px] leading-none text-muted-foreground/75">
+												<span className="font-mono tabular-nums tracking-tight">
+													{r.name}
+												</span>
+												<span className="text-muted-foreground/45">·</span>
+												<span>过账 {r.posting_date || "—"}</span>
+											</div>
+											{r.supplier ? (
+												<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
+													{r.supplier}
+												</p>
+											) : null}
+											<div className="flex items-start justify-between gap-3 border-t border-border/35 pt-2">
+												<div className="flex min-w-0 flex-1 flex-col gap-0.5">
+													<span className="text-[10px] leading-none text-muted-foreground/65">
+														垫付员工
+													</span>
+													<span className="truncate text-sm font-semibold leading-tight text-foreground">
+														{r.employee_name || r.custom_advance_employee || "—"}
+													</span>
+												</div>
+												<div className="flex shrink-0 flex-col items-end gap-0.5 text-right">
+													<span className="text-[10px] leading-none text-muted-foreground/65">
+														金额
+													</span>
+													<span className="text-base font-semibold leading-tight tabular-nums text-foreground">
+														{formatCurrency(r.grand_total ?? 0)}
+													</span>
+												</div>
+											</div>
 										</div>
-										<div className="flex shrink-0 flex-col items-end gap-px text-right">
-											<span className="text-[10px] leading-none text-muted-foreground/65">
-												金额
-											</span>
-											<span className="text-base font-semibold leading-tight tabular-nums text-foreground">
-												{formatCurrency(r.grand_total ?? 0)}
-											</span>
-										</div>
-									</div>
-								</div>
-							</Card>
-						</Link>
-					))}
-				</div>
+									</Card>
+								</Link>
+							))}
+						</div>
+					)}
+				</>
 			) : null}
 		</WpPage>
 	)
