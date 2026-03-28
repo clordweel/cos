@@ -34,6 +34,27 @@ def _resolve_whitelisted_pi_name(pi_name: str | None) -> str:
 	return name or ""
 
 
+def _merge_action_remark_from_json_body(action: str, remark: str) -> tuple[str, str]:
+	"""JSON POST 时 Frappe 可能未将 body 字段注入白名单参数，需与 pi_name 一样显式读取。"""
+	data = frappe.request.get_json(silent=True)
+	if not isinstance(data, dict):
+		return action, remark
+	if data.get("action") is not None:
+		action = str(data.get("action") or "approve").lower()
+	if data.get("remark") is not None:
+		remark = str(data.get("remark") or "")
+	return action, remark
+
+
+def _require_system_manager_for_pi_reset() -> None:
+	"""报销审批重置：仅 Administrator 用户或 System Manager 角色。"""
+	if frappe.session.user == "Administrator":
+		return
+	if "System Manager" in frappe.get_roles():
+		return
+	frappe.throw(_("仅系统管理员可执行此操作"), title=_("权限不足"))
+
+
 def _get_secret() -> str:
 	"""获取签名密钥。"""
 	secret = frappe.conf.get("encryption_key") or frappe.conf.get("secret_key") or ""
@@ -192,6 +213,7 @@ def approve_pi(token: str = None, pi_name: str = None, expiry: str = None, _sign
 		frappe.throw(_("链接无效或已过期"), title=_("无法审批"))
 	if not _verify_token(pi_name, expiry, _signature):
 		frappe.throw(_("链接无效或已过期"), title=_("无法审批"))
+	action, remark = _merge_action_remark_from_json_body(action, remark)
 	action = (action or "approve").lower()
 	if action not in ("approve", "reject"):
 		frappe.throw(_("action 必须为 approve 或 reject"), title=_("参数错误"))
@@ -226,6 +248,7 @@ def get_pi_summary_for_logged_in_approval(pi_name: str = None) -> dict:
 def approve_pi_logged_in(pi_name: str = None, action: str = "approve", remark: str = "") -> dict:
 	"""已登录用户批准/拒绝报销审批（需 Purchase Invoice 写权限）。"""
 	pi_name = _resolve_whitelisted_pi_name(pi_name)
+	action, remark = _merge_action_remark_from_json_body(action, remark)
 	if frappe.session.user == "Guest":
 		frappe.throw(_("请先登录"), title=_("无法审批"))
 	if not pi_name or not frappe.db.exists("Purchase Invoice", pi_name):
@@ -233,3 +256,40 @@ def approve_pi_logged_in(pi_name: str = None, action: str = "approve", remark: s
 	pi = frappe.get_doc("Purchase Invoice", pi_name)
 	frappe.has_permission("Purchase Invoice", "write", doc=pi, throw=True)
 	return _apply_pi_reimbursement_decision(pi_name, action, remark)
+
+
+@frappe.whitelist()
+def reset_pi_reimbursement_approval(pi_name: str = None) -> dict:
+	"""将员工垫付采购发票的报销审批结果清空为待审批（仅系统管理员）。
+
+	已存在应付转员工日记账时禁止重置，避免与账务不一致。
+	不修改「报销审批人」配置字段，仅清除审批结果相关字段。
+	"""
+	_require_system_manager_for_pi_reset()
+	pi_name = _resolve_whitelisted_pi_name(pi_name)
+	if frappe.session.user == "Guest":
+		frappe.throw(_("请先登录"), title=_("无法操作"))
+	if not pi_name or not frappe.db.exists("Purchase Invoice", pi_name):
+		frappe.throw(_("采购发票不存在"), title=_("无法操作"))
+	pi = frappe.get_doc("Purchase Invoice", pi_name)
+	frappe.has_permission("Purchase Invoice", "write", doc=pi, throw=True)
+	if not pi.get("custom_is_employee_advance"):
+		frappe.throw(_("该发票未勾选员工垫付"), title=_("无法重置"))
+	if pi.get("custom_payable_transfer_je"):
+		frappe.throw(
+			_("已存在应付转员工日记账，无法重置报销审批"),
+			title=_("无法重置"),
+		)
+	frappe.db.set_value(
+		"Purchase Invoice",
+		pi_name,
+		{
+			"custom_reimbursement_approval_status": "Pending",
+			"custom_reimbursement_approved_by": None,
+			"custom_reimbursement_approved_on": None,
+			"custom_reimbursement_remark": "",
+		},
+		update_modified=True,
+	)
+	frappe.db.commit()
+	return {"success": True, "message": _("已重置报销审批为待审批")}

@@ -97,6 +97,7 @@ frappe.ui.form.on("Purchase Invoice", {
 		apply_advance_employee_readonly_pi(frm);
 		add_create_tax_registry_button(frm);
 		add_reimbursement_approval_url_button(frm);
+		add_reset_reimbursement_approval_button(frm);
 		add_create_payable_transfer_je_button(frm);
 		add_create_employee_advance_payment_button(frm);
 	},
@@ -161,6 +162,48 @@ async function get_reimbursement_approval_url(frm) {
 	} catch (e) {
 		// frappe.call already shows error
 	}
+}
+
+function add_reset_reimbursement_approval_button(frm) {
+	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || !frm.doc.name) return;
+	if (!frm.doc.custom_is_employee_advance) return;
+	const user_roles = (frappe.user_roles || []).map((r) => r.toLowerCase());
+	const is_admin =
+		frappe.session.user === "Administrator" || user_roles.includes("system manager");
+	if (!is_admin) return;
+	const st = frm.doc.custom_reimbursement_approval_status;
+	const has_residual =
+		st === "Approved" ||
+		st === "Rejected" ||
+		!!(frm.doc.custom_reimbursement_approved_by || frm.doc.custom_reimbursement_remark);
+	if (!has_residual) return;
+
+	frm.add_custom_button(
+		__("重置报销审批"),
+		() => reset_reimbursement_approval_from_pi(frm),
+		__("Actions")
+	);
+}
+
+function reset_reimbursement_approval_from_pi(frm) {
+	frappe.confirm(
+		__(
+			"将报销审批状态设为「待审批」，并清空审批人、审批时间与备注。已存在应付转员工日记账时服务端将拒绝。是否继续？"
+		),
+		async () => {
+			try {
+				await frappe.call({
+					method: "cos.cos_accounts.pi_reimbursement_approval.reset_pi_reimbursement_approval",
+					args: { pi_name: frm.doc.name },
+					freeze: true,
+				});
+				frappe.show_alert({ message: __("已重置报销审批"), indicator: "green" }, 4);
+				frm.reload_doc();
+			} catch (e) {
+				// frappe.call already shows error
+			}
+		}
+	);
 }
 
 function add_create_payable_transfer_je_button(frm) {
