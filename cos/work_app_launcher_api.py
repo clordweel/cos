@@ -9,7 +9,9 @@ from frappe.utils import cint
 
 
 def _require_login():
-	if frappe.session.user == "Guest":
+	# session.user 在部分边界请求下可能为 None（仅判断 != Guest 会漏掉，进而把 None 写入 Link 字段触发 User None not found）
+	user = frappe.session.user
+	if not user or user == "Guest":
 		frappe.throw(_("Login required"), frappe.AuthenticationError)
 
 

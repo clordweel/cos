@@ -9,6 +9,7 @@ import {
 	approvePiReimbursement,
 	type PiReimbursementSummary,
 } from "@/lib/api"
+import { WpPage, WpCentered, wpText } from "@/lib/wp-layout"
 
 function formatCurrency(n: number): string {
 	return new Intl.NumberFormat("zh-CN", {
@@ -79,145 +80,138 @@ export function PiReimbursementApproval() {
 
 	if (loading) {
 		return (
-			<div className="flex min-h-[40vh] items-center justify-center">
-				<p className="text-muted-foreground">加载中...</p>
-			</div>
+			<WpCentered>
+				<p className={wpText.muted}>加载中...</p>
+			</WpCentered>
 		)
 	}
 
 	if (error && !summary) {
 		return (
-			<div className="mx-auto max-w-md space-y-4 p-6">
+			<WpPage narrow>
 				<Card>
-					<CardContent className="pt-6">
-						<p className="text-destructive">{error}</p>
-						<p className="mt-2 text-sm text-muted-foreground">
-							链接可能已过期或已被使用，请联系财务重新生成。
-						</p>
+					<CardContent className="pt-6 space-y-2">
+						<p className={wpText.error}>{error}</p>
+						<p className={wpText.muted}>链接可能已过期，请联系财务重新生成。</p>
 					</CardContent>
 				</Card>
-			</div>
+			</WpPage>
 		)
 	}
 
 	if (result) {
 		return (
-			<div className="mx-auto max-w-md space-y-4 p-6">
+			<WpPage narrow>
 				<Card>
-					<CardContent className="pt-6">
-						<p className="text-lg font-medium">
+					<CardContent className="pt-6 space-y-2">
+						<p className="text-lg font-semibold tracking-tight">
 							{result === "approved" ? "已批准" : "已拒绝"}
 						</p>
-						<p className="mt-1 text-sm text-muted-foreground">
-							该链接已失效，无需再次操作。
-						</p>
+						<p className={wpText.muted}>该链接已失效，无需再次操作。</p>
 					</CardContent>
 				</Card>
-			</div>
+			</WpPage>
 		)
 	}
 
 	if (!summary) return null
 
 	return (
-		<div className="min-h-screen bg-muted/30">
-			<main className="mx-auto max-w-md space-y-4 p-6">
-				<h1 className="text-xl font-semibold">采购发票报销审批</h1>
-				<Card>
-					<CardHeader>
-						<CardTitle className="text-base">{summary.name}</CardTitle>
-						<p className="text-sm text-muted-foreground">
-							采购发票 · 过账日期 {summary.posting_date || "-"}
-						</p>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<div className="grid gap-2 text-sm">
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">供应商</span>
-								<span>{summary.supplier || "-"}</span>
-							</div>
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">垫付员工</span>
-								<span>{summary.employee_name || summary.advance_employee || "-"}</span>
-							</div>
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">发票号</span>
-								<span>{summary.bill_no || "-"}</span>
-							</div>
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">总金额</span>
-								<span className="font-medium">
-									{formatCurrency(summary.grand_total ?? 0)}
-								</span>
-							</div>
+		<WpPage narrow>
+			<Card>
+				<CardHeader>
+					<CardTitle className="text-base">{summary.name}</CardTitle>
+					<p className="text-sm text-muted-foreground">
+						采购发票 · 过账日期 {summary.posting_date || "-"}
+					</p>
+				</CardHeader>
+				<CardContent className="space-y-4">
+					<div className="grid gap-2 text-sm">
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">供应商</span>
+							<span>{summary.supplier || "-"}</span>
 						</div>
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">垫付员工</span>
+							<span>{summary.employee_name || summary.advance_employee || "-"}</span>
+						</div>
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">发票号</span>
+							<span>{summary.bill_no || "-"}</span>
+						</div>
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">总金额</span>
+							<span className="font-medium">
+								{formatCurrency(summary.grand_total ?? 0)}
+							</span>
+						</div>
+					</div>
 
-						{summary.readonly && (
-							<div className="rounded-md border bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
-								<p className="font-medium text-foreground">
-									报销审批状态：{summary.reimbursement_approval_status || "-"}
-								</p>
-								<p className="mt-1">
-									{summary.reimbursement_approval_status === "Approved"
-										? "该发票报销审批已完成（已通过），无需在本链接再次操作。"
-										: summary.reimbursement_approval_status === "Rejected"
-											? "该发票已为「已拒绝」状态，无法通过本链接再次审批。"
-											: "当前不可通过本链接审批。"}
-								</p>
-							</div>
-						)}
+					{summary.readonly && (
+						<div className="rounded-md border bg-muted/50 px-3 py-3 text-sm space-y-2">
+							<p className="font-medium text-foreground">
+								状态：{summary.reimbursement_approval_status || "-"}
+							</p>
+							<p className={wpText.muted}>
+								{summary.reimbursement_approval_status === "Approved"
+									? "已通过，无需在本链接再次操作。"
+									: summary.reimbursement_approval_status === "Rejected"
+										? "已拒绝，无法通过本链接再次审批。"
+										: "当前不可通过本链接审批。"}
+							</p>
+						</div>
+					)}
 
-						{error && <p className="text-sm text-destructive">{error}</p>}
+					{error && <p className={wpText.error}>{error}</p>}
 
-						{!summary.readonly && showRejectInput ? (
-							<div className="space-y-2">
-								<Label htmlFor="remark">拒绝原因（必填）</Label>
-								<Input
-									id="remark"
-									value={rejectRemark}
-									onChange={(e) => setRejectRemark(e.target.value)}
-									placeholder="请输入拒绝原因"
-									className="w-full"
-								/>
-								<div className="flex gap-2">
-									<Button
-										variant="outline"
-										onClick={() => setShowRejectInput(false)}
-										disabled={submitting}
-									>
-										取消
-									</Button>
-									<Button
-										variant="destructive"
-										onClick={handleReject}
-										disabled={submitting || !rejectRemark.trim()}
-									>
-										{submitting ? "提交中..." : "确认拒绝"}
-									</Button>
-								</div>
-							</div>
-						) : !summary.readonly ? (
-							<div className="flex gap-3">
-								<Button
-									onClick={handleApprove}
-									disabled={submitting}
-									className="flex-1"
-								>
-									{submitting ? "提交中..." : "批准"}
-								</Button>
+					{!summary.readonly && showRejectInput ? (
+						<div className="space-y-2">
+							<Label htmlFor="remark">拒绝原因（必填）</Label>
+							<Input
+								id="remark"
+								value={rejectRemark}
+								onChange={(e) => setRejectRemark(e.target.value)}
+								placeholder="请输入拒绝原因"
+								className="w-full"
+							/>
+							<div className="flex gap-2">
 								<Button
 									variant="outline"
-									onClick={handleReject}
+									onClick={() => setShowRejectInput(false)}
 									disabled={submitting}
-									className="flex-1"
 								>
-									拒绝
+									取消
+								</Button>
+								<Button
+									variant="destructive"
+									onClick={handleReject}
+									disabled={submitting || !rejectRemark.trim()}
+								>
+									{submitting ? "提交中..." : "确认拒绝"}
 								</Button>
 							</div>
-						) : null}
-					</CardContent>
-				</Card>
-			</main>
-		</div>
+						</div>
+					) : !summary.readonly ? (
+						<div className="flex gap-3">
+							<Button
+								onClick={handleApprove}
+								disabled={submitting}
+								className="flex-1"
+							>
+								{submitting ? "提交中..." : "批准"}
+							</Button>
+							<Button
+								variant="outline"
+								onClick={handleReject}
+								disabled={submitting}
+								className="flex-1"
+							>
+								拒绝
+							</Button>
+						</div>
+					) : null}
+				</CardContent>
+			</Card>
+		</WpPage>
 	)
 }

@@ -9,6 +9,7 @@ import {
 } from "./pages/PiReimbursementPending"
 import { getToken, getLoggedUser, clearToken } from "./lib/api"
 import { isCosFlutterShell } from "./lib/clientEnv"
+import { WpCentered, WpPage, wpText } from "./lib/wp-layout"
 import { FlutterShellAuthRequired } from "./pages/FlutterShellAuthRequired"
 
 const DEFAULT_LOGGED_IN_LANDING = "/worker-portal/pi-reimbursement-pending"
@@ -22,9 +23,9 @@ function ProtectedRedirect() {
 	const q = encodeURIComponent(full)
 	window.location.replace(`/login?redirect-to=${q}`)
 	return (
-		<div className="min-h-screen flex items-center justify-center">
-			<p className="text-muted-foreground text-sm">正在跳转系统登录…</p>
-		</div>
+		<WpCentered>
+			<p className={wpText.muted}>正在跳转系统登录…</p>
+		</WpCentered>
 	)
 }
 
@@ -58,9 +59,9 @@ function App() {
 
 	if (loading) {
 		return (
-			<div className="min-h-screen flex items-center justify-center">
-				<div className="animate-pulse text-muted-foreground">加载中...</div>
-			</div>
+			<WpCentered>
+				<div className="animate-pulse text-muted-foreground text-sm">加载中...</div>
+			</WpCentered>
 		)
 	}
 
@@ -105,19 +106,25 @@ function App() {
 					path="*"
 					element={
 						user ? (
-							<div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 text-center text-sm">
-								<p className="text-muted-foreground max-w-md">
-									当前页面路径未识别（可能是浏览器仍在使用旧版 Worker Portal 脚本）。
-									请<strong>强刷</strong>或清除站点数据后重试；完整地址应为{" "}
-									<code className="text-xs break-all">/worker-portal/pi-reimbursement-pending</code>。
+							<WpPage>
+								<p className={`${wpText.muted} text-center`}>
+									路径未识别，请强刷后重试。
 								</p>
-								<a className="text-primary underline" href="/worker-portal/pi-reimbursement-pending">
-									打开待报销审批
-								</a>
-								<a className="text-muted-foreground underline text-xs" href="/worker-portal/stock">
-									打开入库盘点
-								</a>
-							</div>
+								<div className="flex flex-col gap-2 sm:flex-row sm:justify-center">
+									<a
+										className="text-sm font-medium text-primary underline underline-offset-4 text-center"
+										href="/worker-portal/pi-reimbursement-pending"
+									>
+										待报销审批
+									</a>
+									<a
+										className="text-sm text-muted-foreground underline underline-offset-4 text-center"
+										href="/worker-portal/stock"
+									>
+										入库盘点
+									</a>
+								</div>
+							</WpPage>
 						) : (
 							<ProtectedRedirect />
 						)

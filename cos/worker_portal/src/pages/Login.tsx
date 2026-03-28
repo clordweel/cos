@@ -3,8 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { login, setToken } from "@/lib/api"
+import { WpAuthPage, wpText } from "@/lib/wp-layout"
 
 interface LoginProps {
 	onLogin: (user: string, redirectTo?: string) => void
@@ -36,11 +37,10 @@ export function Login({ onLogin }: LoginProps) {
 	}
 
 	return (
-		<div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-			<Card className="w-full max-w-md">
+		<WpAuthPage>
+			<Card className="w-full">
 				<CardHeader>
 					<CardTitle>登录</CardTitle>
-					<CardDescription>登录成功后将进入您要访问的业务页</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="space-y-4">
@@ -66,15 +66,13 @@ export function Login({ onLogin }: LoginProps) {
 								autoComplete="current-password"
 							/>
 						</div>
-						{error && (
-							<p className="text-sm text-destructive">{error}</p>
-						)}
+						{error && <p className={wpText.error}>{error}</p>}
 						<Button type="submit" className="w-full" disabled={loading}>
 							{loading ? "登录中..." : "登录"}
 						</Button>
 					</form>
 				</CardContent>
 			</Card>
-		</div>
+		</WpAuthPage>
 	)
 }
