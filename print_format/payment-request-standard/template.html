@@ -10,7 +10,6 @@
 {% set pr_type_map = {"Inward": "收款", "Outward": "付款"} %}
 {% set pr_type_label = pr_type_map.get(doc.payment_request_type, doc.payment_request_type or "") %}
 {% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
-{% set ref_label = (doc.reference_doctype or "") ~ (": " if doc.reference_doctype and doc.reference_name else "") ~ (doc.reference_name or "") %}
 {% set project_display = (frappe.db.get_value("Project", doc.project, "project_name") or doc.project) if doc.project else "" %}
 
 {% for page in layout %}
@@ -60,12 +59,6 @@
 					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">往来方:</span>
 						<span class="info-value text-bold">{{ doc.party_name or doc.party or "&nbsp;" }}</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="info-cell" colspan="2">
-						<span class="info-label font-weight-bold">关联单据:</span>
-						<span class="info-value">{{ ref_label or "&nbsp;" }}</span>
 					</td>
 				</tr>
 				<tr>
@@ -144,16 +137,6 @@
 					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">会计科目:</span>
 						<span class="info-value">{{ doc.account or "&nbsp;" }}</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">IBAN:</span>
-						<span class="info-value">{{ doc.iban or "&nbsp;" }}</span>
-					</td>
-					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">分行代码 / SWIFT:</span>
-						<span class="info-value">{{ (doc.branch_code or "") }} {{ (doc.swift_number or "") }}</span>
 					</td>
 				</tr>
 			</tbody>
