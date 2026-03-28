@@ -2,6 +2,20 @@ import { normalizeFrappeRpcErrorMessage } from "@/lib/frappe-rpc-error"
 
 const TOKEN_KEY = "cos_worker_portal_token"
 
+/** 纯 Cookie 会话的 POST 需带 CSRF；Bearer wpt. 由服务端 patch 豁免。 */
+function readCookie(name: string): string | null {
+	if (typeof document === "undefined") return null
+	const prefix = `${name}=`
+	const parts = document.cookie.split(";")
+	for (const part of parts) {
+		const s = part.trim()
+		if (s.startsWith(prefix)) {
+			return decodeURIComponent(s.slice(prefix.length))
+		}
+	}
+	return null
+}
+
 export function getApiBase(): string {
 	return (
 		(typeof window !== "undefined" && window.__WORKER_PORTAL_CONFIG__?.apiBase) ||
@@ -38,6 +52,9 @@ export async function apiRequest<T>(
 	}
 	if (token) {
 		headers["Authorization"] = `Bearer ${token}`
+	} else if (method !== "GET" && method !== "HEAD") {
+		const csrf = readCookie("csrf_token")
+		if (csrf) headers["X-Frappe-CSRF-Token"] = csrf
 	}
 	const res = await fetch(url, {
 		method,
@@ -183,11 +200,10 @@ export async function listPiReimbursementPendingApproval(
 export async function getPiSummaryForLoggedInApproval(
 	piName: string
 ): Promise<PiReimbursementSummary> {
-	// 使用 POST + JSON 传 pi_name：避免 WebView/代理对 GET query 截断或错误缓存，导致服务端收不到编号而报「采购发票不存在」
+	// GET 免 CSRF；配合 fetch cache:no-store，降低 WebView/代理错误缓存或截断 query 的风险
 	const res = await apiRequest<{ message?: PiReimbursementSummary } | PiReimbursementSummary>(
-		"POST",
-		"/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval",
-		{ pi_name: piName }
+		"GET",
+		`/api/method/cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval?pi_name=${encodeURIComponent(piName)}`
 	)
 	if (res && typeof res === "object" && "message" in res && res.message !== undefined) {
 		return res.message as PiReimbursementSummary
