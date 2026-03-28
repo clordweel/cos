@@ -11,7 +11,7 @@ import { getToken, getLoggedUser, clearToken } from "./lib/api"
 import { isCosFlutterShell } from "./lib/clientEnv"
 import { Button } from "./components/ui/button"
 import { WpLoadingState, WpNotFoundState } from "./components/wp-states"
-import { WpAuthPage, WpCentered, WpPage } from "./lib/wp-layout"
+import { WpCentered, WpPage } from "./lib/wp-layout"
 import { FlutterShellAuthRequired } from "./pages/FlutterShellAuthRequired"
 
 const DEFAULT_LOGGED_IN_LANDING = "/worker-portal/pi-reimbursement-pending"
@@ -21,14 +21,11 @@ function ProtectedRedirect() {
 	if (isCosFlutterShell()) {
 		return <FlutterShellAuthRequired attemptedPath={loc.pathname + (loc.search || "")} />
 	}
-	const full = loc.pathname + (loc.search || "")
-	const q = encodeURIComponent(full)
-	window.location.replace(`/login?redirect-to=${q}`)
-	return (
-		<WpAuthPage>
-			<WpLoadingState label="正在跳转系统登录…" />
-		</WpAuthPage>
-	)
+	// 浏览器：勿跳 Frappe `/login`。该登录只写 Cookie，不会写入 Portal 所需的
+	// `localStorage.cos_worker_portal_token`（wpt），回到 SPA 后仍无 token → 无限重定向。
+	// 必须走 `/worker-portal/login`（login_for_token）与壳一致。
+	const from = (loc.pathname + (loc.search || "")).trim() || DEFAULT_LOGGED_IN_LANDING
+	return <Navigate to="/worker-portal/login" replace state={{ from }} />
 }
 
 function App() {
