@@ -17,6 +17,17 @@ def is_cos_work_app_shell_user_agent(user_agent: str | None) -> bool:
 	return "CosWorkApp" in user_agent
 
 
+def is_cos_work_app_shell_query(request_args) -> bool:
+	"""首跳 URL 带 `__cos_work_shell=1` 时视为壳内打开（部分 WebView 首请求不带自定义 UA）。"""
+	if not request_args:
+		return False
+	try:
+		v = (request_args.get("__cos_work_shell") or "").strip().lower()
+	except Exception:
+		return False
+	return v in ("1", "true", "yes")
+
+
 def resolve_nav_bar_inset_mode_for_path(path: str | None) -> str | None:
 	"""按最长匹配 launch_path 取 DocType 上的 nav_bar_inset_mode；无匹配返回 None。"""
 	if not path:

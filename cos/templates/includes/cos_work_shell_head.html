@@ -1,4 +1,4 @@
-{# UA 为 CosWorkApp 时：html data-* + 壳顶栏占位 CSS（nav_bar_inset_mode 已由路径解析写入 cos_nav_bar_inset_mode） #}
+{# CosWorkApp UA 或 URL 参数 __cos_work_shell=1（壳首跳附带，避免 WebView 未带上自定义 UA 时不输出样式） #}
 {% if cos_is_work_app_shell %}
 <script>
 (function () {

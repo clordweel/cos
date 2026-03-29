@@ -68,7 +68,7 @@
   },
   {
    "default": "app_provided",
-   "description": "由站点模板+cos_work_shell_inset.css 按路径解析后设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA）；none 与 page_custom 为 0；status_bar_only 仅安全区；app_provided 为安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
+   "description": "由站点模板+cos_work_shell_inset.css 按路径解析后设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 URL 参数 __cos_work_shell=1，壳首跳会带）；none 与 page_custom 为 0；status_bar_only 仅安全区；app_provided 为安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",

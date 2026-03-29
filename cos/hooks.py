@@ -58,6 +58,7 @@ def extend_website_context_for_worker_portal(context):
 	import frappe
 
 	from cos.worker_portal_shell_context import (
+		is_cos_work_app_shell_query,
 		is_cos_work_app_shell_user_agent,
 		nav_bar_inset_mode_or_default,
 		resolve_nav_bar_inset_mode_for_path,
@@ -84,13 +85,20 @@ def extend_website_context_for_worker_portal(context):
 	req = getattr(frappe.local, "request", None)
 	req_path = ""
 	ua = ""
+	req_args = None
 	if req is not None:
 		req_path = getattr(req, "path", "") or ""
 		try:
 			ua = frappe.request.headers.get("User-Agent", "") or ""
 		except Exception:
 			ua = ""
-	context["cos_is_work_app_shell"] = is_cos_work_app_shell_user_agent(ua)
+		try:
+			req_args = getattr(req, "args", None)
+		except Exception:
+			req_args = None
+	context["cos_is_work_app_shell"] = is_cos_work_app_shell_user_agent(
+		ua
+	) or is_cos_work_app_shell_query(req_args)
 	resolved = resolve_nav_bar_inset_mode_for_path(req_path)
 	context["cos_nav_bar_inset_mode"] = nav_bar_inset_mode_or_default(resolved)
 
