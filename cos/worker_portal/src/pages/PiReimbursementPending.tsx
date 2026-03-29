@@ -1,4 +1,11 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react"
 import { createPortal } from "react-dom"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -68,6 +75,8 @@ const PI_LIST_TABS: { id: PiReimbursementListTab; label: string }[] = [
 	{ id: "rejected", label: "已拒绝" },
 ]
 
+const PI_PAGE_SIZE = 30
+
 function filterPiRowsByQuery(
 	rows: PiReimbursementPendingRow[],
 	query: string,
@@ -131,15 +140,43 @@ function PiDetailLineRow({ line }: { line: PiReimbursementLineItem }) {
 /** 待报销采购发票列表（需登录） */
 export function PiReimbursementPendingList() {
 	const [rows, setRows] = useState<PiReimbursementPendingRow[]>([])
+	const [hasMore, setHasMore] = useState(true)
+	const [loadingMore, setLoadingMore] = useState(false)
 	const [tab, setTab] = useState<PiReimbursementListTab>("pending")
 	const [loading, setLoading] = useState(true)
 	const [refreshing, setRefreshing] = useState(false)
 	const [listReady, setListReady] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const [searchQuery, setSearchQuery] = useState("")
+	const [pullPx, setPullPx] = useState(0)
 
 	const piPendingHeaderRef = useRef<HTMLElement>(null)
+	const mainRef = useRef<HTMLElement>(null)
+	const sentinelRef = useRef<HTMLDivElement>(null)
+	const pullPxRef = useRef(0)
+	const loadingMoreRef = useRef(false)
 	const [fixedHeaderHeightPx, setFixedHeaderHeightPx] = useState(200)
+
+	const loadSlice = useCallback(
+		async (start: number, append: boolean) => {
+			const data = await listPiReimbursementPendingApproval(
+				PI_PAGE_SIZE,
+				tab,
+				start,
+			)
+			setHasMore(data.length >= PI_PAGE_SIZE)
+			if (append) {
+				setRows((prev) => {
+					const seen = new Set(prev.map((r) => r.name))
+					const extra = data.filter((r) => !seen.has(r.name))
+					return extra.length ? [...prev, ...extra] : prev
+				})
+			} else {
+				setRows(data)
+			}
+		},
+		[tab],
+	)
 
 	useLayoutEffect(() => {
 		const el = piPendingHeaderRef.current
@@ -151,7 +188,7 @@ export function PiReimbursementPendingList() {
 		const ro = new ResizeObserver(measure)
 		ro.observe(el)
 		return () => ro.disconnect()
-	}, [rows.length, searchQuery, tab])
+	}, [rows.length, searchQuery, tab, pullPx])
 
 	/** Portal 挂到 body 时收缩 #worker-portal-root */
 	useEffect(() => {
@@ -186,13 +223,11 @@ export function PiReimbursementPendingList() {
 			setRefreshing(true)
 		}
 		setError(null)
+		setHasMore(true)
 		;(async () => {
 			try {
-				const data = await listPiReimbursementPendingApproval(100, tab)
-				if (!cancelled) {
-					setRows(data)
-					setError(null)
-				}
+				await loadSlice(0, false)
+				if (!cancelled) setError(null)
 			} catch (e) {
 				if (!cancelled) {
 					setError((e as Error)?.message ?? "加载失败")
@@ -209,12 +244,110 @@ export function PiReimbursementPendingList() {
 		return () => {
 			cancelled = true
 		}
-	}, [tab])
+	}, [tab, loadSlice])
+
+	const searchTrim = searchQuery.trim()
+	const loadMore = useCallback(async () => {
+		if (
+			loadingMoreRef.current ||
+			!hasMore ||
+			searchTrim ||
+			refreshing ||
+			loading
+		) {
+			return
+		}
+		loadingMoreRef.current = true
+		setLoadingMore(true)
+		try {
+			await loadSlice(rows.length, true)
+		} catch {
+			// 静默失败，避免打断浏览；用户可下拉刷新重试
+		} finally {
+			loadingMoreRef.current = false
+			setLoadingMore(false)
+		}
+	}, [hasMore, searchTrim, refreshing, loading, loadSlice, rows.length])
 
 	const filteredRows = useMemo(
 		() => filterPiRowsByQuery(rows, searchQuery),
 		[rows, searchQuery],
 	)
+
+	useEffect(() => {
+		if (!listReady || error || searchTrim) return
+		const root = mainRef.current
+		const tgt = sentinelRef.current
+		if (!root || !tgt) return
+		const obs = new IntersectionObserver(
+			(entries) => {
+				if (entries[0]?.isIntersecting) void loadMore()
+			},
+			{ root, rootMargin: "100px" },
+		)
+		obs.observe(tgt)
+		return () => obs.disconnect()
+	}, [
+		listReady,
+		error,
+		searchTrim,
+		loadMore,
+		hasMore,
+		filteredRows.length,
+		rows.length,
+	])
+
+	useEffect(() => {
+		const el = mainRef.current
+		if (!el || !listReady || error) return
+		let startY = 0
+		let tracking = false
+		const onStart = (e: TouchEvent) => {
+			if (el.scrollTop > 0) return
+			startY = e.touches[0].clientY
+			tracking = true
+		}
+		const onMove = (e: TouchEvent) => {
+			if (!tracking || el.scrollTop > 0) return
+			const dy = e.touches[0].clientY - startY
+			if (dy > 0) {
+				e.preventDefault()
+				const v = Math.min(dy * 0.42, 56)
+				pullPxRef.current = v
+				setPullPx(v)
+			}
+		}
+		const onEnd = () => {
+			if (!tracking) return
+			tracking = false
+			const p = pullPxRef.current
+			pullPxRef.current = 0
+			setPullPx(0)
+			if (p > 40) {
+				void (async () => {
+					setRefreshing(true)
+					setError(null)
+					try {
+						await loadSlice(0, false)
+					} catch (e) {
+						setError((e as Error)?.message ?? "加载失败")
+					} finally {
+						setRefreshing(false)
+					}
+				})()
+			}
+		}
+		el.addEventListener("touchstart", onStart, { passive: true })
+		el.addEventListener("touchmove", onMove, { passive: false })
+		el.addEventListener("touchend", onEnd)
+		el.addEventListener("touchcancel", onEnd)
+		return () => {
+			el.removeEventListener("touchstart", onStart)
+			el.removeEventListener("touchmove", onMove)
+			el.removeEventListener("touchend", onEnd)
+			el.removeEventListener("touchcancel", onEnd)
+		}
+	}, [listReady, error, loadSlice])
 
 	if (loading) {
 		return (
@@ -238,7 +371,7 @@ export function PiReimbursementPendingList() {
 					)}
 					style={{ top: shellTop }}
 				>
-					<div className="mx-auto w-full max-w-2xl px-4 pb-0">
+					<div className="mx-auto w-full max-w-2xl px-4 pb-2.5">
 						{/* 搜索条占原大标题位；无外层卡片 */}
 						<div className="flex items-center gap-2 pb-2">
 							<div
@@ -254,7 +387,7 @@ export function PiReimbursementPendingList() {
 								/>
 								<Input
 									id="pi-pending-search-input"
-									placeholder="单号 / 供应商 / 员工 / 发票号"
+									placeholder="单号 / 公司 / 供应商 / 员工 / 发票号"
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
 									className="h-7 min-w-0 flex-1 border-0 bg-transparent p-0 text-xs shadow-none placeholder:text-muted-foreground/65 focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -271,7 +404,7 @@ export function PiReimbursementPendingList() {
 						<div
 							role="tablist"
 							aria-label="报销审批分类"
-							className="flex gap-0.5 rounded-[10px] bg-muted/75 p-0.5"
+							className="mt-0.5 flex gap-0.5 rounded-[10px] bg-muted/75 p-0.5"
 						>
 							{PI_LIST_TABS.map(({ id, label }) => {
 								const active = tab === id
@@ -299,12 +432,23 @@ export function PiReimbursementPendingList() {
 				</header>
 
 				<main
+					ref={mainRef}
 					className="fixed bottom-0 left-0 right-0 z-[90] overflow-y-auto overscroll-contain bg-muted/30 [-webkit-overflow-scrolling:touch]"
 					style={{
 						top: `calc(${shellTop} + ${fixedHeaderHeightPx}px)`,
 					}}
 				>
 					<div className="relative mx-auto w-full max-w-2xl px-4 pb-8 pt-3">
+						<div
+							className="flex shrink-0 items-end justify-center overflow-hidden text-[10px] text-muted-foreground transition-[height] duration-75"
+							style={{ height: pullPx }}
+						>
+							{pullPx > 12
+								? pullPx > 40
+									? "松开刷新"
+									: "下拉刷新"
+								: null}
+						</div>
 						{refreshing ? (
 							<div className="pointer-events-none absolute inset-0 z-10 flex items-start justify-center bg-background/40 pt-8">
 								<span className="text-xs text-muted-foreground">加载中…</span>
@@ -345,22 +489,19 @@ export function PiReimbursementPendingList() {
 										className="block"
 									>
 										<Card className="gap-0 overflow-hidden py-0 shadow-sm transition-colors hover:bg-accent/50">
-											<div className="flex flex-col gap-2 px-3.5 py-2.5">
-												<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[11px] leading-none text-muted-foreground/75">
+											<div className="flex flex-col gap-2.5 px-3.5 py-2.5">
+												<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 text-[11px] leading-none text-muted-foreground/75">
 													<span className="font-mono tabular-nums tracking-tight">
 														{r.name}
 													</span>
 													<span className="text-muted-foreground/45">·</span>
 													<span>过账 {r.posting_date || "—"}</span>
-													{r.company_name ? (
-														<>
-															<span className="text-muted-foreground/45">·</span>
-															<span className="max-w-[min(100%,14rem)] truncate">
-																{r.company_name}
-															</span>
-														</>
-													) : null}
 												</div>
+												{r.company_name ? (
+													<p className="line-clamp-1 text-[11px] leading-snug text-muted-foreground/80">
+														{r.company_name}
+													</p>
+												) : null}
 												{r.supplier ? (
 													<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
 														{r.supplier}
@@ -390,6 +531,18 @@ export function PiReimbursementPendingList() {
 										</Card>
 									</Link>
 								))}
+								{!searchTrim && hasMore && filteredRows.length > 0 ? (
+									<div
+										ref={sentinelRef}
+										className="flex min-h-[52px] items-center justify-center py-4"
+									>
+										{loadingMore ? (
+											<span className="text-xs text-muted-foreground">
+												加载更多…
+											</span>
+										) : null}
+									</div>
+								) : null}
 							</div>
 						)}
 					</div>

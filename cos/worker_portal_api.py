@@ -151,12 +151,16 @@ def validate_worker_portal_token():
 
 
 @frappe.whitelist()
-def list_pi_reimbursement_pending_approval(limit=50, tab="pending"):
+def list_pi_reimbursement_pending_approval(limit=50, tab="pending", start=0):
 	"""返回员工垫付 + 已提交的采购发票列表，供 Worker Portal 登录审批。
 
 	tab: all | pending | approved | rejected（默认 pending：待处理，与历史行为一致）
+	start: 分页偏移（limit_start），与 limit 联用上拉加载更多。
 	"""
 	limit = int(limit) if limit is not None else 50
+	start = int(start) if start is not None else 0
+	if start < 0:
+		start = 0
 	tab = (tab or "pending").strip().lower()
 	filters = {
 		"docstatus": 1,
@@ -199,6 +203,7 @@ def list_pi_reimbursement_pending_approval(limit=50, tab="pending"):
 		],
 		order_by="posting_date desc",
 		limit=limit,
+		limit_start=start,
 	)
 	for row in data:
 		emp_id = row.get("custom_advance_employee")

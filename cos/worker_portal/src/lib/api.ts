@@ -214,14 +214,15 @@ export type PiReimbursementListTab = "all" | "pending" | "approved" | "rejected"
 
 export async function listPiReimbursementPendingApproval(
 	limit = 50,
-	tab: PiReimbursementListTab = "pending"
+	tab: PiReimbursementListTab = "pending",
+	start = 0
 ): Promise<PiReimbursementPendingRow[]> {
 	const t = encodeURIComponent(tab)
 	const res = await apiRequest<
 		{ message?: PiReimbursementPendingRow[] } | PiReimbursementPendingRow[]
 	>(
 		"GET",
-		`/api/method/cos.worker_portal_api.list_pi_reimbursement_pending_approval?limit=${limit}&tab=${t}`
+		`/api/method/cos.worker_portal_api.list_pi_reimbursement_pending_approval?limit=${limit}&tab=${t}&start=${start}`
 	)
 	return Array.isArray(res) ? res : (res?.message ?? [])
 }

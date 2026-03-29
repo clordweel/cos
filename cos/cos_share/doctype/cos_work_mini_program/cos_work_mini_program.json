@@ -68,7 +68,7 @@
   },
   {
    "default": "status_bar_only",
-   "description": "由站点模板+cos_work_shell_inset.css 按路径解析后设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 URL 参数 __cos_work_shell=1，壳首跳会带）；none 与 page_custom 为 0；status_bar_only 与 app_provided 在壳内均为 安全区+原生顶栏(44px)；app_provided 为显式兼容旧语义。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
+   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）；none/page_custom 为 0；status_bar_only：App 将 WebView 置于顶栏下、H5 顶留白 0；app_provided：WebView 全屏叠在顶栏下、H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",
@@ -76,7 +76,7 @@
   },
   {
    "default": "1",
-   "description": "为 0 时根页不显示壳顶栏居中标题（与 H5 自绘标题配合）；仍保留返回与胶囊",
+   "description": "为 0 时根页不显示壳顶栏标题（与 H5 自绘标题配合）；仍保留返回与胶囊。为 1 时标题在顶栏内左对齐。",
    "fieldname": "show_nav_bar_title",
    "fieldtype": "Check",
    "label": "显示壳顶栏标题"
