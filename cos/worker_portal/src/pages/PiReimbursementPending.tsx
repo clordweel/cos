@@ -16,6 +16,7 @@ import {
 	listPiReimbursementPendingApproval,
 	getPiSummaryForLoggedInApproval,
 	approvePiLoggedIn,
+	type PiReimbursementListTab,
 	type PiReimbursementSummary,
 	type PiReimbursementPendingRow,
 	type PiReimbursementLineItem,
@@ -60,18 +61,20 @@ function formatCurrency(n: number): string {
 	}).format(n)
 }
 
-type PiPendingSortKey = "posting_desc" | "amount_desc" | "amount_asc"
-type PiPendingAmountFilter = "all" | "gte500" | "gte1000"
+const PI_LIST_TABS: { id: PiReimbursementListTab; label: string }[] = [
+	{ id: "all", label: "全部" },
+	{ id: "pending", label: "待处理" },
+	{ id: "approved", label: "已批准" },
+	{ id: "rejected", label: "已拒绝" },
+]
 
-function filterAndSortPiPendingRows(
+function filterPiRowsByQuery(
 	rows: PiReimbursementPendingRow[],
 	query: string,
-	sort: PiPendingSortKey,
-	amount: PiPendingAmountFilter,
 ): PiReimbursementPendingRow[] {
 	const q = query.trim().toLowerCase()
-	let out = rows.filter((r) => {
-		if (!q) return true
+	if (!q) return rows
+	return rows.filter((r) => {
 		const hay = [
 			r.name,
 			r.supplier,
@@ -84,23 +87,6 @@ function filterAndSortPiPendingRows(
 			.toLowerCase()
 		return hay.includes(q)
 	})
-	if (amount === "gte500") {
-		out = out.filter((r) => (r.grand_total ?? 0) >= 500)
-	}
-	if (amount === "gte1000") {
-		out = out.filter((r) => (r.grand_total ?? 0) >= 1000)
-	}
-	const sorted = [...out]
-	if (sort === "posting_desc") {
-		sorted.sort((a, b) =>
-			(b.posting_date || "").localeCompare(a.posting_date || ""),
-		)
-	} else if (sort === "amount_desc") {
-		sorted.sort((a, b) => (b.grand_total ?? 0) - (a.grand_total ?? 0))
-	} else {
-		sorted.sort((a, b) => (a.grand_total ?? 0) - (b.grand_total ?? 0))
-	}
-	return sorted
 }
 
 function PiDetailLineRow({ line }: { line: PiReimbursementLineItem }) {
@@ -144,12 +130,12 @@ function PiDetailLineRow({ line }: { line: PiReimbursementLineItem }) {
 /** 待报销采购发票列表（需登录） */
 export function PiReimbursementPendingList() {
 	const [rows, setRows] = useState<PiReimbursementPendingRow[]>([])
+	const [tab, setTab] = useState<PiReimbursementListTab>("pending")
 	const [loading, setLoading] = useState(true)
+	const [refreshing, setRefreshing] = useState(false)
+	const [listReady, setListReady] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const [searchQuery, setSearchQuery] = useState("")
-	const [sortKey, setSortKey] = useState<PiPendingSortKey>("posting_desc")
-	const [amountFilter, setAmountFilter] =
-		useState<PiPendingAmountFilter>("all")
 
 	const piPendingHeaderRef = useRef<HTMLElement>(null)
 	const [fixedHeaderHeightPx, setFixedHeaderHeightPx] = useState(200)
@@ -164,13 +150,13 @@ export function PiReimbursementPendingList() {
 		const ro = new ResizeObserver(measure)
 		ro.observe(el)
 		return () => ro.disconnect()
-	}, [rows.length, searchQuery, sortKey, amountFilter])
+	}, [rows.length, searchQuery, tab])
 
-	/** 方案 A：Portal 挂到 body 时收缩 #worker-portal-root，避免 Frappe 壳 min-h-screen 撑高文档产生双滚动 */
+	/** Portal 挂到 body 时收缩 #worker-portal-root */
 	useEffect(() => {
 		const el = document.getElementById("worker-portal-root")
 		if (!el) return
-		if (error || rows.length === 0) {
+		if (error || !listReady) {
 			el.classList.add("min-h-screen")
 			el.style.minHeight = ""
 			el.style.height = ""
@@ -187,18 +173,46 @@ export function PiReimbursementPendingList() {
 			el.style.height = ""
 			el.style.overflow = ""
 		}
-	}, [error, rows.length])
+	}, [error, listReady])
+
+	const hasCompletedFetchRef = useRef(false)
 
 	useEffect(() => {
-		listPiReimbursementPendingApproval(100)
-			.then(setRows)
-			.catch((e) => setError(e?.message ?? "加载失败"))
-			.finally(() => setLoading(false))
-	}, [])
+		let cancelled = false
+		if (!hasCompletedFetchRef.current) {
+			setLoading(true)
+		} else {
+			setRefreshing(true)
+		}
+		setError(null)
+		;(async () => {
+			try {
+				const data = await listPiReimbursementPendingApproval(100, tab)
+				if (!cancelled) {
+					setRows(data)
+					setError(null)
+				}
+			} catch (e) {
+				if (!cancelled) {
+					setError((e as Error)?.message ?? "加载失败")
+				}
+			} finally {
+				if (!cancelled) {
+					setLoading(false)
+					setRefreshing(false)
+					hasCompletedFetchRef.current = true
+					setListReady(true)
+				}
+			}
+		})()
+		return () => {
+			cancelled = true
+		}
+	}, [tab])
 
 	const filteredRows = useMemo(
-		() => filterAndSortPiPendingRows(rows, searchQuery, sortKey, amountFilter),
-		[rows, searchQuery, sortKey, amountFilter],
+		() => filterPiRowsByQuery(rows, searchQuery),
+		[rows, searchQuery],
 	)
 
 	if (loading) {
@@ -209,8 +223,8 @@ export function PiReimbursementPendingList() {
 		)
 	}
 
-	/* 有列表数据：fixed 顶栏 + fixed 主区挂到 document.body，避免 Frappe 包裹层破坏 fixed 包含块 */
-	if (!error && rows.length > 0) {
+	/* 列表就绪且无致命错误：fixed 顶栏 + 主区挂 body；壳内不设 H5 大标题（由 App 顶栏展示） */
+	if (listReady && !error) {
 		const shellTop = "var(--cos-content-padding-top, env(safe-area-inset-top, 0px))"
 		const portalChildren = (
 			<>
@@ -218,132 +232,64 @@ export function PiReimbursementPendingList() {
 					ref={piPendingHeaderRef}
 					id="pi-pending-toolbar"
 					className={cn(
-						"fixed left-0 right-0 z-[100] w-full border-b border-border/40 bg-background shadow-sm",
+						"fixed left-0 right-0 z-[100] w-full border-b border-border/40 bg-background",
 						isCosFlutterShell() ? "pt-0" : "pt-4",
 					)}
 					style={{ top: shellTop }}
 				>
-					<div className="mx-auto w-full max-w-2xl px-4 pb-3">
-						{!isCosFlutterShell() ? (
-							<WpPageTitle className="mb-3">待报销采购发票</WpPageTitle>
-						) : null}
-						<div className="overflow-hidden rounded-2xl border border-border/50 bg-card shadow-sm">
-							<div className="flex items-center gap-2 border-b border-border/35 px-3 pt-3 pb-3">
-								<div
-									className={cn(
-										"flex min-w-0 items-center gap-2 rounded-full border border-border/70 bg-muted/40 px-3 h-10",
-										isCosFlutterShell() ? "flex-1" : "w-full",
-									)}
-								>
-									<Search
-										className="h-4 w-4 shrink-0 text-muted-foreground"
-										strokeWidth={2}
-										aria-hidden
-									/>
-									<Input
-										id="pi-pending-search-input"
-										placeholder="单号 / 供应商 / 员工 / 发票号"
-										value={searchQuery}
-										onChange={(e) => setSearchQuery(e.target.value)}
-										className="h-9 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
-									/>
-								</div>
-								{isCosFlutterShell() ? (
-									<div
-										className="shrink-0 w-[76px] sm:w-[88px]"
-										aria-hidden
-									/>
-								) : null}
-							</div>
-
+					<div className="mx-auto w-full max-w-2xl px-4 pb-0">
+						{/* 搜索条占原大标题位；无外层卡片 */}
+						<div className="flex items-center gap-2 pb-3">
 							<div
-								id="pi-pending-filter-body"
-								className="space-y-0 border-border/35"
+								className={cn(
+									"flex min-w-0 items-center gap-2 rounded-full border border-border/70 bg-muted/40 px-3 h-10",
+									isCosFlutterShell() ? "flex-1" : "w-full",
+								)}
 							>
-								<div className="border-b border-border/35 px-3 py-2.5">
-									<div className="mb-1.5 flex items-center justify-between gap-2">
-										<p className="text-xs font-medium text-muted-foreground">
-											排序
-										</p>
-									</div>
-									<div className="-mx-1 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-										<Button
-											type="button"
-											size="sm"
-											variant={
-												sortKey === "posting_desc" ? "default" : "outline"
-											}
-											className="h-8 shrink-0 rounded-full px-3 text-xs"
-											onClick={() => setSortKey("posting_desc")}
-										>
-											过账从新到旧
-										</Button>
-										<Button
-											type="button"
-											size="sm"
-											variant={
-												sortKey === "amount_desc" ? "default" : "outline"
-											}
-											className="h-8 shrink-0 rounded-full px-3 text-xs"
-											onClick={() => setSortKey("amount_desc")}
-										>
-											金额从高到低
-										</Button>
-										<Button
-											type="button"
-											size="sm"
-											variant={
-												sortKey === "amount_asc" ? "default" : "outline"
-											}
-											className="h-8 shrink-0 rounded-full px-3 text-xs"
-											onClick={() => setSortKey("amount_asc")}
-										>
-											金额从低到高
-										</Button>
-									</div>
-								</div>
-								<div className="px-3 py-2.5">
-									<p className="mb-1.5 text-xs font-medium text-muted-foreground">
-										金额
-									</p>
-									<div className="-mx-1 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-										<Button
-											type="button"
-											size="sm"
-											variant={
-												amountFilter === "all" ? "default" : "outline"
-											}
-											className="h-8 shrink-0 rounded-full px-3 text-xs"
-											onClick={() => setAmountFilter("all")}
-										>
-											全部
-										</Button>
-										<Button
-											type="button"
-											size="sm"
-											variant={
-												amountFilter === "gte500" ? "default" : "outline"
-											}
-											className="h-8 shrink-0 rounded-full px-3 text-xs"
-											onClick={() => setAmountFilter("gte500")}
-										>
-											≥ ¥500
-										</Button>
-										<Button
-											type="button"
-											size="sm"
-											variant={
-												amountFilter === "gte1000" ? "default" : "outline"
-											}
-											className="h-8 shrink-0 rounded-full px-3 text-xs"
-											onClick={() => setAmountFilter("gte1000")}
-										>
-											≥ ¥1000
-										</Button>
-									</div>
-								</div>
+								<Search
+									className="h-4 w-4 shrink-0 text-muted-foreground"
+									strokeWidth={2}
+									aria-hidden
+								/>
+								<Input
+									id="pi-pending-search-input"
+									placeholder="单号 / 供应商 / 员工 / 发票号"
+									value={searchQuery}
+									onChange={(e) => setSearchQuery(e.target.value)}
+									className="h-9 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
+								/>
 							</div>
+							{isCosFlutterShell() ? (
+								<div
+									className="shrink-0 w-[76px] sm:w-[88px]"
+									aria-hidden
+								/>
+							) : null}
 						</div>
+						{/* 顶栏底部 Tab */}
+						<nav
+							className="flex border-t border-border/35"
+							aria-label="报销审批分类"
+						>
+							{PI_LIST_TABS.map(({ id, label }) => {
+								const active = tab === id
+								return (
+									<button
+										key={id}
+										type="button"
+										onClick={() => setTab(id)}
+										className={cn(
+											"min-w-0 flex-1 py-2.5 text-center text-xs font-medium transition-colors",
+											active
+												? "border-b-2 border-foreground text-foreground"
+												: "border-b-2 border-transparent text-muted-foreground hover:text-foreground",
+										)}
+									>
+										{label}
+									</button>
+								)
+							})}
+						</nav>
 					</div>
 				</header>
 
@@ -353,25 +299,36 @@ export function PiReimbursementPendingList() {
 						top: `calc(${shellTop} + ${fixedHeaderHeightPx}px)`,
 					}}
 				>
-					<div className="mx-auto w-full max-w-2xl px-4 pb-8 pt-3">
+					<div className="relative mx-auto w-full max-w-2xl px-4 pb-8 pt-3">
+						{refreshing ? (
+							<div className="pointer-events-none absolute inset-0 z-10 flex items-start justify-center bg-background/40 pt-8">
+								<span className="text-xs text-muted-foreground">加载中…</span>
+							</div>
+						) : null}
 						{filteredRows.length === 0 ? (
 							<WpEmptyState
 								icon={SearchX}
-								title="无匹配单据"
-								description="没有符合当前搜索或筛选条件的发票，可清空搜索或调整筛选。"
+								title={
+									searchQuery.trim()
+										? "无匹配单据"
+										: "暂无单据"
+								}
+								description={
+									searchQuery.trim()
+										? "没有符合当前搜索条件的发票，可清空搜索。"
+										: "当前分类下没有符合条件的采购发票。"
+								}
 							>
-								<Button
-									type="button"
-									variant="secondary"
-									className="mt-2"
-									onClick={() => {
-										setSearchQuery("")
-										setSortKey("posting_desc")
-										setAmountFilter("all")
-									}}
-								>
-									清空条件
-								</Button>
+								{searchQuery.trim() ? (
+									<Button
+										type="button"
+										variant="secondary"
+										className="mt-2"
+										onClick={() => setSearchQuery("")}
+									>
+										清空搜索
+									</Button>
+								) : null}
 							</WpEmptyState>
 						) : (
 							<div className="flex flex-col gap-3">
@@ -436,12 +393,6 @@ export function PiReimbursementPendingList() {
 			) : null}
 			{error ? (
 				<WpRequestFailed message={error} />
-			) : null}
-			{!error && rows.length === 0 ? (
-				<WpEmptyState
-					title="暂无待报销采购发票"
-					description="当前没有符合「已提交、员工垫付、报销审批 Pending」的采购发票，或您暂无相关单据的读权限。"
-				/>
 			) : null}
 		</WpPage>
 	)

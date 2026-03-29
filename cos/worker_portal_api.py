@@ -151,20 +151,41 @@ def validate_worker_portal_token():
 
 
 @frappe.whitelist()
-def list_pi_reimbursement_pending_approval(limit=50):
-	"""返回「员工垫付 + 已提交 + 报销审批待处理」的采购发票列表，供 Worker Portal 登录审批。"""
+def list_pi_reimbursement_pending_approval(limit=50, tab="pending"):
+	"""返回员工垫付 + 已提交的采购发票列表，供 Worker Portal 登录审批。
+
+	tab: all | pending | approved | rejected（默认 pending：待处理，与历史行为一致）
+	"""
 	limit = int(limit) if limit is not None else 50
-	or_filters = [
-		["custom_reimbursement_approval_status", "=", "Pending"],
-		["custom_reimbursement_approval_status", "is", "not set"],
-		["custom_reimbursement_approval_status", "=", ""],
-	]
+	tab = (tab or "pending").strip().lower()
+	filters = {
+		"docstatus": 1,
+		"custom_is_employee_advance": 1,
+	}
+	or_filters = None
+
+	if tab == "all":
+		pass
+	elif tab == "pending":
+		or_filters = [
+			["custom_reimbursement_approval_status", "=", "Pending"],
+			["custom_reimbursement_approval_status", "is", "not set"],
+			["custom_reimbursement_approval_status", "=", ""],
+		]
+	elif tab == "approved":
+		filters["custom_reimbursement_approval_status"] = "Approved"
+	elif tab == "rejected":
+		filters["custom_reimbursement_approval_status"] = "Rejected"
+	else:
+		or_filters = [
+			["custom_reimbursement_approval_status", "=", "Pending"],
+			["custom_reimbursement_approval_status", "is", "not set"],
+			["custom_reimbursement_approval_status", "=", ""],
+		]
+
 	data = frappe.get_all(
 		"Purchase Invoice",
-		filters={
-			"docstatus": 1,
-			"custom_is_employee_advance": 1,
-		},
+		filters=filters,
 		or_filters=or_filters,
 		fields=[
 			"name",

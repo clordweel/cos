@@ -198,14 +198,19 @@ export interface PiReimbursementPendingRow {
 	custom_reimbursement_approval_status?: string | null
 }
 
+/** 与 worker_portal_api.list_pi_reimbursement_pending_approval 的 tab 一致 */
+export type PiReimbursementListTab = "all" | "pending" | "approved" | "rejected"
+
 export async function listPiReimbursementPendingApproval(
-	limit = 50
+	limit = 50,
+	tab: PiReimbursementListTab = "pending"
 ): Promise<PiReimbursementPendingRow[]> {
+	const t = encodeURIComponent(tab)
 	const res = await apiRequest<
 		{ message?: PiReimbursementPendingRow[] } | PiReimbursementPendingRow[]
 	>(
 		"GET",
-		`/api/method/cos.worker_portal_api.list_pi_reimbursement_pending_approval?limit=${limit}`
+		`/api/method/cos.worker_portal_api.list_pi_reimbursement_pending_approval?limit=${limit}&tab=${t}`
 	)
 	return Array.isArray(res) ? res : (res?.message ?? [])
 }
