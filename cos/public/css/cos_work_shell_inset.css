@@ -2,10 +2,12 @@
  * Cos Work App WebView（UA 含 CosWorkApp 或首跳 __cos_work_shell=1）：由模板/Desk 脚本写入
  * html[data-cos-shell-inset-mode]，与 Flutter 顶栏几何一致。
  *
- * --cos-content-padding-top 语义（H5 主内容/固定顶栏的「顶边」相对 WebView 可视区顶部）：
- * - none：0（内容顶到 WebView 顶）
- * - safe_area：0（WebView 顶对齐状态栏下沿，原生 44px 顶栏叠在 WebView 上；H5 fixed 顶栏从 WebView 顶起画，与胶囊同带对齐，不再整体下移 44）
- * - app_bar：safe-area-inset-top + 44px（WebView 全屏自顶起，避让状态栏 + 顶栏）
+ * App 侧 safe_area：WebView 通顶（edge-to-edge），页面背景可延伸到系统状态栏下；壳 44px 叠在最上层。
+ *
+ * --cos-content-padding-top 语义（H5 主内容/固定顶栏相对 WebView 文档顶）：
+ * - none：0
+ * - safe_area：0（自绘顶栏 min-height:44px 等与叠层对齐；勿再用整页 padding 模拟「状态栏下再空 44」）
+ * - app_bar：safe-area-inset-top + 44px（WebView 全屏自顶起）
  *
  * 取值：none | safe_area | app_bar（旧 data 属性 status_bar / status_bar_only 仍兼容，等同 safe_area）。
  */
@@ -22,7 +24,7 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* safe_area：H5 顶留白 0；自绘顶栏用 min-height:44px 等与原生叠层顶栏对齐，避免 top:44px 把搜索条整段压到胶囊下方 */
+/* safe_area */
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
@@ -37,8 +39,26 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="app_provided"] {
 	);
 }
 
-/* Desk：主容器顶留白（Portal 由 React 内联 style 消费 --cos-content-padding-top） */
+/* Desk：主容器（变量为 0 时不产生留白） */
 html[data-cos-work-app-shell="1"] #body {
 	padding-top: var(--cos-content-padding-top, 0px);
 	box-sizing: border-box;
+}
+
+/*
+ * Desk / 壳内站点：safe_area 下抵消 body/#body 与部分 Frappe 移动端对 safe-area 的顶距，
+ * 避免与「WebView 已通顶 + 原生叠层」重复累加导致顶栏过高。
+ */
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] body,
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] #body,
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] body,
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] #body {
+	padding-top: 0 !important;
+}
+
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-main .layout-main-section,
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-main-section-wrapper,
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-main .layout-main-section,
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-main-section-wrapper {
+	padding-top: 0 !important;
 }
