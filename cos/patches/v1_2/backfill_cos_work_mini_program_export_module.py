@@ -7,7 +7,7 @@ import frappe
 
 
 def execute():
-	if frappe.db.has_column("tabCOS Work Mini Program", "export_module"):
+	if frappe.db.has_column("COS Work Mini Program", "export_module"):
 		frappe.db.sql(
 			"""
 			UPDATE `tabCOS Work Mini Program`
@@ -16,7 +16,7 @@ def execute():
 			""",
 			("COS Share",),
 		)
-	if frappe.db.has_column("tabCOS Work Mini Program Role", "export_module"):
+	if frappe.db.has_column("COS Work Mini Program Role", "export_module"):
 		frappe.db.sql(
 			"""
 			UPDATE `tabCOS Work Mini Program Role`
