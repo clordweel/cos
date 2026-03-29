@@ -28,7 +28,10 @@ import {
 	type PiReimbursementPendingRow,
 	type PiReimbursementLineItem,
 } from "@/lib/api"
-import { isCosFlutterShell } from "@/lib/clientEnv"
+import {
+	COS_SHELL_CONTENT_PADDING_TOP_CSS,
+	isCosFlutterShell,
+} from "@/lib/clientEnv"
 import {
 	WpPage,
 	WpPageTitle,
@@ -359,7 +362,7 @@ export function PiReimbursementPendingList() {
 
 	/* 列表就绪且无致命错误：fixed 顶栏 + 主区挂 body；壳内不设 H5 大标题（由 App 顶栏展示） */
 	if (listReady && !error) {
-		const shellTop = "var(--cos-content-padding-top, env(safe-area-inset-top, 0px))"
+		const shellTop = COS_SHELL_CONTENT_PADDING_TOP_CSS
 		const portalChildren = (
 			<>
 				<header

@@ -1,12 +1,19 @@
 /**
- * Cos Work App WebView（UA 含 CosWorkApp）：顶栏占位由服务端根据路径匹配 COS Work Mini Program.nav_bar_inset_mode
- * 写入 html[data-cos-shell-inset-mode]，此处统一 CSS 变量（与 Worker Portal、Desk 共用）。
+ * Cos Work App WebView（UA 含 CosWorkApp 或首跳 __cos_work_shell=1）：由模板/Desk 脚本写入
+ * html[data-cos-shell-inset-mode]，与 Flutter 顶栏几何一致。
+ *
+ * --cos-content-padding-top 语义（H5 主内容/固定顶栏的「顶边」相对 WebView 可视区顶部）：
+ * - none：0（内容顶到 WebView 顶）
+ * - status_bar：44px（WebView 已从系统状态栏下沿起算，仅避让叠在上面的 App 顶栏）
+ * - app_bar：safe-area-inset-top + 44px（WebView 全屏，避让状态栏 + 顶栏）
  *
  * 取值：none | status_bar | app_bar（旧值 status_bar_only / app_provided / page_custom 仍兼容）。
  */
 html[data-cos-work-app-shell="1"] {
 	--cos-shell-safe-top: env(safe-area-inset-top, 0px);
 	--cos-nav-bar-height: 44px;
+	/* 未命中具体 mode 或脚本竞态时与 none 一致，避免 var() 未定义 */
+	--cos-content-padding-top: 0px;
 }
 
 /* none：H5 不预留顶栏区 */

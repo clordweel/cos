@@ -4,6 +4,7 @@
 """Cos Work App WebView 壳顶栏占位：按请求路径匹配 COS Work Mini Program.launch_path，读取 nav_bar_inset_mode。
 
 供 Website 模板与 Desk 内嵌壳统一使用（与 Flutter 弱化注入、H5+CSS 变量对齐）。
+H5 三档语义见 `public/css/cos_work_shell_inset.css` 文件头；Worker Portal 消费变量见 `COS_SHELL_CONTENT_PADDING_TOP_CSS`。
 """
 
 from __future__ import annotations
