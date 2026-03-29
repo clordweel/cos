@@ -46,6 +46,72 @@ def _parse_accent(hex_str):
 	return s
 
 
+def _row_to_launch_dict(r, *, user_pinned: bool = False) -> dict:
+	"""单条 Doc 行 -> 与 get_launcher_programs 列表项一致的字典（供壳端 fromLauncherPayload）。"""
+	nm = r.get("name")
+	return {
+		"doc_name": nm,
+		"id": r.get("program_id"),
+		"title": r.get("title"),
+		"subtitle": (r.get("description") or ""),
+		"launch_path": r.get("launch_path"),
+		"auth_kind": r.get("auth_kind") or "frappe_session",
+		"nav_bar_inset_mode": (r.get("nav_bar_inset_mode") or "app_provided").strip(),
+		"show_nav_bar_title": cint(r.get("show_nav_bar_title", 1)),
+		"icon_key": (r.get("icon_key") or "").strip(),
+		"icon_url": (r.get("icon_url") or "").strip(),
+		"accent_color": _parse_accent(r.get("accent_color")),
+		"program_enabled": bool(cint(r.get("enabled"))),
+		"user_pinned": user_pinned,
+	}
+
+
+@frappe.whitelist()
+def get_mini_program_launch_config(program_id=None):
+	"""按 program_id 拉取单条启动配置（不依赖是否出现在首页宫格）。
+
+	供 Cos Work App 每次打开小程序前 GET，使 Desk 修改 nav_bar_inset_mode 等立即生效；
+	个人中心等入口使用内置 Registry 时也能合并服务端字段。
+	"""
+	_require_login()
+	pid = (program_id or "").strip()
+	if not pid:
+		frappe.throw(_("Missing program_id"))
+
+	user = frappe.session.user
+	user_rows = frappe.get_all(
+		"COS Work User Mini Program",
+		filters={"user": user},
+		fields=["mini_program"],
+	)
+	user_pinned_names = {r.get("mini_program") for r in user_rows if r.get("mini_program")}
+
+	rows = frappe.get_all(
+		"COS Work Mini Program",
+		filters={"program_id": pid},
+		fields=[
+			"name",
+			"program_id",
+			"title",
+			"description",
+			"launch_path",
+			"auth_kind",
+			"nav_bar_inset_mode",
+			"show_nav_bar_title",
+			"icon_key",
+			"icon_url",
+			"accent_color",
+			"sort_order",
+			"enabled",
+		],
+		limit=1,
+	)
+	if not rows:
+		return None
+	r = rows[0]
+	return _row_to_launch_dict(r, user_pinned=bool(r.get("name") in user_pinned_names))
+
+
 @frappe.whitelist()
 def get_launcher_programs():
 	"""返回当前用户首页小程序列表（供移动端渲染宫格）。
@@ -110,23 +176,7 @@ def get_launcher_programs():
 	out = []
 	for r in rows:
 		nm = r.get("name")
-		out.append(
-			{
-				"doc_name": nm,
-				"id": r.get("program_id"),
-				"title": r.get("title"),
-				"subtitle": (r.get("description") or ""),
-				"launch_path": r.get("launch_path"),
-				"auth_kind": r.get("auth_kind") or "frappe_session",
-				"nav_bar_inset_mode": (r.get("nav_bar_inset_mode") or "app_provided").strip(),
-				"show_nav_bar_title": cint(r.get("show_nav_bar_title", 1)),
-				"icon_key": (r.get("icon_key") or "").strip(),
-				"icon_url": (r.get("icon_url") or "").strip(),
-				"accent_color": _parse_accent(r.get("accent_color")),
-				"program_enabled": bool(cint(r.get("enabled"))),
-				"user_pinned": bool(nm in user_pinned_names),
-			}
-		)
+		out.append(_row_to_launch_dict(r, user_pinned=bool(nm in user_pinned_names)))
 	return out
 
 
