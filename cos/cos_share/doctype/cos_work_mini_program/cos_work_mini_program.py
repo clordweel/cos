@@ -8,6 +8,8 @@ from frappe.model.document import Document
 
 class COSWorkMiniProgram(Document):
 	def validate(self):
+		if not (self.export_module or "").strip():
+			self.export_module = "COS Share"
 		self._validate_launch_path()
 		self._validate_icon_url()
 

@@ -8,6 +8,8 @@ from frappe.model.document import Document
 
 class COSWorkMiniProgramRole(Document):
 	def validate(self):
+		if not (self.export_module or "").strip():
+			self.export_module = "COS Share"
 		existing = frappe.db.get_value(
 			"COS Work Mini Program Role",
 			{"role": self.role, "mini_program": self.mini_program},
