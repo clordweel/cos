@@ -28,3 +28,62 @@ export function cosFlutterShellContentInsetStyle(): CSSProperties | undefined {
 		boxSizing: "border-box",
 	}
 }
+
+/** 与 Cos Work App [CosThemeModeStore] / 首跳 `__cos_theme` 一致。 */
+export type CosShellThemeMode = "light" | "dark" | "system"
+
+let __cosShellThemeMediaListener: (() => void) | null = null
+
+/** 设置 `html` 的 `.dark` 与 `data-cos-theme`；`system` 时监听系统深浅色。 */
+export function applyCosShellThemeMode(mode: CosShellThemeMode): void {
+	if (typeof document === "undefined") return
+	const root = document.documentElement
+	root.setAttribute("data-cos-theme", mode)
+	if (__cosShellThemeMediaListener) {
+		try {
+			window
+				.matchMedia("(prefers-color-scheme: dark)")
+				.removeEventListener("change", __cosShellThemeMediaListener)
+		} catch {
+			/* ignore */
+		}
+		__cosShellThemeMediaListener = null
+	}
+	const computeDark = (): boolean => {
+		if (mode === "dark") return true
+		if (mode === "light") return false
+		return window.matchMedia("(prefers-color-scheme: dark)").matches
+	}
+	const setDark = (dark: boolean): void => {
+		root.classList.toggle("dark", dark)
+	}
+	setDark(computeDark())
+	if (mode === "system") {
+		const listener = (): void => {
+			setDark(computeDark())
+		}
+		__cosShellThemeMediaListener = listener
+		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", listener)
+	}
+}
+
+/** 壳内首跳 URL 带 `__cos_theme` 时首帧应用（与 WebView 注入互补）。 */
+export function applyCosShellThemeFromUrl(): void {
+	if (!isCosFlutterShell()) return
+	const params = new URLSearchParams(window.location.search)
+	const t = (params.get("__cos_theme") || "").trim().toLowerCase()
+	if (t !== "light" && t !== "dark" && t !== "system") return
+	applyCosShellThemeMode(t as CosShellThemeMode)
+}
+
+/** 独立浏览器打开 Portal：无壳时按系统深浅色切换 `html.dark`（非壳勿读 `__cos_theme`）。 */
+export function applyBrowserDarkClassFromOsIfNotShell(): void {
+	if (typeof document === "undefined") return
+	if (isCosFlutterShell()) return
+	const apply = (): void => {
+		const dark = window.matchMedia("(prefers-color-scheme: dark)").matches
+		document.documentElement.classList.toggle("dark", dark)
+	}
+	apply()
+	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", apply)
+}

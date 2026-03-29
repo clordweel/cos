@@ -2,6 +2,10 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"
 import "./index.css"
+import {
+	applyBrowserDarkClassFromOsIfNotShell,
+	applyCosShellThemeFromUrl,
+} from "./lib/clientEnv"
 
 declare global {
 	interface Window {
@@ -50,6 +54,9 @@ if (!wptInjectedFromHash && isCosWorkAppShell()) {
 		/* ignore */
 	}
 }
+
+applyCosShellThemeFromUrl()
+applyBrowserDarkClassFromOsIfNotShell()
 
 ReactDOM.createRoot(document.getElementById("worker-portal-root")!).render(
 	<React.StrictMode>

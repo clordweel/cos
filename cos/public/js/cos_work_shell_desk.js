@@ -4,6 +4,63 @@
 		return;
 	}
 
+	function applyCosShellThemeFromQuery() {
+		try {
+			var params = new URLSearchParams(window.location.search || "");
+			var t = (params.get("__cos_theme") || "").trim().toLowerCase();
+			if (t !== "light" && t !== "dark" && t !== "system") {
+				return;
+			}
+			var r = document.documentElement;
+			r.setAttribute("data-cos-theme", t);
+			if (window.__cosShellThemeListener) {
+				try {
+					window
+						.matchMedia("(prefers-color-scheme: dark)")
+						.removeEventListener("change", window.__cosShellThemeListener);
+				} catch (e) {}
+				window.__cosShellThemeListener = null;
+			}
+			function computeDark() {
+				if (t === "dark") return true;
+				if (t === "light") return false;
+				try {
+					return window.matchMedia("(prefers-color-scheme: dark)").matches;
+				} catch (e) {
+					return false;
+				}
+			}
+			function applyDark() {
+				var d = computeDark();
+				r.classList.toggle("dark", d);
+				try {
+					if (document.body) document.body.classList.toggle("dark", d);
+				} catch (e) {}
+				try {
+					if (typeof frappe !== "undefined" && frappe.ui && frappe.ui.theme) {
+						if (typeof frappe.ui.theme.set_dark_theme === "function") {
+							frappe.ui.theme.set_dark_theme(d);
+						} else if (typeof frappe.ui.theme.set_theme === "function") {
+							frappe.ui.theme.set_theme(d ? "dark" : "light");
+						}
+					}
+				} catch (e) {}
+			}
+			applyDark();
+			if (t === "system") {
+				var listener = function () {
+					applyDark();
+				};
+				window.__cosShellThemeListener = listener;
+				window
+					.matchMedia("(prefers-color-scheme: dark)")
+					.addEventListener("change", listener);
+			}
+		} catch (e) {}
+	}
+
+	applyCosShellThemeFromQuery();
+
 	function applyInsetMode(mode) {
 		document.documentElement.setAttribute("data-cos-work-app-shell", "1");
 		document.documentElement.setAttribute(
