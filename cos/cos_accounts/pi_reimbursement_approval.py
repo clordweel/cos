@@ -123,6 +123,14 @@ def get_approval_url(pi_name: str, approver_user: str = "", base_url: str = "") 
 	return url
 
 
+def _company_display_name(company: str | None) -> str | None:
+	"""Purchase Invoice.company（Link）→ Company.company_name，缺省时回退为 Link 值。"""
+	cid = (company or "").strip()
+	if not cid:
+		return None
+	return frappe.db.get_value("Company", cid, "company_name") or cid
+
+
 def _pi_item_lines_for_summary(pi) -> list[dict]:
 	"""采购发票明细：物料名称、金额、行备注（description）。"""
 	out = []
@@ -146,6 +154,7 @@ def _pi_summary_payload(pi) -> dict:
 	return {
 		"name": pi.name,
 		"supplier": pi.supplier,
+		"company_name": _company_display_name(pi.get("company")),
 		"grand_total": pi.grand_total,
 		"advance_employee": emp_id,
 		"employee_name": employee_name,

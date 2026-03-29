@@ -78,6 +78,7 @@ function filterPiRowsByQuery(
 		const hay = [
 			r.name,
 			r.supplier,
+			r.company_name ?? "",
 			r.employee_name ?? "",
 			r.custom_advance_employee ?? "",
 			r.bill_no ?? "",
@@ -239,15 +240,15 @@ export function PiReimbursementPendingList() {
 				>
 					<div className="mx-auto w-full max-w-2xl px-4 pb-0">
 						{/* 搜索条占原大标题位；无外层卡片 */}
-						<div className="flex items-center gap-2 pb-3">
+						<div className="flex items-center gap-2 pb-2">
 							<div
 								className={cn(
-									"flex min-w-0 items-center gap-2 rounded-full border border-border/70 bg-muted/40 px-3 h-10",
+									"flex min-w-0 items-center gap-1.5 rounded-full border border-border/60 bg-muted/35 px-2.5 h-8",
 									isCosFlutterShell() ? "flex-1" : "w-full",
 								)}
 							>
 								<Search
-									className="h-4 w-4 shrink-0 text-muted-foreground"
+									className="h-3.5 w-3.5 shrink-0 text-muted-foreground"
 									strokeWidth={2}
 									aria-hidden
 								/>
@@ -256,7 +257,7 @@ export function PiReimbursementPendingList() {
 									placeholder="单号 / 供应商 / 员工 / 发票号"
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
-									className="h-9 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
+									className="h-7 min-w-0 flex-1 border-0 bg-transparent p-0 text-xs shadow-none placeholder:text-muted-foreground/65 focus-visible:ring-0 focus-visible:ring-offset-0"
 								/>
 							</div>
 							{isCosFlutterShell() ? (
@@ -266,10 +267,11 @@ export function PiReimbursementPendingList() {
 								/>
 							) : null}
 						</div>
-						{/* 顶栏底部 Tab */}
-						<nav
-							className="flex border-t border-border/35"
+						{/* 分段控件式 Tab（iOS segmented / Material 3 常见形态，触控区仍够大） */}
+						<div
+							role="tablist"
 							aria-label="报销审批分类"
+							className="flex gap-0.5 rounded-[10px] bg-muted/75 p-0.5"
 						>
 							{PI_LIST_TABS.map(({ id, label }) => {
 								const active = tab === id
@@ -277,19 +279,22 @@ export function PiReimbursementPendingList() {
 									<button
 										key={id}
 										type="button"
+										role="tab"
+										aria-selected={active}
 										onClick={() => setTab(id)}
 										className={cn(
-											"min-w-0 flex-1 py-2.5 text-center text-xs font-medium transition-colors",
+											"min-w-0 flex-1 rounded-md py-1.5 px-0.5 text-center text-[11px] font-medium transition-all duration-150 outline-none",
+											"focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
 											active
-												? "border-b-2 border-foreground text-foreground"
-												: "border-b-2 border-transparent text-muted-foreground hover:text-foreground",
+												? "bg-background text-foreground shadow-sm"
+												: "text-muted-foreground hover:text-foreground",
 										)}
 									>
 										{label}
 									</button>
 								)
 							})}
-						</nav>
+						</div>
 					</div>
 				</header>
 
@@ -307,6 +312,7 @@ export function PiReimbursementPendingList() {
 						) : null}
 						{filteredRows.length === 0 ? (
 							<WpEmptyState
+								variant="plain"
 								icon={SearchX}
 								title={
 									searchQuery.trim()
@@ -346,6 +352,14 @@ export function PiReimbursementPendingList() {
 													</span>
 													<span className="text-muted-foreground/45">·</span>
 													<span>过账 {r.posting_date || "—"}</span>
+													{r.company_name ? (
+														<>
+															<span className="text-muted-foreground/45">·</span>
+															<span className="max-w-[min(100%,14rem)] truncate">
+																{r.company_name}
+															</span>
+														</>
+													) : null}
 												</div>
 												{r.supplier ? (
 													<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
@@ -520,6 +534,11 @@ export function PiReimbursementPendingDetail() {
 					<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
 						采购发票 · {summary.supplier || "—"}
 					</p>
+					{summary.company_name ? (
+						<p className="text-[11px] leading-snug text-muted-foreground/75">
+							公司 · {summary.company_name}
+						</p>
+					) : null}
 				</CardHeader>
 				<CardContent className="space-y-3 px-3 pb-3 pt-0">
 					<div className="flex items-end justify-between gap-3 border-b border-border/40 pb-3">

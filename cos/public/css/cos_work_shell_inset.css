@@ -14,10 +14,8 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
-	--cos-content-padding-top: var(--cos-shell-safe-top);
-}
-
+/* status_bar_only：默认推荐；壳内原生顶栏叠在 WebView 上，H5 须避让安全区+44（与 app_provided 像素一致，语义上不再在页内叠仿微信条） */
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="app_provided"] {
 	--cos-content-padding-top: calc(
 		var(--cos-shell-safe-top) + var(--cos-nav-bar-height)

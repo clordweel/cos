@@ -190,6 +190,7 @@ def list_pi_reimbursement_pending_approval(limit=50, tab="pending"):
 		fields=[
 			"name",
 			"supplier",
+			"company",
 			"custom_advance_employee",
 			"grand_total",
 			"posting_date",
@@ -204,6 +205,11 @@ def list_pi_reimbursement_pending_approval(limit=50, tab="pending"):
 		row["employee_name"] = (
 			frappe.db.get_value("Employee", emp_id, "employee_name") if emp_id else None
 		)
+		cid = row.get("company")
+		row["company_name"] = (
+			frappe.db.get_value("Company", cid, "company_name") if cid else None
+		) or (cid or None)
+		row.pop("company", None)
 	return data
 
 

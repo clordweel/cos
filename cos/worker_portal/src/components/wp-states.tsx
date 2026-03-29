@@ -16,6 +16,7 @@ import {
 	type WpErrorKind,
 } from "@/lib/wp-error-kind"
 import { wpText } from "@/lib/wp-layout"
+import { cn } from "@/lib/utils"
 
 /** 全屏居中容器内使用（与 WpCentered / WpAuthPage 搭配） */
 export function WpLoadingState({ label = "加载中…" }: { label?: string }) {
@@ -57,28 +58,71 @@ export function WpEmptyState({
 	description,
 	className,
 	children,
+	variant = "card",
 }: {
 	icon?: LucideIcon
 	title: string
 	description?: string
 	className?: string
 	children?: React.ReactNode
+	/** plain：无卡片边框，适合列表/Tab 下空态 */
+	variant?: "card" | "plain"
 }) {
+	const inner = (
+		<>
+			<div
+				className={
+					variant === "plain"
+						? "rounded-full bg-muted/60 p-2.5"
+						: "rounded-full bg-muted p-3.5"
+				}
+			>
+				<Icon
+					className={
+						variant === "plain"
+							? "h-6 w-6 text-muted-foreground"
+							: "h-8 w-8 text-muted-foreground"
+					}
+					strokeWidth={1.5}
+				/>
+			</div>
+			<div className="space-y-1.5 max-w-sm">
+				<p
+					className={
+						variant === "plain"
+							? "text-sm font-semibold tracking-tight text-foreground"
+							: "text-base font-semibold tracking-tight text-foreground"
+					}
+				>
+					{title}
+				</p>
+				{description ? (
+					<p className={wpText.muted}>{description}</p>
+				) : null}
+			</div>
+			{children ? (
+				<div className="flex flex-col gap-2 w-full max-w-xs">{children}</div>
+			) : null}
+		</>
+	)
+
+	if (variant === "plain") {
+		return (
+			<div
+				className={cn(
+					"flex flex-col items-center py-10 text-center space-y-3",
+					className,
+				)}
+			>
+				{inner}
+			</div>
+		)
+	}
+
 	return (
 		<Card className={className}>
 			<CardContent className="flex flex-col items-center px-6 py-10 text-center space-y-4">
-				<div className="rounded-full bg-muted p-3.5">
-					<Icon className="h-8 w-8 text-muted-foreground" strokeWidth={1.5} />
-				</div>
-				<div className="space-y-1.5 max-w-sm">
-					<p className="text-base font-semibold tracking-tight text-foreground">
-						{title}
-					</p>
-					{description ? (
-						<p className={wpText.muted}>{description}</p>
-					) : null}
-				</div>
-				{children ? <div className="flex flex-col gap-2 w-full max-w-xs">{children}</div> : null}
+				{inner}
 			</CardContent>
 		</Card>
 	)

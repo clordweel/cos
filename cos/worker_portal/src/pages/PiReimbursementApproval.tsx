@@ -126,6 +126,14 @@ export function PiReimbursementApproval() {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="grid gap-2 text-sm">
+						{summary.company_name ? (
+							<div className="flex justify-between gap-2">
+								<span className="shrink-0 text-muted-foreground">公司</span>
+								<span className="min-w-0 text-right break-words">
+									{summary.company_name}
+								</span>
+							</div>
+						) : null}
 						<div className="flex justify-between">
 							<span className="text-muted-foreground">供应商</span>
 							<span>{summary.supplier || "-"}</span>

@@ -48,16 +48,16 @@ def resolve_nav_bar_inset_mode_for_path(path: str | None) -> str | None:
 		if norm == lp or norm.startswith(lp + "/"):
 			if len(lp) > best_len:
 				best_len = len(lp)
-				raw = (r.get("nav_bar_inset_mode") or "app_provided").strip()
-				best_mode = raw if raw else "app_provided"
+				raw = (r.get("nav_bar_inset_mode") or "status_bar_only").strip()
+				best_mode = raw if raw else "status_bar_only"
 	return best_mode
 
 
 def nav_bar_inset_mode_or_default(mode: str | None) -> str:
-	m = (mode or "app_provided").strip()
+	m = (mode or "status_bar_only").strip()
 	if m in ("none", "status_bar_only", "app_provided", "page_custom"):
 		return m
-	return "app_provided"
+	return "status_bar_only"
 
 
 @frappe.whitelist()

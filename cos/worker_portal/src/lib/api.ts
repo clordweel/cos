@@ -132,6 +132,8 @@ export interface PiReimbursementLineItem {
 export interface PiReimbursementSummary {
 	name: string
 	supplier: string
+	/** Company.company_name（来自 PI.company） */
+	company_name?: string | null
 	grand_total: number
 	advance_employee: string
 	employee_name: string | null
@@ -198,6 +200,7 @@ export async function approvePiReimbursement(
 export interface PiReimbursementPendingRow {
 	name: string
 	supplier: string
+	company_name?: string | null
 	custom_advance_employee: string | null
 	employee_name?: string | null
 	grand_total: number
