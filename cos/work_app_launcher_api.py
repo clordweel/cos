@@ -7,6 +7,8 @@ import frappe
 from frappe import _
 from frappe.utils import cint
 
+from cos.worker_portal_shell_context import nav_bar_inset_mode_or_default
+
 
 def _require_login():
 	# session.user 在部分边界请求下可能为 None（仅判断 != Guest 会漏掉，进而把 None 写入 Link 字段触发 User None not found）
@@ -56,7 +58,7 @@ def _row_to_launch_dict(r, *, user_pinned: bool = False) -> dict:
 		"subtitle": (r.get("description") or ""),
 		"launch_path": r.get("launch_path"),
 		"auth_kind": r.get("auth_kind") or "frappe_session",
-		"nav_bar_inset_mode": (r.get("nav_bar_inset_mode") or "status_bar_only").strip(),
+		"nav_bar_inset_mode": nav_bar_inset_mode_or_default(r.get("nav_bar_inset_mode")),
 		"show_nav_bar_title": cint(r.get("show_nav_bar_title", 1)),
 		"icon_key": (r.get("icon_key") or "").strip(),
 		"icon_url": (r.get("icon_url") or "").strip(),
@@ -235,7 +237,7 @@ def get_market_programs():
 				"subtitle": (r.get("description") or ""),
 				"launch_path": r.get("launch_path"),
 				"auth_kind": r.get("auth_kind") or "frappe_session",
-				"nav_bar_inset_mode": (r.get("nav_bar_inset_mode") or "status_bar_only").strip(),
+				"nav_bar_inset_mode": nav_bar_inset_mode_or_default(r.get("nav_bar_inset_mode")),
 				"show_nav_bar_title": cint(r.get("show_nav_bar_title", 1)),
 				"icon_key": (r.get("icon_key") or "").strip(),
 				"icon_url": (r.get("icon_url") or "").strip(),

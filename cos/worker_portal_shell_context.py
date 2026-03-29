@@ -10,6 +10,15 @@ from __future__ import annotations
 
 import frappe
 
+# 旧选项（迁移 patch 后会消失；API 仍兼容解析）
+_LEGACY_NAV_BAR_INSET = {
+	"status_bar_only": "status_bar",
+	"app_provided": "app_bar",
+	"page_custom": "none",
+}
+
+_VALID_MODES = frozenset({"none", "status_bar", "app_bar"})
+
 
 def is_cos_work_app_shell_user_agent(user_agent: str | None) -> bool:
 	if not user_agent:
@@ -26,6 +35,17 @@ def is_cos_work_app_shell_query(request_args) -> bool:
 	except Exception:
 		return False
 	return v in ("1", "true", "yes")
+
+
+def normalize_nav_bar_inset_mode(mode: str | None) -> str:
+	"""统一为 none | status_bar | app_bar（默认 status_bar）。"""
+	m = (mode or "").strip().lower()
+	if not m:
+		return "status_bar"
+	m = _LEGACY_NAV_BAR_INSET.get(m, m)
+	if m in _VALID_MODES:
+		return m
+	return "status_bar"
 
 
 def resolve_nav_bar_inset_mode_for_path(path: str | None) -> str | None:
@@ -48,16 +68,13 @@ def resolve_nav_bar_inset_mode_for_path(path: str | None) -> str | None:
 		if norm == lp or norm.startswith(lp + "/"):
 			if len(lp) > best_len:
 				best_len = len(lp)
-				raw = (r.get("nav_bar_inset_mode") or "status_bar_only").strip()
-				best_mode = raw if raw else "status_bar_only"
+				raw = (r.get("nav_bar_inset_mode") or "").strip()
+				best_mode = raw if raw else "status_bar"
 	return best_mode
 
 
 def nav_bar_inset_mode_or_default(mode: str | None) -> str:
-	m = (mode or "status_bar_only").strip()
-	if m in ("none", "status_bar_only", "app_provided", "page_custom"):
-		return m
-	return "status_bar_only"
+	return normalize_nav_bar_inset_mode(mode)
 
 
 @frappe.whitelist()

@@ -2,24 +2,27 @@
  * Cos Work App WebView（UA 含 CosWorkApp）：顶栏占位由服务端根据路径匹配 COS Work Mini Program.nav_bar_inset_mode
  * 写入 html[data-cos-shell-inset-mode]，此处统一 CSS 变量（与 Worker Portal、Desk 共用）。
  *
- * --cos-nav-bar-height 与 Flutter WeChatMiniProgramNavBar.barHeight、Portal clientEnv 一致。
+ * 取值：none | status_bar | app_bar（旧值 status_bar_only / app_provided / page_custom 仍兼容）。
  */
 html[data-cos-work-app-shell="1"] {
 	--cos-shell-safe-top: env(safe-area-inset-top, 0px);
 	--cos-nav-bar-height: 44px;
 }
 
+/* none：H5 不预留顶栏区 */
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="none"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* status_bar_only：App 将 WebView 下推到顶栏之下，H5 视口从内容区顶开始，顶留白为 0（与 Flutter MiniProgramRunner 一致） */
+/* status_bar：App 将 WebView 置于顶栏下，H5 顶留白 0 */
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* app_provided：WebView 全屏叠在顶栏下，H5 须自行避让安全区 + 44px 仿微信栏区 */
+/* app_bar：WebView 全屏叠在顶栏下，H5 避让 安全区 + 44px */
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="app_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="app_provided"] {
 	--cos-content-padding-top: calc(
 		var(--cos-shell-safe-top) + var(--cos-nav-bar-height)
