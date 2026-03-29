@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -150,6 +151,44 @@ export function PiReimbursementPendingList() {
 	const [amountFilter, setAmountFilter] =
 		useState<PiPendingAmountFilter>("all")
 
+	const piPendingHeaderRef = useRef<HTMLElement>(null)
+	const [fixedHeaderHeightPx, setFixedHeaderHeightPx] = useState(200)
+
+	useLayoutEffect(() => {
+		const el = piPendingHeaderRef.current
+		if (!el) return
+		const measure = () => {
+			setFixedHeaderHeightPx(el.getBoundingClientRect().height)
+		}
+		measure()
+		const ro = new ResizeObserver(measure)
+		ro.observe(el)
+		return () => ro.disconnect()
+	}, [rows.length, searchQuery, sortKey, amountFilter])
+
+	/** 方案 A：Portal 挂到 body 时收缩 #worker-portal-root，避免 Frappe 壳 min-h-screen 撑高文档产生双滚动 */
+	useEffect(() => {
+		const el = document.getElementById("worker-portal-root")
+		if (!el) return
+		if (error || rows.length === 0) {
+			el.classList.add("min-h-screen")
+			el.style.minHeight = ""
+			el.style.height = ""
+			el.style.overflow = ""
+			return
+		}
+		el.classList.remove("min-h-screen")
+		el.style.minHeight = "0"
+		el.style.height = "0"
+		el.style.overflow = "hidden"
+		return () => {
+			el.classList.add("min-h-screen")
+			el.style.minHeight = ""
+			el.style.height = ""
+			el.style.overflow = ""
+		}
+	}, [error, rows.length])
+
 	useEffect(() => {
 		listPiReimbursementPendingApproval(100)
 			.then(setRows)
@@ -170,30 +209,29 @@ export function PiReimbursementPendingList() {
 		)
 	}
 
-	return (
-		<WpPage>
-			{!isCosFlutterShell() && <WpPageTitle>待报销采购发票</WpPageTitle>}
-			{error ? (
-				<WpRequestFailed message={error} />
-			) : null}
-			{!error && rows.length === 0 ? (
-				<WpEmptyState
-					title="暂无待报销采购发票"
-					description="当前没有符合「已提交、员工垫付、报销审批 Pending」的采购发票，或您暂无相关单据的读权限。"
-				/>
-			) : null}
-			{!error && rows.length > 0 ? (
-				<>
-					<div
-						id="pi-pending-toolbar"
-						className="sticky top-0 z-30 mb-3 scroll-mt-0"
-					>
-						<div className="overflow-hidden rounded-2xl border border-border/50 bg-card shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/92">
-							{/* 首行：左侧圆角搜索条；App 壳内右侧留白对齐胶囊（图2）；浏览器独占一行 */}
-							<div className="flex items-center gap-2 px-3 pt-3">
+	/* 有列表数据：fixed 顶栏 + fixed 主区挂到 document.body，避免 Frappe 包裹层破坏 fixed 包含块 */
+	if (!error && rows.length > 0) {
+		const shellTop = "var(--cos-content-padding-top, env(safe-area-inset-top, 0px))"
+		const portalChildren = (
+			<>
+				<header
+					ref={piPendingHeaderRef}
+					id="pi-pending-toolbar"
+					className={cn(
+						"fixed left-0 right-0 z-[100] w-full border-b border-border/40 bg-background shadow-sm",
+						isCosFlutterShell() ? "pt-0" : "pt-4",
+					)}
+					style={{ top: shellTop }}
+				>
+					<div className="mx-auto w-full max-w-2xl px-4 pb-3">
+						{!isCosFlutterShell() ? (
+							<WpPageTitle className="mb-3">待报销采购发票</WpPageTitle>
+						) : null}
+						<div className="overflow-hidden rounded-2xl border border-border/50 bg-card shadow-sm">
+							<div className="flex items-center gap-2 border-b border-border/35 px-3 pt-3 pb-3">
 								<div
 									className={cn(
-										"flex min-w-0 items-center gap-2 rounded-full border border-border/70 bg-muted/45 px-3 h-10",
+										"flex min-w-0 items-center gap-2 rounded-full border border-border/70 bg-muted/40 px-3 h-10",
 										isCosFlutterShell() ? "flex-1" : "w-full",
 									)}
 								>
@@ -220,20 +258,22 @@ export function PiReimbursementPendingList() {
 
 							<div
 								id="pi-pending-filter-body"
-								className="space-y-3 border-t border-border/40 px-3 pb-3 pt-3"
+								className="space-y-0 border-border/35"
 							>
-								<div>
-									<p className="mb-2 text-xs font-medium text-muted-foreground">
-										排序
-									</p>
-									<div className="flex flex-wrap gap-2">
+								<div className="border-b border-border/35 px-3 py-2.5">
+									<div className="mb-1.5 flex items-center justify-between gap-2">
+										<p className="text-xs font-medium text-muted-foreground">
+											排序
+										</p>
+									</div>
+									<div className="-mx-1 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 										<Button
 											type="button"
 											size="sm"
 											variant={
 												sortKey === "posting_desc" ? "default" : "outline"
 											}
-											className="h-8 rounded-full px-3 text-xs"
+											className="h-8 shrink-0 rounded-full px-3 text-xs"
 											onClick={() => setSortKey("posting_desc")}
 										>
 											过账从新到旧
@@ -244,7 +284,7 @@ export function PiReimbursementPendingList() {
 											variant={
 												sortKey === "amount_desc" ? "default" : "outline"
 											}
-											className="h-8 rounded-full px-3 text-xs"
+											className="h-8 shrink-0 rounded-full px-3 text-xs"
 											onClick={() => setSortKey("amount_desc")}
 										>
 											金额从高到低
@@ -255,25 +295,25 @@ export function PiReimbursementPendingList() {
 											variant={
 												sortKey === "amount_asc" ? "default" : "outline"
 											}
-											className="h-8 rounded-full px-3 text-xs"
+											className="h-8 shrink-0 rounded-full px-3 text-xs"
 											onClick={() => setSortKey("amount_asc")}
 										>
 											金额从低到高
 										</Button>
 									</div>
 								</div>
-								<div>
-									<p className="mb-2 text-xs font-medium text-muted-foreground">
+								<div className="px-3 py-2.5">
+									<p className="mb-1.5 text-xs font-medium text-muted-foreground">
 										金额
 									</p>
-									<div className="flex flex-wrap gap-2">
+									<div className="-mx-1 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 										<Button
 											type="button"
 											size="sm"
 											variant={
 												amountFilter === "all" ? "default" : "outline"
 											}
-											className="h-8 rounded-full px-3 text-xs"
+											className="h-8 shrink-0 rounded-full px-3 text-xs"
 											onClick={() => setAmountFilter("all")}
 										>
 											全部
@@ -284,7 +324,7 @@ export function PiReimbursementPendingList() {
 											variant={
 												amountFilter === "gte500" ? "default" : "outline"
 											}
-											className="h-8 rounded-full px-3 text-xs"
+											className="h-8 shrink-0 rounded-full px-3 text-xs"
 											onClick={() => setAmountFilter("gte500")}
 										>
 											≥ ¥500
@@ -295,7 +335,7 @@ export function PiReimbursementPendingList() {
 											variant={
 												amountFilter === "gte1000" ? "default" : "outline"
 											}
-											className="h-8 rounded-full px-3 text-xs"
+											className="h-8 shrink-0 rounded-full px-3 text-xs"
 											onClick={() => setAmountFilter("gte1000")}
 										>
 											≥ ¥1000
@@ -305,73 +345,103 @@ export function PiReimbursementPendingList() {
 							</div>
 						</div>
 					</div>
+				</header>
 
-					{filteredRows.length === 0 ? (
-						<WpEmptyState
-							icon={SearchX}
-							title="无匹配单据"
-							description="没有符合当前搜索或筛选条件的发票，可清空搜索或调整筛选。"
-						>
-							<Button
-								type="button"
-								variant="secondary"
-								className="mt-2"
-								onClick={() => {
-									setSearchQuery("")
-									setSortKey("posting_desc")
-									setAmountFilter("all")
-								}}
+				<main
+					className="fixed bottom-0 left-0 right-0 z-[90] overflow-y-auto overscroll-contain bg-muted/30 [-webkit-overflow-scrolling:touch]"
+					style={{
+						top: `calc(${shellTop} + ${fixedHeaderHeightPx}px)`,
+					}}
+				>
+					<div className="mx-auto w-full max-w-2xl px-4 pb-8 pt-3">
+						{filteredRows.length === 0 ? (
+							<WpEmptyState
+								icon={SearchX}
+								title="无匹配单据"
+								description="没有符合当前搜索或筛选条件的发票，可清空搜索或调整筛选。"
 							>
-								清空条件
-							</Button>
-						</WpEmptyState>
-					) : (
-						<div className="flex flex-col gap-3">
-							{filteredRows.map((r) => (
-								<Link
-									key={r.name}
-									to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
-									className="block"
+								<Button
+									type="button"
+									variant="secondary"
+									className="mt-2"
+									onClick={() => {
+										setSearchQuery("")
+										setSortKey("posting_desc")
+										setAmountFilter("all")
+									}}
 								>
-									<Card className="gap-0 overflow-hidden py-0 shadow-sm transition-colors hover:bg-accent/50">
-										<div className="flex flex-col gap-2 px-3.5 py-2.5">
-											<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[11px] leading-none text-muted-foreground/75">
-												<span className="font-mono tabular-nums tracking-tight">
-													{r.name}
-												</span>
-												<span className="text-muted-foreground/45">·</span>
-												<span>过账 {r.posting_date || "—"}</span>
-											</div>
-											{r.supplier ? (
-												<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
-													{r.supplier}
-												</p>
-											) : null}
-											<div className="flex items-start justify-between gap-3 border-t border-border/35 pt-2">
-												<div className="flex min-w-0 flex-1 flex-col gap-0.5">
-													<span className="text-[10px] leading-none text-muted-foreground/65">
-														垫付员工
+									清空条件
+								</Button>
+							</WpEmptyState>
+						) : (
+							<div className="flex flex-col gap-3">
+								{filteredRows.map((r) => (
+									<Link
+										key={r.name}
+										to={`/worker-portal/pi-reimbursement-pending/${encodeURIComponent(r.name)}`}
+										className="block"
+									>
+										<Card className="gap-0 overflow-hidden py-0 shadow-sm transition-colors hover:bg-accent/50">
+											<div className="flex flex-col gap-2 px-3.5 py-2.5">
+												<div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[11px] leading-none text-muted-foreground/75">
+													<span className="font-mono tabular-nums tracking-tight">
+														{r.name}
 													</span>
-													<span className="truncate text-sm font-semibold leading-tight text-foreground">
-														{r.employee_name || r.custom_advance_employee || "—"}
-													</span>
+													<span className="text-muted-foreground/45">·</span>
+													<span>过账 {r.posting_date || "—"}</span>
 												</div>
-												<div className="flex shrink-0 flex-col items-end gap-0.5 text-right">
-													<span className="text-[10px] leading-none text-muted-foreground/65">
-														金额
-													</span>
-													<span className="text-base font-semibold leading-tight tabular-nums text-foreground">
-														{formatCurrency(r.grand_total ?? 0)}
-													</span>
+												{r.supplier ? (
+													<p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground/85">
+														{r.supplier}
+													</p>
+												) : null}
+												<div className="flex items-start justify-between gap-3 border-t border-border/35 pt-2">
+													<div className="flex min-w-0 flex-1 flex-col gap-0.5">
+														<span className="text-[10px] leading-none text-muted-foreground/65">
+															垫付员工
+														</span>
+														<span className="truncate text-sm font-semibold leading-tight text-foreground">
+															{r.employee_name ||
+																r.custom_advance_employee ||
+																"—"}
+														</span>
+													</div>
+													<div className="flex shrink-0 flex-col items-end gap-0.5 text-right">
+														<span className="text-[10px] leading-none text-muted-foreground/65">
+															金额
+														</span>
+														<span className="text-base font-semibold leading-tight tabular-nums text-foreground">
+															{formatCurrency(r.grand_total ?? 0)}
+														</span>
+													</div>
 												</div>
 											</div>
-										</div>
-									</Card>
-								</Link>
-							))}
-						</div>
-					)}
-				</>
+										</Card>
+									</Link>
+								))}
+							</div>
+						)}
+					</div>
+				</main>
+			</>
+		)
+
+		return createPortal(portalChildren, document.body)
+	}
+
+	return (
+		<WpPage>
+			{!isCosFlutterShell() ? (
+				<WpPageTitle>待报销采购发票</WpPageTitle>
+			) : null}
+			{error ? (
+				<WpRequestFailed message={error} />
+			) : null}
+			{!error && rows.length === 0 ? (
+				<WpEmptyState
+					title="暂无待报销采购发票"
+					description="当前没有符合「已提交、员工垫付、报销审批 Pending」的采购发票，或您暂无相关单据的读权限。"
+				/>
 			) : null}
 		</WpPage>
 	)
