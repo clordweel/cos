@@ -15,10 +15,10 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* status_bar：App 将 WebView 置于顶栏下，H5 顶留白 0 */
+/* status_bar：App 将 WebView 顶对齐系统状态栏下沿，原生 44px 顶栏叠在 WebView 上，H5 仅避让该栏 */
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
-	--cos-content-padding-top: 0px;
+	--cos-content-padding-top: var(--cos-nav-bar-height);
 }
 
 /* app_bar：WebView 全屏叠在顶栏下，H5 避让 安全区 + 44px */

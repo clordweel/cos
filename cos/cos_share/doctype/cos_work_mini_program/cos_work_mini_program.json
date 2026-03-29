@@ -68,7 +68,7 @@
   },
   {
    "default": "status_bar",
-   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留；status_bar：App 将 WebView 置于顶栏下、H5 顶留白 0；app_bar：WebView 全屏叠在顶栏下、H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
+   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留；status_bar：WebView 从系统状态栏下沿起算、原生顶栏叠在页面上方，H5 预留 44px；app_bar：WebView 全屏，H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",
