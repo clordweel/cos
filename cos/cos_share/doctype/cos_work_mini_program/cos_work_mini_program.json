@@ -68,7 +68,7 @@
   },
   {
    "default": "safe_area",
-   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留；safe_area：App WebView 通顶（edge-to-edge），H5 顶留白为 0，自绘顶栏与壳叠层同带；Desk 侧会抵消 body 等重复 safe-area 顶距；app_bar：WebView 全屏自顶起，H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。旧值 status_bar 会自动视为 safe_area。",
+   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留，WebView 通顶；safe_area：App 将 WebView 下推系统状态栏高度（与壳顶栏内状态栏占位一致），H5 顶留白为 0；Desk 侧抵消 body 等与叠层重复顶距；app_bar：WebView 全屏自顶起，H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。旧值 status_bar 等同 safe_area。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",

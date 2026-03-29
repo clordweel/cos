@@ -2,11 +2,11 @@
  * Cos Work App WebView（UA 含 CosWorkApp 或首跳 __cos_work_shell=1）：由模板/Desk 脚本写入
  * html[data-cos-shell-inset-mode]，与 Flutter 顶栏几何一致。
  *
- * App 侧 safe_area：WebView 通顶（edge-to-edge），页面背景可延伸到系统状态栏下；壳 44px 叠在最上层。
+ * App 侧 safe_area：WebView 自系统状态栏高度下沿起铺（Flutter `top: viewPadding.top`），与 none（通顶）区分；壳仍为 状态栏占位+44 叠层。
  *
  * --cos-content-padding-top 语义（H5 主内容/固定顶栏相对 WebView 文档顶）：
- * - none：0
- * - safe_area：0（自绘顶栏 min-height:44px 等与叠层对齐；勿再用整页 padding 模拟「状态栏下再空 44」）
+ * - none：0（WebView 通顶）
+ * - safe_area：0（文档顶已在状态栏下，与 app_bar 仅「安全区」一段对齐，不含 44px）
  * - app_bar：safe-area-inset-top + 44px（WebView 全屏自顶起）
  *
  * 取值：none | safe_area | app_bar（旧 data 属性 status_bar / status_bar_only 仍兼容，等同 safe_area）。
@@ -47,7 +47,7 @@ html[data-cos-work-app-shell="1"] #body {
 
 /*
  * Desk / 壳内站点：safe_area 下抵消 body/#body 与部分 Frappe 移动端对 safe-area 的顶距，
- * 避免与「WebView 已通顶 + 原生叠层」重复累加导致顶栏过高。
+ * 避免与 App 侧状态栏占位 + 原生叠层重复累加导致顶栏过高。
  */
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] body,
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] #body,
