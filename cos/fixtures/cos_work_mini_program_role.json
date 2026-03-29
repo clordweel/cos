@@ -2,6 +2,7 @@
  {
   "docstatus": 0,
   "doctype": "COS Work Mini Program Role",
+  "export_module": "COS Share",
   "mini_program": "pi_reimbursement_pending",
   "modified": "2026-03-27 12:00:00.000000",
   "module": "COS Share",
@@ -12,6 +13,7 @@
  {
   "docstatus": 0,
   "doctype": "COS Work Mini Program Role",
+  "export_module": "COS Share",
   "mini_program": "pi_reimbursement_approval",
   "modified": "2026-03-27 12:00:00.000000",
   "module": "COS Share",
@@ -32,6 +34,7 @@
  {
   "docstatus": 0,
   "doctype": "COS Work Mini Program Role",
+  "export_module": "COS Share",
   "mini_program": "desk_home",
   "modified": "2026-03-27 12:00:00.000000",
   "module": "COS Share",

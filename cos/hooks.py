@@ -516,34 +516,13 @@ fixtures = [
             ]
         ],
     },
+    # 按 DocType「Fixture 导出模块键」筛选，避免写死 program_id/name；新小程序填同一键即可随导出迁移
     {
         "dt": "COS Work Mini Program",
-        "filters": [
-            [
-                "program_id",
-                "in",
-                [
-                    "pi_reimbursement_pending",
-                    "pi_reimbursement_approval",
-                    "stock_reconciliation",
-                    "desk_home",
-                ],
-            ]
-        ],
+        "filters": [["export_module", "=", "COS Share"]],
     },
     {
         "dt": "COS Work Mini Program Role",
-        "filters": [
-            [
-                "name",
-                "in",
-                [
-                    "CWMPR-ALL-PI-PENDING",
-                    "CWMPR-ALL-PI-APPR",
-                    "CWMPR-ALL-STOCK",
-                    "CWMPR-ALL-DESK",
-                ],
-            ]
-        ],
+        "filters": [["export_module", "=", "COS Share"]],
     },
 ]

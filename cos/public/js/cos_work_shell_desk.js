@@ -12,13 +12,25 @@
 		);
 	}
 
-	// 须在首帧前打上标记：若等到 frappe.ready，Desk 已按默认 safe-area 排完版，会与 App WebView
-	// 下推状态栏高度叠加成「双倍顶距」。后续 callApi 再按 path 校正为 none/app_bar。
-	applyInsetMode("safe_area");
+	// 与 `get_nav_bar_inset_for_path` / COS Work Mini Program.launch_path 对齐的保守首帧猜测，
+	// 避免 frappe.ready 前整页按 safe_area 排版；API 返回后仍会覆盖。
+	function defaultInsetModeForPathname() {
+		var p = window.location.pathname || "";
+		if (/stock-reconciliation/i.test(p)) {
+			return "app_bar";
+		}
+		var trimmed = p.replace(/\/+$/, "") || "/";
+		if (trimmed === "/app" || trimmed === "/desk" || /^\/desk\//.test(p)) {
+			return "app_bar";
+		}
+		return "safe_area";
+	}
+
+	applyInsetMode(defaultInsetModeForPathname());
 
 	function callApi() {
 		if (typeof frappe === "undefined" || !frappe.call) {
-			applyInsetMode("safe_area");
+			applyInsetMode(defaultInsetModeForPathname());
 			return;
 		}
 		frappe.call({
@@ -32,7 +44,7 @@
 				applyInsetMode(m);
 			},
 			error: function () {
-				applyInsetMode("safe_area");
+				applyInsetMode(defaultInsetModeForPathname());
 			},
 		});
 	}
@@ -44,7 +56,7 @@
 			if (typeof frappe !== "undefined" && frappe.ready) {
 				frappe.ready(callApi);
 			} else {
-				applyInsetMode("safe_area");
+				applyInsetMode(defaultInsetModeForPathname());
 			}
 		});
 	}

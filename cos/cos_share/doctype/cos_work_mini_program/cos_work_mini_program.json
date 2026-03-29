@@ -21,7 +21,8 @@
   "section_flags",
   "enabled",
   "show_in_market",
-  "sort_order"
+  "sort_order",
+  "export_module"
  ],
  "fields": [
   {
@@ -68,7 +69,7 @@
   },
   {
    "default": "safe_area",
-   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留，WebView 通顶；safe_area：App 将 WebView 下推系统状态栏高度（与壳顶栏内状态栏占位一致），H5 顶留白为 0；Desk 侧抵消 body 等与叠层重复顶距；app_bar：WebView 全屏自顶起，H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。旧值 status_bar 等同 safe_area。",
+   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：WebView 通顶，H5 顶留白 0。safe_area：通顶沉浸同 app_bar，H5 仅避让 env(safe-area-inset-top)，不含 44px（44 由原生壳叠层承担）。app_bar：H5 避让 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。旧值 status_bar 等同 safe_area。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",
@@ -132,6 +133,15 @@
    "fieldtype": "Int",
    "label": "目录排序",
    "description": "同权重下按此升序"
+  },
+  {
+   "default": "COS Share",
+   "description": "与 hooks.py fixtures 筛选一致；export-fixtures / 迁移时按此键导出，勿与 DocType 所属模块（meta）混淆。新建小程序请填实际归属模块名。",
+   "fieldname": "export_module",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Fixture 导出模块键",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,

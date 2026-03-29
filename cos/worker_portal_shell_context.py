@@ -51,7 +51,7 @@ def normalize_nav_bar_inset_mode(mode: str | None) -> str:
 
 
 def resolve_nav_bar_inset_mode_for_path(path: str | None) -> str | None:
-	"""按最长匹配 launch_path 取 DocType 上的 nav_bar_inset_mode；无匹配返回 None。"""
+	"""按最长匹配 launch_path 取 DocType 上的 nav_bar_inset_mode；无匹配时 /app、/app/... 回退 desk_home。"""
 	if not path:
 		return None
 	norm = path.rstrip("/") or "/"
@@ -72,7 +72,19 @@ def resolve_nav_bar_inset_mode_for_path(path: str | None) -> str | None:
 				best_len = len(lp)
 				raw = (r.get("nav_bar_inset_mode") or "").strip()
 				best_mode = raw if raw else "safe_area"
-	return best_mode
+	if best_mode is not None:
+		return best_mode
+	# v16 工作台多为 /app、/app/...，与 fixture 中 desk_home 的 /desk 不一致；无更长 launch_path 匹配时回退 desk_home
+	if norm == "/app" or norm.startswith("/app/"):
+		desk_mode = frappe.db.get_value(
+			"COS Work Mini Program",
+			{"name": "desk_home", "enabled": 1},
+			"nav_bar_inset_mode",
+		)
+		if desk_mode is not None:
+			raw = (desk_mode or "").strip()
+			return raw if raw else "safe_area"
+	return None
 
 
 def nav_bar_inset_mode_or_default(mode: str | None) -> str:

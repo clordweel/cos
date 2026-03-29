@@ -1,15 +1,15 @@
 /**
  * Cos Work App WebView（UA 含 CosWorkApp 或首跳 __cos_work_shell=1）：由 Website 模板 / `cos_work_shell_desk.js` 写入
- * html[data-cos-shell-inset-mode]，与 Flutter 顶栏几何一致。Desk 侧脚本须在首帧前打 `data-cos-work-app-shell`（见 desk js），否则易与 App 下推 WebView 重复累加顶距。
+ * html[data-cos-shell-inset-mode]，与 Flutter 顶栏几何一致。Desk 侧脚本须在首帧前打 `data-cos-work-app-shell`（见 desk js）。
  *
- * App 侧 safe_area：WebView 自系统状态栏高度下沿起铺（Flutter `top: viewPadding.top`），与 none（通顶）区分；壳仍为 状态栏占位+44 叠层。
+ * App 侧 WebView 均为通顶沉浸；壳叠层为 状态栏占位 + 44px（与 Flutter 一致）。
  *
- * --cos-content-padding-top 语义（H5 主内容/固定顶栏相对 WebView 文档顶）：
- * - none：0（WebView 通顶）
- * - safe_area：0（文档顶已在状态栏下，与 app_bar 仅「安全区」一段对齐，不含 44px）
- * - app_bar：safe-area-inset-top + 44px（WebView 全屏自顶起）
+ * --cos-content-padding-top 语义（H5 主内容相对文档顶，与 app_bar 仅差是否含 44px 导航带）：
+ * - none：0（H5 不自避顶，内容可顶到文档最上沿）
+ * - safe_area：仅 env(safe-area-inset-top)（与 app_bar 相比少加 --cos-nav-bar-height 的 44px）
+ * - app_bar：safe-area-inset-top + 44px
  *
- * 取值：none | safe_area | app_bar（旧 data 属性 status_bar / status_bar_only 仍兼容，等同 safe_area）。
+ * 取值：none | safe_area | app_bar（旧 status_bar / status_bar_only 仍兼容，等同 safe_area）。
  */
 html[data-cos-work-app-shell="1"] {
 	--cos-shell-safe-top: env(safe-area-inset-top, 0px);
@@ -24,11 +24,11 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* safe_area */
+/* safe_area：沉浸同 app_bar，顶留白仅安全区，不含 44px（44 由原生壳叠层承担） */
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
-	--cos-content-padding-top: 0px;
+	--cos-content-padding-top: var(--cos-shell-safe-top);
 }
 
 /* app_bar：WebView 全屏叠在顶栏下，H5 避让 安全区 + 44px */
@@ -45,41 +45,3 @@ html[data-cos-work-app-shell="1"] #body {
 	box-sizing: border-box;
 }
 
-/*
- * Desk / 壳内站点：safe_area 下抵消 body/#body 与部分 Frappe 移动端对 safe-area 的顶距，
- * 避免与 App 侧状态栏占位 + 原生叠层重复累加导致顶栏过高。
- */
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] body,
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] #body,
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] body,
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] #body {
-	padding-top: 0 !important;
-}
-
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-main .layout-main-section,
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-main-section-wrapper,
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-main .layout-main-section,
-html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-main-section-wrapper {
-	padding-top: 0 !important;
-}
-
-/*
- * Desk 移动端：safe_area 下 App 已将 WebView 自状态栏下沿起铺，主布局若仍带 safe-area 顶距会重复。
- * cos_work_shell_desk.js 已首帧前打 data 属性；此处再覆盖常见容器（含 v16 主区），仅 max-width:991px。
- */
-@media (max-width: 991px) {
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .main-section,
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-app,
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-main,
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .main-section,
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-app,
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-main {
-		padding-top: 0 !important;
-		margin-top: 0 !important;
-	}
-
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"] .layout-main-section,
-	html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"] .layout-main-section {
-		scroll-margin-top: 0 !important;
-	}
-}

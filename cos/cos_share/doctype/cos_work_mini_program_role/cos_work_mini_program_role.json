@@ -8,7 +8,8 @@
  "field_order": [
   "role",
   "mini_program",
-  "sort_weight"
+  "sort_weight",
+  "export_module"
  ],
  "fields": [
   {
@@ -34,6 +35,15 @@
    "in_list_view": 1,
    "label": "排序权重",
    "description": "数值越小越靠前；多来源合并时取最小权重"
+  },
+  {
+   "default": "COS Share",
+   "description": "与 hooks.py fixtures 筛选一致；须与关联小程序的导出策略一致，通常填 COS Share。",
+   "fieldname": "export_module",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Fixture 导出模块键",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
