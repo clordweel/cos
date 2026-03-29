@@ -13,6 +13,7 @@
   "launch_path",
   "auth_kind",
   "nav_bar_inset_mode",
+  "show_nav_bar_title",
   "section_visual",
   "icon_key",
   "icon_url",
@@ -67,11 +68,18 @@
   },
   {
    "default": "app_provided",
-   "description": "Cos Work App WebView 内 H5 顶部留白：无/仅状态栏/App 提供（状态栏+仿微信 44px）/页面自定义（由 H5 自行处理，壳仍注入 CSS 变量）",
+   "description": "壳向 H5 注入 `--cos-content-padding-top` 等：none 与 page_custom 均为 0（page_custom 供 H5 读 `data-cos-shell-inset-mode` 自管）；status_bar_only 与 app_provided 相差 44px。若页面未使用这些变量，可能只有 none 与「非 none」能看出差异。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",
    "options": "none\nstatus_bar_only\napp_provided\npage_custom"
+  },
+  {
+   "default": "1",
+   "description": "为 0 时根页不显示壳顶栏居中标题（与 H5 自绘标题配合）；仍保留返回与胶囊",
+   "fieldname": "show_nav_bar_title",
+   "fieldtype": "Check",
+   "label": "显示壳顶栏标题"
   },
   {
    "collapsible": 1,

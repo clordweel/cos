@@ -3,6 +3,7 @@
   "accent_color": "#1565C0",
   "auth_kind": "worker_portal_token",
   "nav_bar_inset_mode": "app_provided",
+  "show_nav_bar_title": 0,
   "description": "员工垫付 · 待审批",
   "docstatus": 0,
   "doctype": "COS Work Mini Program",
