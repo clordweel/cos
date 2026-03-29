@@ -43,7 +43,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Fixture 导出模块键",
-   "reqd": 1
+   "description": "留空时按默认 COS Share；与 hooks fixtures 筛选一致。"
   }
  ],
  "grid_page_length": 50,
