@@ -374,9 +374,21 @@ export function PiReimbursementPendingList() {
 					)}
 					style={{ top: shellTop }}
 				>
-					<div className="mx-auto w-full max-w-2xl px-4 pb-2.5">
-						{/* 搜索条占原大标题位；无外层卡片 */}
-						<div className="flex items-center gap-2 pb-2">
+					<div
+						className={cn(
+							"mx-auto w-full max-w-2xl px-4",
+							isCosFlutterShell() ? "pb-2" : "pb-2.5",
+						)}
+					>
+						{/* 壳内：首行占满与原生叠层一致的 44px 高，搜索与胶囊视觉同带 */}
+						<div
+							className={cn(
+								"flex items-center gap-2",
+								isCosFlutterShell()
+									? "min-h-[44px] pb-0"
+									: "pb-2",
+							)}
+						>
 							<div
 								className={cn(
 									"flex min-w-0 items-center gap-1.5 rounded-full border border-border/60 bg-muted/35 px-2.5 h-8",

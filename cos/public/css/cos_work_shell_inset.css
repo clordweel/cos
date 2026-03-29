@@ -4,7 +4,7 @@
  *
  * --cos-content-padding-top 语义（H5 主内容/固定顶栏的「顶边」相对 WebView 可视区顶部）：
  * - none：0（内容顶到 WebView 顶）
- * - safe_area：44px（WebView 顶对齐状态栏下沿，原生 44px 顶栏叠在 WebView 上；App 不对 WebView 再下移 44）
+ * - safe_area：0（WebView 顶对齐状态栏下沿，原生 44px 顶栏叠在 WebView 上；H5 fixed 顶栏从 WebView 顶起画，与胶囊同带对齐，不再整体下移 44）
  * - app_bar：safe-area-inset-top + 44px（WebView 全屏自顶起，避让状态栏 + 顶栏）
  *
  * 取值：none | safe_area | app_bar（旧 data 属性 status_bar / status_bar_only 仍兼容，等同 safe_area）。
@@ -22,11 +22,11 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* safe_area：与 Flutter safe_area 一致——仅顶对齐状态栏下沿，H5 只避让叠层 44px（不用 env 顶 inset，避免与 WebView 坐标重复留白） */
+/* safe_area：H5 顶留白 0；自绘顶栏用 min-height:44px 等与原生叠层顶栏对齐，避免 top:44px 把搜索条整段压到胶囊下方 */
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
-	--cos-content-padding-top: var(--cos-nav-bar-height);
+	--cos-content-padding-top: 0px;
 }
 
 /* app_bar：WebView 全屏叠在顶栏下，H5 避让 安全区 + 44px */

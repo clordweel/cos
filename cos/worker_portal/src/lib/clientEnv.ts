@@ -19,7 +19,7 @@ export function isCosFlutterShell(): boolean {
 /**
  * 嵌入 Cos Work App WebView 时为主内容区顶留白。
  * 由 Frappe 模板 + cos_work_shell_inset.css 根据路径解析的 nav_bar_inset_mode 设置 `--cos-content-padding-top`；
- * safe_area 下变量为 44px（避让叠层顶栏）；此处仅消费变量；旧壳未带服务端样式时回退「安全区 + 44px」（偏保守）。
+ * safe_area 下变量为 0（顶栏与叠层同带自对齐）；此处仅消费变量；旧壳未带服务端样式时回退「安全区 + 44px」（偏保守）。
  */
 export function cosFlutterShellContentInsetStyle(): CSSProperties | undefined {
 	if (!isCosFlutterShell()) return undefined
