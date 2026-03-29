@@ -8,13 +8,13 @@
 		document.documentElement.setAttribute("data-cos-work-app-shell", "1");
 		document.documentElement.setAttribute(
 			"data-cos-shell-inset-mode",
-			mode || "status_bar"
+			mode || "safe_area"
 		);
 	}
 
 	function callApi() {
 		if (typeof frappe === "undefined" || !frappe.call) {
-			applyInsetMode("status_bar");
+			applyInsetMode("safe_area");
 			return;
 		}
 		frappe.call({
@@ -24,11 +24,11 @@
 				var m =
 					r.message && r.message.nav_bar_inset_mode
 						? r.message.nav_bar_inset_mode
-						: "status_bar";
+						: "safe_area";
 				applyInsetMode(m);
 			},
 			error: function () {
-				applyInsetMode("status_bar");
+				applyInsetMode("safe_area");
 			},
 		});
 	}
@@ -40,7 +40,7 @@
 			if (typeof frappe !== "undefined" && frappe.ready) {
 				frappe.ready(callApi);
 			} else {
-				applyInsetMode("status_bar");
+				applyInsetMode("safe_area");
 			}
 		});
 	}

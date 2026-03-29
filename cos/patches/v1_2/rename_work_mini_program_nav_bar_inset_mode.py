@@ -1,7 +1,7 @@
 # Copyright (c) 2026, bit and contributors
 # License: MIT. See LICENSE
 
-"""COS Work Mini Program.nav_bar_inset_mode：旧选项迁移为 none / status_bar / app_bar。"""
+"""COS Work Mini Program.nav_bar_inset_mode：旧选项迁移为 none / status_bar / app_bar（历史中间态；后续 migrate_nav_bar_inset_status_bar_to_safe_area 将 status_bar 改为 safe_area）。"""
 
 import frappe
 

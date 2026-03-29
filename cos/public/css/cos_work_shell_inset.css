@@ -4,10 +4,10 @@
  *
  * --cos-content-padding-top 语义（H5 主内容/固定顶栏的「顶边」相对 WebView 可视区顶部）：
  * - none：0（内容顶到 WebView 顶）
- * - status_bar：44px（WebView 已从系统状态栏下沿起算，仅避让叠在上面的 App 顶栏）
- * - app_bar：safe-area-inset-top + 44px（WebView 全屏，避让状态栏 + 顶栏）
+ * - safe_area：仅 env(safe-area-inset-top)（App 已将 WebView 置于状态栏+44px 顶栏之下，H5 不再为 44 留白）
+ * - app_bar：safe-area-inset-top + 44px（WebView 全屏自顶起，避让状态栏 + 顶栏）
  *
- * 取值：none | status_bar | app_bar（旧值 status_bar_only / app_provided / page_custom 仍兼容）。
+ * 取值：none | safe_area | app_bar（旧 data 属性 status_bar / status_bar_only 仍兼容，等同 safe_area）。
  */
 html[data-cos-work-app-shell="1"] {
 	--cos-shell-safe-top: env(safe-area-inset-top, 0px);
@@ -22,10 +22,11 @@ html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
 	--cos-content-padding-top: 0px;
 }
 
-/* status_bar：App 将 WebView 顶对齐系统状态栏下沿，原生 44px 顶栏叠在 WebView 上，H5 仅避让该栏 */
+/* safe_area：WebView 已在原生状态栏与 44px 顶栏之下，H5 仅消费 WebView 内安全顶（多数 Android 为 0） */
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="safe_area"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar"],
 html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
-	--cos-content-padding-top: var(--cos-nav-bar-height);
+	--cos-content-padding-top: var(--cos-shell-safe-top);
 }
 
 /* app_bar：WebView 全屏叠在顶栏下，H5 避让 安全区 + 44px */

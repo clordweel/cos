@@ -67,12 +67,12 @@
    "reqd": 1
   },
   {
-   "default": "status_bar",
-   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留；status_bar：WebView 从系统状态栏下沿起算、原生顶栏叠在页面上方，H5 预留 44px；app_bar：WebView 全屏，H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
+   "default": "safe_area",
+   "description": "由站点模板+cos_work_shell_inset.css 设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA 或 __cos_work_shell=1）。none：不预留；safe_area：App 将 WebView 置于状态栏与 44px 顶栏之下，H5 仅 env(safe-area-inset-top)；app_bar：WebView 全屏自顶起，H5 为 安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。旧值 status_bar 会自动视为 safe_area。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",
-   "options": "none\nstatus_bar\napp_bar"
+   "options": "none\nsafe_area\napp_bar"
   },
   {
    "default": "1",
