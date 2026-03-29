@@ -32,6 +32,11 @@
     min-width: 2.5em;
 }
 
+/* 单位列：避免「米/根」等被 PDF 引擎在中间断行，与外部版观感一致 */
+.print-format-wrapper .col-uom {
+    white-space: nowrap;
+}
+
 .print-format-wrapper .item-info-cell {
     text-align: left;
 }

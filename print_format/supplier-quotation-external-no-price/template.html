@@ -103,7 +103,7 @@
 					<td class="text-right">
 						<span class="quantity-value text-bold">{{ item.qty }}</span>
 					</td>
-					<td class="text-center">{{ item.uom or item.stock_uom }}</td>
+					<td class="text-center col-uom">{{ item.uom or item.stock_uom }}</td>
 					<td class="text-right cell-supplier-fill" style="white-space: nowrap;">&nbsp;</td>
 					<td class="text-right text-bold cell-supplier-fill" style="white-space: nowrap;">&nbsp;</td>
 					<td class="text-left">{{ (item.description | striptags) if item.description else "&nbsp;" }}</td>

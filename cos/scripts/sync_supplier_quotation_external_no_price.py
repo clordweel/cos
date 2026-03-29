@@ -32,11 +32,25 @@ def sync(site: str | None = None) -> dict:
 	html = template_path.read_text(encoding="utf-8")
 	css = css_path.read_text(encoding="utf-8")
 	name = "供应商报价单 - 外部（无价格）"
+	# 与「供应商报价单 - 外部」fixture 对齐：Chrome(Puppeteer) 与 wkhtmltopdf 对表格/CSS 渲染差异大，
+	# 未设置时默认走 wkhtmltopdf，易出现列宽错乱、换行异常等「PDF 渲染错误」。
+	print_settings = {
+		"pdf_generator": "chrome",
+		"page_number": "Hide",
+		"default_print_language": "zh",
+		"font_size": 14,
+		"margin_top": 15.0,
+		"margin_bottom": 15.0,
+		"margin_left": 15.0,
+		"margin_right": 15.0,
+	}
 	existed = frappe.db.exists("Print Format", name)
 	if existed:
 		doc = frappe.get_doc("Print Format", name)
 		doc.html = html
 		doc.css = css
+		for key, val in print_settings.items():
+			setattr(doc, key, val)
 		doc.save()
 	else:
 		doc = frappe.get_doc(
@@ -50,6 +64,7 @@ def sync(site: str | None = None) -> dict:
 				"html": html,
 				"css": css,
 				"standard": "No",
+				**print_settings,
 			}
 		)
 		doc.insert()

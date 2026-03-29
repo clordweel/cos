@@ -1,7 +1,7 @@
 [
  {
   "accent_color": "#1565C0",
-  "auth_kind": "worker_portal_token",
+  "auth_kind": "frappe_session",
   "nav_bar_inset_mode": "app_provided",
   "show_nav_bar_title": 0,
   "description": "员工垫付 · 待审批",
@@ -21,7 +21,7 @@
  },
  {
   "accent_color": "#5E35B1",
-  "auth_kind": "worker_portal_token",
+  "auth_kind": "frappe_session",
   "nav_bar_inset_mode": "app_provided",
   "description": "审批处理入口",
   "docstatus": 0,

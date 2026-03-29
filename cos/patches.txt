@@ -35,4 +35,5 @@ cos.patches.v1_2.resync_supplier_quotation_standard_print
 cos.patches.v1_2.resync_supplier_quotation_external_price_display
 cos.patches.v1_2.resync_supplier_quotation_external_no_price_print
 cos.patches.v1_2.resync_supplier_quotation_external_no_price_price_blank
+cos.patches.v1_2.resync_supplier_quotation_external_no_price_chrome_pdf
 # Patches added in this section will be executed after doctypes are migrated
