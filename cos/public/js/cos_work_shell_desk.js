@@ -12,6 +12,10 @@
 		);
 	}
 
+	// 须在首帧前打上标记：若等到 frappe.ready，Desk 已按默认 safe-area 排完版，会与 App WebView
+	// 下推状态栏高度叠加成「双倍顶距」。后续 callApi 再按 path 校正为 none/app_bar。
+	applyInsetMode("safe_area");
+
 	function callApi() {
 		if (typeof frappe === "undefined" || !frappe.call) {
 			applyInsetMode("safe_area");
