@@ -34,6 +34,13 @@ export function getToken(): string | null {
 	return null
 }
 
+/** 仅 ``wpt.`` 前缀视为 Portal Bearer；其它残留串若当 Bearer 发送会跳过 CSRF 又无法鉴权 → POST 详情报「无效请求」。 */
+function bearerTokenForApi(): string | null {
+	const t = getToken()
+	if (!t) return null
+	return t.startsWith("wpt.") ? t : null
+}
+
 export function setToken(token: string): void {
 	localStorage.setItem(TOKEN_KEY, token)
 }
@@ -48,14 +55,15 @@ export async function apiRequest<T>(
 	body?: unknown
 ): Promise<T> {
 	const base = getApiBase()
-	const token = getToken()
+	const token = bearerTokenForApi()
 	const url = base ? `${base}${path}` : path
 	const headers: Record<string, string> = {
 		"Content-Type": "application/json",
 	}
 	if (token) {
 		headers["Authorization"] = `Bearer ${token}`
-	} else if (method !== "GET" && method !== "HEAD") {
+	}
+	if (method !== "GET" && method !== "HEAD") {
 		const csrf = readCookie("csrf_token")
 		if (csrf) headers["X-Frappe-CSRF-Token"] = csrf
 	}
@@ -94,7 +102,7 @@ export async function login(username: string, password: string) {
 
 export async function getLoggedUser(): Promise<string> {
 	const base = getApiBase()
-	const token = getToken()
+	const token = bearerTokenForApi()
 	const url = base ? `${base}/api/method/cos.worker_portal_api.get_logged_user` : "/api/method/cos.worker_portal_api.get_logged_user"
 	const headers: Record<string, string> = {}
 	if (token) headers["Authorization"] = `Bearer ${token}`

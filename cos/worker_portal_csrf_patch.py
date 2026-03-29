@@ -61,6 +61,11 @@ _COS_NATIVE_COOKIE_API_MARKERS = (
 	"work_app_launcher_api.add_user_mini_program",
 	"cos.work_app_launcher_api.remove_user_mini_program",
 	"work_app_launcher_api.remove_user_mini_program",
+	# Worker Portal 内「待报销采购发票」详情/审批：POST + 会话 Cookie（壳内纯 Cookie、无 wpt 时须与 GET 列表一致可访问）
+	"cos.cos_accounts.pi_reimbursement_approval.get_pi_summary_for_logged_in_approval",
+	"pi_reimbursement_approval.get_pi_summary_for_logged_in_approval",
+	"cos.cos_accounts.pi_reimbursement_approval.approve_pi_logged_in",
+	"pi_reimbursement_approval.approve_pi_logged_in",
 )
 
 
