@@ -8,6 +8,8 @@ declare global {
 		__WORKER_PORTAL_CONFIG__?: {
 			apiBase?: string
 			initialToken?: string | null
+			/** 服务端按路径写入，与 COS Work Mini Program.nav_bar_inset_mode 一致 */
+			navBarInsetMode?: string
 		}
 	}
 }

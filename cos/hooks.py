@@ -27,8 +27,10 @@ add_to_apps_screen = [
 # include js, css files in header of desk.html
 app_include_css = [
     "/assets/cos/css/cos_custom.css",
+    "/assets/cos/css/cos_work_shell_inset.css",
 ]
 app_include_js = [
+    "/assets/cos/js/cos_work_shell_desk.js",
     "/assets/cos/js/cos_custom.js",
     "/assets/cos/js/desk_user_menu_patch.js",
     "/assets/cos/js/update_items_float_patch.js",
@@ -50,10 +52,16 @@ website_route_rules = [
 
 
 def extend_website_context_for_worker_portal(context):
-	"""Worker Portal 构建产物为固定文件名 worker-portal.js，易被移动端强缓存；用文件 mtime 作 query 破坏缓存。"""
+	"""Worker Portal 资源版本号 + Cos Work App 壳顶栏占位（路径匹配 COS Work Mini Program）。"""
 	import os
 
 	import frappe
+
+	from cos.worker_portal_shell_context import (
+		is_cos_work_app_shell_user_agent,
+		nav_bar_inset_mode_or_default,
+		resolve_nav_bar_inset_mode_for_path,
+	)
 
 	try:
 		path = frappe.get_app_path("cos", "public", "worker_portal", "worker-portal.js")
@@ -63,6 +71,28 @@ def extend_website_context_for_worker_portal(context):
 			context["cos_wp_asset_ver"] = "0"
 	except Exception:
 		context["cos_wp_asset_ver"] = "0"
+
+	try:
+		css_path = frappe.get_app_path("cos", "public", "css", "cos_work_shell_inset.css")
+		if os.path.isfile(css_path):
+			context["cos_shell_inset_css_ver"] = str(int(os.path.getmtime(css_path)))
+		else:
+			context["cos_shell_inset_css_ver"] = "0"
+	except Exception:
+		context["cos_shell_inset_css_ver"] = "0"
+
+	req = getattr(frappe.local, "request", None)
+	req_path = ""
+	ua = ""
+	if req is not None:
+		req_path = getattr(req, "path", "") or ""
+		try:
+			ua = frappe.request.headers.get("User-Agent", "") or ""
+		except Exception:
+			ua = ""
+	context["cos_is_work_app_shell"] = is_cos_work_app_shell_user_agent(ua)
+	resolved = resolve_nav_bar_inset_mode_for_path(req_path)
+	context["cos_nav_bar_inset_mode"] = nav_bar_inset_mode_or_default(resolved)
 
 
 update_website_context = [

@@ -1,0 +1,14 @@
+{# UA 为 CosWorkApp 时：html data-* + 壳顶栏占位 CSS（nav_bar_inset_mode 已由路径解析写入 cos_nav_bar_inset_mode） #}
+{% if cos_is_work_app_shell %}
+<script>
+(function () {
+	var m = {{ cos_nav_bar_inset_mode | tojson }};
+	document.documentElement.setAttribute("data-cos-work-app-shell", "1");
+	document.documentElement.setAttribute(
+		"data-cos-shell-inset-mode",
+		m || "app_provided"
+	);
+})();
+</script>
+<link rel="stylesheet" href="/assets/cos/css/cos_work_shell_inset.css?v={{ cos_shell_inset_css_ver|default('0') }}">
+{% endif %}

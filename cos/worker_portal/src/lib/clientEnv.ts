@@ -11,8 +11,8 @@ export function isCosFlutterShell(): boolean {
 
 /**
  * 嵌入 Cos Work App WebView 时为主内容区顶留白。
- * Flutter 注入 `--cos-content-padding-top`（由 DocType「壳内顶栏占位」决定：无 / 仅状态栏 / App 提供 / 页面自定义）。
- * 未注入时回退为「安全区 + 44px」以免旧壳全白。
+ * 由 Frappe 模板 + cos_work_shell_inset.css 根据路径解析的 nav_bar_inset_mode 设置 `--cos-content-padding-top`；
+ * 此处仅消费 CSS 变量；旧壳未带服务端样式时回退「安全区 + 44px」。
  */
 export function cosFlutterShellContentInsetStyle(): CSSProperties | undefined {
 	if (!isCosFlutterShell()) return undefined

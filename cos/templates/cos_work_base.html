@@ -3,3 +3,9 @@
 {% block navbar %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block breadcrumbs %}{% endblock %}
+
+{# 子页填 cos_work_page：自动带上壳顶栏占位 head（CosWorkApp UA + 路径解析 nav_bar_inset_mode） #}
+{% block page_content %}
+{% include "cos/templates/includes/cos_work_shell_head.html" %}
+{% block cos_work_page %}{% endblock %}
+{% endblock %}

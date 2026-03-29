@@ -70,7 +70,7 @@ def _row_to_launch_dict(r, *, user_pinned: bool = False) -> dict:
 def get_mini_program_launch_config(program_id=None):
 	"""按 program_id 拉取单条启动配置（不依赖是否出现在首页宫格）。
 
-	供 Cos Work App 每次打开小程序前 GET，使 Desk 修改 nav_bar_inset_mode 等立即生效；
+	供 Cos Work App 每次打开小程序前 GET；顶栏占位以 Website 模板+cos_work_shell_inset.css 及 Desk 侧 get_nav_bar_inset_for_path 为准；
 	个人中心等入口使用内置 Registry 时也能合并服务端字段。
 	"""
 	_require_login()

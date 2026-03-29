@@ -1,0 +1,31 @@
+/**
+ * Cos Work App WebView（UA 含 CosWorkApp）：顶栏占位由服务端根据路径匹配 COS Work Mini Program.nav_bar_inset_mode
+ * 写入 html[data-cos-shell-inset-mode]，此处统一 CSS 变量（与 Worker Portal、Desk 共用）。
+ *
+ * --cos-nav-bar-height 与 Flutter WeChatMiniProgramNavBar.barHeight、Portal clientEnv 一致。
+ */
+html[data-cos-work-app-shell="1"] {
+	--cos-shell-safe-top: env(safe-area-inset-top, 0px);
+	--cos-nav-bar-height: 44px;
+}
+
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="none"],
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="page_custom"] {
+	--cos-content-padding-top: 0px;
+}
+
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="status_bar_only"] {
+	--cos-content-padding-top: var(--cos-shell-safe-top);
+}
+
+html[data-cos-work-app-shell="1"][data-cos-shell-inset-mode="app_provided"] {
+	--cos-content-padding-top: calc(
+		var(--cos-shell-safe-top) + var(--cos-nav-bar-height)
+	);
+}
+
+/* Desk：主容器顶留白（Portal 由 React 内联 style 消费 --cos-content-padding-top） */
+html[data-cos-work-app-shell="1"] #body {
+	padding-top: var(--cos-content-padding-top, 0px);
+	box-sizing: border-box;
+}

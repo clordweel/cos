@@ -68,7 +68,7 @@
   },
   {
    "default": "app_provided",
-   "description": "壳向 H5 注入 `--cos-content-padding-top` 等：none 与 page_custom 均为 0（page_custom 供 H5 读 `data-cos-shell-inset-mode` 自管）；status_bar_only 与 app_provided 相差 44px。若页面未使用这些变量，可能只有 none 与「非 none」能看出差异。",
+   "description": "由站点模板+cos_work_shell_inset.css 按路径解析后设置 `--cos-content-padding-top` 与 `data-cos-shell-inset-mode`（CosWorkApp UA）；none 与 page_custom 为 0；status_bar_only 仅安全区；app_provided 为安全区+44px。Desk 同路径经 get_nav_bar_inset_for_path 对齐。",
    "fieldname": "nav_bar_inset_mode",
    "fieldtype": "Select",
    "label": "壳内顶栏占位",
