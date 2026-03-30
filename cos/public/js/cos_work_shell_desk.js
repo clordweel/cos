@@ -81,6 +81,18 @@
 
 	applyCosShellThemeFromQuery();
 
+	function applyCosShellCompanyFromQuery() {
+		try {
+			var params = new URLSearchParams(window.location.search || "");
+			var c = (params.get("__cos_company") || "").trim();
+			if (!c) return;
+			document.documentElement.setAttribute("data-cos-company", c);
+			window.__COS_WORK_APP_COMPANY__ = c;
+		} catch (e) {}
+	}
+
+	applyCosShellCompanyFromQuery();
+
 	function applyInsetMode(mode) {
 		document.documentElement.setAttribute("data-cos-work-app-shell", "1");
 		document.documentElement.setAttribute(

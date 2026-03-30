@@ -4,6 +4,7 @@ import App from "./App"
 import "./index.css"
 import {
 	applyBrowserDarkClassFromOsIfNotShell,
+	applyCosShellCompanyFromUrl,
 	applyCosShellThemeFromUrl,
 } from "./lib/clientEnv"
 
@@ -56,6 +57,7 @@ if (!wptInjectedFromHash && isCosWorkAppShell()) {
 }
 
 applyCosShellThemeFromUrl()
+applyCosShellCompanyFromUrl()
 applyBrowserDarkClassFromOsIfNotShell()
 
 ReactDOM.createRoot(document.getElementById("worker-portal-root")!).render(

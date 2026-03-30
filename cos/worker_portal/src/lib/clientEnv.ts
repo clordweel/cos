@@ -87,3 +87,21 @@ export function applyBrowserDarkClassFromOsIfNotShell(): void {
 	apply()
 	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", apply)
 }
+
+/** 壳首跳 `__cos_company`（Frappe Company.name），与原生 CosCompanyContext 一致。 */
+export function cosShellCompanyFromUrl(): string | null {
+	if (!isCosFlutterShell()) return null
+	const params = new URLSearchParams(window.location.search)
+	const c = (params.get("__cos_company") || "").trim()
+	return c.length > 0 ? c : null
+}
+
+/** 写入 `data-cos-company` 与 `window.__COS_WORK_APP_COMPANY__`，供业务页筛选。 */
+export function applyCosShellCompanyFromUrl(): void {
+	if (typeof document === "undefined") return
+	const name = cosShellCompanyFromUrl()
+	if (!name) return
+	document.documentElement.setAttribute("data-cos-company", name)
+	;(window as unknown as { __COS_WORK_APP_COMPANY__?: string }).__COS_WORK_APP_COMPANY__ =
+		name
+}
