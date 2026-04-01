@@ -130,7 +130,10 @@ doctype_js = {
     # 物料需求单：提交后 Update Items 变更明细
     "Material Request": "public/js/doctype/material_request.js",
 }
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {
+    # 采购订单列表：按子表明细物料名称模糊筛选
+    "Purchase Order": "public/js/doctype/purchase_order_list.js",
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
