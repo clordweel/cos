@@ -15,54 +15,70 @@ function build_po_item_name_filter(value) {
 
 frappe.listview_settings["Purchase Order"] = {
 	onload: function (listview) {
-		// 不可使用 page.add_field：有值的字段会进入 get_standard_filters 并作为主表字段发给服务端，
-		// cos_po_item_name_search 并非 Purchase Order 字段，会触发「查询过滤条件字段无效」。
-		listview.page.show_form();
+		frappe.model.with_doctype(PO_ITEM_DOCTYPE, function () {
+			// 不可使用 page.add_field：有值的字段会进入 get_standard_filters 并作为主表字段发给服务端。
+			// 不可依赖 filter_area.add(子表条件)：FilterGroup.push_new_filter 对子表行在部分环境下无法稳定加入，
+			// 表现为列表请求不带子表筛选、界面「无反应」。改为覆写 get_filters_for_args，与 reportview 使用同一套 filters。
+			listview.page.show_form();
 
-		const apply_item_name_filter = function () {
-			const raw = item_name_ctrl ? item_name_ctrl.get_value() : "";
-			const next_filter = build_po_item_name_filter(raw);
-
-			listview.filter_area.remove(PO_ITEM_NAME_FIELD).then(() => {
-				if (next_filter) {
-					listview.filter_area.add(next_filter);
-				} else {
-					listview.refresh();
-				}
+			const item_name_ctrl = frappe.ui.form.make_control({
+				df: {
+					fieldname: "cos_po_item_name_search",
+					fieldtype: "Data",
+					label: __("明细物料名称"),
+					placeholder: __("模糊匹配子表物料名称"),
+				},
+				parent: listview.page.page_form,
+				only_input: true,
 			});
-		};
+			item_name_ctrl.refresh();
+			if (!item_name_ctrl.$input) {
+				item_name_ctrl.make_input();
+			}
+			$(item_name_ctrl.wrapper)
+				.addClass("col-md-2")
+				.attr("title", __("按采购订单明细行物料名称模糊筛选"))
+				.tooltip({ delay: { show: 600, hide: 100 }, trigger: "hover" });
 
-		const debounced_apply = frappe.utils.debounce(apply_item_name_filter, 400);
+			const orig_get_filters = listview.get_filters_for_args.bind(listview);
+			listview.get_filters_for_args = function () {
+				const filters = orig_get_filters();
+				const extra = build_po_item_name_filter(item_name_ctrl.get_value());
+				if (!extra) {
+					return filters;
+				}
+				const exists = filters.some(
+					(f) =>
+						f.length >= 4 &&
+						f[0] === PO_ITEM_DOCTYPE &&
+						f[1] === PO_ITEM_NAME_FIELD &&
+						f[2] === extra[2] &&
+						f[3] === extra[3]
+				);
+				if (exists) {
+					return filters;
+				}
+				return filters.concat([extra]);
+			};
 
-		const item_name_ctrl = frappe.ui.form.make_control({
-			df: {
-				fieldname: "cos_po_item_name_search",
-				fieldtype: "Data",
-				label: __("明细物料名称"),
-				placeholder: __("模糊匹配子表物料名称"),
-			},
-			parent: listview.page.page_form,
-			only_input: true,
-		});
-		item_name_ctrl.refresh();
-		if (!item_name_ctrl.$input) {
-			item_name_ctrl.make_input();
-		}
-		$(item_name_ctrl.wrapper)
-			.addClass("col-md-2")
-			.attr("title", __("按采购订单明细行物料名称模糊筛选，不写入主表字段"))
-			.tooltip({ delay: { show: 600, hide: 100 }, trigger: "hover" });
+			const refresh_filtered = function () {
+				listview.start = 0;
+				listview.refresh();
+			};
 
-		if (item_name_ctrl.$input) {
-			item_name_ctrl.$input.on("input", debounced_apply);
-			item_name_ctrl.$input.on("keydown", function (e) {
-				if (e.key === "Enter") {
-					e.preventDefault();
-					if (!debounced_apply.flush()) {
-						apply_item_name_filter();
+			const debounced_refresh = frappe.utils.debounce(refresh_filtered, 400);
+
+			if (item_name_ctrl.$input) {
+				item_name_ctrl.$input.on("input", debounced_refresh);
+				item_name_ctrl.$input.on("keydown", function (e) {
+					if (e.key === "Enter") {
+						e.preventDefault();
+						if (!debounced_refresh.flush()) {
+							refresh_filtered();
+						}
 					}
-				}
-			});
-		}
+				});
+			}
+		});
 	},
 };
