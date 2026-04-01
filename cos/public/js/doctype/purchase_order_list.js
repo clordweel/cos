@@ -13,6 +13,21 @@ function build_po_item_name_filter(value) {
 	return [PO_ITEM_DOCTYPE, PO_ITEM_NAME_FIELD, "like", "%" + v + "%"];
 }
 
+/** 置于页面标题栏「列表/报表等」视图切换下拉按钮左侧；无视图切换器时回退到筛选行最前 */
+function place_item_name_filter_by_view_switcher(listview, $wrapper) {
+	$wrapper.removeClass("col-md-2").addClass("align-items-end cos-po-item-name-in-head");
+	const $vm = listview.views_menu;
+	const $anchor =
+		$vm && $vm.length
+			? $vm.parent()
+			: listview.page.custom_actions && listview.page.custom_actions.find(".btn-group").first();
+	if ($anchor && $anchor.length) {
+		$wrapper.css({ "margin-right": "0.5rem", "flex-shrink": "0" }).insertBefore($anchor);
+	} else {
+		$wrapper.addClass("col-md-2").prependTo(listview.page.page_form);
+	}
+}
+
 frappe.listview_settings["Purchase Order"] = {
 	onload: function (listview) {
 		frappe.model.with_doctype(PO_ITEM_DOCTYPE, function () {
@@ -39,8 +54,16 @@ frappe.listview_settings["Purchase Order"] = {
 				.addClass("col-md-2")
 				.attr("title", __("按采购订单明细行物料名称模糊筛选"))
 				.tooltip({ delay: { show: 600, hide: 100 }, trigger: "hover" });
-			// 置于列表工具栏表单最前（默认 append 会在 ID/标准筛选之后）
-			$(item_name_ctrl.wrapper).prependTo(listview.page.page_form);
+
+			// onload 早于 setup_view_menu，views_menu 尚未创建；init 完成后再移到视图下拉左侧
+			const place = function () {
+				place_item_name_filter_by_view_switcher(listview, $(item_name_ctrl.wrapper));
+			};
+			if (listview.init_promise && listview.init_promise.then) {
+				listview.init_promise.then(place);
+			} else {
+				setTimeout(place, 0);
+			}
 
 			const orig_get_filters = listview.get_filters_for_args.bind(listview);
 			listview.get_filters_for_args = function () {
