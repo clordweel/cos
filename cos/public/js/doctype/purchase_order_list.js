@@ -39,6 +39,8 @@ frappe.listview_settings["Purchase Order"] = {
 				.addClass("col-md-2")
 				.attr("title", __("按采购订单明细行物料名称模糊筛选"))
 				.tooltip({ delay: { show: 600, hide: 100 }, trigger: "hover" });
+			// 置于列表工具栏表单最前（默认 append 会在 ID/标准筛选之后）
+			$(item_name_ctrl.wrapper).prependTo(listview.page.page_form);
 
 			const orig_get_filters = listview.get_filters_for_args.bind(listview);
 			listview.get_filters_for_args = function () {
