@@ -119,9 +119,19 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 			}
 
 			listview._cos_po_item_name_ctrl = item_name_ctrl;
+			listview._cos_po_item_name_shortcut_focused = false;
+			listview._cos_po_filter_apply_in_progress = false;
 
 			listview._cos_sync_shortcut_from_filters = function () {
 				if (listview._cos_po_filter_sync_in_progress) {
+					return;
+				}
+				// 用户正在编辑快捷框时，不以过滤条件覆盖输入（避免删字后被旧条件写回）
+				if (listview._cos_po_item_name_shortcut_focused) {
+					return;
+				}
+				// 快捷框正在应用 remove/add/refresh 时，过滤列表可能尚未更新，同步会误把旧关键字写回
+				if (listview._cos_po_filter_apply_in_progress) {
 					return;
 				}
 				const fa = listview.filter_area;
@@ -145,6 +155,10 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 				}
 			};
 
+			const finish_po_item_apply = function () {
+				listview._cos_po_filter_apply_in_progress = false;
+			};
+
 			const apply_po_item_name_filter = function () {
 				if (listview._cos_po_filter_sync_in_progress) {
 					return;
@@ -155,19 +169,24 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 					return;
 				}
 				listview.start = 0;
-				ensure_po_filter_popover_wrapper(listview).then(() => {
-					const after_remove = fa.remove(PO_ITEM_NAME_FIELD);
-					const p =
-						after_remove && typeof after_remove.then === "function"
-							? after_remove
-							: Promise.resolve();
-					return p.then(() => {
-						if (next) {
-							return fa.add(next[0], next[1], next[2], next[3]);
-						}
-						return listview.refresh();
-					});
-				});
+				listview._cos_po_filter_apply_in_progress = true;
+				ensure_po_filter_popover_wrapper(listview)
+					.then(() => {
+						const after_remove = fa.remove(PO_ITEM_NAME_FIELD);
+						const p =
+							after_remove && typeof after_remove.then === "function"
+								? after_remove
+								: Promise.resolve();
+						return p.then(() => {
+							if (next) {
+								const added = fa.add(next[0], next[1], next[2], next[3]);
+								return added && typeof added.then === "function" ? added : Promise.resolve();
+							}
+							return listview.refresh();
+						});
+					})
+					.then(finish_po_item_apply)
+					.catch(finish_po_item_apply);
 			};
 
 			const fl = listview.filter_list;
@@ -185,6 +204,18 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 
 			if (item_name_ctrl.$input) {
 				const $input = item_name_ctrl.$input;
+				$input.on("focus", function () {
+					listview._cos_po_item_name_shortcut_focused = true;
+				});
+				$input.on("blur", function () {
+					listview._cos_po_item_name_shortcut_focused = false;
+					if (po_item_name_ime_composing) {
+						return;
+					}
+					if (!debounced_apply.flush()) {
+						apply_po_item_name_filter();
+					}
+				});
 				$input.on("compositionstart", function () {
 					po_item_name_ime_composing = true;
 				});
