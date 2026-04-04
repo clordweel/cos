@@ -180,15 +180,34 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 			}
 
 			const debounced_apply = frappe.utils.debounce(apply_po_item_name_filter, 400);
+			/** 中文等 IME 组字过程中会触发 input，需等 compositionend 再筛选 */
+			let po_item_name_ime_composing = false;
 
 			if (item_name_ctrl.$input) {
-				item_name_ctrl.$input.on("input", debounced_apply);
-				item_name_ctrl.$input.on("keydown", function (e) {
-					if (e.key === "Enter") {
-						e.preventDefault();
-						if (!debounced_apply.flush()) {
-							apply_po_item_name_filter();
-						}
+				const $input = item_name_ctrl.$input;
+				$input.on("compositionstart", function () {
+					po_item_name_ime_composing = true;
+				});
+				$input.on("compositionend", function () {
+					po_item_name_ime_composing = false;
+					debounced_apply();
+				});
+				$input.on("input", function () {
+					if (po_item_name_ime_composing) {
+						return;
+					}
+					debounced_apply();
+				});
+				$input.on("keydown", function (e) {
+					if (e.key !== "Enter") {
+						return;
+					}
+					if (po_item_name_ime_composing) {
+						return;
+					}
+					e.preventDefault();
+					if (!debounced_apply.flush()) {
+						apply_po_item_name_filter();
 					}
 				});
 			}
