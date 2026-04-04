@@ -1,7 +1,7 @@
 // Copyright (c) 2026, COS and contributors
 // For license information, please see license.txt
 
-/** 采购订单明细（子表）物料名称：仅含关键字（LIKE %…%）筛选 */
+/** 采购订单明细（子表）物料名称：仅含关键字（LIKE %…%）筛选，快捷方式等价于在「过滤条件」中新增一行 */
 const PO_ITEM_DOCTYPE = "Purchase Order Item";
 const PO_ITEM_NAME_FIELD = "item_name";
 
@@ -17,19 +17,75 @@ function build_po_item_name_filter(value) {
 	return [PO_ITEM_DOCTYPE, PO_ITEM_NAME_FIELD, "like", like_val];
 }
 
+/** 从过滤条件中解析子表 item_name 的 like/not like 值，去掉首尾 % 供快捷框展示 */
+function parse_po_item_name_display_from_filters(filters) {
+	if (!filters || !filters.length) {
+		return "";
+	}
+	for (const f of filters) {
+		if (
+			f.length >= 4 &&
+			f[0] === PO_ITEM_DOCTYPE &&
+			f[1] === PO_ITEM_NAME_FIELD &&
+			(f[2] === "like" || f[2] === "not like") &&
+			typeof f[3] === "string"
+		) {
+			return f[3].replace(/^%+|%+$/g, "");
+		}
+	}
+	return "";
+}
+
+/**
+ * FilterGroup 在带「过滤条件」按钮时，this.wrapper 仅在首次打开 popover 后才指向 .filter-popover。
+ * 在此之前调用 add_filter 会导致 Filter 的 parent 为空，行不会出现在右侧过滤面板中。
+ */
+function ensure_po_filter_popover_wrapper(listview) {
+	if (listview._cos_po_filter_popover_ready) {
+		return Promise.resolve();
+	}
+	const fl = listview.filter_list;
+	if (!fl || !fl.filter_button) {
+		listview._cos_po_filter_popover_ready = true;
+		return Promise.resolve();
+	}
+	if (fl.wrapper) {
+		listview._cos_po_filter_popover_ready = true;
+		return Promise.resolve();
+	}
+	return new Promise((resolve) => {
+		const done = () => {
+			listview._cos_po_filter_popover_ready = true;
+			resolve();
+		};
+		fl.filter_button.one("shown.bs.popover", () => {
+			fl.filter_button.popover("hide");
+			done();
+		});
+		fl.filter_button.popover("show");
+	});
+}
+
 // 必须合并 ERPNext 自带配置：整对象赋值会丢掉 get_indicator / add_fields，
 // 状态列会退化成仅显示「已提交」，橙色「待入库与开票」等徽章不再出现。
 const _po_list_existing = frappe.listview_settings["Purchase Order"] || {};
 const _po_list_erpnext_onload = _po_list_existing.onload;
+const _po_list_erpnext_refresh = _po_list_existing.refresh;
 
 frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing, {
+	refresh: function (listview) {
+		if (typeof _po_list_erpnext_refresh === "function") {
+			_po_list_erpnext_refresh(listview);
+		}
+		if (listview._cos_sync_shortcut_from_filters) {
+			listview._cos_sync_shortcut_from_filters();
+		}
+	},
 	onload: function (listview) {
 		if (typeof _po_list_erpnext_onload === "function") {
 			_po_list_erpnext_onload(listview);
 		}
 		frappe.model.with_doctype(PO_ITEM_DOCTYPE, function () {
-			// 不可 page.add_field：伪字段会进入 get_standard_filters。
-			// 子表条件通过 filter_area 维护，与「过滤条件」弹层、URL 解析共用同一套 filters。
 			listview.page.show_form();
 
 			const $section = listview.page.page_form.find(".standard-filter-section");
@@ -53,7 +109,7 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 
 			$(item_name_ctrl.wrapper)
 				.addClass("col-md-2")
-				.attr("title", __("按采购订单明细行物料名称模糊筛选"));
+				.attr("title", __("快捷：等同于在「过滤条件」中添加「物料名称(采购订单明细)」含关键字；两侧会同步"));
 
 			const name_field = listview.page.fields_dict && listview.page.fields_dict.name;
 			if (name_field && name_field.$wrapper && name_field.$wrapper.length) {
@@ -62,22 +118,66 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 				$(item_name_ctrl.wrapper).prependTo($section);
 			}
 
+			listview._cos_po_item_name_ctrl = item_name_ctrl;
+
+			listview._cos_sync_shortcut_from_filters = function () {
+				if (listview._cos_po_filter_sync_in_progress) {
+					return;
+				}
+				const fa = listview.filter_area;
+				const ctrl = listview._cos_po_item_name_ctrl;
+				if (!fa || !fa.filter_list || !ctrl) {
+					return;
+				}
+				const filters = fa.filter_list.get_filters();
+				const display = parse_po_item_name_display_from_filters(filters);
+				const cur = (ctrl.get_value() || "").trim();
+				if (cur === display.trim()) {
+					return;
+				}
+				listview._cos_po_filter_sync_in_progress = true;
+				try {
+					ctrl.set_value(display);
+				} finally {
+					setTimeout(() => {
+						listview._cos_po_filter_sync_in_progress = false;
+					}, 50);
+				}
+			};
+
 			const apply_po_item_name_filter = function () {
+				if (listview._cos_po_filter_sync_in_progress) {
+					return;
+				}
 				const next = build_po_item_name_filter(item_name_ctrl.get_value());
 				const fa = listview.filter_area;
 				if (!fa || !fa.remove) {
 					return;
 				}
 				listview.start = 0;
-				const after_remove = fa.remove(PO_ITEM_NAME_FIELD);
-				const p = after_remove && typeof after_remove.then === "function" ? after_remove : Promise.resolve();
-				p.then(() => {
-					if (next) {
-						return fa.add(next);
-					}
-					return listview.refresh();
+				ensure_po_filter_popover_wrapper(listview).then(() => {
+					const after_remove = fa.remove(PO_ITEM_NAME_FIELD);
+					const p =
+						after_remove && typeof after_remove.then === "function"
+							? after_remove
+							: Promise.resolve();
+					return p.then(() => {
+						if (next) {
+							return fa.add(next[0], next[1], next[2], next[3]);
+						}
+						return listview.refresh();
+					});
 				});
 			};
+
+			const fl = listview.filter_list;
+			if (fl && typeof fl.on_change === "function") {
+				const orig_fl_on_change = fl.on_change;
+				fl.on_change = function () {
+					orig_fl_on_change.call(this);
+					listview._cos_sync_shortcut_from_filters();
+				};
+			}
 
 			const debounced_apply = frappe.utils.debounce(apply_po_item_name_filter, 400);
 
@@ -92,6 +192,8 @@ frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing
 					}
 				});
 			}
+
+			setTimeout(() => listview._cos_sync_shortcut_from_filters(), 0);
 		});
 	},
 });
