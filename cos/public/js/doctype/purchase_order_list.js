@@ -17,11 +17,19 @@ function build_po_item_name_filter(value) {
 	return [PO_ITEM_DOCTYPE, PO_ITEM_NAME_FIELD, "like", like_val];
 }
 
-frappe.listview_settings["Purchase Order"] = {
+// 必须合并 ERPNext 自带配置：整对象赋值会丢掉 get_indicator / add_fields，
+// 状态列会退化成仅显示「已提交」，橙色「待入库与开票」等徽章不再出现。
+const _po_list_existing = frappe.listview_settings["Purchase Order"] || {};
+const _po_list_erpnext_onload = _po_list_existing.onload;
+
+frappe.listview_settings["Purchase Order"] = Object.assign({}, _po_list_existing, {
 	onload: function (listview) {
+		if (typeof _po_list_erpnext_onload === "function") {
+			_po_list_erpnext_onload(listview);
+		}
 		frappe.model.with_doctype(PO_ITEM_DOCTYPE, function () {
 			// 不可 page.add_field：伪字段会进入 get_standard_filters。
-			// 子表条件在 get_filters_for_args 中追加（与 reportview 一致）。
+			// 子表条件通过 filter_area 维护，与「过滤条件」弹层、URL 解析共用同一套 filters。
 			listview.page.show_form();
 
 			const $section = listview.page.page_form.find(".standard-filter-section");
@@ -54,44 +62,36 @@ frappe.listview_settings["Purchase Order"] = {
 				$(item_name_ctrl.wrapper).prependTo($section);
 			}
 
-			const orig_get_filters = listview.get_filters_for_args.bind(listview);
-			listview.get_filters_for_args = function () {
-				const filters = orig_get_filters();
-				const extra = build_po_item_name_filter(item_name_ctrl.get_value());
-				if (!extra) {
-					return filters;
+			const apply_po_item_name_filter = function () {
+				const next = build_po_item_name_filter(item_name_ctrl.get_value());
+				const fa = listview.filter_area;
+				if (!fa || !fa.remove) {
+					return;
 				}
-				const exists = filters.some(
-					(f) =>
-						f.length >= 4 &&
-						f[0] === PO_ITEM_DOCTYPE &&
-						f[1] === PO_ITEM_NAME_FIELD &&
-						f[2] === extra[2] &&
-						f[3] === extra[3]
-				);
-				if (exists) {
-					return filters;
-				}
-				return filters.concat([extra]);
+				listview.start = 0;
+				const after_remove = fa.remove(PO_ITEM_NAME_FIELD);
+				const p = after_remove && typeof after_remove.then === "function" ? after_remove : Promise.resolve();
+				p.then(() => {
+					if (next) {
+						return fa.add(next);
+					}
+					return listview.refresh();
+				});
 			};
 
-			const debounced_refresh = frappe.utils.debounce(function () {
-				listview.start = 0;
-				listview.refresh();
-			}, 400);
+			const debounced_apply = frappe.utils.debounce(apply_po_item_name_filter, 400);
 
 			if (item_name_ctrl.$input) {
-				item_name_ctrl.$input.on("input", debounced_refresh);
+				item_name_ctrl.$input.on("input", debounced_apply);
 				item_name_ctrl.$input.on("keydown", function (e) {
 					if (e.key === "Enter") {
 						e.preventDefault();
-						if (!debounced_refresh.flush()) {
-							listview.start = 0;
-							listview.refresh();
+						if (!debounced_apply.flush()) {
+							apply_po_item_name_filter();
 						}
 					}
 				});
 			}
 		});
 	},
-};
+});
