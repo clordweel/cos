@@ -8,6 +8,12 @@ body {
     font-family: "HarmonyOS Sans SC", "HarmonyOSHans-Regular", "HarmonyOSHans-fallback", "PingFangSC-Regular", "Microsoft YaHei", "Arial", "Helvetica", sans-serif !important;
 }
 
+/* V16：侧栏顶部应用菜单项多时，固定定位的 .frappe-menu 会超出视口底部，注销在 Help 下方被裁切 */
+.frappe-menu.context-menu {
+    max-height: min(70vh, calc(100vh - 24px));
+    overflow-y: auto;
+}
+
 /* V16 Patching */
 [role="listbox"] [role="option"] .small {
     font-size: var(--text-tiny);
