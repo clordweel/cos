@@ -37,44 +37,12 @@ function patch_erpnext_buying_prevent_past_schedule_dates() {
     }
 }
 
-// 向 .body-sidebar append 公司徽章会与 v16 侧栏/Vue 结构干扰，排查用户菜单期间可关闭
-const COS_INJECT_SIDEBAR_COMPANY_BADGES = false;
-
-// 获取当前会话公司的缩写并设置到body的data-company属性
+// 仅将会话公司缩写写到 body[data-company]（供主题/样式等使用）；已弃用侧栏底部公司徽章 DOM 注入。
 const get_company_abbreviation = () => {
     const company = frappe.defaults.get_default('company');
-
-    // 获取当前会话公司的缩写并设置到body的data-company属性
     frappe.db.get_value('Company', company, 'abbr').then((r) => {
         if (r?.message?.abbr) {
-            const { abbr } = r.message;
-            $('body').attr('data-company', abbr);
-
-            if (!COS_INJECT_SIDEBAR_COMPANY_BADGES) {
-                return;
-            }
-
-            // 注入公司标签
-            // 全称标签（展开时显示）
-            const companyBadge = $('<a>')
-                .attr('id', 'company-abbreviation-badge')
-                .attr('onclick', `return frappe.ui.toolbar.setup_session_defaults()`)
-                .attr('class', 'custom-company-badge')
-                .text(`${company} (${abbr})`);
-            // 缩写标签（折叠时显示）
-            const abbrBadge = $('<a>')
-                .attr('id', 'abbr-company-abbreviation-badge')
-                .attr('onclick', `return frappe.ui.toolbar.setup_session_defaults()`)
-                .attr('class', 'custom-company-badge abbr')
-                .text(`${abbr}`);
-
-            // 如果已存在则先移除
-            $('#company-abbreviation-badge').remove();
-            $('#abbr-company-abbreviation-badge').remove();
-            $('.body-sidebar').append(companyBadge);
-            $('.body-sidebar').append(abbrBadge);
-        } else {
-            console.log("Company abbreviation not found.");
+            $('body').attr('data-company', r.message.abbr);
         }
     });
 };

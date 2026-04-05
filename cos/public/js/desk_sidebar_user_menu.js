@@ -9,6 +9,11 @@ cos.desk_sidebar_user_menu.setup = function () {
 	if (!$btn.length || $btn.data("cos-user-menu")) {
 		return;
 	}
+	// 官方模板在容器上使用 .dropdown，无 .dropdown-menu 时可能被 Bootstrap 弹出空层；与 frappe create_menu 二选一
+	const $wrap = $btn.closest(".dropdown-navbar-user");
+	if ($wrap.length) {
+		$wrap.removeClass("dropdown dropdown-mobile");
+	}
 	$btn.removeAttr("onclick");
 	$btn.data("cos-user-menu", 1);
 	frappe.ui.create_menu({
