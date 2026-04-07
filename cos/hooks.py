@@ -259,6 +259,10 @@ doc_events = {
         "before_save": "cos.cos_buying.purchase_order_ecommerce.on_purchase_order_before_save",
         "validate": "cos.cos_accounts.utils.employee_advance_payable_transfer.validate_purchase_order_advance_employee",
     },
+    # 采购入库：title 字面量 {supplier_name} 未解析时的临时修补（上游 #54051 合并后可删）
+    "Purchase Receipt": {
+        "validate": "cos.cos_stock.purchase_receipt_title_placeholder.fix_title_if_unresolved_placeholder",
+    },
     # 虚拟占位物料（custom_is_virtual_item）仅允许草稿，提交前必须转换为真实物料
     # 提交后变更明细时校验 qty >= ordered_qty，变更完成后更新 indented_qty
     "Material Request": {
