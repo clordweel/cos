@@ -1,0 +1,111 @@
+/* ============================================
+   物料需求 - B2B 平台报价清单
+   扁平表格式：便于 OCR / 平台表格识别与批量询价
+   ============================================ */
+
+.print-format-wrapper.mr-b2b-platform {
+	font-family: "Microsoft YaHei", "SimHei", "PingFang SC", sans-serif;
+	color: #000;
+	font-size: 11px;
+}
+
+.print-format-wrapper.mr-b2b-platform .doc-title {
+	font-size: 15px;
+	font-weight: 700;
+	text-align: center;
+	margin: 8px 0 12px;
+	letter-spacing: 0.5px;
+}
+
+.print-format-wrapper.mr-b2b-platform .doc-subtitle {
+	font-size: 10px;
+	text-align: center;
+	color: #333;
+	margin: -6px 0 10px;
+}
+
+.print-format-wrapper.mr-b2b-platform .info-table {
+	margin-bottom: 12px;
+	border: 1px solid #000;
+}
+
+.print-format-wrapper.mr-b2b-platform .info-table .info-cell {
+	padding: 5px 6px;
+	vertical-align: top;
+	border: 1px solid #000;
+}
+
+.print-format-wrapper.mr-b2b-platform .info-label {
+	display: inline-block;
+	min-width: 72px;
+	margin-right: 4px;
+	font-weight: 700;
+}
+
+.print-format-wrapper.mr-b2b-platform .items-table {
+	margin-bottom: 12px;
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #000;
+}
+
+.print-format-wrapper.mr-b2b-platform .items-table th,
+.print-format-wrapper.mr-b2b-platform .items-table td {
+	border: 1px solid #000;
+	padding: 4px 5px;
+	vertical-align: top;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.print-format-wrapper.mr-b2b-platform .items-table thead th {
+	background-color: #e8e8e8;
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+	font-weight: 700;
+	text-align: center;
+	font-size: 10px;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-mono {
+	font-family: Consolas, "Courier New", monospace;
+	font-size: 10px;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-num {
+	text-align: right;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-center {
+	text-align: center;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-spec {
+	line-height: 1.35;
+}
+
+.print-format-wrapper.mr-b2b-platform .spec-mpn {
+	font-weight: 600;
+	font-size: 10px;
+	color: #000;
+}
+
+.print-format-wrapper.mr-b2b-platform .spec-secondary {
+	font-size: 10px;
+	color: #333;
+	margin-top: 2px;
+}
+
+.print-format-wrapper.mr-b2b-platform .remarks-box {
+	border: 1px solid #000;
+	padding: 8px;
+	min-height: 48px;
+	font-size: 10px;
+}
+
+.print-format-wrapper.mr-b2b-platform .remarks-label {
+	font-weight: 700;
+	margin-bottom: 4px;
+}
