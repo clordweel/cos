@@ -82,17 +82,23 @@
 	text-align: center;
 }
 
-.print-format-wrapper.mr-b2b-platform .cell-spec {
+.print-format-wrapper.mr-b2b-platform .cell-item-name {
 	line-height: 1.35;
+	text-align: left;
 }
 
-.print-format-wrapper.mr-b2b-platform .spec-mpn {
+.print-format-wrapper.mr-b2b-platform .cell-item-name .name-code {
 	font-weight: 600;
+	margin-bottom: 2px;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-item-name .name-title {
 	font-size: 10px;
 	color: #000;
+	margin-bottom: 2px;
 }
 
-.print-format-wrapper.mr-b2b-platform .spec-secondary {
+.print-format-wrapper.mr-b2b-platform .cell-item-name .name-desc {
 	font-size: 10px;
 	color: #333;
 	margin-top: 2px;

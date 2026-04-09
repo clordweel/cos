@@ -15,14 +15,14 @@
 	"Customer Provided": "客户提供"
 } %}
 
-{# 行排序：优先按厂家订货号，其次规格型号（行描述），再物料编码；同键按子表序号稳定排序 #}
+{# 行排序：订货号 → 规格型号 → 物料编码 → 子表序号 #}
 {% set rows = namespace(lines=[]) %}
 {% for item in doc.items %}
 {% set mpn = (frappe.db.get_value("Item", item.item_code, "custom_manufacturer_part_number") or "") if item.item_code else "" %}
 {% set desc_raw = (item.description or "") | striptags %}
 {% set spec_only = (desc_raw if desc_raw and desc_raw != (item.item_name or "") else "") %}
-{% set sort_key = ((mpn or spec_only or item.item_code or "") | lower) ~ "|" ~ (item.idx|string).zfill(5) %}
-{% set _ = rows.lines.append({"item": item, "mpn": mpn, "spec_only": spec_only, "sort_key": sort_key}) %}
+{% set sort_key = ((mpn or "") | lower) ~ "|" ~ ((spec_only or "") | lower) ~ "|" ~ ((item.item_code or "") | lower) ~ "|" ~ (item.idx|string).zfill(5) %}
+{% set _ = rows.lines.append({"item": item, "mpn": mpn, "spec_only": spec_only, "desc_raw": desc_raw, "sort_key": sort_key}) %}
 {% endfor %}
 {% set sorted_rows = rows.lines|sort(attribute='sort_key') %}
 
@@ -71,14 +71,13 @@
 			<thead>
 				<tr>
 					<th style="width: 4%;">序号</th>
-					<th style="width: 12%;">物料编码</th>
-					<th style="width: 16%;">物料名称</th>
-					<th style="width: 22%;">订货号 / 规格型号</th>
+					<th style="width: 26%;">物料名称</th>
+					<th style="width: 12%;">订货号</th>
+					<th style="width: 18%;">规格型号</th>
 					<th style="width: 8%;">品牌</th>
 					<th style="width: 6%;">单位</th>
 					<th style="width: 7%;">数量</th>
 					<th style="width: 9%;">需求日期</th>
-					<th style="width: 16%;">行备注</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,25 +85,25 @@
 				{% set item = row.item %}
 				{% set mpn = row.mpn %}
 				{% set spec_only = row.spec_only %}
+				{% set desc_raw = row.desc_raw %}
+				{# 规格型号列：与行描述完全一致且已写在物料名称第三行时不再重复 #}
+				{% set spec_in_name = desc_raw and desc_raw != (item.item_name or "") %}
+				{% set spec_col = ("" if (spec_only and spec_in_name and spec_only == desc_raw) else (spec_only or "")) %}
 				<tr>
 					<td class="cell-center">{{ loop.index }}</td>
-					<td class="cell-mono">{{ item.item_code or "" }}</td>
-					<td>{{ item.item_name or "" }}</td>
-					<td class="cell-spec">
-						{%- if mpn -%}
-						<div class="spec-mpn">{{ mpn }}</div>
-						{%- endif -%}
-						{%- if spec_only -%}
-						<div class="{% if mpn %}spec-secondary{% else %}spec-mpn{% endif %}">{{ spec_only }}</div>
-						{%- elif not mpn -%}
-						&nbsp;
+					<td class="cell-item-name">
+						<div class="cell-mono name-code">{{ item.item_code or "" }}</div>
+						<div class="name-title">{{ item.item_name or "" }}</div>
+						{%- if desc_raw and desc_raw != (item.item_name or "") -%}
+						<div class="name-desc">{{ desc_raw }}</div>
 						{%- endif -%}
 					</td>
+					<td class="cell-mono">{{ mpn or "" }}</td>
+					<td>{{ spec_col or "" }}</td>
 					<td>{{ (frappe.db.get_value("Item", item.item_code, "brand") or "") if item.item_code else "" }}</td>
 					<td class="cell-center">{{ item.uom or item.stock_uom or "" }}</td>
 					<td class="cell-num">{{ item.qty }}</td>
 					<td class="cell-center">{% if item.schedule_date %}{{ frappe.utils.format_date(item.schedule_date) }}{% endif %}</td>
-					<td>{% if item.custom_supplier_provides_drawing %}供应商提供图纸{% endif %}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
