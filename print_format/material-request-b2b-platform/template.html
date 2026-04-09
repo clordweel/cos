@@ -15,14 +15,15 @@
 	"Customer Provided": "客户提供"
 } %}
 
+{# 规格型号：Item.custom_specification（非行 description） #}
 {# 行排序：订货号 → 规格型号 → 物料编码 → 子表序号 #}
 {% set rows = namespace(lines=[]) %}
 {% for item in doc.items %}
 {% set mpn = (frappe.db.get_value("Item", item.item_code, "custom_manufacturer_part_number") or "") if item.item_code else "" %}
+{% set item_spec = ((frappe.db.get_value("Item", item.item_code, "custom_specification") or "") if item.item_code else "") | striptags %}
 {% set desc_raw = (item.description or "") | striptags %}
-{% set spec_only = (desc_raw if desc_raw and desc_raw != (item.item_name or "") else "") %}
-{% set sort_key = ((mpn or "") | lower) ~ "|" ~ ((spec_only or "") | lower) ~ "|" ~ ((item.item_code or "") | lower) ~ "|" ~ (item.idx|string).zfill(5) %}
-{% set _ = rows.lines.append({"item": item, "mpn": mpn, "spec_only": spec_only, "desc_raw": desc_raw, "sort_key": sort_key}) %}
+{% set sort_key = ((mpn or "") | lower) ~ "|" ~ ((item_spec or "") | lower) ~ "|" ~ ((item.item_code or "") | lower) ~ "|" ~ (item.idx|string).zfill(5) %}
+{% set _ = rows.lines.append({"item": item, "mpn": mpn, "item_spec": item_spec, "desc_raw": desc_raw, "sort_key": sort_key}) %}
 {% endfor %}
 {% set sorted_rows = rows.lines|sort(attribute='sort_key') %}
 
@@ -84,7 +85,7 @@
 				{%- for row in sorted_rows -%}
 				{% set item = row.item %}
 				{% set mpn = row.mpn %}
-				{% set spec_only = row.spec_only %}
+				{% set item_spec = row.item_spec %}
 				{% set desc_raw = row.desc_raw %}
 				<tr>
 					<td class="cell-center">{{ loop.index }}</td>
@@ -96,7 +97,7 @@
 						{%- endif -%}
 					</td>
 					<td class="cell-mono">{{ mpn or "" }}</td>
-					<td>{{ spec_only or "" }}</td>
+					<td>{{ item_spec or "" }}</td>
 					<td>{{ (frappe.db.get_value("Item", item.item_code, "brand") or "") if item.item_code else "" }}</td>
 					<td class="cell-center">{{ item.uom or item.stock_uom or "" }}</td>
 					<td class="cell-num">{{ item.qty }}</td>
