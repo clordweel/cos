@@ -18,6 +18,7 @@ cos.patches.v1_2.add_belt_conveyor_core_item_templates
 cos.patches.v1_2.update_belt_conveyor_item_templates
 cos.patches.v1_2.fill_item_base_name_abbreviations
 cos.patches.v1_2.fill_item_base_name_abbreviations_retrofill
+cos.patches.v1_2.sync_item_base_name_mcb_wks
 cos.patches.v1_2.add_item_base_name_cutting_fluid
 cos.patches.v1_2.backfill_employee_reimbursed
 cos.patches.v1_2.rebackfill_employee_reimbursed
