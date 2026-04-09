@@ -86,9 +86,6 @@
 				{% set mpn = row.mpn %}
 				{% set spec_only = row.spec_only %}
 				{% set desc_raw = row.desc_raw %}
-				{# 规格型号列：与行描述完全一致且已写在物料名称第三行时不再重复 #}
-				{% set spec_in_name = desc_raw and desc_raw != (item.item_name or "") %}
-				{% set spec_col = ("" if (spec_only and spec_in_name and spec_only == desc_raw) else (spec_only or "")) %}
 				<tr>
 					<td class="cell-center">{{ loop.index }}</td>
 					<td class="cell-item-name">
@@ -99,7 +96,7 @@
 						{%- endif -%}
 					</td>
 					<td class="cell-mono">{{ mpn or "" }}</td>
-					<td>{{ spec_col or "" }}</td>
+					<td>{{ spec_only or "" }}</td>
 					<td>{{ (frappe.db.get_value("Item", item.item_code, "brand") or "") if item.item_code else "" }}</td>
 					<td class="cell-center">{{ item.uom or item.stock_uom or "" }}</td>
 					<td class="cell-num">{{ item.qty }}</td>
