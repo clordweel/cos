@@ -72,6 +72,21 @@
 	font-size: 10px;
 }
 
+/* 订货号 / 规格型号：字号与行高一致（订货号等宽字体，规格为中文无衬线） */
+.print-format-wrapper.mr-b2b-platform .cell-mpn,
+.print-format-wrapper.mr-b2b-platform .cell-spec {
+	font-size: 10px;
+	line-height: 1.35;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-mpn {
+	font-family: Consolas, "Courier New", monospace;
+}
+
+.print-format-wrapper.mr-b2b-platform .cell-spec {
+	font-family: "Microsoft YaHei", "SimHei", "PingFang SC", sans-serif;
+}
+
 .print-format-wrapper.mr-b2b-platform .cell-num {
 	text-align: right;
 	white-space: nowrap;

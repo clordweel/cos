@@ -72,13 +72,12 @@
 			<thead>
 				<tr>
 					<th style="width: 4%;">序号</th>
-					<th style="width: 26%;">物料名称</th>
-					<th style="width: 12%;">订货号</th>
-					<th style="width: 18%;">规格型号</th>
-					<th style="width: 8%;">品牌</th>
-					<th style="width: 6%;">单位</th>
-					<th style="width: 7%;">数量</th>
-					<th style="width: 9%;">需求日期</th>
+					<th style="width: 37%;">物料名称</th>
+					<th style="width: 13%;">订货号</th>
+					<th style="width: 22%;">规格型号</th>
+					<th style="width: 9%;">品牌</th>
+					<th style="width: 7%;">单位</th>
+					<th style="width: 8%;">数量</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -96,12 +95,11 @@
 						<div class="name-desc">{{ desc_raw }}</div>
 						{%- endif -%}
 					</td>
-					<td class="cell-mono">{{ mpn or "" }}</td>
-					<td>{{ item_spec or "" }}</td>
+					<td class="cell-mpn">{{ mpn or "" }}</td>
+					<td class="cell-spec">{{ item_spec or "" }}</td>
 					<td>{{ (frappe.db.get_value("Item", item.item_code, "brand") or "") if item.item_code else "" }}</td>
 					<td class="cell-center">{{ item.uom or item.stock_uom or "" }}</td>
 					<td class="cell-num">{{ item.qty }}</td>
-					<td class="cell-center">{% if item.schedule_date %}{{ frappe.utils.format_date(item.schedule_date) }}{% endif %}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
