@@ -61,7 +61,7 @@
    "fieldname": "comm_password",
    "fieldtype": "Password",
    "label": "\u901a\u8baf\u5bc6\u7801 (ZK passint)",
-   "description": "\u5b58\u6574\u6570\u5bc6\u7801\u5b57\u7b26\u4e32\uff0c\u4f8b\u5982 309668\uff1b\u7a7a\u5219\u6309 0"
+   "description": "\u5b58\u6574\u6570\u5bc6\u7801\u5b57\u7b26\u4e32\uff1b\u7a7a\u5219\u6309 0"
   },
   {
    "fieldname": "section_remark",
