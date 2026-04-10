@@ -109,8 +109,10 @@ frappe.ui.form.on("Biometric Device", {
 						fieldtype: "Int",
 						fieldname: "limit",
 						label: __("最多条数"),
-						default: 200,
-						description: __("最大 2000"),
+						default: 2000,
+						description: __(
+							"填 0 表示不限制（返回过滤后全部）。大于 0 时只取设备缓存中最近若干条；数据量大可能较慢。"
+						),
 					},
 					{
 						fieldtype: "Check",
@@ -128,7 +130,10 @@ frappe.ui.form.on("Biometric Device", {
 						args: {
 							device_name: frm.doc.name,
 							min_year: values.min_year || 2010,
-							limit: values.limit || 200,
+							limit:
+								values.limit === undefined || values.limit === null
+									? 2000
+									: values.limit,
 							only_valid: values.only_valid ? 1 : 0,
 						},
 						freeze: true,

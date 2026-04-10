@@ -113,8 +113,17 @@ def list_attendance_from_device(
 	limit: int = 200,
 	only_valid: bool = True,
 ) -> list[dict[str, Any]]:
-	"""only_valid=False 时返回设备缓存内全部记录（含占位/异常时间），仍受 limit 截断。"""
-	lim = max(1, min(int(limit or 200), 2000))
+	"""从设备读取考勤缓存。
+
+	:param limit: 返回条数上限。**0** 表示不截断（过滤后全部返回，受设备缓存大小与请求超时影响）。
+		大于 0 时，在设备返回的有序列表上**只保留末尾最近 limit 条**（多数设备时间为升序，即最新一段）。
+	:param only_valid: True 时经 :func:`filter_attendance_records` 过滤（年份、异常时间、无用户键等）。
+	"""
+	def _tail(seq: list, lim: int) -> list:
+		if lim <= 0 or len(seq) <= lim:
+			return seq
+		return seq[-lim:]
+
 	zk_inst, conn = zk_connect(ip_address, port, password)
 	try:
 		raw = list(conn.get_attendance())
@@ -124,12 +133,17 @@ def list_attendance_from_device(
 	try:
 		if only_valid:
 			filtered = filter_attendance_records(raw, min_year)
-			if len(filtered) > lim:
-				filtered = filtered[-lim:]
+			# limit>0 时最多保留最近 lim 条；limit==0 为全量
+			lim = int(limit)
+			if lim > 0:
+				lim = min(lim, 100000)
+			filtered = _tail(filtered, lim)
 			return [serialize_attendance_row(r) for r in filtered]
 		rows = [serialize_attendance_row(r) for r in raw]
-		if len(rows) > lim:
-			rows = rows[-lim:]
+		lim = int(limit)
+		if lim > 0:
+			lim = min(lim, 100000)
+		rows = _tail(rows, lim)
 		return rows
 	finally:
 		zk_disconnect(conn)

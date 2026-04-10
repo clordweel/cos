@@ -105,7 +105,8 @@ def biometric_fetch_attendance(
 	from cos.cos_biometric.utils.biometric_zk import list_attendance_from_device
 
 	my = int(min_year or 2010)
-	lim = int(limit or 200)
+	# limit 显式传 0 表示不截断；未传参时默认 200（与 GUI 一致）
+	lim = 200 if limit is None else int(limit)
 	ov = 1 if only_valid is None else int(only_valid)
 	try:
 		rows = list_attendance_from_device(
