@@ -164,7 +164,7 @@ def biometric_push_attendance_to_hrms(device_name: str, min_year: int | None = N
 
 	from cos.cos_biometric.utils.biometric_zk import zk_connect, zk_disconnect
 
-	_, conn = zk_connect(doc.ip_address, int(doc.port or 4370), _comm_password_int(doc))
+	zk_inst, conn = zk_connect(doc.ip_address, int(doc.port or 4370), _comm_password_int(doc))
 	try:
 		rows = list(conn.get_attendance())
 	finally:

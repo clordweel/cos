@@ -84,7 +84,7 @@ def filter_attendance_records(records: list, min_year: int) -> list:
 
 
 def list_users_from_device(ip_address: str, port: int, password: int) -> list[dict[str, Any]]:
-	_, conn = zk_connect(ip_address, port, password)
+	zk_inst, conn = zk_connect(ip_address, port, password)
 	try:
 		users = conn.get_users()
 	except Exception as e:
@@ -107,7 +107,7 @@ def list_attendance_from_device(
 ) -> list[dict[str, Any]]:
 	"""only_valid=False 时返回设备缓存内全部记录（含占位/异常时间），仍受 limit 截断。"""
 	lim = max(1, min(int(limit or 200), 2000))
-	_, conn = zk_connect(ip_address, port, password)
+	zk_inst, conn = zk_connect(ip_address, port, password)
 	try:
 		raw = list(conn.get_attendance())
 	except Exception as e:
@@ -129,7 +129,7 @@ def list_attendance_from_device(
 
 def probe_device(ip_address: str, port: int, password: int) -> dict[str, Any]:
 	"""\u8fde\u63a5\u5e76\u8bfb\u53d6\u7528\u6237\u6570\u4e0e\u7f13\u5b58\u6761\u6570\u3002"""
-	_, conn = zk_connect(ip_address, port, password)
+	zk_inst, conn = zk_connect(ip_address, port, password)
 	try:
 		users = conn.get_users()
 		att = list(conn.get_attendance())
@@ -139,7 +139,7 @@ def probe_device(ip_address: str, port: int, password: int) -> dict[str, Any]:
 
 
 def device_restart(ip_address: str, port: int, password: int) -> None:
-	_, conn = zk_connect(ip_address, port, password)
+	zk_inst, conn = zk_connect(ip_address, port, password)
 	try:
 		conn.restart()
 	finally:
@@ -147,7 +147,7 @@ def device_restart(ip_address: str, port: int, password: int) -> None:
 
 
 def device_poweroff(ip_address: str, port: int, password: int) -> None:
-	_, conn = zk_connect(ip_address, port, password)
+	zk_inst, conn = zk_connect(ip_address, port, password)
 	try:
 		conn.poweroff()
 	finally:
