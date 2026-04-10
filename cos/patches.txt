@@ -42,4 +42,7 @@ cos.patches.v1_2.resync_supplier_quotation_external_no_price_print
 cos.patches.v1_2.resync_supplier_quotation_external_no_price_price_blank
 cos.patches.v1_2.resync_supplier_quotation_external_no_price_chrome_pdf
 cos.patches.v1_2.set_biometric_doctype_module_cos_biometric
+cos.patches.v1_2.create_biometric_manager_role
+cos.patches.v1_2.ensure_biometric_sync_settings_default
+cos.patches.v1_2.ensure_cos_workspace_biometric_links
 # Patches added in this section will be executed after doctypes are migrated
