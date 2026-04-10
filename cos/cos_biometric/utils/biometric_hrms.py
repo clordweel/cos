@@ -29,6 +29,26 @@ def fmt_ts(dt: datetime) -> str:
 	return dt.strftime("%Y-%m-%d %H:%M:%S.%f")
 
 
+def _log_type_from_zk_punch(r) -> str | None:
+	"""从 pyzk Attendance.punch 推导 HRMS Employee Checkin.log_type。
+
+	常见 ZK 固件：0=上班签到(IN)、1=下班签退(OUT)；2/3 多为外出/返回等，此处不传 log_type。
+	若与现场设备相反，可后续在「考勤同步设置」增加反向开关。
+	"""
+	p = getattr(r, "punch", None)
+	if p is None:
+		return None
+	try:
+		v = int(p)
+	except Exception:
+		return None
+	if v == 0:
+		return "IN"
+	if v == 1:
+		return "OUT"
+	return None
+
+
 def push_attendance_rows(
 	rows: list,
 	*,
@@ -37,7 +57,10 @@ def push_attendance_rows(
 	min_year: int = 2010,
 	log_type: str | None = None,
 ) -> tuple[int, int, list[str]]:
-	"""\u8fd4\u56de (success_count, fail_count, errors)\u3002"""
+	"""返回 (success_count, fail_count, errors)。
+
+	:param log_type: 若指定，则**每条**记录都使用该类型；若为 None，则按行尝试用 ZK ``punch`` 推导 IN/OUT，推导不出则不传（由 HRMS 处理）。
+	"""
 	try:
 		from hrms.hr.doctype.employee_checkin.employee_checkin import add_log_based_on_employee_field
 	except Exception:
@@ -65,8 +88,9 @@ def push_attendance_rows(
 			"device_id": device_code,
 			"employee_fieldname": employee_fieldname or "attendance_device_id",
 		}
-		if log_type:
-			kwargs["log_type"] = log_type
+		lt = log_type if log_type else _log_type_from_zk_punch(r)
+		if lt:
+			kwargs["log_type"] = lt
 		try:
 			add_log_based_on_employee_field(**kwargs)
 			ok += 1
