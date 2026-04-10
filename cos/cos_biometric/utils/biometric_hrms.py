@@ -32,8 +32,9 @@ def fmt_ts(dt: datetime) -> str:
 def _log_type_from_zk_punch(r) -> str | None:
 	"""从 pyzk Attendance.punch 推导 HRMS Employee Checkin.log_type。
 
-	常见 ZK 固件：0=上班签到(IN)、1=下班签退(OUT)；2/3 多为外出/返回等，此处不传 log_type。
-	若与现场设备相反，可后续在「考勤同步设置」增加反向开关。
+	常见 ZK：0=签到 IN、1=签退 OUT；2/3 常表示外出/返回（与 pyzk 社区约定一致），映射为 OUT/IN。
+	仍无法识别时返回 None，由调用方设置 skip_auto_attendance（见 push_attendance_rows），避免 HRMS
+	「班次严格按 Log Type」时在无 log_type 下整批插入失败。
 	"""
 	p = getattr(r, "punch", None)
 	if p is None:
@@ -46,6 +47,10 @@ def _log_type_from_zk_punch(r) -> str | None:
 		return "IN"
 	if v == 1:
 		return "OUT"
+	if v == 2:
+		return "OUT"
+	if v == 3:
+		return "IN"
 	return None
 
 
@@ -59,7 +64,8 @@ def push_attendance_rows(
 ) -> tuple[int, int, list[str]]:
 	"""返回 (success_count, fail_count, errors)。
 
-	:param log_type: 若指定，则**每条**记录都使用该类型；若为 None，则按行尝试用 ZK ``punch`` 推导 IN/OUT，推导不出则不传（由 HRMS 处理）。
+	:param log_type: 若指定，则**每条**记录都使用该类型；若为 None，则按行用 ZK ``punch`` 推导；
+		推导不出时传 ``skip_auto_attendance=1``，以便在班次「严格按 Log Type」时仍能插入（否则多数记录会失败）。
 	"""
 	try:
 		from hrms.hr.doctype.employee_checkin.employee_checkin import add_log_based_on_employee_field
@@ -91,6 +97,9 @@ def push_attendance_rows(
 		lt = log_type if log_type else _log_type_from_zk_punch(r)
 		if lt:
 			kwargs["log_type"] = lt
+		elif not log_type:
+			# HRMS：班次为「Strictly based on Log Type」且 log_type 为空时会拒绝插入；未知 punch 时跳过该校验
+			kwargs["skip_auto_attendance"] = 1
 		try:
 			add_log_based_on_employee_field(**kwargs)
 			ok += 1
