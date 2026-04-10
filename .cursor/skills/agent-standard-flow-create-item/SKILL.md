@@ -47,6 +47,9 @@ description: 从粗略用户描述创建物料的端到端标准流程：解析�
 | 墙面五孔插座 | 标准模板 - 墙面插座（五孔） |
 | 导轨电源（订货号为主，如西门子 SITOP） | 标准模板 - 导轨电源（订货号驱动） |
 | 导轨电源（明纬类可拆系列型号） | 标准模板 - 导轨式开关电源 |
+| 导轨/螺钉式接线端子、PT 类 | 标准模板 - 接线端子 或 标准模板 - 固定式接线端子（择更贴切者） |
+| 分线端子 | 标准模板 - 分线端子 |
+| 冷压端子 | 标准模板 - 冷压端子 |
 | 钢板 | 标准模板 - 钢板 |
 | 压带轮 | 标准模板 - 压带轮 |
 | 槽型托辊组 | 标准模板 - 槽型托辊组 |
@@ -54,12 +57,16 @@ description: 从粗略用户描述创建物料的端到端标准流程：解析�
 - **匹配到**：进入阶段 4
 - **未匹配**：进入阶段 3
 
+**禁止**：在系统中**已存在**与品类对应的「标准模板 - …」时（尤其端子、指示灯、按钮等），仍选用「标准模板 - 非标」。选型前可对 `Item Parameter Template` 按名称关键字检索。
+
 ## 阶段 3：创建新参数模板（仅当阶段 2 未匹配）
 
 1. **参考模板**：读取「标准模板 - 参考」（dev）或最相近的现有模板
 2. **定义参数**：基础名（Doctype→Item Base Name）、尺寸参数（Integer/Float）、表面处理（Doctype→Item Surface）、材质（Doctype→Item Material）、执行标准（Doctype→Executive Standard）等。**Format 参数**：`value_format` 与 `parameter_default_value` 必须同时填充。
 3. **创建**：`create_document` 创建 `Item Parameter Template`，子表 `parameters` 为 `Item Parameter Template Definition`
 4. **复核理由**：输出为何需要新模板、参考了哪个模板、参数设计依据
+
+**非标兜底**：仅当物料确属无法归入任何现有标准细分类时，才使用「标准模板 - 非标」；能归类的应新建专用标准模板而非长期用非标。
 
 **参数定义参考**：`docs/Doctypes/Item_Parameter_Template_Definition.prompt.md`
 
