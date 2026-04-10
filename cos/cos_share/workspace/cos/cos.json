@@ -1,7 +1,7 @@
 {
  "app": "cos",
  "charts": [],
- "content": "[{\"id\":\"xoB2QhpSYm\",\"type\":\"card\",\"data\":{\"card_name\":\"Extended Item Tools\",\"col\":4}},{\"id\":\"yK7nQm2pRt\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5408\u601d\u534f\u4ea7 App\",\"col\":4}}]",
+ "content": "[{\"id\":\"xoB2QhpSYm\",\"type\":\"card\",\"data\":{\"card_name\":\"Extended Item Tools\",\"col\":4}},{\"id\":\"yK7nQm2pRt\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5408\u601d\u534f\u4ea7 App\",\"col\":4}},{\"id\":\"a8wK3mNpQx\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\u540c\u6b65\",\"col\":4}}]",
  "creation": "2026-01-02 13:16:32.015884",
  "custom_blocks": [],
  "docstatus": 0,
@@ -89,6 +89,45 @@
    "label": "\u7528\u6237\u81ea\u9009\u5c0f\u7a0b\u5e8f",
    "link_count": 0,
    "link_to": "COS Work User Mini Program",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u540c\u6b65",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u673a",
+   "link_count": 0,
+   "link_to": "Biometric Device",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u540c\u6b65\u8bbe\u7f6e",
+   "link_count": 0,
+   "link_to": "Biometric Sync Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u673a\u64cd\u4f5c\u65e5\u5fd7",
+   "link_count": 0,
+   "link_to": "Biometric Device Action Log",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
