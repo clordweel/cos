@@ -4,3 +4,4 @@ COS Stock
 COS Buying
 COS Accounts
 COS Logto
+COS Biometric

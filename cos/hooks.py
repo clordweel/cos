@@ -119,6 +119,7 @@ update_website_context = [
 
 # include js in doctype views
 doctype_js = {
+    "Biometric Device": "public/js/doctype/biometric_device.js",
     "Item Group": "public/js/doctype/item_group.js",
     "Item": "public/js/doctype/item.js",
     "Company": "public/js/doctype/company.js",
@@ -406,15 +407,15 @@ auth_hooks = [
 fixtures = [
     {
         "dt": "Report",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts", "COS Buying"]]],
+        "filters": [["module", "in", ["COS Share", "COS Biometric", "COS Stock", "COS Accounts", "COS Buying"]]],
     },
     {
         "dt": "Client Script",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+        "filters": [["module", "in", ["COS Share", "COS Biometric", "COS Stock", "COS Accounts"]]],
     },
     {
         "dt": "Server Script",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts"]]],
+        "filters": [["module", "in", ["COS Share", "COS Biometric", "COS Stock", "COS Accounts"]]],
     },
     {"dt": "Source Type", "filters": [["module", "in", ["COS Share", "COS Buying"]]]},
     {"dt": "Logistics Company", "filters": [["module", "=", "COS Buying"]]},
@@ -428,7 +429,7 @@ fixtures = [
     },
     {
         "dt": "Print Format",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Accounts", "COS Buying"]]],
+        "filters": [["module", "in", ["COS Share", "COS Biometric", "COS Stock", "COS Accounts", "COS Buying"]]],
     },
     {"dt": "Print Style", "filters": [["name", "in", ["COS 通用打印样式"]]]},
     {
@@ -484,7 +485,7 @@ fixtures = [
     },
     {
         "dt": "Custom Field",
-        "filters": [["module", "in", ["COS Share", "COS Stock", "COS Buying", "COS Accounts"]]],
+        "filters": [["module", "in", ["COS Share", "COS Biometric", "COS Stock", "COS Buying", "COS Accounts"]]],
     },
     {
         "dt": "Role",

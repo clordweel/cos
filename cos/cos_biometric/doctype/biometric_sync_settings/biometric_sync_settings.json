@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_import": 0,
+ "creation": "2026-04-09 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "systemd_service_name",
+  "section_hrms",
+  "hrms_employee_fieldname",
+  "section_note",
+  "note"
+ ],
+ "fields": [
+  {
+   "default": "cos-biometric-sync.service",
+   "fieldname": "systemd_service_name",
+   "fieldtype": "Data",
+   "label": "systemd \u5355\u5143\u540d",
+   "description": "\u4ec5\u5141\u8bb8\u5b57\u6bcd\u6570\u5b57\u3001\u70b9\u3001\u8fde\u5b57\u7b26\u3001@\uff1b\u4e0e sudoers \u767d\u540d\u5359\u4e00\u81f4",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_hrms",
+   "fieldtype": "Section Break",
+   "label": "HRMS \u7b7e\u5230\u5199\u5165"
+  },
+  {
+   "default": "attendance_device_id",
+   "fieldname": "hrms_employee_fieldname",
+   "fieldtype": "Data",
+   "label": "Employee \u5339\u914d\u5b57\u6bb5\u540d",
+   "description": "add_log_based_on_employee_field \u7684 employee_fieldname"
+  },
+  {
+   "fieldname": "section_note",
+   "fieldtype": "Section Break",
+   "label": "\u8bf4\u660e"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "\u5907\u6ce8",
+   "read_only": 1,
+   "default": "\u540c\u673a\u8c03\u7528 HRMS Python API\uff0c\u65e0\u9700\u5728\u6b64\u586b API Key\u3002bench \u9700\u5b89\u88c5 pyzk\u3002"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-04-09 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Biometric",
+ "name": "Biometric Sync Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "read": 1,
+   "role": "Biometric Manager",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

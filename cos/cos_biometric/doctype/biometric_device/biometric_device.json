@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:device_name",
+ "creation": "2026-04-09 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "device_name",
+  "device_code",
+  "enabled",
+  "column_break_1",
+  "ip_address",
+  "port",
+  "comm_password",
+  "section_remark",
+  "remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "device_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u8bbe\u5907\u540d\u79f0",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "device_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u8bbe\u5907\u7f16\u7801",
+   "description": "\u5199\u5165 HRMS Employee Checkin.device_id \u53ca\u5339\u914d\u7528\u6237\u7f16\u53f7",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "\u542f\u7528"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ip_address",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "IP \u5730\u5740",
+   "reqd": 1
+  },
+  {
+   "default": "4370",
+   "fieldname": "port",
+   "fieldtype": "Int",
+   "label": "\u7aef\u53e3"
+  },
+  {
+   "fieldname": "comm_password",
+   "fieldtype": "Password",
+   "label": "\u901a\u8baf\u5bc6\u7801 (ZK passint)",
+   "description": "\u5b58\u6574\u6570\u5bc6\u7801\u5b57\u7b26\u4e32\uff0c\u4f8b\u5982 309668\uff1b\u7a7a\u5219\u6309 0"
+  },
+  {
+   "fieldname": "section_remark",
+   "fieldtype": "Section Break",
+   "label": "\u5907\u6ce8"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "\u5907\u6ce8"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-04-09 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "COS Biometric",
+ "name": "Biometric Device",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 0,
+   "read": 1,
+   "report": 1,
+   "role": "Biometric Manager",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

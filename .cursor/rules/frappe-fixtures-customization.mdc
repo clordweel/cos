@@ -20,6 +20,7 @@ alwaysApply: false
 | COS Stock | 库存 | 物料、库存、Item 相关 |
 | COS Accounts | 财务 | 会计、发票、税务、收入相关 |
 | COS Logto | 认证 | Logto 集成相关 |
+| COS Biometric | 考勤机 / HRMS 签到同步 | 与 COS Share 等业务隔离；考勤机 DocType、pyzk 工具函数 |
 
 新增业务领域可创建新模块（在 `modules.txt` 与 `hooks.py` fixtures 中注册）。
 
