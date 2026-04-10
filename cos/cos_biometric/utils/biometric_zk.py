@@ -10,6 +10,7 @@ from typing import Any
 
 import frappe
 from frappe import _
+from frappe.utils import add_days, now_datetime
 
 
 def _get_pyzk():
@@ -63,13 +64,20 @@ def serialize_attendance_row(r) -> dict[str, Any]:
 
 
 def filter_attendance_records(records: list, min_year: int) -> list:
-	"""\u4e0e ai_cos_ops sync_once \u903b\u8f91\u4e00\u81f4\uff1a\u5e74\u4efd\u8fc7\u4f4e\u6216\u65e0\u6709\u6548\u7528\u6237\u952e\u7684\u8bb0\u5f55\u53ef\u6392\u9664\u5c55\u793a\u3002"""
+	"""\u4e0e ai_cos_ops sync_once \u903b\u8f91\u4e00\u81f4\uff1a\u5e74\u4efd\u8fc7\u4f4e\u6216\u65e0\u6709\u6548\u7528\u6237\u952e\u7684\u8bb0\u5f55\u53ef\u6392\u9664\u5c55\u793a\u3002
+
+	ZK \u8bbe\u5907\u7f13\u5b58\u4e2d\u5e38\u6709\u5360\u4f4d/\u635f\u574f\u6761\u76ee\uff08\u7a7a user_id\u3001\u5f02\u5e38 uid\u3001\u672a\u6765\u5e74\u4efd\u5982 2044\u3001\u975e\u6cd5 punch\uff09\uff0c\u4e0d\u5e94\u8fdb\u5165 HRMS\u3002
+	"""
 	out = []
+	now = now_datetime()
+	max_ts = add_days(now, 366)
 	for r in records:
 		ts = getattr(r, "timestamp", None)
 		if not isinstance(ts, datetime):
 			continue
 		if ts.year < int(min_year or 2010):
+			continue
+		if ts > max_ts:
 			continue
 		raw_user = getattr(r, "user_id", None)
 		internal_uid = getattr(r, "uid", None)
