@@ -46,4 +46,6 @@ cos.patches.v1_2.create_biometric_manager_role
 cos.patches.v1_2.ensure_biometric_sync_settings_default
 cos.patches.v1_2.ensure_cos_workspace_biometric_links
 cos.patches.v1_2.ensure_cos_workspace_biometric_workspace2_content
+cos.patches.v1_2.ensure_item_model_series_and_spec_label
+cos.patches.v1_2.split_item_model_series_to_series_and_model
 # Patches added in this section will be executed after doctypes are migrated
