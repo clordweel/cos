@@ -32,8 +32,8 @@
 	
 
 	<div class="print-format-body">
-		{# hooks.jinja.methods 在部分打印上下文中未注入，改用 get_attr 调用同一实现 #}
-		{%- set seal_src = frappe.get_attr('cos.cos_share.utils.contract_print.company_contract_seal_image_src')(doc.company) if doc.company else '' -%}
+		{# 打印 Jinja 未注入 hooks 方法；部分环境无 frappe.get_attr，用 get_module 取函数 #}
+		{%- set seal_src = frappe.get_module('cos.cos_share.utils.contract_print').company_contract_seal_image_src(doc.company) if doc.company else '' -%}
 		{%- set show_company_seal = seal_src and not doc.custom_hide_contract_seal -%}
 		<!-- 合同编号 -->
 <div class="contract-number" style="text-align: right;">
