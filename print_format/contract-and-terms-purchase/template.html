@@ -572,11 +572,16 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td {% if show_company_seal %}class="signature-td-with-seal"{% endif %}>
                 <div class="signature-info">
                     <span class="signature-label font-weight-bold">企业税号：</span>
                     <span class="signature-value">{{ doc.custom_first_party_tax_id or '' }}</span>
                 </div>
+                {% if show_company_seal %}
+                <div class="company-seal-wrap" aria-hidden="true">
+                    <img src="{{ seal_src }}" class="company-contract-seal" alt="" />
+                </div>
+                {% endif %}
             </td>
             <td>
                 <div class="signature-info">
@@ -585,14 +590,6 @@
                 </div>
             </td>
         </tr>
-        {% if show_company_seal %}
-        <tr class="contract-seal-row">
-            <td class="text-center contract-seal-cell" style="vertical-align: middle;">
-                <img src="{{ seal_src }}" class="company-contract-seal" alt="" />
-            </td>
-            <td class="contract-seal-cell"></td>
-        </tr>
-        {% endif %}
     </tbody>
 </table>
 	</div>

@@ -51,4 +51,5 @@ cos.patches.v1_2.split_item_model_series_to_series_and_model
 cos.patches.v1_2.po_item_ecommerce_fields_in_list_view_off
 cos.patches.v1_2.resync_contract_po_so_print_format
 cos.patches.v1_2.resync_contract_po_so_print_format_data_uri
+cos.patches.v1_2.resync_contract_po_so_print_format_seal_layout
 # Patches added in this section will be executed after doctypes are migrated
