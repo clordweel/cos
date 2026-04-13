@@ -13,6 +13,17 @@
 	{%- endif -%}
 {%- endmacro -%}
 
+{# 签订代表通讯地址 Link(Address) → 详细展示；非 Address 单号时按旧数据原样输出 #}
+{%- macro signer_address_display(addr_link) -%}
+{%- if addr_link -%}
+{%- if frappe.db.exists('Address', addr_link) -%}
+{{- frappe.db.get_value("Address", addr_link, "custom_address_display") or '' -}}
+{%- else -%}
+{{- addr_link -}}
+{%- endif -%}
+{%- endif -%}
+{%- endmacro -%}
+
 {% for page in layout %}
 <div class="page-break print-format-wrapper order-wrapper">
 	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
@@ -147,31 +158,7 @@
 {%- endmacro -%}
 
 {%- macro communication_table() -%}
-{# 甲方通讯地址：Link(Address)；旧数据可能为纯文本，exists 失败时原样显示 #}
-{%- set first_party_address = '' -%}
-{%- if doc.custom_first_party_signer_address -%}
-{%- if frappe.db.exists('Address', doc.custom_first_party_signer_address) -%}
-{%- set first_party_address = frappe.db.get_value("Address", doc.custom_first_party_signer_address, "custom_address_display") or '' -%}
-{%- else -%}
-{%- set first_party_address = doc.custom_first_party_signer_address -%}
-{%- endif -%}
-{%- elif doc.billing_address_display -%}
-{%- set first_party_address = doc.billing_address_display or '' -%}
-{%- endif -%}
-
-{# 乙方通讯地址：Link(Address)；同上 #}
-{%- set second_party_address = '' -%}
-{%- if doc.custom_second_party_signer_address -%}
-{%- if frappe.db.exists('Address', doc.custom_second_party_signer_address) -%}
-{%- set second_party_address = frappe.db.get_value("Address", doc.custom_second_party_signer_address, "custom_address_display") or '' -%}
-{%- else -%}
-{%- set second_party_address = doc.custom_second_party_signer_address -%}
-{%- endif -%}
-{%- endif -%}
-{%- if not second_party_address -%}
-{%- set second_party_address = doc.address_display or '' -%}
-{%- endif -%}
-
+{# 通讯地址：优先签订代表 Link(Address)；无则回退订单抬头地址 #}
 <table class="item-table table table-bordered">
     <tbody>
         <tr>
@@ -184,14 +171,22 @@
         <tr>
             <td data-row="2">甲方</td>
             <td data-row="2">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</td>
-            <td data-row="2" style="white-space: normal; word-wrap: break-word;">{{ first_party_address }}</td>
+            <td data-row="2" style="white-space: normal; word-wrap: break-word;">{%- if doc.custom_first_party_signer_address -%}
+{{- signer_address_display(doc.custom_first_party_signer_address) -}}
+{%- elif doc.billing_address_display -%}
+{{- doc.billing_address_display -}}
+{%- endif -%}</td>
             <td data-row="2">{{ doc.custom_first_party_signer_phone or '' }}</td>
             <td data-row="2">{{ doc.custom_first_party_signer_email or '' }}</td>
         </tr>
         <tr>
             <td data-row="3">乙方</td>
             <td data-row="3">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</td>
-            <td data-row="3" style="white-space: normal; word-wrap: break-word;">{{ second_party_address }}</td>
+            <td data-row="3" style="white-space: normal; word-wrap: break-word;">{%- if doc.custom_second_party_signer_address -%}
+{{- signer_address_display(doc.custom_second_party_signer_address) -}}
+{%- elif doc.address_display -%}
+{{- doc.address_display -}}
+{%- endif -%}</td>
             <td data-row="3">{{ doc.custom_second_party_signer_phone or '' }}</td>
             <td data-row="3">{{ doc.custom_second_party_signer_email or '' }}</td>
         </tr>
@@ -513,13 +508,13 @@
             <td>
                 <div class="signature-info">
                     <span class="signature-label font-weight-bold">单位地址：</span>
-                    <span class="signature-value">{{ doc.billing_address_display or '' }}</span>
+                    <span class="signature-value">{{ signer_address_display(doc.custom_first_party_signer_address) }}</span>
                 </div>
             </td>
             <td>
                 <div class="signature-info">
                     <span class="signature-label font-weight-bold">单位地址：</span>
-                    <span class="signature-value">{{ doc.address_display or '' }}</span>
+                    <span class="signature-value">{{ signer_address_display(doc.custom_second_party_signer_address) }}</span>
                 </div>
             </td>
         </tr>
