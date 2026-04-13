@@ -169,10 +169,11 @@ doctype_list_js = {
 # ----------
 
 # add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "cos.utils.jinja_methods",
-# 	"filters": "cos.utils.jinja_filters"
-# }
+jinja = {
+	"methods": [
+		"cos.cos_share.utils.contract_print.company_contract_seal_image_src",
+	],
+}
 
 # Installation
 # ------------
