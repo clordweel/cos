@@ -268,7 +268,7 @@ u {
     width: auto;
     height: auto;
     object-fit: contain;
-    /* 叠印：略降不透明度 + 正片叠底，减轻遮挡税号等文字（个别 PDF 引擎若混合异常可只保留 opacity） */
-    opacity: 0.65;
+    /* 叠印：不透明度 + 正片叠底，减轻遮挡税号等文字（个别 PDF 引擎若混合异常可只保留 opacity） */
+    opacity: 0.8;
     mix-blend-mode: multiply;
 }
