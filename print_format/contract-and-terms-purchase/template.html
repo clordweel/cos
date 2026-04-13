@@ -21,6 +21,8 @@
 	
 
 	<div class="print-format-body">
+		{%- set seal_path = frappe.db.get_value("Company", doc.company, "custom_contract_seal_image") if doc.company else None -%}
+		{%- set show_company_seal = seal_path and not doc.custom_hide_contract_seal -%}
 		<!-- 合同编号 -->
 <div class="contract-number" style="text-align: right;">
     <strong>合同编号：</strong>{{ doc.custom_contract_no or doc.name }}
@@ -583,6 +585,14 @@
                 </div>
             </td>
         </tr>
+        {% if show_company_seal %}
+        <tr class="contract-seal-row">
+            <td class="text-center contract-seal-cell" style="vertical-align: middle;">
+                <img src="{{ frappe.utils.get_url(seal_path) }}" class="company-contract-seal" alt="" />
+            </td>
+            <td class="contract-seal-cell"></td>
+        </tr>
+        {% endif %}
     </tbody>
 </table>
 	</div>

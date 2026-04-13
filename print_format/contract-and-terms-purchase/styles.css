@@ -236,3 +236,20 @@ u {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
+
+/* 公司合同专用章（来自 Company.custom_contract_seal_image） */
+.contract-seal-row td {
+    vertical-align: middle;
+    height: 112px;
+    text-align: center;
+}
+
+.company-contract-seal {
+    display: inline-block;
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.95;
+}

@@ -20,6 +20,7 @@ def sync_all(site: str | None = None) -> list[dict]:
 		("cos.scripts.sync_sale_order_print_format", "sync"),
 		("cos.scripts.sync_pick_list_print_format", "sync"),
 		("cos.scripts.sync_material_request_print_format", "sync"),
+		("cos.scripts.sync_contract_po_so_print_formats", "sync"),
 	]
 	results = []
 	import frappe
