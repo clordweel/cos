@@ -147,18 +147,26 @@
 {%- endmacro -%}
 
 {%- macro communication_table() -%}
-{# 获取甲方通讯地址：从联系人的address关联单据下的custom_address_display字段读取 #}
+{# 甲方通讯地址：Link(Address)；旧数据可能为纯文本，exists 失败时原样显示 #}
 {%- set first_party_address = '' -%}
 {%- if doc.custom_first_party_signer_address -%}
+{%- if frappe.db.exists('Address', doc.custom_first_party_signer_address) -%}
 {%- set first_party_address = frappe.db.get_value("Address", doc.custom_first_party_signer_address, "custom_address_display") or '' -%}
+{%- else -%}
+{%- set first_party_address = doc.custom_first_party_signer_address -%}
+{%- endif -%}
 {%- elif doc.address_display -%}
 {%- set first_party_address = doc.address_display or '' -%}
 {%- endif -%}
 
-{# 获取乙方通讯地址：从公司地址的custom_address_display字段读取 #}
+{# 乙方通讯地址：Link(Address)；同上 #}
 {%- set second_party_address = '' -%}
 {%- if doc.custom_second_party_signer_address -%}
+{%- if frappe.db.exists('Address', doc.custom_second_party_signer_address) -%}
 {%- set second_party_address = frappe.db.get_value("Address", doc.custom_second_party_signer_address, "custom_address_display") or '' -%}
+{%- else -%}
+{%- set second_party_address = doc.custom_second_party_signer_address -%}
+{%- endif -%}
 {%- endif -%}
 {%- if not second_party_address -%}
 {%- set second_party_address = doc.company_address_display or '' -%}

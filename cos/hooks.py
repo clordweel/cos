@@ -261,7 +261,13 @@ doc_events = {
     },
     "Purchase Order": {
         "before_save": "cos.cos_buying.purchase_order_ecommerce.on_purchase_order_before_save",
-        "validate": "cos.cos_accounts.utils.employee_advance_payable_transfer.validate_purchase_order_advance_employee",
+        "validate": [
+            "cos.cos_share.utils.contract_signer_address.sync_contract_signer_addresses",
+            "cos.cos_accounts.utils.employee_advance_payable_transfer.validate_purchase_order_advance_employee",
+        ],
+    },
+    "Sales Order": {
+        "validate": "cos.cos_share.utils.contract_signer_address.sync_contract_signer_addresses",
     },
     # 采购入库：title 字面量 {supplier_name} 未解析时的临时修补（上游 #54051 合并后可删）
     "Purchase Receipt": {
