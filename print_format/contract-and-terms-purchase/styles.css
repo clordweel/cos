@@ -210,21 +210,27 @@ u {
 
 /* 响应式调整 */
 @media print {
-    /* 移除 .contract-content 的 page-break-inside: avoid; 
-       允许合同内容在页面中自然分页，避免第一页空白 */
-    
-    .section-title {
+    /* 覆盖 standard.css 中 .print-format-wrapper { page-break-inside: avoid }，
+       否则整份合同被当成不可拆块，首屏易被整块推到下一页出现大片空白。 */
+    .print-format-wrapper.order-wrapper,
+    .print-format-body {
+        page-break-inside: auto !important;
+    }
+
+    .contract-content .section-title {
         page-break-after: avoid;
     }
-    
-    .section-subtitle {
-        page-break-after: avoid;
+
+    /* 小节标题后紧跟表格：避免与整表 avoid 叠加，导致表格单独起一页 */
+    .contract-content .section-subtitle {
+        page-break-after: auto;
     }
-    
+
+    .contract-content .item-table,
     .item-table {
-        page-break-inside: avoid;
+        page-break-inside: auto !important;
     }
-    
+
     .signature-table {
         page-break-inside: avoid;
     }
