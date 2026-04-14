@@ -81,8 +81,12 @@
 
 
 	<div class="print-format-body">
-        <div class="proxy-delivery-heading text-center mb-3">
-            <h2 class="mb-0">【{{ doc.supplier_name or "" }}】代【{{ buyer_company_name or doc.company or "" }}】发货</h2>
+        <div class="proxy-delivery-heading text-center mb-2">
+            <h2 class="mb-0">直发单</h2>
+        </div>
+        <div class="direct-ship-principal text-center mb-3">
+            <span class="principal-label font-weight-bold">委托方：</span>
+            <span class="principal-value">{{ buyer_company_name or doc.company or "" }}</span>
         </div>
 
         <!-- 基本信息表格 -->
@@ -157,9 +161,10 @@
         <table class="table table-bordered items-table mb-3">
             <thead class="table-header">
                 <tr>
-                    <th class="text-center" style="width: 8%;">序号</th>
-                    <th class="text-left" style="width: 62%;">物料信息</th>
-                    <th class="text-right" style="width: 30%;">数量</th>
+                    <th class="text-center" style="width: 6%;">序号</th>
+                    <th class="text-left" style="width: 44%;">物料信息</th>
+                    <th class="text-left" style="width: 26%;">仓库</th>
+                    <th class="text-right" style="width: 24%;">数量</th>
                 </tr>
             </thead>
             <tbody>
@@ -173,6 +178,14 @@
                         <div class="secondary-text" style="margin-top: 2px;">[供]: {{ item.supplier_part_no }}</div>
                         {% endif %}
                     </td>
+                    <td class="text-left warehouse-cell">
+                        {%- set wh = item.get("warehouse") -%}
+                        {%- if wh -%}
+                        {{- frappe.db.get_value("Warehouse", wh, "warehouse_name") or wh -}}
+                        {%- else -%}
+                        —
+                        {%- endif -%}
+                    </td>
                     <td class="text-right quantity-cell">
                         <span class="quantity-value text-bold">{{ fmt_qty(item.qty) }}</span>
                         <span class="quantity-uom">{{ item.uom }}</span>
@@ -183,7 +196,7 @@
         </table>
 
         <div class="proxy-delivery-disclaimer">
-            代发货交接单 · 非合同与结算依据 · 价格、付款及条款以系统采购订单为准
+            直发交接单 · 非合同与结算依据 · 价格、付款及条款以系统采购订单为准
         </div>
 	</div>
 </div>

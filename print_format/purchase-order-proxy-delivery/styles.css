@@ -1,5 +1,5 @@
 /* ============================================
-   采购订单 - 代发货单（基于「采购订单 - 标准」）
+   采购订单 - 代发货单 / 直发单（基于「采购订单 - 标准」）
    注意：通用样式已合并到 standard.css，此处仅保留模板特定样式
    ============================================ */
 
@@ -12,14 +12,24 @@
 	display: table-row-group;
 }
 
-/* 代发货标题 */
+/* 直发单标题 */
 .print-format-wrapper .proxy-delivery-heading h2 {
 	font-size: 18px;
 	font-weight: 700;
 	color: #171717;
-	margin: 8px 0 16px;
+	margin: 8px 0 6px;
 	letter-spacing: 0.5px;
 	line-height: 1.4;
+}
+
+.print-format-wrapper .direct-ship-principal {
+	font-size: 14px;
+	color: #171717;
+	line-height: 1.5;
+}
+
+.print-format-wrapper .direct-ship-principal .principal-value {
+	font-weight: 600;
 }
 
 /* 基本信息表格样式 - 仅保留模板特定的 padding 设置 */
@@ -85,6 +95,14 @@
 	font-size: 12px;
 	color: #171717;
 	margin-bottom: 2px;
+}
+
+.print-format-wrapper .warehouse-cell {
+	text-align: left;
+	font-size: 12px;
+	color: #171717;
+	vertical-align: top;
+	word-break: break-word;
 }
 
 .print-format-wrapper .secondary-text {

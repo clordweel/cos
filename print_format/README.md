@@ -128,12 +128,15 @@ frappe.db.get_value("[doctype]", "[name]", "fieldname")
 {{ frappe.db.get_value("User", doc.owner, "full_name") }}
 ```
 
-## 采购订单 · 代发货单（`采购订单 - 代发货单`）
+## 采购订单 · 代发货单 / 直发单（`采购订单 - 代发货单`）
 
-用于供应商按采购方名义发货时的**物流交接**：不含单价/金额/条款/签字；**不作为合同或结算依据**（页脚有声明）。
+用于供应商**直发现场**或采购方委托发货时的**物流交接**：不含单价/金额/条款/签字；**不作为合同或结算依据**（页脚有声明）。
 
-- **收货信息**：打印时优先取 `shipping_address` 对应 `Address.custom_address_display`，否则用 `shipping_address_display`；联系人与电话取自 `custom_shipping_contact_person`、`custom_shipping_contact_phone`（无则整块「收货信息」不显示）。
+- **标题**：打印标题为「**直发单**」。
+- **委托方**：显示 `Company.company_name`（缺省为公司简称字段），对应采购公司。
+- **收货信息**：优先取 `shipping_address` 对应 `Address.custom_address_display`，否则用 `shipping_address_display`；联系人与电话取自 `custom_shipping_contact_person`、`custom_shipping_contact_phone`（无则整块「收货信息」不显示）。
 - **项目客户**：有关联项目时，从 `Project.customer` 解析客户名称，在「关联项目」下单独一行「项目客户」。
+- **物料行仓库**：取自采购订单明细 `warehouse`，展示 `Warehouse.warehouse_name`。
 - **数量**：整数量不显示小数，否则保留两位小数。
 - **仓库源文件**：`print_format/purchase-order-proxy-delivery/`；更新后可执行 `cos.scripts.sync_purchase_order_proxy_delivery_print_format.sync`，或通过迁移补丁将模板写入站点。
 
