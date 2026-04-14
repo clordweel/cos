@@ -1,5 +1,5 @@
 # Copyright (c) 2026, COS and contributors
-"""将「采购订单 - 代发货单」打印模板从仓库文件同步到数据库。"""
+"""将「采购订单 - 直发单」打印模板从仓库文件同步到数据库（旧版曾用名「采购订单 - 代发货单」）。"""
 
 from __future__ import annotations
 

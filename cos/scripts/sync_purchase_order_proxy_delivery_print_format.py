@@ -1,12 +1,12 @@
 # Copyright (c) 2026, COS and contributors
-"""从 print_format/purchase-order-proxy-delivery 同步到「采购订单 - 代发货单」。
+"""从 print_format/purchase-order-proxy-delivery 同步到「采购订单 - 直发单」。
 
 用法（在 dev 服务器上）:
   bench --site cos-dev.junhai.work execute cos.scripts.sync_purchase_order_proxy_delivery_print_format.sync
 
 首次部署：fixtures 已含该 Print Format；本脚本用于从仓库文件覆盖站点中的 HTML/CSS。
 若站点尚无该记录，将按「采购订单 - 标准」的元数据插入一条新记录后再写入模板。
-模板含直发单标题、委托方、收货信息、项目客户、物料行仓库、数量格式与页脚声明；迁移补丁见 resync_purchase_order_proxy_delivery_print_format、_v2、_v3。
+模板含直发单标题、委托方、收货信息、项目客户、物料行仓库、数量格式与页脚声明；迁移补丁见 resync_*、rename_purchase_order_proxy_delivery_print_format_to_direct_ship。
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ def _get_print_format_dir() -> Path:
 
 
 def sync(site: str | None = None) -> dict:
-	"""同步代发货单模板（创建或更新）。"""
+	"""同步「采购订单 - 直发单」模板（创建或更新）。"""
 	frappe.connect(site=site)
 	base = _get_print_format_dir()
 	template_path = base / "template.html"
@@ -35,7 +35,7 @@ def sync(site: str | None = None) -> dict:
 		raise FileNotFoundError(f"样式文件不存在: {css_path}")
 	html = template_path.read_text(encoding="utf-8")
 	css = css_path.read_text(encoding="utf-8")
-	name = "采购订单 - 代发货单"
+	name = "采购订单 - 直发单"
 	if frappe.db.exists("Print Format", name):
 		doc = frappe.get_doc("Print Format", name)
 		doc.html = html
@@ -44,7 +44,7 @@ def sync(site: str | None = None) -> dict:
 		frappe.db.commit()
 		return {"updated": name, "html_len": len(html), "css_len": len(css)}
 	if not frappe.db.exists("Print Format", "采购订单 - 标准"):
-		frappe.throw("请先存在 Print Format「采购订单 - 标准」，以便复制元数据创建「采购订单 - 代发货单」")
+		frappe.throw("请先存在 Print Format「采购订单 - 标准」，以便复制元数据创建「采购订单 - 直发单」")
 	src = frappe.get_doc("Print Format", "采购订单 - 标准")
 	meta = src.as_dict()
 	for k in ("name", "owner", "creation", "modified", "modified_by", "docstatus", "idx"):

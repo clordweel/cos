@@ -1,5 +1,5 @@
 # Copyright (c) 2026, COS and contributors
-"""同步「采购订单 - 代发货单」模板：直发单标题、委托方、物料行仓库等。"""
+"""同步「采购订单 - 直发单」模板：直发单标题、委托方、物料行仓库等。"""
 
 from __future__ import annotations
 
