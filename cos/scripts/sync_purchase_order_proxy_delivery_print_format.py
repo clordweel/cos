@@ -6,6 +6,7 @@
 
 首次部署：fixtures 已含该 Print Format；本脚本用于从仓库文件覆盖站点中的 HTML/CSS。
 若站点尚无该记录，将按「采购订单 - 标准」的元数据插入一条新记录后再写入模板。
+模板含收货信息（地址/联系人）、项目客户、数量格式与页脚声明；迁移补丁见 resync_purchase_order_proxy_delivery_print_format、_v2。
 """
 
 from __future__ import annotations

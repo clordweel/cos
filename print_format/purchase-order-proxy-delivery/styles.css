@@ -3,6 +3,15 @@
    注意：通用样式已合并到 standard.css，此处仅保留模板特定样式
    ============================================ */
 
+/* 多页打印时尽量重复表头（依赖 PDF 引擎支持） */
+.proxy-delivery-print .items-table thead {
+	display: table-header-group;
+}
+
+.proxy-delivery-print .items-table tbody {
+	display: table-row-group;
+}
+
 /* 代发货标题 */
 .print-format-wrapper .proxy-delivery-heading h2 {
 	font-size: 18px;
@@ -32,6 +41,27 @@
 
 .print-format-wrapper .info-value {
 	color: #171717;
+}
+
+/* 收货信息 */
+.print-format-wrapper .shipping-info-table {
+	margin-bottom: 16px;
+}
+
+.print-format-wrapper .shipping-info-table .info-cell {
+	padding: 6px 8px;
+	vertical-align: top;
+}
+
+.print-format-wrapper .shipping-address {
+	white-space: pre-wrap;
+	word-break: break-word;
+	line-height: 1.45;
+	color: #171717;
+}
+
+.print-format-wrapper .shipping-info-label .info-label {
+	min-width: 0;
 }
 
 /* 物料明细表格样式 - 仅保留模板特定的 margin 设置 */
@@ -78,4 +108,16 @@
 .print-format-wrapper .quantity-uom {
 	font-size: 12px;
 	color: #666;
+}
+
+/* 页脚声明（非结算依据） */
+.print-format-wrapper .proxy-delivery-disclaimer {
+	margin-top: 12px;
+	padding-top: 8px;
+	border-top: 1px solid #ccc;
+	font-size: 10px;
+	color: #666;
+	line-height: 1.4;
+	text-align: center;
+	letter-spacing: 0.2px;
 }

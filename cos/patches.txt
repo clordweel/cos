@@ -54,4 +54,5 @@ cos.patches.v1_2.resync_contract_po_so_print_format_data_uri
 cos.patches.v1_2.resync_contract_po_so_print_format_seal_layout
 cos.patches.v1_2.resync_contract_po_so_print_format_seal_155px
 cos.patches.v1_2.resync_purchase_order_proxy_delivery_print_format
+cos.patches.v1_2.resync_purchase_order_proxy_delivery_print_format_v2
 # Patches added in this section will be executed after doctypes are migrated
