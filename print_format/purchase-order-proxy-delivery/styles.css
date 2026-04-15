@@ -53,21 +53,6 @@
 	color: #171717;
 }
 
-/* 收货信息：标签与地址同一行（两 span 串联），标签不加粗 */
-.print-format-wrapper .shipping-address-label-row {
-	font-weight: normal;
-	color: #171717;
-	line-height: 1.45;
-}
-
-.print-format-wrapper .shipping-address-block {
-	white-space: pre-wrap;
-	word-break: break-word;
-	line-height: 1.45;
-	color: #171717;
-	font-size: inherit;
-}
-
 /* 物料明细表格样式 - 仅保留模板特定的 margin 设置 */
 .print-format-wrapper .items-table {
 	margin-bottom: 16px;

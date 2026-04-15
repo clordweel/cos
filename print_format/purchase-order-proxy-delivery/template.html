@@ -126,17 +126,12 @@
                     </td>
                 </tr>
                 {% endif %}
-            </tbody>
-        </table>
-
-        {% if show_shipping_block %}
-        <!-- 收货信息（与上方 info-table 同结构、同边框样式） -->
-        <table class="table table-bordered info-table mb-3">
-            <tbody>
+                {% if show_shipping_block %}
                 {% if shipping_display and (shipping_display | trim) %}
                 <tr>
                     <td class="info-cell" colspan="2">
-                        <span class="shipping-address-label-row">收货地址:</span><span class="shipping-address-block">{{ shipping_display | trim }}</span>
+                        <span class="info-label">收货地址:</span>
+                        <span class="info-value">{{ shipping_display | trim }}</span>
                     </td>
                 </tr>
                 {% endif %}
@@ -152,9 +147,9 @@
                     </td>
                 </tr>
                 {% endif %}
+                {% endif %}
             </tbody>
         </table>
-        {% endif %}
 
         <!-- 物料明细表格（无交货日期、无价格、无行描述） -->
         <table class="table table-bordered items-table mb-3">
