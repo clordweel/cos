@@ -53,7 +53,7 @@
 	color: #171717;
 }
 
-/* 收货信息：标签与地址均为 span，标签不加粗；br 控制换行 */
+/* 收货信息：标签与地址同一行（两 span 串联），标签不加粗 */
 .print-format-wrapper .shipping-address-label-row {
 	font-weight: normal;
 	color: #171717;
