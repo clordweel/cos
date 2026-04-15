@@ -134,7 +134,7 @@ frappe.db.get_value("[doctype]", "[name]", "fieldname")
 
 - **标题**：打印标题为「**直发单**」。
 - **委托方**：显示 `Company.company_name`（缺省为公司简称字段），对应采购公司。
-- **收货信息**：与上方基本信息同为 `info-table` 布局（收货地址一行跨两列；联系人 / 电话一行两列）。字段优先取 `shipping_address` 对应 `Address.custom_address_display`，否则用 `shipping_address_display`；联系人与电话取自 `custom_shipping_contact_person`、`custom_shipping_contact_phone`（无则整块「收货信息」不显示）。
+- **收货信息**：`info-table` 两列宽表线样式。首行整宽：第一行「收货地址:」、第二行地址正文；次行两列：「联系人:」「电话:」。字段优先取 `shipping_address` 对应 `Address.custom_address_display`，否则用 `shipping_address_display`；联系人与电话取自 `custom_shipping_contact_person`、`custom_shipping_contact_phone`（无则整块「收货信息」不显示）。
 - **项目客户**：有关联项目时，从 `Project.customer` 解析客户名称，在「关联项目」下单独一行「项目客户」。
 - **物料行仓库**：取自采购订单明细 `warehouse`，展示 `Warehouse.warehouse_name`。
 - **数量**：整数量不显示小数，否则保留两位小数。

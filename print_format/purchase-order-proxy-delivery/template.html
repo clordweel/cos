@@ -136,7 +136,7 @@
                 {% if shipping_display and (shipping_display | trim) %}
                 <tr>
                     <td class="info-cell" colspan="2">
-                        <span class="info-label font-weight-bold">收货地址:</span>
+                        <div class="shipping-address-label-row">收货地址:</div>
                         <div class="shipping-address-block">{{ shipping_display | trim }}</div>
                     </td>
                 </tr>
@@ -144,12 +144,12 @@
                 {% if ship_contact_name or ship_contact_phone %}
                 <tr>
                     <td class="info-cell" style="width: 50%;">
-                        <span class="info-label font-weight-bold">收货联系人:</span>
+                        <span class="info-label font-weight-bold">联系人:</span>
                         <span class="info-value">{{ ship_contact_name or "—" }}</span>
                     </td>
                     <td class="info-cell" style="width: 50%;">
                         <span class="info-label font-weight-bold">电话:</span>
-                        <span class="info-value">{{ ship_contact_phone or "&nbsp;" }}</span>
+                        <span class="info-value">{{ ship_contact_phone or "—" }}</span>
                     </td>
                 </tr>
                 {% endif %}
