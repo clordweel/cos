@@ -136,8 +136,8 @@
                 {% if shipping_display and (shipping_display | trim) %}
                 <tr>
                     <td class="info-cell" colspan="2">
-                        <div class="shipping-address-label-row">收货地址:</div>
-                        <div class="shipping-address-block">{{ shipping_display | trim }}</div>
+                        <span class="shipping-address-label-row">收货地址:</span><br>
+                        <span class="shipping-address-block">{{ shipping_display | trim }}</span>
                     </td>
                 </tr>
                 {% endif %}

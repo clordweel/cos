@@ -53,16 +53,14 @@
 	color: #171717;
 }
 
-/* 收货信息图2：首行标签独占一行，地址次行；与 info-table 边框一致 */
+/* 收货信息：标签与地址均为 span，标签不加粗；br 控制换行 */
 .print-format-wrapper .shipping-address-label-row {
-	font-weight: 700;
+	font-weight: normal;
 	color: #171717;
-	margin-bottom: 4px;
-	line-height: 1.4;
+	line-height: 1.45;
 }
 
 .print-format-wrapper .shipping-address-block {
-	margin-top: 0;
 	white-space: pre-wrap;
 	word-break: break-word;
 	line-height: 1.45;
