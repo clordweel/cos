@@ -57,4 +57,5 @@ cos.patches.v1_2.resync_purchase_order_proxy_delivery_print_format
 cos.patches.v1_2.resync_purchase_order_proxy_delivery_print_format_v2
 cos.patches.v1_2.resync_purchase_order_proxy_delivery_print_format_v3
 cos.patches.v1_2.rename_purchase_order_proxy_delivery_print_format_to_direct_ship
+cos.patches.v1_2.resync_purchase_order_proxy_delivery_print_format_v4
 # Patches added in this section will be executed after doctypes are migrated

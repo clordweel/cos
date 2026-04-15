@@ -53,25 +53,14 @@
 	color: #171717;
 }
 
-/* 收货信息 */
-.print-format-wrapper .shipping-info-table {
-	margin-bottom: 16px;
-}
-
-.print-format-wrapper .shipping-info-table .info-cell {
-	padding: 6px 8px;
-	vertical-align: top;
-}
-
-.print-format-wrapper .shipping-address {
+/* 收货地址多行（与 info-table 内文字色一致） */
+.print-format-wrapper .shipping-address-block {
+	margin-top: 2px;
 	white-space: pre-wrap;
 	word-break: break-word;
 	line-height: 1.45;
 	color: #171717;
-}
-
-.print-format-wrapper .shipping-info-label .info-label {
-	min-width: 0;
+	font-size: inherit;
 }
 
 /* 物料明细表格样式 - 仅保留模板特定的 margin 设置 */

@@ -130,29 +130,29 @@
         </table>
 
         {% if show_shipping_block %}
-        <!-- 收货信息 -->
-        <table class="table table-bordered shipping-info-table mb-3">
+        <!-- 收货信息（与上方 info-table 同结构、同边框样式） -->
+        <table class="table table-bordered info-table mb-3">
             <tbody>
+                {% if shipping_display and (shipping_display | trim) %}
                 <tr>
-                    <td class="info-cell shipping-info-label" style="width: 22%; vertical-align: top;">
-                        <span class="info-label font-weight-bold">收货信息</span>
-                    </td>
-                    <td class="info-cell" style="width: 78%; vertical-align: top;">
-                        {% if shipping_display and (shipping_display | trim) %}
-                        <div class="shipping-address">{{ shipping_display | trim }}</div>
-                        {% endif %}
-                        {% if ship_contact_name or ship_contact_phone %}
-                        <div class="shipping-contact-line" style="margin-top: 6px;">
-                            <span class="info-label">收货联系人:</span>
-                            <span class="info-value">{{ ship_contact_name or "—" }}</span>
-                            {% if ship_contact_phone %}
-                            <span class="info-label" style="margin-left: 12px;">电话:</span>
-                            <span class="info-value">{{ ship_contact_phone }}</span>
-                            {% endif %}
-                        </div>
-                        {% endif %}
+                    <td class="info-cell" colspan="2">
+                        <span class="info-label font-weight-bold">收货地址:</span>
+                        <div class="shipping-address-block">{{ shipping_display | trim }}</div>
                     </td>
                 </tr>
+                {% endif %}
+                {% if ship_contact_name or ship_contact_phone %}
+                <tr>
+                    <td class="info-cell" style="width: 50%;">
+                        <span class="info-label font-weight-bold">收货联系人:</span>
+                        <span class="info-value">{{ ship_contact_name or "—" }}</span>
+                    </td>
+                    <td class="info-cell" style="width: 50%;">
+                        <span class="info-label font-weight-bold">电话:</span>
+                        <span class="info-value">{{ ship_contact_phone or "&nbsp;" }}</span>
+                    </td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
         {% endif %}
