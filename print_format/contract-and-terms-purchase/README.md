@@ -1,5 +1,18 @@
 # 购销合同模板
 
+## 仓库位置与部署（dev）
+
+| 项 | 说明 |
+|----|------|
+| **源码目录** | cos app **根目录**下 `print_format/contract-and-terms-purchase/`（与 Python 包 `cos/cos` 同级），内含 `template.html`、`styles.css`。勿放到 `cos/cos/` 包内。 |
+| **ERP 打印格式名称** | **「采购订单 - 合同 - 通用」**（`doc_type`: Purchase Order，`module`: COS Share） |
+| **Fixtures** | `cos/fixtures/print_format.json` 中上述名称的一条记录；`hooks.py` 的 `fixtures` 已包含 `Print Format`（按 module 筛选），`bench migrate` 会导入/更新。 |
+| **与磁盘对齐** | 修改 `template.html` / `styles.css` 后，在 dev 站点执行：<br>`bench --site <dev-site> execute cos.scripts.sync_contract_po_so_print_formats.sync`<br>将文件内容写入数据库中的 Print Format。 |
+| **回写 fixtures** | 若希望仓库内 JSON 与站点一致：`bench --site <dev-site> export-fixtures --app cos`（或仅导出 Print Format 后合并），再提交 `cos/fixtures/print_format.json`。也可用脚本校验：`python` 读入 `template.html`/`styles.css` 与 JSON 中该条 `html`/`css` 比对。 |
+| **一键同步（含本模板）** | `cos.scripts.sync_all_standard_print_formats.sync_all` 已包含 `sync_contract_po_so_print_formats`。 |
+
+**注意**：`sync_contract_po_so_print_formats` 要求站点上 **已存在** 名为「采购订单 - 合同 - 通用」的 Print Format（首次由 fixtures/migrate 创建）；若全新站点缺少该条，先 `bench migrate` 或从 fixtures 导入。
+
 ## 模板概述
 
 本模板用于生成"购销合同"，通用采购/销售合同打印格式。

@@ -1,0 +1,168 @@
+{%- macro add_header(page_num, max_pages, doc, letter_head, no_letterhead, footer, print_settings=None, print_heading_template=None) -%}
+	{%- set should_show_letterhead = True -%}
+	{%- if print_settings and print_settings.with_letterhead == False -%}
+		{%- set should_show_letterhead = False -%}
+	{%- elif no_letterhead -%}
+		{%- set should_show_letterhead = False -%}
+	{%- endif -%}
+	{%- if letter_head and should_show_letterhead -%}
+		<div class="letter-head">{{ letter_head }}</div>
+	{%- endif -%}
+	{%- if print_heading_template -%}
+		{{ frappe.render_template(print_heading_template, {"doc":doc}) }}
+	{%- endif -%}
+{%- endmacro -%}
+
+{%- macro signer_address_display(addr_link) -%}
+{%- if addr_link -%}
+{%- if frappe.db.exists('Address', addr_link) -%}
+{{- frappe.db.get_value("Address", addr_link, "custom_address_display") or '' -}}
+{%- else -%}
+{{- addr_link -}}
+{%- endif -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{% for page in layout %}
+<div class="page-break print-format-wrapper order-wrapper">
+	<div {% if print_settings.repeat_header_footer %} id="header-html" class="hidden-pdf" {% endif %}>
+		{{ add_header(loop.index, layout|len, doc, letter_head, no_letterhead, footer, print_settings) }}
+	</div>
+
+	<div class="print-format-body contract-a4-wrap">
+		{%- set seal_src = company_contract_seal_image_src(doc.company) if doc.company else '' -%}
+		{%- set show_company_seal = seal_src and not doc.custom_hide_contract_seal -%}
+
+		<div class="contract-number">
+			<strong>合同编号：</strong>{{ doc.custom_contract_no or doc.name }}
+		</div>
+
+		<div class="header-title text-center">
+			<h2 class="mb-0">工业产品买卖合同</h2>
+		</div>
+		<div class="header-sub">（采购 · A4 单页简版）</div>
+
+		<div class="row meta-row">
+			<div class="col-xs-7">
+				<div class="mb-1" style="white-space: nowrap;">
+					<span class="party-label">甲方（需方）：</span><strong>{{ doc.custom_first_party_law or '' }}</strong>
+				</div>
+				<div class="mb-0" style="white-space: nowrap;">
+					<span class="party-label">乙方（供方）：</span><strong>{{ doc.custom_second_party_law or '' }}</strong>
+				</div>
+			</div>
+			<div class="col-xs-5 text-right">
+				<div class="mb-1" style="white-space: nowrap;">
+					<span class="meta-label">签订时间：</span>
+					<strong>
+						{%- set date = doc.get('custom_signing_date') or doc.transaction_date -%}
+						{%- if date -%}
+						{%- set date_str = frappe.utils.format_date(date, "yyyy-mm-dd") -%}
+						{%- set date_parts = date_str.split("-") -%}
+						{{ date_parts[0] }}年{{ date_parts[1] }}月{{ date_parts[2] }}日
+						{%- endif -%}
+					</strong>
+				</div>
+				<div class="mb-0" style="white-space: nowrap;">
+					<span class="meta-label">签订地点：</span><strong>{{ doc.custom_signing_location or '' }}</strong>
+				</div>
+			</div>
+		</div>
+
+		<table class="item-table table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th style="width:4%;">序</th>
+					<th style="width:22%;">名称</th>
+					<th style="width:16%;">规格型号</th>
+					<th style="width:7%;">数量</th>
+					<th style="width:6%;">单位</th>
+					<th style="width:11%;">单价（元）</th>
+					<th style="width:11%;">金额（元）</th>
+					<th style="width:23%;">备注</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%- for item in doc.items -%}
+				<tr>
+					<td class="text-center">{{ loop.index }}</td>
+					<td class="text-center">{{ item.item_name }}</td>
+					<td class="text-left" style="white-space:normal;word-break:break-all;">{{ item.get('custom_specification') or '' }}</td>
+					<td class="text-center">{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty) }}{% endif %}</td>
+					<td class="text-center">{{ item.uom }}</td>
+					<td class="text-center" style="white-space:nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
+					<td class="text-center" style="white-space:nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
+					<td class="text-left" style="white-space:normal;">{{ (item.description or "") | striptags }}</td>
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+
+		<div class="total-line">
+			<strong>含税合计（人民币）：</strong><u>{{ "{:,.2f}".format(doc.grand_total or 0) }}</u> 元　
+			<strong>大写：</strong><u>{{ doc.in_words or '' }}</u>
+		</div>
+
+		<ol class="clauses">
+			<li><strong>标的与质量：</strong>标的物为上表所列工业产品；质量符合国家标准、行业标准，有技术协议或图纸的从其约定；乙方保证产品为全新、未使用过的合格品。</li>
+			<li><strong>交付与验收：</strong>交货期限、地点以双方确认的发货/收货信息为准；甲方应在到货后 <u>7</u> 日内验收，逾期未提出书面异议视为验收合格。</li>
+			<li><strong>价款与支付：</strong>价款以上表为准；付款方式按订单「付款计划」执行，无计划时默认为合同签订后一次性支付；发票开具按双方约定或税务规定办理。</li>
+			<li><strong>质保：</strong>质保期自验收合格之日起不少于 <u>　　</u> 个月（或双方另行书面约定）；质保期内因产品质量问题，乙方负责修理、更换或退货，费用由乙方承担。</li>
+			<li><strong>违约与争议：</strong>任何一方违约给对方造成损失的，应承担赔偿责任；逾期付款或逾期交货的，违约方按逾期部分每日 <u>0.05</u> % 向对方支付违约金。争议协商不成的，提交<strong>有管辖权的人民法院</strong>诉讼解决。</li>
+			<li><strong>生效：</strong>本合同自双方签字（盖章）之日起生效；一式两份，甲乙双方各执一份，具有同等法律效力。未尽事宜可签订补充协议，补充协议与本合同具有同等效力。</li>
+		</ol>
+
+		<table class="signature-table table table-bordered mb-0">
+			<tbody>
+				<tr>
+					<th>甲方（需方）</th>
+					<th>乙方（供方）</th>
+				</tr>
+				<tr>
+					<td>
+						<div class="signature-info"><span class="signature-label">单位名称：</span><span class="signature-value">{{ doc.custom_first_party_law or '' }}</span></div>
+					</td>
+					<td>
+						<div class="signature-info"><span class="signature-label">单位名称：</span><span class="signature-value">{{ doc.custom_second_party_law or '' }}</span></div>
+					</td>
+				</tr>
+				<tr>
+					<td><div class="signature-info"><span class="signature-label">地址：</span><span class="signature-value">{{ signer_address_display(doc.custom_first_party_signer_address) or doc.billing_address_display or '' }}</span></div></td>
+					<td><div class="signature-info"><span class="signature-label">地址：</span><span class="signature-value">{{ signer_address_display(doc.custom_second_party_signer_address) or doc.address_display or '' }}</span></div></td>
+				</tr>
+				<tr>
+					<td><div class="signature-info"><span class="signature-label">代表：</span><span class="signature-value">{{ (doc.custom_first_party_signer or '').split('-')[0] }}</span></div></td>
+					<td><div class="signature-info"><span class="signature-label">代表：</span><span class="signature-value">{{ (doc.custom_second_party_signer or '').split('-')[0] }}</span></div></td>
+				</tr>
+				<tr>
+					<td><div class="signature-info"><span class="signature-label">电话：</span><span class="signature-value">{{ doc.custom_first_party_signer_phone or '' }}</span></div></td>
+					<td><div class="signature-info"><span class="signature-label">电话：</span><span class="signature-value">{{ doc.custom_second_party_signer_phone or '' }}</span></div></td>
+				</tr>
+				<tr>
+					<td><div class="signature-info"><span class="signature-label">开户行：</span><span class="signature-value">{{ doc.custom_payment_bank or '' }}</span></div></td>
+					<td><div class="signature-info"><span class="signature-label">开户行：</span><span class="signature-value">{{ doc.custom_receipt_bank or '' }}</span></div></td>
+				</tr>
+				<tr>
+					<td><div class="signature-info"><span class="signature-label">账号：</span><span class="signature-value">{{ doc.custom_payment_bank_account_no or '' }}</span></div></td>
+					<td><div class="signature-info"><span class="signature-label">账号：</span><span class="signature-value">{{ doc.custom_receipt_bank_account_no or '' }}</span></div></td>
+				</tr>
+				<tr>
+					<td {% if show_company_seal %}class="signature-td-with-seal"{% endif %}>
+						<div class="signature-info"><span class="signature-label">税号：</span><span class="signature-value">{{ doc.custom_first_party_tax_id or '' }}</span></div>
+						<div class="signature-info" style="margin-top:2px;"><span class="signature-label">（盖章）</span><span class="signature-value"></span></div>
+						{% if show_company_seal %}
+						<div class="company-seal-wrap" aria-hidden="true">
+							<img src="{{ seal_src }}" class="company-contract-seal" alt="" />
+						</div>
+						{% endif %}
+					</td>
+					<td>
+						<div class="signature-info"><span class="signature-label">税号：</span><span class="signature-value">{{ doc.custom_second_party_tax_id or '' }}</span></div>
+						<div class="signature-info" style="margin-top:2px;"><span class="signature-label">（盖章）</span><span class="signature-value"></span></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endfor %}

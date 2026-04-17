@@ -1,5 +1,10 @@
 # Copyright (c) 2026, COS and contributors
-"""从 print_format/contract-and-terms-* 同步到「采购订单 - 合同 - 通用」「销售订单 - 合同 - 通用」。
+"""从 print_format/contract-and-terms-* 等目录同步采购/销售合同类打印格式。
+
+包含：
+- 「采购订单 - 合同 - 通用」← contract-and-terms-purchase
+- 「销售订单 - 合同 - 通用」← contract-and-terms-sales
+- 「采购订单 - 合同 - 工业产品 A4」← contract-industrial-product-purchase-a4
 
 用法（在 dev 服务器上）:
   bench --site cos-dev.junhai.work execute cos.scripts.sync_contract_po_so_print_formats.sync
@@ -27,6 +32,7 @@ def sync(site: str | None = None) -> list[dict]:
 	pairs = (
 		("采购订单 - 合同 - 通用", "contract-and-terms-purchase"),
 		("销售订单 - 合同 - 通用", "contract-and-terms-sales"),
+		("采购订单 - 合同 - 工业产品 A4", "contract-industrial-product-purchase-a4"),
 	)
 	results = []
 	for print_format_name, subdir in pairs:

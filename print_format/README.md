@@ -128,6 +128,12 @@ frappe.db.get_value("[doctype]", "[name]", "fieldname")
 {{ frappe.db.get_value("User", doc.owner, "full_name") }}
 ```
 
+## 采购订单 · 合同 · 通用（`contract-and-terms-purchase`）
+
+- **打印格式名**：「采购订单 - 合同 - 通用」；源文件目录：`print_format/contract-and-terms-purchase/`。
+- **部署、fixtures、同步命令**：见该目录下 [`README.md`](./contract-and-terms-purchase/README.md) 首节「仓库位置与部署（dev）」。
+- **同步脚本**：`cos.scripts.sync_contract_po_so_print_formats.sync`（采购 + 销售合同各一条）。
+
 ## 采购订单 · 直发单（`采购订单 - 直发单`）
 
 用于供应商**直发现场**或采购方委托发货时的**物流交接**：不含单价/金额/条款/签字；**不作为合同或结算依据**（页脚有声明）。
