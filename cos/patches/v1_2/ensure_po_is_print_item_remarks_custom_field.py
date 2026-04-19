@@ -49,7 +49,8 @@ def execute():
 		if cf.label != "是否打印物料备注 (描述)":
 			cf.label = "是否打印物料备注 (描述)"
 			changed = True
-		if not int(cf.allow_on_submit or 0):
+		# 提交后需可改，否则打印始终读到保存时的旧值
+		if int(cf.allow_on_submit or 0) != 1:
 			cf.allow_on_submit = 1
 			changed = True
 		if changed:

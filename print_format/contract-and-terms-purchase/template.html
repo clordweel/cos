@@ -35,10 +35,13 @@
 		{# hooks.jinja.methods 注册的函数在 Jinja 顶层可用；模板里的 frappe 来自 safe_globals，无 get_module/get_attr #}
 		{%- set seal_src = company_contract_seal_image_src(doc.company) if doc.company else '' -%}
 		{%- set show_company_seal = seal_src and not doc.custom_hide_contract_seal -%}
-		{%- if doc.meta.get_field('custom_is_print_item_remarks') -%}
-		{%- set show_item_desc = doc.custom_is_print_item_remarks -%}
+		{# 打印上下文中 doc.meta.get_field 不可靠；以 doc.get 为准，未设置新字段时回退旧字段 #}
+		{%- set _nr = doc.get('custom_is_print_item_remarks') -%}
+		{%- if _nr is not none -%}
+		{%- set show_item_desc = frappe.utils.cint(_nr) -%}
 		{%- else -%}
-		{%- set show_item_desc = doc.custom_print_item_description|default(1) -%}
+		{%- set _old = doc.get('custom_print_item_description') -%}
+		{%- set show_item_desc = frappe.utils.cint(_old if _old is not none else 1) -%}
 		{%- endif -%}
 		<!-- 合同编号 -->
 <div class="contract-number" style="text-align: right;">
