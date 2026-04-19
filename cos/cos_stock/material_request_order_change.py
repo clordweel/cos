@@ -27,10 +27,28 @@ def validate_mr_item_qty_on_update(doc, method=None):
 
 
 def on_mr_update_after_submit(doc, method=None):
-	"""提交后变更完成后，更新 indented_qty。"""
+	"""提交后变更完成后，更新 indented_qty；Purchase MR 重算 per_ordered 与状态。
+
+	标准逻辑里 Purchase 类型 MR 的 ordered_qty / per_ordered 由采购单 status_updater 写回，
+	MaterialRequest.update_completed_qty 对 Purchase 直接 return，不在本单内重算百分比。
+	若仅在 MR 上提交后删改明细（删去未下单行、调整 qty 等），父单 per_ordered 会滞留旧值，
+	状态会错误保持「部分已下单」。此处与 update_completed_qty 中非 Purchase 分支一致，按子表汇总重算。
+	"""
 	if doc.get("_action") != "update_after_submit":
 		return
 	doc.update_requested_qty()
+	if doc.material_request_type == "Purchase":
+		doc._update_percent_field(
+			{
+				"target_dt": "Material Request Item",
+				"target_parent_dt": doc.doctype,
+				"target_parent_field": "per_ordered",
+				"target_ref_field": "stock_qty",
+				"target_field": "ordered_qty",
+				"name": doc.name,
+			},
+			update_modified=True,
+		)
 
 
 @frappe.whitelist()
