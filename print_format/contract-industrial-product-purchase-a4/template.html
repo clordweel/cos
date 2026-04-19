@@ -32,6 +32,7 @@
 	<div class="print-format-body contract-a4-wrap">
 		{%- set seal_src = company_contract_seal_image_src(doc.company) if doc.company else '' -%}
 		{%- set show_company_seal = seal_src and not doc.custom_hide_contract_seal -%}
+		{%- set show_item_desc = doc.custom_print_item_description|default(1) -%}
 
 		<div class="contract-number">
 			<strong>合同编号：</strong>{{ doc.custom_contract_no or doc.name }}
@@ -73,13 +74,13 @@
 			<thead>
 				<tr>
 					<th style="width:4%;">序</th>
-					<th style="width:22%;">名称</th>
-					<th style="width:16%;">规格型号</th>
+					<th style="width:{% if show_item_desc %}22{% else %}30{% endif %}%;">名称</th>
+					<th style="width:{% if show_item_desc %}16{% else %}22{% endif %}%;">规格型号</th>
 					<th style="width:7%;">数量</th>
 					<th style="width:6%;">单位</th>
 					<th style="width:11%;">单价（元）</th>
 					<th style="width:11%;">金额（元）</th>
-					<th style="width:23%;">备注</th>
+					{% if show_item_desc %}<th style="width:23%;">备注</th>{% endif %}
 				</tr>
 			</thead>
 			<tbody>
@@ -92,7 +93,7 @@
 					<td class="text-center">{{ item.uom }}</td>
 					<td class="text-center" style="white-space:nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
 					<td class="text-center" style="white-space:nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
-					<td class="text-left" style="white-space:normal;">{{ (item.description or "") | striptags }}</td>
+					{% if show_item_desc %}<td class="text-left" style="white-space:normal;">{{ (item.description or "") | striptags }}</td>{% endif %}
 				</tr>
 				{%- endfor -%}
 			</tbody>

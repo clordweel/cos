@@ -35,6 +35,7 @@
 		{# hooks.jinja.methods 注册的函数在 Jinja 顶层可用；模板里的 frappe 来自 safe_globals，无 get_module/get_attr #}
 		{%- set seal_src = company_contract_seal_image_src(doc.company) if doc.company else '' -%}
 		{%- set show_company_seal = seal_src and not doc.custom_hide_contract_seal -%}
+		{%- set show_item_desc = doc.custom_print_item_description|default(1) -%}
 		<!-- 合同编号 -->
 <div class="contract-number" style="text-align: right;">
     <strong>合同编号：</strong>{{ doc.custom_contract_no or doc.name }}
@@ -91,12 +92,12 @@
     <tbody>
         <tr>
             <td data-row="1" style="width: 6%; text-align: center;"><strong>序号</strong></td>
-            <td data-row="1" style="width: 35%; text-align: center;"><strong>名称</strong></td>
+            <td data-row="1" style="width: {% if show_item_desc %}35{% else %}55{% endif %}%; text-align: center;"><strong>名称</strong></td>
             <td data-row="1" style="width: 7%; text-align: center;"><strong>数量</strong></td>
             <td data-row="1" style="width: 6%; text-align: center;"><strong>单位</strong></td>
             <td data-row="1" style="width: 13%; text-align: center;"><strong>单价（元）</strong></td>
             <td data-row="1" style="width: 13%; text-align: center;"><strong>总价（元）</strong></td>
-            <td data-row="1" style="width: 20%; text-align: center;"><strong>备注</strong></td>
+            {% if show_item_desc %}<td data-row="1" style="width: 20%; text-align: center;"><strong>备注</strong></td>{% endif %}
         </tr>
         {%- for item in doc.items -%}
         <tr>
@@ -108,8 +109,8 @@
             <td data-row="{{ loop.index + 1 }}" style="text-align: center;">{{ item.uom }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center; white-space: nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
             <td data-row="{{ loop.index + 1 }}" style="text-align: center; white-space: nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
-            <td data-row="{{ loop.index + 1 }}" style="text-align: left; white-space: normal;">{{ (item.description or
-                "") | striptags }}</td>
+            {% if show_item_desc %}<td data-row="{{ loop.index + 1 }}" style="text-align: left; white-space: normal;">{{ (item.description or
+                "") | striptags }}</td>{% endif %}
         </tr>
         {%- endfor -%}
     </tbody>
@@ -242,12 +243,12 @@
         <thead>
             <tr>
                 <th style="width: 6%;">序号</th>
-                <th style="width: 35%;">名称</th>
+                <th style="width: {% if show_item_desc %}35{% else %}55{% endif %}%;">名称</th>
                 <th style="width: 7%;">数量</th>
                 <th style="width: 6%;">单位</th>
                 <th style="width: 13%;">单价（元）</th>
                 <th style="width: 13%;">总价（元）</th>
-                <th style="width: 20%;">备注</th>
+                {% if show_item_desc %}<th style="width: 20%;">备注</th>{% endif %}
             </tr>
         </thead>
         <tbody>
@@ -261,7 +262,7 @@
                 <td>{{ item.uom }}</td>
                 <td style="white-space: nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
                 <td style="white-space: nowrap;">{{ "{:,.2f}".format(item.amount) }}</td>
-                <td style="text-align: left; white-space: normal;">{{ (item.description or "") | striptags }}</td>
+                {% if show_item_desc %}<td style="text-align: left; white-space: normal;">{{ (item.description or "") | striptags }}</td>{% endif %}
             </tr>
             {%- endfor -%}
         </tbody>
