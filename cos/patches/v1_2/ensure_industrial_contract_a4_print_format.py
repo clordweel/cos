@@ -7,9 +7,10 @@ import frappe
 
 
 def execute():
-	from cos.scripts.sync_contract_po_so_print_formats import sync as sync_contract
+	from cos.scripts.sync_contract_po_so_print_formats import sync_one_print_format
 
 	name = "采购订单 - 合同 - 工业产品 A4"
+	subdir = "contract-industrial-product-purchase-a4"
 	if not frappe.db.exists("Print Format", name):
 		doc = frappe.get_doc(
 			{
@@ -29,12 +30,13 @@ def execute():
 			}
 		)
 		doc.insert(ignore_permissions=True)
+		frappe.db.commit()
 
 	try:
-		sync_contract()
+		sync_one_print_format(name, subdir)
 	except FileNotFoundError as e:
 		frappe.log_error(
-			title="Print Format sync skipped: contract PO/SO (incl. industrial A4)",
+			title="Print Format sync skipped: industrial A4 contract",
 			message=str(e),
 		)
 	frappe.db.commit()
