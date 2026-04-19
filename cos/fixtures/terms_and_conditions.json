@@ -29,6 +29,18 @@
   "docstatus": 0,
   "doctype": "Terms and Conditions",
   "hr": 0,
+  "modified": "2026-04-19 12:00:00.000000",
+  "name": "工业产品买卖条款 - 简易合同",
+  "selling": 0,
+  "terms": "<div class=\"ql-editor read-mode\"><h4>一、标的与价款</h4><h5>产品明细</h5><p>[[ ITEMS_TABLE ]]</p><p><br></p><p>合同总金额为<u> [[ grand_total ]] </u>元（人民币大写：<u> [[ in_words ]] </u>），含<u> 13 </u>%增值税。国家税率政策调整时，双方按不含税总金额不变的原则协商执行。</p><p><br></p><h5>服务与支持</h5><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>产品包装：<u> 简单包装 </u>。</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>运输及保险费用由<u> 乙方承担 </u>。</li></ol><p><br></p><h4>二、付款与发票</h4><p>[[ PAYMENT_SCHEDULE_TABLE ]]</p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>乙方一般在收到相应进度款项后的<u> 7 </u>个工作日内开具发票；甲方付款达到合同总金额的<u> 90 </u>%时，乙方开具全额发票。</li></ol><p><br></p><h4>三、质量与交付</h4><p>质量与技术要求以双方确认的技术协议、图纸或订单约定为准；无约定时适用国家/行业现行标准。乙方保证产品为合格新品。交货及收货信息如下：</p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>交货期限：<u> {{ schedule_date or \" &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\" }} </u></li><li data-list=\"ordered\" class=\"ql-indent-1\"><span class=\"ql-ui\" contenteditable=\"false\"></span>收货人：<u> {{ custom_shipping_contact_person or \" &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\" }} </u></li><li data-list=\"ordered\" class=\"ql-indent-1\"><span class=\"ql-ui\" contenteditable=\"false\"></span>收货电话：<u> {{ custom_shipping_contact_phone or \" &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\" }} </u></li><li data-list=\"ordered\" class=\"ql-indent-1\"><span class=\"ql-ui\" contenteditable=\"false\"></span>收货地址：<u> {{ shipping_address_display or \" &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\" }} </u></li></ol><p><br></p><h4>四、验收与质保</h4><p>到货后甲方应及时验收；<u> 7 </u>日内未提出书面异议视为合格。质保期：自最终验收合格起<u> 12 </u>个月或自到货验收合格起<u> 18 </u>个月，以先届满者为准。质保期内因产品质量问题，乙方负责修理、更换（非乙方原因除外）。</p><p><br></p><h4>五、知识产权、保密与违约</h4><p>双方应尊重对方知识产权并承担保密义务。任一方违约给对方造成损失的，应承担赔偿责任；付款或交货逾期，违约方按逾期部分每日<u> 0.05% </u>支付违约金，累计不超过合同总价<u> 10%</u>。</p><p><br></p><h4>六、不可抗力与争议</h4><p>不可抗力导致不能履行的，应及时通知对方并提交证明，损失按法律规定分担。争议协商不成的，提交<strong>有管辖权的人民法院</strong>诉讼解决。</p><p><br></p><h4>七、通知与其他</h4><p>[[ COMMUNICATION_TABLE ]]</p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>本合同自双方签字（盖章）之日起生效；一式<u> 2 </u>份，双方各执<u> 1 </u>份，具有同等法律效力。</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>未尽事宜可由双方签订补充协议，补充协议与本合同具有同等效力。</li></ol><p><br></p></div>",
+  "title": "工业产品买卖条款 - 简易合同"
+ },
+ {
+  "buying": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Terms and Conditions",
+  "hr": 0,
   "modified": "2026-04-17 12:00:00.000000",
   "name": "工业产品采购条款 - POT/2026-11",
   "selling": 0,
