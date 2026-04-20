@@ -94,7 +94,15 @@
 				<tr>
 					<td class="text-center">{{ loop.index }}</td>
 					<td class="text-center">{{ item.item_name }}</td>
-					<td class="text-left" style="white-space:normal;word-break:break-all;">{{ item.get('custom_specification') or '' }}</td>
+					<td class="text-left" style="white-space:normal;word-break:break-all;">{%- if item.item_code and not (item.get('custom_specification') or item.get('custom_model_number')) -%}
+{%- set _spec_row = frappe.db.get_value('Item', item.item_code, ['custom_specification', 'custom_model_number'], as_dict=True) or {} -%}
+{%- set _sp = (_spec_row.get('custom_specification') or '') | trim -%}
+{%- set _mn = (_spec_row.get('custom_model_number') or '') | trim -%}
+{%- else -%}
+{%- set _sp = (item.get('custom_specification') or '') | trim -%}
+{%- set _mn = (item.get('custom_model_number') or '') | trim -%}
+{%- endif -%}
+{%- if _sp and _mn -%}{{ _sp }} {{ _mn }}{%- elif _sp -%}{{ _sp }}{%- else -%}{{ _mn }}{%- endif -%}</td>
 					<td class="text-center">{% if item.qty % 1 == 0 %}{{ "{:,.0f}".format(item.qty) }}{% else %}{{ "{:,.2f}".format(item.qty) }}{% endif %}</td>
 					<td class="text-center">{{ item.uom }}</td>
 					<td class="text-center" style="white-space:nowrap;">{{ "{:,.2f}".format(item.rate) }}</td>
@@ -114,7 +122,7 @@
 			<li><strong>标的与质量：</strong>标的物为上表所列工业产品；质量符合国家标准、行业标准，有技术协议或图纸的从其约定；乙方保证产品为全新、未使用过的合格品。</li>
 			<li><strong>交付与验收：</strong>交货期限、地点以双方确认的发货/收货信息为准；甲方应在到货后 <u>7</u> 日内验收，逾期未提出书面异议视为验收合格。</li>
 			<li><strong>价款与支付：</strong>价款以上表为准；付款方式按订单「付款计划」执行，无计划时默认为合同签订后一次性支付；发票开具按双方约定或税务规定办理。</li>
-			<li><strong>质保：</strong>质保期自验收合格之日起不少于 <u>　　</u> 个月（或双方另行书面约定）；质保期内因产品质量问题，乙方负责修理、更换或退货，费用由乙方承担。</li>
+			<li><strong>质保：</strong>质保期自验收合格之日起不少于 <u>{{ frappe.utils.cint(doc.get('custom_warranty_months')) or 12 }}</u> 个月（或双方另行书面约定）；质保期内因产品质量问题，乙方负责修理、更换或退货，费用由乙方承担。</li>
 			<li><strong>违约与争议：</strong>任何一方违约给对方造成损失的，应承担赔偿责任；逾期付款或逾期交货的，违约方按逾期部分每日 <u>0.05</u> % 向对方支付违约金。争议协商不成的，提交<strong>有管辖权的人民法院</strong>诉讼解决。</li>
 			<li><strong>生效：</strong>本合同自双方签字（盖章）之日起生效；一式两份，甲乙双方各执一份，具有同等法律效力。未尽事宜可签订补充协议，补充协议与本合同具有同等效力。</li>
 		</ol>
