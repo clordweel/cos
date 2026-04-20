@@ -102,6 +102,7 @@
 }
 
 .contract-a4-wrap .taxes-summary-table .taxes-in-words-cell {
+    text-align: right;
     line-height: 1.35;
     word-break: break-word;
 }
@@ -173,7 +174,7 @@
 
 .contract-a4-wrap .signature-table td.signature-td-with-seal {
     position: relative;
-    padding-bottom: 72px;
+    padding-bottom: 96px;
 }
 
 .contract-a4-wrap .company-seal-wrap {
@@ -181,16 +182,16 @@
     left: 50%;
     bottom: 4px;
     transform: translateX(-50%);
-    width: 88%;
-    max-width: 100px;
+    width: 92%;
+    max-width: 138px;
     text-align: center;
     line-height: 0;
 }
 
 .contract-a4-wrap .company-contract-seal {
     display: inline-block;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 138px;
+    max-height: 138px;
     width: auto;
     height: auto;
     object-fit: contain;
