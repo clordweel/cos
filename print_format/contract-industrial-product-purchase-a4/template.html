@@ -136,11 +136,12 @@
 						<td class="text-right"><strong>价税合计（{{ doc.currency or "CNY" }}）</strong></td>
 						<td class="text-right"><strong>{{ doc.get_formatted("grand_total") }}</strong></td>
 					</tr>
+					<tr class="taxes-in-words-row">
+						<td class="text-right">大写金额</td>
+						<td class="text-left taxes-in-words-cell"><u>{{ doc.in_words or '' }}</u></td>
+					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div class="total-line in-words-line">
-			<strong>大写：</strong><u>{{ doc.in_words or '' }}</u>
 		</div>
 
 		<ol class="clauses">
