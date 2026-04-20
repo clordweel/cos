@@ -31,4 +31,4 @@ bench --site <dev-site> execute cos.scripts.sync_contract_po_so_print_formats.sy
 
 与 `contract-and-terms-purchase` README 中「从 doc 获取的字段」一致；本版签名区为紧凑两行「单位名称～税号 + 盖章」，不再单独列出通信信息大表。
 
-- **打印物料描述**（`custom_print_item_description`，位于 **Contract Information** 区内、`custom_hide_contract_seal` 之后）：默认勾选；取消勾选后明细表**不显示「备注」列**（不打印行 `description`），以节省版面。与「采购订单 - 合同 - 通用」模板行为一致。（放在此处而非 `group_same_items` 后，避免该标准字段落在折叠的「打印设置」里不易找到。）
+- **是否打印物料备注**（`custom_is_print_item_remarks`，位于 **`custom_is_print_terms` 之后**）：默认勾选；取消勾选后明细表**不显示「备注」列**（不打印行 `description`），以节省版面。与「采购订单 - 合同 - 通用」模板行为一致。

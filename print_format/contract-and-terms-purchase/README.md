@@ -156,7 +156,7 @@
 - `doc.custom_signing_location`：签订地点
 
 ##### 产品列表
-- `doc.custom_print_item_description`：是否打印明细「备注」列（`Check`，默认勾选；表单位于 **`custom_hide_contract_seal` 之后**，与「购销合同打印隐藏公章」同区）。取消勾选后产品表格**不显示备注列**，不打印 `item.description`。
+- `doc.custom_is_print_item_remarks`：是否打印明细「备注」列（`Check`，默认勾选；位于 **`custom_is_print_terms` 之后**）。取消勾选后产品表格**不显示备注列**，不打印 `item.description`。
 - `doc.items`：产品列表
   - `item.item_name`：产品名称
   - `item.custom_specification`：规格型号
@@ -164,7 +164,7 @@
   - `item.uom`：单位
   - `item.rate`：单价
   - `item.amount`：总价
-  - `item.description`：备注（使用 `striptags` 过滤器提取纯文本；受 `custom_print_item_description` 控制是否输出列）
+  - `item.description`：备注（使用 `striptags` 过滤器提取纯文本；受 `custom_is_print_item_remarks` 控制是否输出列）
 
 ##### 金额相关
 - `doc.grand_total`：合同总金额（格式化为千分位，使用 `<u>` 标签标记）
