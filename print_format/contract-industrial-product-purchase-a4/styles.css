@@ -9,26 +9,27 @@
 
 .contract-a4-wrap {
     font-family: "HarmonyOS Sans SC", "PingFangSC-Regular", "Microsoft YaHei", Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    line-height: 1.32;
+    /* 单页紧凑仍须可读：略大于 10px，避免 PDF/引擎缩放后观感约 8px */
+    font-size: 11.5px;
+    line-height: 1.4;
     color: #171717;
     text-align: justify;
 }
 
 .contract-a4-wrap .contract-number {
     text-align: right;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .contract-a4-wrap .header-title h2 {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 700;
-    margin: 4px 0 2px;
+    margin: 6px 0 4px;
     letter-spacing: 1px;
 }
 
 .contract-a4-wrap .meta-row {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .contract-a4-wrap .party-label,
@@ -39,17 +40,17 @@
 .contract-a4-wrap .item-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 4px 0 5px;
-    font-size: 9.5px;
+    margin: 6px 0 7px;
+    font-size: 10.75px;
     border: 1px solid #000 !important;
 }
 
 .contract-a4-wrap .item-table th,
 .contract-a4-wrap .item-table td {
-    padding: 2px 3px;
+    padding: 3px 4px;
     border: 1px solid #000 !important;
     vertical-align: middle;
-    line-height: 1.25;
+    line-height: 1.32;
 }
 
 .contract-a4-wrap .item-table th {
@@ -59,20 +60,24 @@
 }
 
 .contract-a4-wrap .total-line {
-    margin: 3px 0 5px;
-    font-size: 10px;
-    line-height: 1.35;
+    margin: 5px 0 7px;
+    font-size: 11.5px;
+    line-height: 1.4;
 }
 
 .contract-a4-wrap .clauses {
     margin: 0;
     padding-left: 1.4em;
-    font-size: 9.5px;
-    line-height: 1.32;
+    font-size: 10.75px;
+    line-height: 1.38;
 }
 
 .contract-a4-wrap .clauses li {
-    margin-bottom: 2px;
+    margin-bottom: 5px;
+}
+
+.contract-a4-wrap .clauses li:last-child {
+    margin-bottom: 0;
 }
 
 .contract-a4-wrap u {
@@ -85,9 +90,9 @@
 .contract-a4-wrap .signature-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 5px;
+    margin-top: 8px;
     margin-bottom: 0;
-    font-size: 9.5px;
+    font-size: 10.75px;
     border: 1px solid #000;
 }
 

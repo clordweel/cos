@@ -24,9 +24,9 @@
     font-size: 15px;
     font-weight: 700;
     color: #171717;
-    margin-top: 24px;
-    margin-bottom: 16px;
-    line-height: 1.6;
+    margin-top: 14px;
+    margin-bottom: 10px;
+    line-height: 1.45;
     letter-spacing: 0.5px;
 }
 
@@ -40,24 +40,24 @@
     font-size: 14px;
     font-weight: 600;
     color: #2c3e50;
-    margin-top: 18px;
-    margin-bottom: 12px;
-    line-height: 1.6;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    line-height: 1.45;
     letter-spacing: 0.3px;
 }
 
 /* 条款内容容器 */
 .clause-content {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     padding-left: 1.5em;
 }
 
 /* 条款项样式 */
 .clause-item {
     font-size: 13px;
-    line-height: 2;
+    line-height: 1.75;
     color: #171717;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-align: justify;
     text-indent: 0;
     padding-left: 0;
@@ -84,8 +84,8 @@ u {
 .item-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 12px;
-    margin-bottom: 16px;
+    margin-top: 8px;
+    margin-bottom: 12px;
     font-size: 12px;
     border: 1px solid #000 !important;
 }
@@ -152,7 +152,7 @@ u {
 .print-format-wrapper .signature-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 24px;
+    margin-top: 16px;
     margin-bottom: 0;
     font-size: 12px;
     border: 1px solid #000;
