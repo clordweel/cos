@@ -17,6 +17,10 @@
 {% endif %}
 {% set project_display = (frappe.db.get_value("Project", doc.project, "project_name") or doc.project) if doc.project else "" %}
 {% set company_tax_id = frappe.db.get_value("Company", doc.company, "tax_id") if doc.company else "" %}
+{% set party_tax_id = "" %}
+{% if doc.party_type and doc.party and frappe.db.exists(doc.party_type, doc.party) and frappe.db.has_column(doc.party_type, "tax_id") %}
+{% set party_tax_id = frappe.db.get_value(doc.party_type, doc.party, "tax_id") or "" %}
+{% endif %}
 {% set ns = namespace(ref_doc=None) %}
 {% if doc.reference_doctype and doc.reference_name and frappe.db.exists(doc.reference_doctype, doc.reference_name) %}
 {% set ns.ref_doc = frappe.get_doc(doc.reference_doctype, doc.reference_name) %}
@@ -63,10 +67,16 @@
 				</tr>
 				<tr>
 					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">税号:</span>
+						<span class="info-label font-weight-bold">本方企业税号:</span>
 						<span class="info-value">{{ company_tax_id or "&nbsp;" }}</span>
 					</td>
 					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">对方企业税号:</span>
+						<span class="info-value">{{ party_tax_id or "&nbsp;" }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="info-cell" colspan="2">
 						<span class="info-label font-weight-bold">关联单据:</span>
 						<span class="info-value">{% if doc.reference_doctype and doc.reference_name %}{{ _(doc.reference_doctype) }} {{ doc.reference_name }}{% else %}&nbsp;{% endif %}</span>
 					</td>
@@ -135,9 +145,6 @@
 					<td class="item-info-cell">
 						<div class="item-code text-bold">{{ item.item_code or "&nbsp;" }}</div>
 						<div class="item-name">{{ item.item_name or "&nbsp;" }}</div>
-						{% if item.description and item.description != item.item_name %}
-						<div class="item-description secondary-text">{{ item.description | striptags }}</div>
-						{% endif %}
 					</td>
 					<td>{% if item.get("schedule_date") and item.schedule_date %}{{ frappe.utils.format_date(item.schedule_date) }}{% else %}&nbsp;{% endif %}</td>
 					<td class="text-right quantity-cell">
@@ -177,13 +184,6 @@
 		</table>
 		{%- endif -%}
 
-		{%- if doc.get("custom_pr_remarks") -%}
-		<div class="remarks-box mb-3">
-			<div class="remarks-label font-weight-bold mb-2">备注</div>
-			<div class="remarks-content secondary-text">{{ doc.get("custom_pr_remarks") }}</div>
-		</div>
-		{%- endif -%}
-
 		<div class="mb-2 font-weight-bold" style="font-size: 13px;">收款/付款账户信息</div>
 		<table class="table table-bordered info-table mb-3">
 			<tbody>
@@ -209,6 +209,13 @@
 				</tr>
 			</tbody>
 		</table>
+
+		{%- if doc.get("custom_pr_remarks") -%}
+		<div class="remarks-box mb-3">
+			<div class="remarks-label font-weight-bold mb-2">备注</div>
+			<div class="remarks-content secondary-text">{{ doc.get("custom_pr_remarks") }}</div>
+		</div>
+		{%- endif -%}
 
 		<table class="table table-borderless signature-table">
 			<tbody>
