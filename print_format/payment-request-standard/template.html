@@ -10,7 +10,17 @@
 {% set pr_type_map = {"Inward": "收款", "Outward": "付款"} %}
 {% set pr_type_label = pr_type_map.get(doc.payment_request_type, doc.payment_request_type or "") %}
 {% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
+{% if doc.get("custom_pr_applicant") %}
+{% set applicant_full_name = frappe.db.get_value("User", doc.get("custom_pr_applicant"), "full_name") or doc.get("custom_pr_applicant") %}
+{% else %}
+{% set applicant_full_name = owner_full_name %}
+{% endif %}
 {% set project_display = (frappe.db.get_value("Project", doc.project, "project_name") or doc.project) if doc.project else "" %}
+{% set company_tax_id = frappe.db.get_value("Company", doc.company, "tax_id") if doc.company else "" %}
+{% set ns = namespace(ref_doc=None) %}
+{% if doc.reference_doctype and doc.reference_name and frappe.db.exists(doc.reference_doctype, doc.reference_name) %}
+{% set ns.ref_doc = frappe.get_doc(doc.reference_doctype, doc.reference_name) %}
+{% endif %}
 
 {% for page in layout %}
 <div class="page-break print-format-wrapper order-wrapper">
@@ -53,6 +63,16 @@
 				</tr>
 				<tr>
 					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">税号:</span>
+						<span class="info-value">{{ company_tax_id or "&nbsp;" }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">关联单据:</span>
+						<span class="info-value">{% if doc.reference_doctype and doc.reference_name %}{{ _(doc.reference_doctype) }} {{ doc.reference_name }}{% else %}&nbsp;{% endif %}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">往来类型:</span>
 						<span class="info-value">{{ _(doc.party_type) if doc.party_type else "&nbsp;" }}</span>
 					</td>
@@ -81,6 +101,10 @@
 						<td class="text-right" style="width: 45%;"><strong>申请金额 ({{ doc.currency or "" }})</strong></td>
 						<td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
 					</tr>
+					<tr>
+						<td class="text-right"><strong>大写金额</strong></td>
+						<td class="text-right text-bold" style="white-space: nowrap;">{{ rmb_upper_amount(doc.grand_total) }}</td>
+					</tr>
 					{%- if doc.docstatus == 1 and doc.outstanding_amount is not none -%}
 					<tr>
 						<td class="text-right"><strong>未清金额 ({{ doc.party_account_currency or doc.currency or "" }})</strong></td>
@@ -90,6 +114,43 @@
 				</tbody>
 			</table>
 		</div>
+
+		{%- if ns.ref_doc and ns.ref_doc.get("items") and ns.ref_doc.items|length > 0 -%}
+		<div class="mb-2 font-weight-bold" style="font-size: 13px;">关联单据物料明细</div>
+		<table class="table table-bordered items-table mb-3">
+			<thead class="table-header">
+				<tr>
+					<th class="text-center" style="width: 5%;">序号</th>
+					<th class="text-left" style="width: 34%;">物料信息</th>
+					<th class="text-left" style="width: 12%;">交货/计划日</th>
+					<th class="text-right" style="width: 12%;">数量</th>
+					<th class="text-right" style="width: 12%;">单价</th>
+					<th class="text-right" style="width: 12%;">金额</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%- for item in ns.ref_doc.items -%}
+				<tr>
+					<td class="text-center">{{ loop.index }}</td>
+					<td class="item-info-cell">
+						<div class="item-code text-bold">{{ item.item_code or "&nbsp;" }}</div>
+						<div class="item-name">{{ item.item_name or "&nbsp;" }}</div>
+						{% if item.description and item.description != item.item_name %}
+						<div class="item-description secondary-text">{{ item.description | striptags }}</div>
+						{% endif %}
+					</td>
+					<td>{% if item.get("schedule_date") and item.schedule_date %}{{ frappe.utils.format_date(item.schedule_date) }}{% else %}&nbsp;{% endif %}</td>
+					<td class="text-right quantity-cell">
+						<span class="quantity-value text-bold">{% if item.qty is not none %}{{ item.qty }}{% else %}&nbsp;{% endif %}</span>
+						{% if item.uom %}<span class="quantity-uom">{{ item.uom }}</span>{% endif %}
+					</td>
+					<td class="text-right" style="white-space: nowrap;">{% if item.get("rate") is not none %}{{ item.get_formatted("rate", ns.ref_doc) }}{% else %}&nbsp;{% endif %}</td>
+					<td class="text-right text-bold" style="white-space: nowrap;">{% if item.get("amount") is not none %}{{ item.get_formatted("amount", ns.ref_doc) }}{% else %}&nbsp;{% endif %}</td>
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+		{%- endif -%}
 
 		{%- if doc.payment_reference and doc.payment_reference|length > 0 -%}
 		<table class="table table-bordered items-table mb-3">
@@ -114,6 +175,13 @@
 				{%- endfor -%}
 			</tbody>
 		</table>
+		{%- endif -%}
+
+		{%- if doc.get("custom_pr_remarks") -%}
+		<div class="remarks-box mb-3">
+			<div class="remarks-label font-weight-bold mb-2">备注</div>
+			<div class="remarks-content secondary-text">{{ doc.get("custom_pr_remarks") }}</div>
+		</div>
 		{%- endif -%}
 
 		<div class="mb-2 font-weight-bold" style="font-size: 13px;">收款/付款账户信息</div>
@@ -147,7 +215,7 @@
 				<tr>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">
 						<div class="signature-label">申请人:</div>
-						<div class="signature-name text-bold mt-2">{{ owner_full_name }}</div>
+						<div class="signature-name text-bold mt-2">{{ applicant_full_name }}</div>
 						<div class="signature-line mt-2"></div>
 					</td>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">

@@ -47,3 +47,25 @@
 	padding: 4px;
 	vertical-align: top;
 }
+
+.print-format-wrapper .remarks-box {
+	margin-bottom: 16px;
+}
+
+.print-format-wrapper .remarks-label {
+	font-size: 13px;
+	color: #171717;
+}
+
+.print-format-wrapper .remarks-content {
+	font-size: 12px;
+	line-height: 1.45;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.print-format-wrapper .quantity-cell .quantity-uom {
+	margin-left: 4px;
+	font-size: 11px;
+	color: #555;
+}
