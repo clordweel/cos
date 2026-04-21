@@ -67,18 +67,12 @@
 				</tr>
 				<tr>
 					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">本方企业税号:</span>
+						<span class="info-label font-weight-bold">本方税号:</span>
 						<span class="info-value">{{ company_tax_id or "&nbsp;" }}</span>
 					</td>
 					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">对方企业税号:</span>
+						<span class="info-label font-weight-bold">对方税号:</span>
 						<span class="info-value">{{ party_tax_id or "&nbsp;" }}</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="info-cell" colspan="2">
-						<span class="info-label font-weight-bold">关联单据:</span>
-						<span class="info-value">{% if doc.reference_doctype and doc.reference_name %}{{ _(doc.reference_doctype) }} {{ doc.reference_name }}{% else %}&nbsp;{% endif %}</span>
 					</td>
 				</tr>
 				<tr>
@@ -92,13 +86,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="info-cell" style="width: 50%;">
+					<td class="info-cell" colspan="2">
 						<span class="info-label font-weight-bold">项目:</span>
 						<span class="info-value">{{ project_display or "&nbsp;" }}</span>
-					</td>
-					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">成本中心:</span>
-						<span class="info-value">{{ doc.cost_center or "&nbsp;" }}</span>
 					</td>
 				</tr>
 			</tbody>
@@ -108,7 +98,7 @@
 			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 320px;">
 				<tbody>
 					<tr>
-						<td class="text-right" style="width: 45%;"><strong>申请金额 ({{ doc.currency or "" }})</strong></td>
+						<td class="text-right" style="width: 45%;"><strong>申请金额</strong></td>
 						<td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
 					</tr>
 					<tr>
@@ -131,11 +121,12 @@
 			<thead class="table-header">
 				<tr>
 					<th class="text-center" style="width: 5%;">序号</th>
-					<th class="text-left" style="width: 34%;">物料信息</th>
-					<th class="text-left" style="width: 12%;">交货/计划日</th>
-					<th class="text-right" style="width: 12%;">数量</th>
-					<th class="text-right" style="width: 12%;">单价</th>
-					<th class="text-right" style="width: 12%;">金额</th>
+					<th class="text-left" style="width: 30%;">物料信息</th>
+					<th class="text-left" style="width: 11%;">交货/计划日</th>
+					<th class="text-right" style="width: 10%;">数量</th>
+					<th class="text-center" style="width: 10%;">单位</th>
+					<th class="text-right" style="width: 11%;">单价</th>
+					<th class="text-right" style="width: 11%;">金额</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -143,14 +134,11 @@
 				<tr>
 					<td class="text-center">{{ loop.index }}</td>
 					<td class="item-info-cell">
-						<div class="item-code text-bold">{{ item.item_code or "&nbsp;" }}</div>
 						<div class="item-name">{{ item.item_name or "&nbsp;" }}</div>
 					</td>
 					<td>{% if item.get("schedule_date") and item.schedule_date %}{{ frappe.utils.format_date(item.schedule_date) }}{% else %}&nbsp;{% endif %}</td>
-					<td class="text-right quantity-cell">
-						<span class="quantity-value text-bold">{% if item.qty is not none %}{{ item.qty }}{% else %}&nbsp;{% endif %}</span>
-						{% if item.uom %}<span class="quantity-uom">{{ item.uom }}</span>{% endif %}
-					</td>
+					<td class="text-right">{% if item.qty is not none %}{{ item.qty }}{% else %}&nbsp;{% endif %}</td>
+					<td class="text-center">{% if item.uom %}{{ item.uom }}{% else %}&nbsp;{% endif %}</td>
 					<td class="text-right" style="white-space: nowrap;">{% if item.get("rate") is not none %}{{ item.get_formatted("rate", ns.ref_doc) }}{% else %}&nbsp;{% endif %}</td>
 					<td class="text-right text-bold" style="white-space: nowrap;">{% if item.get("amount") is not none %}{{ item.get_formatted("amount", ns.ref_doc) }}{% else %}&nbsp;{% endif %}</td>
 				</tr>
