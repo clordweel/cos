@@ -7,21 +7,6 @@
 	{%- endif -%}
 {%- endmacro -%}
 
-{# 规格型号：优先订单/发票行自定义字段，否则自 Item 主档补全 #}
-{%- macro item_spec_display(item) -%}
-{%- set sp = '' -%}
-{%- set mn = '' -%}
-{%- if item.get('custom_specification') or item.get('custom_model_number') -%}
-{%- set sp = (item.get('custom_specification') or '') | trim -%}
-{%- set mn = (item.get('custom_model_number') or '') | trim -%}
-{%- elif item.item_code and frappe.db.exists('Item', item.item_code) -%}
-{%- set _ir = frappe.db.get_value('Item', item.item_code, ['custom_specification', 'custom_model_number'], as_dict=True) or {} -%}
-{%- set sp = (_ir.get('custom_specification') or '') | trim -%}
-{%- set mn = (_ir.get('custom_model_number') or '') | trim -%}
-{%- endif -%}
-{%- if sp and mn -%}{{ sp }} {{ mn }}{%- elif sp -%}{{ sp }}{%- elif mn -%}{{ mn }}{%- endif -%}
-{%- endmacro -%}
-
 {% set pr_type_map = {"Inward": "收款", "Outward": "付款"} %}
 {% set pr_type_label = pr_type_map.get(doc.payment_request_type, doc.payment_request_type or "") %}
 {% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}
@@ -82,8 +67,8 @@
 				</tr>
 				<tr>
 					<td class="info-cell" style="width: 50%;">
-						<span class="info-label font-weight-bold">币种:</span>
-						<span class="info-value">{{ doc.currency or "&nbsp;" }}</span>
+						<span class="info-label font-weight-bold">关联单据:</span>
+						<span class="info-value">{% if doc.reference_doctype and doc.reference_name %}{{ _(doc.reference_doctype) }} {{ doc.reference_name }}{% else %}&nbsp;{% endif %}</span>
 					</td>
 					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">打印时间:</span>
@@ -126,6 +111,10 @@
 			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 320px;">
 				<tbody>
 					<tr>
+						<td class="text-right" style="width: 45%;"><strong>币种</strong></td>
+						<td class="text-right text-bold">{{ doc.currency or "&nbsp;" }}</td>
+					</tr>
+					<tr>
 						<td class="text-right" style="width: 45%;"><strong>申请金额</strong></td>
 						<td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
 					</tr>
@@ -158,14 +147,10 @@
 			</thead>
 			<tbody>
 				{%- for item in ns.ref_doc.items -%}
-				{% set spec_txt = item_spec_display(item) %}
 				<tr>
 					<td class="text-center">{{ loop.index }}</td>
 					<td class="item-info-cell">
 						<div class="item-name">{{ item.item_name or "&nbsp;" }}</div>
-						{%- if spec_txt -%}
-						<div class="secondary-text item-spec-line">{{ spec_txt }}</div>
-						{%- endif -%}
 					</td>
 					<td class="text-right">{% if item.qty is not none %}{% set _q = item.qty | float %}{% if _q % 1 == 0 %}{{ _q | int }}{% else %}{{ "{:,.2f}".format(_q) }}{% endif %}{% else %}&nbsp;{% endif %}</td>
 					<td class="text-center">{% if item.uom %}{{ item.uom }}{% else %}&nbsp;{% endif %}</td>
