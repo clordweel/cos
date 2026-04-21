@@ -18,7 +18,7 @@
 {% set project_display = (frappe.db.get_value("Project", doc.project, "project_name") or doc.project) if doc.project else "" %}
 {% set company_tax_id = frappe.db.get_value("Company", doc.company, "tax_id") if doc.company else "" %}
 {% set party_tax_id = "" %}
-{% if doc.party_type and doc.party and frappe.db.exists(doc.party_type, doc.party) and frappe.db.has_column(doc.party_type, "tax_id") %}
+{% if doc.party_type and doc.party and frappe.db.exists(doc.party_type, doc.party) and frappe.get_meta(doc.party_type).has_field("tax_id") %}
 {% set party_tax_id = frappe.db.get_value(doc.party_type, doc.party, "tax_id") or "" %}
 {% endif %}
 {% set ns = namespace(ref_doc=None) %}
