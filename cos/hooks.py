@@ -173,6 +173,7 @@ jinja = {
 	"methods": [
 		"cos.cos_share.utils.contract_print.company_contract_seal_image_src",
 		"cos.cos_accounts.utils.jinja_print.rmb_upper_amount",
+		"cos.cos_accounts.utils.jinja_print.payment_request_ref_item_pricing",
 	],
 }
 

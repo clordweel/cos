@@ -25,6 +25,10 @@
 {% if doc.reference_doctype and doc.reference_name and frappe.db.exists(doc.reference_doctype, doc.reference_name) %}
 {% set ns.ref_doc = frappe.get_doc(doc.reference_doctype, doc.reference_name) %}
 {% endif %}
+{% set contract_no = "" %}
+{% if ns.ref_doc and doc.reference_doctype in ["Purchase Order", "Sales Order"] %}
+{% set contract_no = ((ns.ref_doc.get("custom_contract_no") or ns.ref_doc.get("name") or "") | trim) %}
+{% endif %}
 
 {% for page in layout %}
 <div class="page-break print-format-wrapper order-wrapper">
@@ -63,6 +67,16 @@
 					<td class="info-cell" style="width: 50%;">
 						<span class="info-label font-weight-bold">申请类型:</span>
 						<span class="info-value text-bold">{{ pr_type_label or "&nbsp;" }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">合同号:</span>
+						<span class="info-value">{{ contract_no or "&nbsp;" }}</span>
+					</td>
+					<td class="info-cell" style="width: 50%;">
+						<span class="info-label font-weight-bold">付款方式:</span>
+						<span class="info-value">{{ _(doc.mode_of_payment) if doc.mode_of_payment else "&nbsp;" }}</span>
 					</td>
 				</tr>
 				<tr>
@@ -137,16 +151,18 @@
 		<table class="table table-bordered items-table mb-3">
 			<thead class="table-header">
 				<tr>
-					<th class="text-center" style="width: 6%;">序号</th>
-					<th class="text-left" style="width: 38%;">物料信息</th>
-					<th class="text-right" style="width: 11%;">数量</th>
-					<th class="text-center" style="width: 11%;">单位</th>
-					<th class="text-right" style="width: 12%;">单价</th>
-					<th class="text-right" style="width: 12%;">金额</th>
+					<th class="text-center" style="width: 5%;">序号</th>
+					<th class="text-left" style="width: 28%;">物料信息</th>
+					<th class="text-right" style="width: 9%;">数量</th>
+					<th class="text-center" style="width: 8%;">单位</th>
+					<th class="text-center" style="width: 8%;">税率</th>
+					<th class="text-right" style="width: 12%;">含税单价</th>
+					<th class="text-right" style="width: 12%;">含税金额</th>
 				</tr>
 			</thead>
 			<tbody>
 				{%- for item in ns.ref_doc.items -%}
+				{% set px = payment_request_ref_item_pricing(ns.ref_doc, item) %}
 				<tr>
 					<td class="text-center">{{ loop.index }}</td>
 					<td class="item-info-cell">
@@ -154,8 +170,9 @@
 					</td>
 					<td class="text-right">{% if item.qty is not none %}{% set _q = item.qty | float %}{% if _q % 1 == 0 %}{{ _q | int }}{% else %}{{ "{:,.2f}".format(_q) }}{% endif %}{% else %}&nbsp;{% endif %}</td>
 					<td class="text-center">{% if item.uom %}{{ item.uom }}{% else %}&nbsp;{% endif %}</td>
-					<td class="text-right" style="white-space: nowrap;">{% if item.get("rate") is not none %}{{ item.get_formatted("rate", ns.ref_doc) }}{% else %}&nbsp;{% endif %}</td>
-					<td class="text-right text-bold" style="white-space: nowrap;">{% if item.get("amount") is not none %}{{ item.get_formatted("amount", ns.ref_doc) }}{% else %}&nbsp;{% endif %}</td>
+					<td class="text-center">{% if px.rate_pct is not none and px.rate_pct != 0 %}{% set _rp = px.rate_pct | float %}{% if _rp % 1 == 0 %}{{ _rp | int }}%{% else %}{{ _rp }}%{% endif %}{% else %}&nbsp;{% endif %}</td>
+					<td class="text-right" style="white-space: nowrap;">{{ frappe.format_value(px.gross_rate, {"fieldtype": "Currency", "options": ns.ref_doc.currency or doc.currency}) }}</td>
+					<td class="text-right text-bold" style="white-space: nowrap;">{{ frappe.format_value(px.gross_amount, {"fieldtype": "Currency", "options": ns.ref_doc.currency or doc.currency}) }}</td>
 				</tr>
 				{%- endfor -%}
 			</tbody>
