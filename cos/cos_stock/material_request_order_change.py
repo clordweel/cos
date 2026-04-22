@@ -12,15 +12,50 @@ from frappe.utils import flt
 from cos.cos_stock.utils.material_request import can_update_material_request_items
 
 
+def _proposed_stock_qty_for_update_row(child, trans_row: dict) -> float:
+	"""与 ERPNext 一致：ordered_qty 按库存 UOM 累计；用「行 qty × 换算率」与 ordered_qty 同维度比较。"""
+	qty = flt(trans_row.get("qty"))
+	if qty <= 0:
+		return 0.0
+	conv = flt(trans_row.get("conversion_factor") or 0)
+	uom = trans_row.get("uom")
+	if uom and uom != (child.uom or ""):
+		from erpnext.stock.get_item_details import get_conversion_factor
+
+		conv_info = get_conversion_factor(child.item_code, uom)
+		if conv <= 0:
+			conv = flt(conv_info.get("conversion_factor")) or 1
+	elif conv <= 0:
+		conv = flt(child.conversion_factor) or 1
+	if conv <= 0:
+		conv = 1.0
+	return flt(qty * conv)
+
+
 def validate_mr_item_qty_on_update(doc, method=None):
-	"""提交后变更时校验：qty 不能小于 ordered_qty。"""
+	"""提交后变更时校验：请求量（库存单位 stock_qty）不能小于已下单量 ordered_qty（库存单位）。"""
 	if doc.get("_action") != "update_after_submit":
 		return
 	for item in doc.items:
-		if flt(item.qty) < flt(item.ordered_qty):
+		ord_q = flt(item.ordered_qty)
+		if not ord_q:
+			continue
+		# 与 MR Item 一致：按库存 UOM 比较（ordered_qty 亦按库存 UOM 由采购回写）
+		stk = flt(
+			flt(flt(item.qty) * flt(item.conversion_factor or 1)),
+			item.precision("stock_qty"),
+		)
+		p = max(item.precision("stock_qty"), item.precision("ordered_qty"))
+		if flt(stk, p) < flt(ord_q, p):
 			frappe.throw(
-				_("行 #{0}：物料 {1} 的数量不能小于已下单数量 {2}。").format(
-					item.idx, item.item_code, item.ordered_qty
+				_(
+					"行 #{0}：物料 {1} 的需求数量（{2} {3}）不能小于已下单数量 {4} {3}。"
+				).format(
+					item.idx,
+					item.item_code,
+					flt(stk, p),
+					item.stock_uom or "",
+					flt(ord_q, p),
 				),
 				title=_("数量无效"),
 			)
@@ -131,11 +166,19 @@ def update_material_request_items(mr_name: str, trans_items: str) -> None:
 
 		if docname and docname in existing_map:
 			child = existing_map[docname]
-			ordered_qty = flt(child.ordered_qty)
-			if new_qty < ordered_qty:
+			ord_q = flt(child.ordered_qty)
+			new_stock = _proposed_stock_qty_for_update_row(child, d)
+			p = max(child.precision("stock_qty"), child.precision("ordered_qty"))
+			if ord_q and flt(new_stock, p) < flt(ord_q, p):
 				frappe.throw(
-					_("行 #{0}：物料 {1} 的数量不能小于已下单数量 {2}。").format(
-						idx + 1, child.item_code, ordered_qty
+					_(
+						"行 #{0}：物料 {1} 的需求数量（{2} {3}）不能小于已下单数量 {4} {3}。"
+					).format(
+						idx + 1,
+						child.item_code,
+						flt(new_stock, p),
+						child.stock_uom or "",
+						flt(ord_q, p),
 					),
 					title=_("数量无效"),
 				)
