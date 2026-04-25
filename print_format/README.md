@@ -1,5 +1,13 @@
 # 打印格式帮助文档
 
+## 维护约定（重要）
+
+- **唯一真相源**：`cos/fixtures/print_format.json`。日常修改打印模板时，请**直接编辑该 fixture** 中对应 Print Format 的 `html` / `css` 字段，再随 cos 提交；`bench migrate` 会按 hooks 中的 Print Format 规则导入，避免站点与仓库脱节。
+- **本目录 `print_format/**` 已废弃作为新建/维护入口**：不再要求为每个格式新增子目录与 `template.html`；下列子目录仅作**历史参考**或与少数**服务器端同步脚本**（如 `sync_contract_po_so_print_formats`）读取路径兼容，**勿再以「改目录再手工拷进 JSON」为主流程**。
+- **从遗留目录一次性并入 fixture**：若仍有仅存在于子目录的模板，可用 `scripts/merge_print_format_dirs_into_fixture.py`（cos 仓库根目录执行）把磁盘模板写入 `print_format.json`，之后以 JSON 为准继续改。
+- **制单人等签名栏**：统一使用 `User.full_name`，例如  
+  `{% set owner_full_name = frappe.db.get_value("User", doc.owner, "full_name") or doc.owner or "" %}`，展示 `{{ owner_full_name }}`；收付款类单据若需「申请人」而非 owner，应对 `party`/`applicant` 等字段同样 `get_value(..., "full_name")`。
+
 ## 简介
 
 打印格式是使用 Jinja 模板语言在服务器端渲染的。所有表单都可以访问 `doc` 对象，该对象包含正在格式化的文档的相关信息。你还可以通过 `frappe` 模块访问常用工具。
@@ -130,9 +138,9 @@ frappe.db.get_value("[doctype]", "[name]", "fieldname")
 
 ## 采购订单 · 合同 · 通用（`contract-and-terms-purchase`）
 
-- **打印格式名**：「采购订单 - 合同 - 通用」；源文件目录：`print_format/contract-and-terms-purchase/`。
+- **打印格式名**：「采购订单 - 合同 - 通用」。**优先**在 `cos/fixtures/print_format.json` 中维护 HTML/CSS。
+- **遗留目录**：`print_format/contract-and-terms-purchase/` 可与脚本 `cos.scripts.sync_contract_po_so_print_formats.sync` 配合，在**已连 bench 的服务器**上把目录内容写回数据库；纳入 Git 时仍需更新 **`print_format.json`**。
 - **部署、fixtures、同步命令**：见该目录下 [`README.md`](./contract-and-terms-purchase/README.md) 首节「仓库位置与部署（dev）」。
-- **同步脚本**：`cos.scripts.sync_contract_po_so_print_formats.sync`（采购 + 销售合同各一条）。
 
 ## 采购订单 · 直发单（`采购订单 - 直发单`）
 
@@ -144,7 +152,7 @@ frappe.db.get_value("[doctype]", "[name]", "fieldname")
 - **项目客户**：有关联项目时，从 `Project.customer` 解析客户名称，在「关联项目」下单独一行「项目客户」。
 - **物料行仓库**：取自采购订单明细 `warehouse`，展示 `Warehouse.warehouse_name`。
 - **数量**：整数量不显示小数，否则保留两位小数。
-- **仓库源文件**：`print_format/purchase-order-proxy-delivery/`；更新后可执行 `cos.scripts.sync_purchase_order_proxy_delivery_print_format.sync`，或通过迁移补丁将模板写入站点。
+- **维护**：以 `print_format.json` 为准。遗留目录 `print_format/purchase-order-proxy-delivery/` 仍可供 `cos.scripts.sync_purchase_order_proxy_delivery_print_format.sync` 在服务器上灌库；变更须回写 fixture。
 
 ## 参考资料
 

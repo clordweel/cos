@@ -1,5 +1,8 @@
 # Copyright (c) 2026, COS and contributors
-"""从 print_format/contract-and-terms-* 等目录同步采购/销售合同类打印格式。
+"""从 print_format/contract-and-terms-* 等目录同步采购/销售合同类打印格式（服务器侧灌库）。
+
+日常开发与版本管理请以 `cos/fixtures/print_format.json` 为准；本脚本用于 bench 已连仓库时
+从遗留目录写回数据库，变更仍需合并进 fixture 再提交。
 
 包含：
 - 「采购订单 - 合同 - 通用」← contract-and-terms-purchase
