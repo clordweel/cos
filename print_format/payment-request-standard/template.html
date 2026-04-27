@@ -135,6 +135,7 @@
 			</tbody>
 		</table>
 
+		{% set pr_brk = payment_request_ref_amount_breakdown(doc, ns.ref_doc) %}
 		<div class="mb-3" style="text-align: right;">
 			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 320px;">
 				<tbody>
@@ -142,6 +143,18 @@
 						<td class="text-right" style="width: 45%;"><strong>币种</strong></td>
 						<td class="text-right text-bold">{{ doc.currency or "&nbsp;" }}</td>
 					</tr>
+					{%- if pr_brk.net_alloc is not none -%}
+					<tr>
+						<td class="text-right"><strong>不含税金额</strong></td>
+						<td class="text-right text-bold">{{ frappe.format_value(pr_brk.net_alloc, {"fieldtype": "Currency", "options": doc.currency}) }}</td>
+					</tr>
+					{%- endif -%}
+					{%- for tax_line in pr_brk.tax_rows -%}
+					<tr>
+						<td class="text-right"><strong>{{ tax_line.description or "&nbsp;" }}</strong></td>
+						<td class="text-right text-bold">{{ frappe.format_value(tax_line.amount, {"fieldtype": "Currency", "options": doc.currency}) }}</td>
+					</tr>
+					{%- endfor -%}
 					<tr>
 						<td class="text-right" style="width: 45%;"><strong>申请金额</strong></td>
 						<td class="text-right text-bold">{{ doc.get_formatted("grand_total") }}</td>
@@ -150,12 +163,6 @@
 						<td class="text-right"><strong>大写金额</strong></td>
 						<td class="text-right text-bold" style="white-space: nowrap;">{{ rmb_upper_amount(doc.grand_total) }}</td>
 					</tr>
-					{%- if doc.docstatus == 1 and doc.outstanding_amount is not none -%}
-					<tr>
-						<td class="text-right"><strong>未清金额</strong></td>
-						<td class="text-right text-bold">{{ doc.get_formatted("outstanding_amount") }}</td>
-					</tr>
-					{%- endif -%}
 				</tbody>
 			</table>
 		</div>

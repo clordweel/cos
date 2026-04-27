@@ -117,13 +117,13 @@
 			</tbody>
 		</table>
 
-		<!-- 金额汇总表格 -->
+		<!-- 金额汇总：未含税净价用 net_total -->
 		<div class="mb-3" style="text-align: right;">
 			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
 				<tbody>
 					<tr>
-						<td class="text-right" style="width: 40%;"><strong>小计</strong></td>
-						<td class="text-right text-bold">{{ doc.get_formatted("total") }}</td>
+						<td class="text-right" style="width: 40%;"><strong>未含税净价</strong></td>
+						<td class="text-right text-bold">{{ doc.get_formatted("net_total") }}</td>
 					</tr>
 					{%- for tax in doc.taxes -%}
 					{%- if tax.tax_amount and tax.tax_amount > 0 -%}

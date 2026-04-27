@@ -100,3 +100,81 @@ def payment_request_ref_item_pricing(ref_doc, item):
 		gross_rate=gross_rate,
 		gross_amount=gross_amt,
 	)
+
+
+def _ref_net_total_for_alloc(ref_doc):
+	"""整单净额：优先主表 net_total，否则用明细 net_amount/amount 汇总。"""
+	if not ref_doc:
+		return 0.0
+	n = flt(getattr(ref_doc, "net_total", None) or 0)
+	if n:
+		return n
+	items = ref_doc.get("items") or []
+	return flt(
+		sum(
+			flt(
+				(r.get("net_amount") or r.get("amount") or 0)
+				if isinstance(r, dict)
+				else 0
+			)
+			for r in items
+		)
+	)
+
+
+def payment_request_ref_amount_breakdown(payment_request, ref_doc):
+	"""收付款申请：按「申请金额 / 关联单价税合计」比例分摊整单净额与 taxes 子表；供按净价列报（如印花税基）。
+
+	无关联单、或关联单价税合计为 0 时，不返回可分摊的净额/税费行（由模板仅展示申请金额）。"""
+	if not payment_request:
+		return frappe._dict(
+			net_alloc=None,
+			tax_rows=[],
+			tax_alloc_total=None,
+		)
+	pr_gt = flt(payment_request.get("grand_total") or 0)
+	if pr_gt <= 0 or not ref_doc:
+		return frappe._dict(
+			net_alloc=None,
+			tax_rows=[],
+			tax_alloc_total=None,
+		)
+	ref_gt = flt(getattr(ref_doc, "grand_total", None) or 0)
+	if ref_gt <= 0:
+		return frappe._dict(
+			net_alloc=None,
+			tax_rows=[],
+			tax_alloc_total=None,
+		)
+	ratio = pr_gt / ref_gt
+
+	ref_net = _ref_net_total_for_alloc(ref_doc)
+
+	tax_rows = []
+	for t in ref_doc.get("taxes") or []:
+		ta = flt(t.get("tax_amount") or 0)
+		if ta <= 0:
+			continue
+		desc = (t.get("description") or t.get("account_head") or "").strip()
+		alloc = flt(ta * ratio, 2)
+		tax_rows.append(
+			{
+				"description": desc,
+				"amount": alloc,
+			}
+		)
+	tax_alloc_total = flt(sum(flt(r["amount"]) for r in tax_rows), 2) if tax_rows else None
+
+	# 有税行时：净额 = 申请金额 − 分摊税额，与价税合计对齐；无税行时按关联单净额比例分摊
+	if tax_rows and tax_alloc_total is not None:
+		net_alloc = flt(pr_gt - flt(tax_alloc_total), 2)
+	elif ref_net:
+		net_alloc = flt(ref_net * ratio, 2)
+	else:
+		net_alloc = None
+
+	return frappe._dict(
+		net_alloc=net_alloc,
+		tax_rows=tax_rows,
+		tax_alloc_total=tax_alloc_total,
+	)

@@ -111,10 +111,14 @@
 			</tbody>
 		</table>
 
-		{# 采购税费：应付总额与表单一致时优先 rounded_total。 #}
+		{# 采购税费：未含税净价用 net_total；价内税时 total≈grand；价税合计优先 rounded_total #}
 		<div class="taxes-summary-wrap">
 			<table class="taxes-summary-table table table-bordered table-condensed">
 				<tbody>
+					<tr>
+						<td class="text-right"><strong>未含税净价</strong></td>
+						<td class="text-right">{{ doc.get_formatted("net_total") }}</td>
+					</tr>
 					{%- for tax in (doc.taxes or []) -%}
 					{%- if tax.tax_amount -%}
 					<tr>

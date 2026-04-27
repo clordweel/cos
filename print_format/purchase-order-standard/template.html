@@ -118,10 +118,14 @@
             </tbody>
         </table>
 
-        <!-- 金额汇总表格 -->
+        <!-- 金额汇总：未含税净价用 net_total；价内税时 doc.total 常与价税合计相同，勿用 total 冒充不含税小计 -->
         <div class="mb-3" style="text-align: right;">
             <table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
                 <tbody>
+                    <tr>
+                        <td class="text-right" style="width: 40%;"><strong>未含税净价</strong></td>
+                        <td class="text-right text-bold">{{ doc.get_formatted("net_total") }}</td>
+                    </tr>
                     {%- for tax in doc.taxes -%}
                     {%- if tax.tax_amount > 0 -%}
                     <tr>

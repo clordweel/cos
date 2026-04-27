@@ -121,15 +121,15 @@
 			</tbody>
 		</table>
 
-		<!-- 金额汇总：有金额时与标准版一致；无金额时留空供供应商填写 -->
+		<!-- 金额汇总：未含税净价用 net_total；无金额时留空供供应商填写 -->
 		<div class="mb-3" style="text-align: right;">
 			<table class="table table-bordered totals-table" style="margin-left: auto; width: auto; min-width: 400px;">
 				<tbody>
 					<tr>
-						<td class="text-right" style="width: 40%;"><strong>小计</strong></td>
-						<td class="text-right text-bold {% if not frappe.utils.flt(doc.total) %}cell-supplier-fill{% endif %}" style="min-width: 120px;">
-							{%- if frappe.utils.flt(doc.total) != 0 -%}
-							{{ doc.get_formatted("total") }}
+						<td class="text-right" style="width: 40%;"><strong>未含税净价</strong></td>
+						<td class="text-right text-bold {% if not frappe.utils.flt(doc.net_total) %}cell-supplier-fill{% endif %}" style="min-width: 120px;">
+							{%- if frappe.utils.flt(doc.net_total) != 0 -%}
+							{{ doc.get_formatted("net_total") }}
 							{%- else -%}
 							&nbsp;
 							{%- endif -%}
