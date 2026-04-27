@@ -552,6 +552,35 @@ fixtures = [
         "dt": "Workflow",
         "filters": [["name", "=", "COS Payment Request Approval"]],
     },
+    {
+        "dt": "Translation",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "cosprytr01",
+                    "cosprytr02",
+                    "cosprytr03",
+                    "cosprytr04",
+                    "cosprytr05",
+                    "cosprytr06",
+                    "cosprytr07",
+                    "cosprytr08",
+                    "cosprytr09",
+                    "cosprytr10",
+                    "cosprytr11",
+                    "cosprytr12",
+                    "cosprytr13",
+                    "cosprytr14",
+                    "cosprytr15",
+                    "cosprytr16",
+                    "cosprytr17",
+                    "cosprytr18",
+                ],
+            ]
+        ],
+    },
     {"dt": "Custom DocPerm", "filters": [["role", "in", ["Logto User"]]]},
     {
         "dt": "Custom DocPerm",

@@ -1,0 +1,200 @@
+[
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr01",
+  "owner": "Administrator",
+  "source_text": "COS PR Draft",
+  "translated_text": "草稿"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr02",
+  "owner": "Administrator",
+  "source_text": "COS PR Pending Applicant",
+  "translated_text": "待申请人确认"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr03",
+  "owner": "Administrator",
+  "source_text": "COS PR Pending Finance",
+  "translated_text": "待财务审核"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr04",
+  "owner": "Administrator",
+  "source_text": "COS PR Pending Director",
+  "translated_text": "待老板批准"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr05",
+  "owner": "Administrator",
+  "source_text": "COS PR Approved",
+  "translated_text": "已批准可提交"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr06",
+  "owner": "Administrator",
+  "source_text": "COS PR Submit for Review",
+  "translated_text": "提交审核"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr07",
+  "owner": "Administrator",
+  "source_text": "COS PR Applicant Confirm",
+  "translated_text": "申请人确认"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr08",
+  "owner": "Administrator",
+  "source_text": "COS PR Finance Approve",
+  "translated_text": "财务审核"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr09",
+  "owner": "Administrator",
+  "source_text": "COS PR Director Approve",
+  "translated_text": "老板批准"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr10",
+  "owner": "Administrator",
+  "source_text": "COS PR Applicant",
+  "translated_text": "收付款申请·经办"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr11",
+  "owner": "Administrator",
+  "source_text": "COS PR Finance",
+  "translated_text": "收付款申请·财务"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr12",
+  "owner": "Administrator",
+  "source_text": "COS PR Director",
+  "translated_text": "收付款申请·终审"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr13",
+  "owner": "Administrator",
+  "source_text": "COS Payment Request Approval",
+  "translated_text": "收付款申请审批"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr14",
+  "owner": "Administrator",
+  "source_text": "Payment Request cannot be submitted until workflow reaches {0}. Current state: {1}",
+  "translated_text": "收付款申请须完成审批（工作流须到达「{0}」）后才可提交。当前状态：{1}"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr15",
+  "owner": "Administrator",
+  "source_text": "Not set",
+  "translated_text": "未设置"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr16",
+  "owner": "Administrator",
+  "source_text": "Copy approval link",
+  "translated_text": "复制审批链接"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr17",
+  "owner": "Administrator",
+  "source_text": "Share",
+  "translated_text": "分享"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-28 12:00:00.000000",
+  "name": "cosprytr18",
+  "owner": "Administrator",
+  "source_text": "Link copied. Send to the next approver via IM (login and approver role required).",
+  "translated_text": "已复制链接。请通过企业微信等发给下一步审批人（需登录且具有对应审批角色）。"
+ }
+]

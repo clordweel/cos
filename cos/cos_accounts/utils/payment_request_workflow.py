@@ -48,12 +48,13 @@ def payment_request_before_submit(doc, method=None):
 	if final is None:
 		return
 	if doc.get("workflow_state") != final:
+		cur = doc.get("workflow_state")
 		frappe.throw(
 			_(
-				"收付款申请须完成审批（工作流须到达「{0}」）后才可提交。当前状态：{1}"
+				"Payment Request cannot be submitted until workflow reaches {0}. Current state: {1}"
 			).format(
-				final,
-				doc.get("workflow_state") or _("未设置"),
+				_(final),
+				_(cur) if cur else _("Not set"),
 			)
 		)
 

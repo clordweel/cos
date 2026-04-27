@@ -4,11 +4,11 @@
   "doctype": "Client Script",
   "dt": "Payment Request",
   "enabled": 1,
-  "modified": "2026-04-27 12:00:00.000000",
+  "modified": "2026-04-28 12:00:00.000000",
   "module": "COS Accounts",
   "name": "Payment Request-复制审批链接",
   "owner": "Administrator",
-  "script": "frappe.ui.form.on(\"Payment Request\", {\n\trefresh(frm) {\n\t\tif (frm.is_new() || frm.doc.docstatus !== 0) {\n\t\t\treturn;\n\t\t}\n\t\tfrm.add_custom_button(\n\t\t\t__(\"复制审批链接\"),\n\t\t\t() => {\n\t\t\t\tconst path = `/app/payment-request/${encodeURIComponent(frm.doc.name)}`;\n\t\t\t\tconst url = `${window.location.origin}${path}`;\n\t\t\t\tfrappe.utils.copy_to_clipboard(url);\n\t\t\t\tfrappe.show_alert({\n\t\t\t\t\tmessage: __(\n\t\t\t\t\t\t\"已复制链接。请通过企业微信等发给下一步审批人（需登录 COS 且具有对应审批角色）。\"\n\t\t\t\t\t),\n\t\t\t\t\tindicator: \"green\",\n\t\t\t\t});\n\t\t\t},\n\t\t\t__(\"分享\")\n\t\t);\n\t},\n});\n",
+  "script": "frappe.ui.form.on(\"Payment Request\", {\n\trefresh(frm) {\n\t\tif (frm.is_new() || frm.doc.docstatus !== 0) {\n\t\t\treturn;\n\t\t}\n\t\tfrm.add_custom_button(\n\t\t\t__(\"Copy approval link\"),\n\t\t\t() => {\n\t\t\t\tconst path = `/app/payment-request/${encodeURIComponent(frm.doc.name)}`;\n\t\t\t\tconst url = `${window.location.origin}${path}`;\n\t\t\t\tfrappe.utils.copy_to_clipboard(url);\n\t\t\t\tfrappe.show_alert({\n\t\t\t\t\tmessage: __(\n\t\t\t\t\t\t\"Link copied. Send to the next approver via IM (login and approver role required).\"\n\t\t\t\t\t),\n\t\t\t\t\tindicator: \"green\",\n\t\t\t\t});\n\t\t\t},\n\t\t\t__(\"Share\")\n\t\t);\n\t},\n});\n",
   "view": "Form"
  }
 ]
