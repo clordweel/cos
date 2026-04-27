@@ -12,7 +12,7 @@
   "send_email_alert": 0,
   "states": [
    {
-    "allow_edit": "Desk User",
+    "allow_edit": "All",
     "doc_status": "0",
     "doctype": "Workflow Document State",
     "is_optional_state": 0,
@@ -23,7 +23,7 @@
     "state": "COS PR Draft"
    },
    {
-    "allow_edit": "Desk User",
+    "allow_edit": "All",
     "doc_status": "0",
     "doctype": "Workflow Document State",
     "is_optional_state": 0,
@@ -70,7 +70,7 @@
   "transitions": [
    {
     "action": "COS PR Submit for Review",
-    "allowed": "Desk User",
+    "allowed": "All",
     "allow_self_approval": 1,
     "doctype": "Workflow Transition",
     "next_state": "COS PR Pending Applicant",
@@ -82,7 +82,7 @@
    },
    {
     "action": "COS PR Applicant Confirm",
-    "allowed": "Desk User",
+    "allowed": "All",
     "allow_self_approval": 1,
     "doctype": "Workflow Transition",
     "next_state": "COS PR Pending Finance",
