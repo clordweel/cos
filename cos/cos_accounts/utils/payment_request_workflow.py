@@ -1,11 +1,12 @@
 # Copyright (c) 2026, COS and contributors
 """Payment Request：三级工作流门禁与审批人/时间回写（与 fixture Workflow 名称一致）。
 
-角色（须分配给用户，且通常仍需 ERPNext 侧 Accounts 等基础权限）：
+角色（须分配给用户，且通常仍需 ERPNext 侧 Payment Request 写权限）：
 
-- COS PR Applicant：提交审核、申请人确认
+- 草稿 / 待申请人确认：工作流 allow_edit 与前两步动作为 Desk User（系统用户默认具备），不强制 COS PR Applicant
 - COS PR Finance：财务审核
 - COS PR Director：老板批准
+- COS PR Applicant：终审后可编辑并提交（见 fixture 终审状态 allow_edit）
 
 上线验证（dev→prod 按 migration 规范）：
 
