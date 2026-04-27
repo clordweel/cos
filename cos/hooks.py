@@ -590,7 +590,11 @@ fixtures = [
         "dt": "Custom DocPerm",
         "filters": [
             ["parent", "=", "Payment Request"],
-            ["role", "in", ["Purchase User", "Accounts User", "Expense Approver"]],
+            [
+                "role",
+                "in",
+                ["All", "Logto User", "Purchase User", "Accounts User", "Expense Approver"],
+            ],
         ],
     },
     {

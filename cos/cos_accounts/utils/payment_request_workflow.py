@@ -6,7 +6,7 @@
 - 草稿 / 待业务确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
 - **Accounts User**（会计）：待财务阶段可编辑；可「财务核准」或「退回业务确认」
 - **Expense Approver**（费用审批人）：待终审阶段可编辑；可「终审核准」或「退回财务复核」
-- **已批准可提交**：`allow_edit` 为 **All**（与草稿阶段一致），经办可 **Submit**；实际制证仍受 Payment Entry 等权限约束
+- **已批准可提交**：`allow_edit` 为 **All**；**Submit** 还依赖 DocPerm（见 `custom_docperm`：`All` / `Logto User` 对**本人单据** `if_owner` 含 **submit**）
 
 驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
 回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
