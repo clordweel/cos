@@ -286,6 +286,10 @@ doc_events = {
         "before_cancel": "cos.cos_accounts.utils.tax_registry_reference.invoice_before_cancel",
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },
+    "Payment Request": {
+        "before_save": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_save",
+        "before_submit": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_submit",
+    },
 }
 
 # Scheduled Tasks
@@ -415,6 +419,37 @@ auth_hooks = [
 
 fixtures = [
     {
+        "dt": "Workflow State",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "COS PR Draft",
+                    "COS PR Pending Applicant",
+                    "COS PR Pending Finance",
+                    "COS PR Pending Director",
+                    "COS PR Approved",
+                ],
+            ]
+        ],
+    },
+    {
+        "dt": "Workflow Action Master",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "COS PR Submit for Review",
+                    "COS PR Applicant Confirm",
+                    "COS PR Finance Approve",
+                    "COS PR Director Approve",
+                ],
+            ]
+        ],
+    },
+    {
         "dt": "Report",
         "filters": [["module", "in", ["COS Share", "COS Biometric", "COS Stock", "COS Accounts", "COS Buying"]]],
     },
@@ -500,11 +535,27 @@ fixtures = [
     },
     {
         "dt": "Role",
-        "filters": [["name", "in", ["Logto User"]]],
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Logto User",
+                    "COS PR Applicant",
+                    "COS PR Finance",
+                    "COS PR Director",
+                ],
+            ]
+        ],
     },
     {
+        "dt": "Workflow",
+        "filters": [["name", "=", "COS Payment Request Approval"]],
+    },
+    {"dt": "Custom DocPerm", "filters": [["role", "in", ["Logto User"]]]},
+    {
         "dt": "Custom DocPerm",
-        "filters": [["role", "in", ["Logto User"]]],
+        "filters": [["role", "in", ["COS PR Applicant", "COS PR Finance", "COS PR Director"]]],
     },
     {
         "dt": "UOM",

@@ -25,6 +25,18 @@
 {% if doc.reference_doctype and doc.reference_name and frappe.db.exists(doc.reference_doctype, doc.reference_name) %}
 {% set ns.ref_doc = frappe.get_doc(doc.reference_doctype, doc.reference_name) %}
 {% endif %}
+{% set applicant_confirm_name = "" %}
+{% if doc.get("custom_pr_applicant_confirmed_by") %}
+{% set applicant_confirm_name = frappe.db.get_value("User", doc.get("custom_pr_applicant_confirmed_by"), "full_name") or doc.get("custom_pr_applicant_confirmed_by") %}
+{% endif %}
+{% set finance_approve_name = "" %}
+{% if doc.get("custom_pr_finance_approved_by") %}
+{% set finance_approve_name = frappe.db.get_value("User", doc.get("custom_pr_finance_approved_by"), "full_name") or doc.get("custom_pr_finance_approved_by") %}
+{% endif %}
+{% set boss_approve_name = "" %}
+{% if doc.get("custom_pr_boss_approved_by") %}
+{% set boss_approve_name = frappe.db.get_value("User", doc.get("custom_pr_boss_approved_by"), "full_name") or doc.get("custom_pr_boss_approved_by") %}
+{% endif %}
 {% set contract_no = "" %}
 {% if ns.ref_doc and doc.reference_doctype in ["Purchase Order", "Sales Order"] %}
 {% set contract_no = ((ns.ref_doc.get("custom_contract_no") or ns.ref_doc.get("name") or "") | trim) %}
@@ -241,23 +253,26 @@
 			<tbody>
 				<tr>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">
-						<div class="signature-label">申请人:</div>
+						<div class="signature-label">经办/申请人:</div>
 						<div class="signature-name text-bold mt-2">{{ applicant_full_name }}</div>
 						<div class="signature-line mt-2"></div>
 					</td>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">
-						<div class="signature-label">部门主管:</div>
-						<div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+						<div class="signature-label">申请人确认:</div>
+						<div class="signature-name text-bold mt-2">{{ applicant_confirm_name or "&nbsp;" }}</div>
+						<div class="signature-date secondary-text">{% if doc.get("custom_pr_applicant_confirmed_on") %}{{ frappe.utils.format_datetime(doc.get("custom_pr_applicant_confirmed_on")) }}{% else %}&nbsp;{% endif %}</div>
 						<div class="signature-line mt-2"></div>
 					</td>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">
 						<div class="signature-label">财务审核:</div>
-						<div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+						<div class="signature-name text-bold mt-2">{{ finance_approve_name or "&nbsp;" }}</div>
+						<div class="signature-date secondary-text">{% if doc.get("custom_pr_finance_approved_on") %}{{ frappe.utils.format_datetime(doc.get("custom_pr_finance_approved_on")) }}{% else %}&nbsp;{% endif %}</div>
 						<div class="signature-line mt-2"></div>
 					</td>
 					<td class="signature-cell" style="width: 25%; vertical-align: top;">
 						<div class="signature-label">批准:</div>
-						<div class="signature-name text-bold mt-2" style="min-height: 1.2em;">&nbsp;</div>
+						<div class="signature-name text-bold mt-2">{{ boss_approve_name or "&nbsp;" }}</div>
+						<div class="signature-date secondary-text">{% if doc.get("custom_pr_boss_approved_on") %}{{ frappe.utils.format_datetime(doc.get("custom_pr_boss_approved_on")) }}{% else %}&nbsp;{% endif %}</div>
 						<div class="signature-line mt-2"></div>
 					</td>
 				</tr>

@@ -1,0 +1,123 @@
+[
+ {
+  "docstatus": 0,
+  "document_type": "Payment Request",
+  "doctype": "Workflow",
+  "enable_action_confirmation": 0,
+  "is_active": 1,
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS Payment Request Approval",
+  "override_status": 0,
+  "owner": "Administrator",
+  "send_email_alert": 0,
+  "states": [
+   {
+    "allow_edit": "COS PR Applicant",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Payment Request Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS PR Draft"
+   },
+   {
+    "allow_edit": "COS PR Applicant",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Payment Request Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS PR Pending Applicant"
+   },
+   {
+    "allow_edit": "COS PR Finance",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Payment Request Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS PR Pending Finance"
+   },
+   {
+    "allow_edit": "COS PR Director",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Payment Request Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS PR Pending Director"
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Payment Request Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS PR Approved"
+   }
+  ],
+  "transitions": [
+   {
+    "action": "COS PR Submit for Review",
+    "allowed": "COS PR Applicant",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS PR Pending Applicant",
+    "parent": "COS Payment Request Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS PR Draft"
+   },
+   {
+    "action": "COS PR Applicant Confirm",
+    "allowed": "COS PR Applicant",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS PR Pending Finance",
+    "parent": "COS Payment Request Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS PR Pending Applicant"
+   },
+   {
+    "action": "COS PR Finance Approve",
+    "allowed": "COS PR Finance",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS PR Pending Director",
+    "parent": "COS Payment Request Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS PR Pending Finance"
+   },
+   {
+    "action": "COS PR Director Approve",
+    "allowed": "COS PR Director",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS PR Approved",
+    "parent": "COS Payment Request Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS PR Pending Director"
+   }
+  ],
+  "workflow_name": "COS Payment Request Approval",
+  "workflow_state_field": "workflow_state"
+ }
+]

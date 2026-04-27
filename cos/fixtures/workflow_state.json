@@ -1,0 +1,52 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Draft",
+  "owner": "Administrator",
+  "style": "Info",
+  "workflow_state_name": "COS PR Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Pending Applicant",
+  "owner": "Administrator",
+  "style": "Warning",
+  "workflow_state_name": "COS PR Pending Applicant"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Pending Finance",
+  "owner": "Administrator",
+  "style": "Warning",
+  "workflow_state_name": "COS PR Pending Finance"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Pending Director",
+  "owner": "Administrator",
+  "style": "Warning",
+  "workflow_state_name": "COS PR Pending Director"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Approved",
+  "owner": "Administrator",
+  "style": "Success",
+  "workflow_state_name": "COS PR Approved"
+ }
+]

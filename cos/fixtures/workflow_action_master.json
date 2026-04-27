@@ -1,0 +1,34 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Submit for Review",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Submit for Review"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Applicant Confirm",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Applicant Confirm"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Finance Approve",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Finance Approve"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-27 12:00:00.000000",
+  "name": "COS PR Director Approve",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Director Approve"
+ }
+]

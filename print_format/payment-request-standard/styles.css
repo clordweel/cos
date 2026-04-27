@@ -60,6 +60,12 @@
 	vertical-align: top;
 }
 
+.print-format-wrapper .signature-table .signature-date {
+	font-size: 10px;
+	margin-top: 2px;
+	min-height: 1.1em;
+}
+
 .print-format-wrapper .remarks-box {
 	margin-bottom: 16px;
 }
