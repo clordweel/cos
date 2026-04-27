@@ -60,10 +60,35 @@
 	vertical-align: top;
 }
 
+/* 日期在横线下方，与上方姓名略留空 */
 .print-format-wrapper .signature-table .signature-date {
 	font-size: 10px;
-	margin-top: 2px;
+	margin-top: 4px;
 	min-height: 1.1em;
+}
+
+/* 整页/全局样式常对 table 使用 page-break-inside: avoid，整表会一起被推到下一页导致上一页大段留白 */
+.print-format-wrapper .signature-table,
+.print-format-wrapper .signature-table tbody,
+.print-format-wrapper .signature-table tr,
+.print-format-wrapper .signature-table td {
+	page-break-inside: auto;
+	break-inside: auto;
+}
+
+/* 长备注单独允许分页，减少与底部签字区被绑成“不可分割块”而整体顶到下一页 */
+.print-format-wrapper .remarks-box {
+	page-break-inside: auto;
+	break-inside: auto;
+}
+
+/* 与合同类打印一致：覆盖全局/standard.css 里对 .print-format-wrapper 的 page-break-inside: avoid，避免整页被当成一块顶到下一页 */
+@media print {
+	.print-format-wrapper.order-wrapper,
+	.print-format-body {
+		page-break-inside: auto !important;
+		break-inside: auto !important;
+	}
 }
 
 .print-format-wrapper .remarks-box {
