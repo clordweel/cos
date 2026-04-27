@@ -17,33 +17,60 @@ def rmb_upper_amount(amount):
 
 
 def payment_request_ref_item_pricing(ref_doc, item):
-	"""关联订单/发票行：含税单价、含税金额、税率%（税额按表头税费总额与行 net 占比分摊）。"""
+	"""关联订单/发票行：含税单价、含税金额、税率%（税额按表头税费与行净额占比分摊）。
+
+	根因说明（+0.01 类问题）：表头 `taxes` 里常有余额舍入的极小 tax_amount；行上若
+	`net_amount` 与 `amount` 已相等（或仅用 amount 表示行小计），行金额已是价税结果，
+	再按「行 net / 整单 net」把表头税摊到行，会把 0.01 税**重复加**到行上，出现
+	560+0.01。对此：行 net≈amount 时直接取行 `amount`；并保留与行/整单合计的 0.01 对齐。"""  # noqa: E501
 	if not ref_doc or not item:
 		return frappe._dict(rate_pct=None, gross_rate=0.0, gross_amount=0.0)
 
 	items = ref_doc.get("items") or []
+	n_items = len(items)
 	qty = flt(item.get("qty") or 0)
 
-	net = flt(item.get("net_amount"))
-	if not net:
-		net = flt(item.get("amount") or 0)
+	n_amt = flt(item.get("net_amount") or 0)
+	a_amt = flt(item.get("amount") or 0)
 
-	total_net = flt(getattr(ref_doc, "net_total", None) or 0)
-	if not total_net:
-		total_net = sum(flt(r.get("net_amount") or r.get("amount") or 0) for r in items)
+	# 行上已「净=额」或二者均视为行价税小计，不再从 taxes 子表加摊
+	if n_amt and a_amt and abs(n_amt - a_amt) < 0.01:
+		gross_amt = flt(a_amt, 2)
+		gross_rate = flt(flt(gross_amt) / flt(qty), 2) if qty else 0.0
+	else:
+		net = n_amt if n_amt else a_amt
 
-	total_tax = 0.0
-	for t in ref_doc.get("taxes") or []:
-		ta = flt(t.get("tax_amount") or 0)
-		if ta > 0:
-			total_tax += ta
+		total_net = flt(getattr(ref_doc, "net_total", None) or 0)
+		if not total_net:
+			total_net = sum(
+				flt(r.get("net_amount") or r.get("amount") or 0) for r in items
+			)
 
-	line_tax = 0.0
-	if total_net > 0 and total_tax > 0 and net > 0:
-		line_tax = total_tax * (net / total_net)
+		total_tax = 0.0
+		for t in ref_doc.get("taxes") or []:
+			ta = flt(t.get("tax_amount") or 0)
+			if ta > 0:
+				total_tax += ta
 
-	gross_amt = net + line_tax
-	gross_rate = (gross_amt / qty) if qty else 0.0
+		line_tax = 0.0
+		if total_net > 0 and total_tax > 0 and net > 0:
+			line_tax = flt(
+				flt(total_tax) * (flt(net) / flt(total_net)),
+				2,
+			)
+
+		gross_amt = flt(flt(net) + flt(line_tax, 2), 2)
+		gross_rate = flt(flt(gross_amt) / flt(qty), 2) if qty else 0.0
+
+		# 与行「金额」、整单 total 做 0.01 内对齐
+		if a_amt and abs(flt(gross_amt) - a_amt) <= 0.01:
+			gross_amt = flt(a_amt, 2)
+			gross_rate = flt(flt(gross_amt) / flt(qty), 2) if qty else 0.0
+		if n_items == 1 and getattr(ref_doc, "grand_total", None) is not None:
+			gtot = flt(getattr(ref_doc, "grand_total", 0) or 0)
+			if gtot and abs(flt(gross_amt) - gtot) <= 0.01:
+				gross_amt = flt(gtot, 2)
+				gross_rate = flt(flt(gross_amt) / flt(qty), 2) if qty else 0.0
 
 	rate_pct = None
 	tr = item.get("item_tax_rate")
