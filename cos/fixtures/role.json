@@ -11,44 +11,5 @@
   "restrict_to_domain": null,
   "role_name": "Logto User",
   "two_factor_auth": 0
- },
- {
-  "desk_access": 1,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Role",
-  "home_page": null,
-  "is_custom": 1,
-  "modified": "2026-04-27 12:00:00.000000",
-  "name": "COS PR Applicant",
-  "restrict_to_domain": null,
-  "role_name": "COS PR Applicant",
-  "two_factor_auth": 0
- },
- {
-  "desk_access": 1,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Role",
-  "home_page": null,
-  "is_custom": 1,
-  "modified": "2026-04-27 12:00:00.000000",
-  "name": "COS PR Finance",
-  "restrict_to_domain": null,
-  "role_name": "COS PR Finance",
-  "two_factor_auth": 0
- },
- {
-  "desk_access": 1,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Role",
-  "home_page": null,
-  "is_custom": 1,
-  "modified": "2026-04-27 12:00:00.000000",
-  "name": "COS PR Director",
-  "restrict_to_domain": null,
-  "role_name": "COS PR Director",
-  "two_factor_auth": 0
  }
 ]

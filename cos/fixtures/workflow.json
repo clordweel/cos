@@ -5,7 +5,7 @@
   "doctype": "Workflow",
   "enable_action_confirmation": 0,
   "is_active": 1,
-  "modified": "2026-04-27 12:00:00.000000",
+  "modified": "2026-04-28 18:00:00.000000",
   "name": "COS Payment Request Approval",
   "override_status": 0,
   "owner": "Administrator",
@@ -34,7 +34,7 @@
     "state": "COS PR Pending Applicant"
    },
    {
-    "allow_edit": "COS PR Finance",
+    "allow_edit": "Accounts User",
     "doc_status": "0",
     "doctype": "Workflow Document State",
     "is_optional_state": 0,
@@ -45,7 +45,7 @@
     "state": "COS PR Pending Finance"
    },
    {
-    "allow_edit": "COS PR Director",
+    "allow_edit": "Expense Approver",
     "doc_status": "0",
     "doctype": "Workflow Document State",
     "is_optional_state": 0,
@@ -56,7 +56,7 @@
     "state": "COS PR Pending Director"
    },
    {
-    "allow_edit": "COS PR Applicant",
+    "allow_edit": "Purchase User",
     "doc_status": "0",
     "doctype": "Workflow Document State",
     "is_optional_state": 0,
@@ -94,7 +94,7 @@
    },
    {
     "action": "COS PR Finance Approve",
-    "allowed": "COS PR Finance",
+    "allowed": "Accounts User",
     "allow_self_approval": 1,
     "doctype": "Workflow Transition",
     "next_state": "COS PR Pending Director",
@@ -106,7 +106,7 @@
    },
    {
     "action": "COS PR Director Approve",
-    "allowed": "COS PR Director",
+    "allowed": "Expense Approver",
     "allow_self_approval": 1,
     "doctype": "Workflow Transition",
     "next_state": "COS PR Approved",

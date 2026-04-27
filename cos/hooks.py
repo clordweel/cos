@@ -545,9 +545,6 @@ fixtures = [
                 "in",
                 [
                     "Logto User",
-                    "COS PR Applicant",
-                    "COS PR Finance",
-                    "COS PR Director",
                 ],
             ]
         ],
@@ -572,9 +569,6 @@ fixtures = [
                     "cosprytr07",
                     "cosprytr08",
                     "cosprytr09",
-                    "cosprytr10",
-                    "cosprytr11",
-                    "cosprytr12",
                     "cosprytr13",
                     "cosprytr14",
                     "cosprytr15",
@@ -588,7 +582,10 @@ fixtures = [
     {"dt": "Custom DocPerm", "filters": [["role", "in", ["Logto User"]]]},
     {
         "dt": "Custom DocPerm",
-        "filters": [["role", "in", ["COS PR Applicant", "COS PR Finance", "COS PR Director"]]],
+        "filters": [
+            ["parent", "=", "Payment Request"],
+            ["role", "in", ["Purchase User", "Accounts User", "Expense Approver"]],
+        ],
     },
     {
         "dt": "UOM",

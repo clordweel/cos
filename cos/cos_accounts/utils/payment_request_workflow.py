@@ -1,12 +1,12 @@
 # Copyright (c) 2026, COS and contributors
 """Payment Request：三级工作流门禁与审批人/时间回写（与 fixture Workflow 名称一致）。
 
-角色（须分配给用户，且通常仍需 ERPNext 侧 Payment Request 写权限）：
+工作流角色使用 ERPNext 标准角色（须分配给用户，且须具备 Payment Request 权限）：
 
-- 草稿 / 待申请人确认：工作流 allow_edit 与前两步动作为 Desk User（系统用户默认具备），不强制 COS PR Applicant
-- COS PR Finance：财务审核
-- COS PR Director：老板批准
-- COS PR Applicant：终审后可编辑并提交（见 fixture 终审状态 allow_edit）
+- 草稿 / 待申请人确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
+- **Accounts User**（会计）：待财务审核阶段可编辑；可执行「财务审核」
+- **Expense Approver**（费用审批人）：待老板批准阶段可编辑；可执行「老板批准」
+- **Purchase User**（采购员）：**已批准可提交**阶段可编辑并提交 ERPNext 单据
 
 上线验证（dev→prod 按 migration 规范）：
 
@@ -15,8 +15,8 @@
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
 
-工作流「COS PR Approved」行的 allow_edit 须为 COS PR Applicant（经办），否则 Desk 将整单只读、看不到提交按钮。
-财务/老板需代提交时，应同时赋予该用户 COS PR Applicant，或另设汇总角色并改工作流 allow_edit。
+「COS PR Approved」状态的 allow_edit 须为 **Purchase User**，否则经办在 Desk 上可能整单只读、无提交按钮。
+财务/老板需代提交时，应为其勾选 **Purchase User**（或调整工作流 allow_edit）。
 """
 
 from __future__ import annotations
