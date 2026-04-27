@@ -111,14 +111,10 @@
 			</tbody>
 		</table>
 
-		{# 采购税费明细：与标准 PO 打印一致，便于合同与订单金额核对 #}
+		{# 采购税费：应付总额与表单一致时优先 rounded_total。 #}
 		<div class="taxes-summary-wrap">
 			<table class="taxes-summary-table table table-bordered table-condensed">
 				<tbody>
-					<tr>
-						<td class="text-right">货款小计（不含税）</td>
-						<td class="text-right">{{ doc.get_formatted("total") }}</td>
-					</tr>
 					{%- for tax in (doc.taxes or []) -%}
 					{%- if tax.tax_amount -%}
 					<tr>
@@ -129,7 +125,7 @@
 					{%- endfor -%}
 					<tr class="taxes-grand-row">
 						<td class="text-right"><strong>价税合计（{{ doc.currency or "CNY" }}）</strong></td>
-						<td class="text-right"><strong>{{ doc.get_formatted("grand_total") }}</strong></td>
+						<td class="text-right"><strong>{% if not doc.get('disable_rounded_total') %}{{ doc.get_formatted("rounded_total") }}{% else %}{{ doc.get_formatted("grand_total") }}{% endif %}</strong></td>
 					</tr>
 					<tr class="taxes-in-words-row">
 						<td class="text-right">大写金额</td>
