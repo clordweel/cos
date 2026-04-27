@@ -3,20 +3,23 @@
 
 工作流角色使用 ERPNext 标准角色（须分配给用户，且须具备 Payment Request 权限）：
 
-- 草稿 / 待申请人确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
-- **Accounts User**（会计）：待财务审核阶段可编辑；可执行「财务审核」
-- **Expense Approver**（费用审批人）：待老板批准阶段可编辑；可执行「老板批准」
+- 草稿 / 待业务确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
+- **Accounts User**（会计）：待财务阶段可编辑；可「财务核准」或「退回业务确认」
+- **Expense Approver**（费用审批人）：待终审阶段可编辑；可「终审核准」或「退回财务复核」
 - **Purchase User**（采购员）：**已批准可提交**阶段可编辑并提交 ERPNext 单据
+
+驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
+回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
 
 上线验证（dev→prod 按 migration 规范）：
 
-1. migrate 后抽样新建 PR：Draft → 四级工作流至 COS PR Approved，中间不可 Submit。
+1. migrate 后抽样新建 PR：Draft → 工作流至 COS PR Approved，中间不可 Submit。
 2. Approved 后可 Submit；打印「收付款申请 - 标准」签字区显示确认人/时间。
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
 
 「COS PR Approved」状态的 allow_edit 须为 **Purchase User**，否则经办在 Desk 上可能整单只读、无提交按钮。
-财务/老板需代提交时，应为其勾选 **Purchase User**（或调整工作流 allow_edit）。
+财务/终审需代提交时，应为其勾选 **Purchase User**（或调整工作流 allow_edit）。
 """
 
 from __future__ import annotations
@@ -29,6 +32,47 @@ FINAL_STATE = "COS PR Approved"
 STATE_PENDING_FINANCE = "COS PR Pending Finance"
 STATE_PENDING_DIRECTOR = "COS PR Pending Director"
 STATE_APPROVED = "COS PR Approved"
+
+WORKFLOW_STATE_ORDER = (
+	"COS PR Draft",
+	"COS PR Pending Applicant",
+	"COS PR Pending Finance",
+	"COS PR Pending Director",
+	STATE_APPROVED,
+)
+
+
+def _workflow_state_index(state: str | None) -> int:
+	if state in WORKFLOW_STATE_ORDER:
+		return WORKFLOW_STATE_ORDER.index(state)
+	return -1
+
+
+def _clear_pr_approval_trail_on_reject(doc, new_wf: str) -> None:
+	"""驳回后按回落节点清理下游留痕，避免打印与界面仍显示已过审。"""
+	if new_wf == "COS PR Draft":
+		for f in (
+			"custom_pr_applicant_confirmed_by",
+			"custom_pr_applicant_confirmed_on",
+			"custom_pr_finance_approved_by",
+			"custom_pr_finance_approved_on",
+			"custom_pr_boss_approved_by",
+			"custom_pr_boss_approved_on",
+		):
+			doc.set(f, None)
+	elif new_wf == "COS PR Pending Applicant":
+		for f in (
+			"custom_pr_applicant_confirmed_by",
+			"custom_pr_applicant_confirmed_on",
+			"custom_pr_finance_approved_by",
+			"custom_pr_finance_approved_on",
+			"custom_pr_boss_approved_by",
+			"custom_pr_boss_approved_on",
+		):
+			doc.set(f, None)
+	elif new_wf == "COS PR Pending Finance":
+		doc.set("custom_pr_boss_approved_by", None)
+		doc.set("custom_pr_boss_approved_on", None)
 
 
 def get_final_workflow_state_for_payment_request():
@@ -64,7 +108,7 @@ def payment_request_before_submit(doc, method=None):
 
 
 def payment_request_before_save(doc, method=None):
-	"""工作流状态变化时写入对应审批人、时间（与 Transition 结果一致）。"""
+	"""工作流状态变化时写入对应审批人、时间；驳回时清理下游留痕。"""
 	if doc.is_new():
 		return
 	if frappe.flags.in_install or frappe.flags.in_migrate:
@@ -72,6 +116,10 @@ def payment_request_before_save(doc, method=None):
 	prev_wf = frappe.db.get_value("Payment Request", doc.name, "workflow_state")
 	new_wf = doc.get("workflow_state")
 	if prev_wf == new_wf:
+		return
+	i_prev, i_new = _workflow_state_index(prev_wf), _workflow_state_index(new_wf)
+	if i_prev >= 0 and i_new >= 0 and i_new < i_prev:
+		_clear_pr_approval_trail_on_reject(doc, new_wf)
 		return
 	user = frappe.session.user
 	now = frappe.utils.now()

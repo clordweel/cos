@@ -449,6 +449,9 @@ fixtures = [
                     "COS PR Applicant Confirm",
                     "COS PR Finance Approve",
                     "COS PR Director Approve",
+                    "COS PR Applicant Reject",
+                    "COS PR Finance Reject",
+                    "COS PR Director Reject",
                 ],
             ]
         ],
@@ -575,6 +578,9 @@ fixtures = [
                     "cosprytr16",
                     "cosprytr17",
                     "cosprytr18",
+                    "cosprytr19",
+                    "cosprytr20",
+                    "cosprytr21",
                 ],
             ]
         ],

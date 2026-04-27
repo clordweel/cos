@@ -30,5 +30,29 @@
   "name": "COS PR Director Approve",
   "owner": "Administrator",
   "workflow_action_name": "COS PR Director Approve"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-29 12:00:00.000000",
+  "name": "COS PR Applicant Reject",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Applicant Reject"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-29 12:00:00.000000",
+  "name": "COS PR Finance Reject",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Finance Reject"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-04-29 12:00:00.000000",
+  "name": "COS PR Director Reject",
+  "owner": "Administrator",
+  "workflow_action_name": "COS PR Director Reject"
  }
 ]

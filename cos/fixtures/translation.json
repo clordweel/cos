@@ -19,7 +19,7 @@
   "name": "cosprytr02",
   "owner": "Administrator",
   "source_text": "COS PR Pending Applicant",
-  "translated_text": "待申请人确认"
+  "translated_text": "待业务确认"
  },
  {
   "contributed": 0,
@@ -30,7 +30,7 @@
   "name": "cosprytr03",
   "owner": "Administrator",
   "source_text": "COS PR Pending Finance",
-  "translated_text": "待财务审核"
+  "translated_text": "待财务核准"
  },
  {
   "contributed": 0,
@@ -41,7 +41,7 @@
   "name": "cosprytr04",
   "owner": "Administrator",
   "source_text": "COS PR Pending Director",
-  "translated_text": "待老板批准"
+  "translated_text": "待终审批复"
  },
  {
   "contributed": 0,
@@ -63,7 +63,7 @@
   "name": "cosprytr06",
   "owner": "Administrator",
   "source_text": "COS PR Submit for Review",
-  "translated_text": "提交审核"
+  "translated_text": "提交审批"
  },
  {
   "contributed": 0,
@@ -74,7 +74,7 @@
   "name": "cosprytr07",
   "owner": "Administrator",
   "source_text": "COS PR Applicant Confirm",
-  "translated_text": "申请人确认"
+  "translated_text": "业务部门确认"
  },
  {
   "contributed": 0,
@@ -85,7 +85,7 @@
   "name": "cosprytr08",
   "owner": "Administrator",
   "source_text": "COS PR Finance Approve",
-  "translated_text": "财务审核"
+  "translated_text": "财务核准"
  },
  {
   "contributed": 0,
@@ -96,7 +96,7 @@
   "name": "cosprytr09",
   "owner": "Administrator",
   "source_text": "COS PR Director Approve",
-  "translated_text": "老板批准"
+  "translated_text": "终审核准"
  },
  {
   "contributed": 0,
@@ -163,5 +163,38 @@
   "owner": "Administrator",
   "source_text": "Link copied. Send to the next approver via IM (login and approver role required).",
   "translated_text": "已复制链接。请通过企业微信等发给下一步审批人（需登录且具有对应审批角色）。"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-29 12:00:00.000000",
+  "name": "cosprytr19",
+  "owner": "Administrator",
+  "source_text": "COS PR Applicant Reject",
+  "translated_text": "退回草稿"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-29 12:00:00.000000",
+  "name": "cosprytr20",
+  "owner": "Administrator",
+  "source_text": "COS PR Finance Reject",
+  "translated_text": "退回业务确认"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-29 12:00:00.000000",
+  "name": "cosprytr21",
+  "owner": "Administrator",
+  "source_text": "COS PR Director Reject",
+  "translated_text": "退回财务复核"
  }
 ]
