@@ -56,7 +56,7 @@
     "state": "COS PR Pending Director"
    },
    {
-    "allow_edit": "System Manager",
+    "allow_edit": "COS PR Applicant",
     "doc_status": "0",
     "doctype": "Workflow Document State",
     "is_optional_state": 0,

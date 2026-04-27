@@ -13,6 +13,9 @@
 2. Approved 后可 Submit；打印「收付款申请 - 标准」签字区显示确认人/时间。
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
+
+工作流「COS PR Approved」行的 allow_edit 须为 COS PR Applicant（经办），否则 Desk 将整单只读、看不到提交按钮。
+财务/老板需代提交时，应同时赋予该用户 COS PR Applicant，或另设汇总角色并改工作流 allow_edit。
 """
 
 from __future__ import annotations
