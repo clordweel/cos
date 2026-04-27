@@ -6,7 +6,7 @@
 - 草稿 / 待业务确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
 - **Accounts User**（会计）：待财务阶段可编辑；可「财务核准」或「退回业务确认」
 - **Expense Approver**（费用审批人）：待终审阶段可编辑；可「终审核准」或「退回财务复核」
-- **Purchase User**（采购员）：**已批准可提交**阶段可编辑并提交 ERPNext 单据
+- **已批准可提交**：`allow_edit` 为 **All**（与草稿阶段一致），经办可 **Submit**；实际制证仍受 Payment Entry 等权限约束
 
 驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
 回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
@@ -18,8 +18,8 @@
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
 
-「COS PR Approved」状态的 allow_edit 须为 **Purchase User**，否则经办在 Desk 上可能整单只读、无提交按钮。
-财务/终审需代提交时，应为其勾选 **Purchase User**（或调整工作流 allow_edit）。
+「COS PR Approved」状态须 **可编辑**，否则 Desk 整单只读、看不到 **提交** 与「创建收付款凭证」等后续按钮。
+当前 fixture 对该状态使用 **All**，与前几步门禁无关：`before_submit` 仍要求 `workflow_state == COS PR Approved`。
 """
 
 from __future__ import annotations
