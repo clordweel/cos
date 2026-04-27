@@ -1,5 +1,5 @@
 # Copyright (c) 2026, COS and contributors
-"""上线 Payment Request 工作流后，对齐存量未提交单据的 workflow_state。"""
+"""上线 Payment Request 工作流后，对齐存量单据 workflow_state。"""
 
 from __future__ import annotations
 
@@ -7,6 +7,28 @@ import frappe
 from frappe.query_builder import DocType
 
 INITIAL_STATE = "COS PR Draft"
+_LEGACY_TO_NEW_STATE = {
+	"": INITIAL_STATE,
+	"Draft": INITIAL_STATE,
+	"草稿": INITIAL_STATE,
+	"Pending Applicant": "COS PR Pending Applicant",
+	"待申请人确认": "COS PR Pending Applicant",
+	"Pending Finance": "COS PR Pending Finance",
+	"待财务审核": "COS PR Pending Finance",
+	"Pending Director": "COS PR Pending Director",
+	"待老板批准": "COS PR Pending Director",
+	"Approved": "COS PR Approved",
+	"已批准可提交": "COS PR Approved",
+}
+_VALID_STATES = set(
+	[
+		"COS PR Draft",
+		"COS PR Pending Applicant",
+		"COS PR Pending Finance",
+		"COS PR Pending Director",
+		"COS PR Approved",
+	]
+)
 
 
 def sync_draft_payment_requests_to_initial_state():
@@ -32,3 +54,32 @@ def sync_draft_payment_requests_to_initial_state():
 		)
 	frappe.db.commit()
 	return len(names)
+
+
+def normalize_payment_request_workflow_state_values():
+	"""对齐旧状态值，避免前端因 state 不匹配被判定为只读。"""
+	pr = DocType("Payment Request")
+	rows = (
+		frappe.qb.from_(pr)
+		.select(pr.name, pr.docstatus, pr.workflow_state)
+		.where(pr.docstatus == 0)
+	).run(as_dict=True)
+	updated = 0
+	for row in rows:
+		cur = (row.workflow_state or "").strip()
+		if cur in _VALID_STATES:
+			continue
+		target = _LEGACY_TO_NEW_STATE.get(cur, INITIAL_STATE)
+		if cur == target:
+			continue
+		frappe.db.set_value(
+			"Payment Request",
+			row.name,
+			"workflow_state",
+			target,
+			update_modified=False,
+		)
+		updated += 1
+	if updated:
+		frappe.db.commit()
+	return updated

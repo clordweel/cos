@@ -183,6 +183,9 @@ jinja = {
 
 before_install = ["cos.setup.coa_setup.copy_custom_charts"]
 after_install = ["cos.setup.uom_setup.setup_uom_data"]
+after_migrate = [
+	"cos.cos_accounts.utils.payment_request_workflow_sync.normalize_payment_request_workflow_state_values"
+]
 
 # Uninstallation
 # ------------
