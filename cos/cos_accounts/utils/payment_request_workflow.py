@@ -6,7 +6,7 @@
 - 草稿 / 待业务确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
 - **Accounts User**（会计）：待财务阶段可编辑；可「财务核准」或「退回业务确认」
 - **Expense Approver**（费用审批人）：待终审阶段可编辑；可「终审核准」或「退回财务复核」
-- **已批准**（`COS PR Approved`）：`allow_edit` 为 **All**；Desk 表单侧 **不展示** 系统主/次按钮（见 `fixtures/client_script.json`）。若从列表等入口执行 **Submit**，仍须具备 DocPerm 的 **submit**（如 `All`/`Logto User` 的 `if_owner` 行）。
+- **已批准**（`COS PR Approved`）：`allow_edit` 为 **All**；Desk **提交** 由 Client Script 显式挂载（Frappe 工具栏在有 Workflow 时 `can_submit` 恒假，见 `frappe/form/toolbar.js`）。须具备 DocPerm **submit**（如 `All`/`Logto User` 的 `if_owner`）。
 
 驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
 回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
