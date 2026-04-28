@@ -6,20 +6,19 @@
 - 草稿 / 待业务确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
 - **Accounts User**（会计）：待财务阶段可编辑；可「财务核准」或「退回业务确认」
 - **Expense Approver**（费用审批人）：待终审阶段可编辑；可「终审核准」或「退回财务复核」
-- **已批准可提交**：`allow_edit` 为 **All**；**Submit** 还依赖 DocPerm（见 `custom_docperm`：`All` / `Logto User` 对**本人单据** `if_owner` 含 **submit**）
+- **已批准**（`COS PR Approved`）：`allow_edit` 为 **All**；Desk 表单侧 **不展示** 系统主/次按钮（见 `fixtures/client_script.json`）。若从列表等入口执行 **Submit**，仍须具备 DocPerm 的 **submit**（如 `All`/`Logto User` 的 `if_owner` 行）。
 
 驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
 回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
 
 上线验证（dev→prod 按 migration 规范）：
 
-1. migrate 后抽样新建 PR：Draft → 工作流至 COS PR Approved，中间不可 Submit。
-2. Approved 后可 Submit；打印「收付款申请 - 标准」签字区显示确认人/时间。
+1. migrate 后抽样新建 PR：Draft → 工作流至 COS PR Approved。
+2. 终态中文标签为 **已批准**；打印「收付款申请 - 标准」签字区显示确认人/时间。
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
 
-「COS PR Approved」状态须 **可编辑**，否则 Desk 整单只读、看不到 **提交** 与「创建收付款凭证」等后续按钮。
-当前 fixture 对该状态使用 **All**，与前几步门禁无关：`before_submit` 仍要求 `workflow_state == COS PR Approved`。
+``before_submit`` 仍要求 ``workflow_state == COS PR Approved``（与界面是否展示「提交」无关）。
 """
 
 from __future__ import annotations
