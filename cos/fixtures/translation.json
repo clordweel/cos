@@ -196,5 +196,16 @@
   "owner": "Administrator",
   "source_text": "COS PR Director Reject",
   "translated_text": "退回财务复核"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-04-29 18:00:00.000000",
+  "name": "cosprytr22",
+  "owner": "Administrator",
+  "source_text": "COS PR Cancelled",
+  "translated_text": "已取消"
  }
 ]

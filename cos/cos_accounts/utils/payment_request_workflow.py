@@ -17,6 +17,8 @@
 2. 终态中文标签为 **已批准**；打印「收付款申请 - 标准」签字区显示确认人/时间。
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
+4. 取消后 ``workflow_state`` 写入 ``COS PR Cancelled``（界面「已取消」）；存量已取消单可 bench execute
+   ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_cancelled_payment_requests_workflow_state``。
 
 ``before_submit`` 仍要求 ``workflow_state == COS PR Approved``（与界面是否展示「提交」无关）。
 """
@@ -31,6 +33,7 @@ FINAL_STATE = "COS PR Approved"
 STATE_PENDING_FINANCE = "COS PR Pending Finance"
 STATE_PENDING_DIRECTOR = "COS PR Pending Director"
 STATE_APPROVED = "COS PR Approved"
+STATE_CANCELLED = "COS PR Cancelled"
 
 WORKFLOW_STATE_ORDER = (
 	"COS PR Draft",
@@ -131,3 +134,27 @@ def payment_request_before_save(doc, method=None):
 	elif new_wf == STATE_APPROVED:
 		doc.set("custom_pr_boss_approved_by", user)
 		doc.set("custom_pr_boss_approved_on", now)
+
+
+def payment_request_on_cancel(doc, method=None):
+	"""取消后把工作流状态写入「已取消」，避免界面仍显示终审「已批准」与修订按钮语义冲突。
+
+	需在 Workflow 中存在 doc_status=2 的状态 ``COS PR Cancelled``（见 fixtures/workflow.json）。
+	"""
+	if frappe.flags.in_install or frappe.flags.in_migrate:
+		return
+	wname = frappe.db.get_value(
+		"Workflow",
+		{"document_type": "Payment Request", "is_active": 1},
+		"name",
+	)
+	if wname != WORKFLOW_DOC_NAME:
+		return
+	frappe.db.set_value(
+		"Payment Request",
+		doc.name,
+		"workflow_state",
+		STATE_CANCELLED,
+		update_modified=False,
+	)
+	doc.set("workflow_state", STATE_CANCELLED)

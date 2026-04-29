@@ -293,6 +293,7 @@ doc_events = {
     "Payment Request": {
         "before_save": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_save",
         "before_submit": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_submit",
+        "on_cancel": "cos.cos_accounts.utils.payment_request_workflow.payment_request_on_cancel",
     },
 }
 
@@ -434,6 +435,7 @@ fixtures = [
                     "COS PR Pending Finance",
                     "COS PR Pending Director",
                     "COS PR Approved",
+                    "COS PR Cancelled",
                 ],
             ]
         ],

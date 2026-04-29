@@ -27,6 +27,7 @@ _VALID_STATES = set(
 		"COS PR Pending Finance",
 		"COS PR Pending Director",
 		"COS PR Approved",
+		"COS PR Cancelled",
 	]
 )
 
@@ -53,6 +54,37 @@ def sync_draft_payment_requests_to_initial_state():
 			update_modified=False,
 		)
 	frappe.db.commit()
+	return len(names)
+
+
+def sync_cancelled_payment_requests_workflow_state():
+	"""将已取消（docstatus=2）且仍未写入终审取消状态的 PR 统一设为 COS PR Cancelled（须 System Manager）。
+
+	适用于上线本钩子前的存量单据；新开单据由 ``payment_request_on_cancel`` 自动写入。
+
+	bench --site <站点> execute cos.cos_accounts.utils.payment_request_workflow_sync.sync_cancelled_payment_requests_workflow_state
+	"""
+	frappe.only_for("System Manager")
+	if not frappe.db.exists("Workflow", "COS Payment Request Approval"):
+		return 0
+	cancelled = "COS PR Cancelled"
+	pr = DocType("Payment Request")
+	q = (
+		frappe.qb.from_(pr)
+		.select(pr.name)
+		.where((pr.docstatus == 2) & (pr.workflow_state != cancelled))
+	)
+	names = [r[0] for r in q.run()]
+	for name in names:
+		frappe.db.set_value(
+			"Payment Request",
+			name,
+			"workflow_state",
+			cancelled,
+			update_modified=False,
+		)
+	if names:
+		frappe.db.commit()
 	return len(names)
 
 

@@ -65,6 +65,17 @@
     "parenttype": "Workflow",
     "send_email": 0,
     "state": "COS PR Approved"
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "2",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Payment Request Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS PR Cancelled"
    }
   ],
   "transitions": [
