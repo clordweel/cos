@@ -19,6 +19,8 @@
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
 4. 取消后 ``workflow_state`` 写入 ``COS PR Cancelled``（界面「已取消」）；存量已取消单可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_cancelled_payment_requests_workflow_state``。
+5. **修订（Amend）** 产生的新草稿会复制父单 ``workflow_state``（常为「已批准」）；首次保存时在 ``before_save`` 拉回 ``COS PR Draft`` 并清空审批留痕。存量修订草稿可 bench execute
+   ``cos.cos_accounts.utils.payment_request_workflow_sync.repair_amended_draft_payment_request_workflow_state``。
 
 ``before_submit`` 仍要求 ``workflow_state == COS PR Approved``（与界面是否展示「提交」无关）。
 """
@@ -34,6 +36,7 @@ STATE_PENDING_FINANCE = "COS PR Pending Finance"
 STATE_PENDING_DIRECTOR = "COS PR Pending Director"
 STATE_APPROVED = "COS PR Approved"
 STATE_CANCELLED = "COS PR Cancelled"
+INITIAL_STATE = "COS PR Draft"
 
 WORKFLOW_STATE_ORDER = (
 	"COS PR Draft",
@@ -77,6 +80,19 @@ def _clear_pr_approval_trail_on_reject(doc, new_wf: str) -> None:
 		doc.set("custom_pr_boss_approved_on", None)
 
 
+def _clear_all_pr_approval_trail(doc) -> None:
+	"""清空三级审批留痕（修订新草稿或回落草稿时使用）。"""
+	for f in (
+		"custom_pr_applicant_confirmed_by",
+		"custom_pr_applicant_confirmed_on",
+		"custom_pr_finance_approved_by",
+		"custom_pr_finance_approved_on",
+		"custom_pr_boss_approved_by",
+		"custom_pr_boss_approved_on",
+	):
+		doc.set(f, None)
+
+
 def get_final_workflow_state_for_payment_request():
 	"""若站点存在针对 Payment Request 的活动工作流，则返回终审状态名，否则 None（不拦截提交）。"""
 	if not frappe.db.get_value(
@@ -111,9 +127,14 @@ def payment_request_before_submit(doc, method=None):
 
 def payment_request_before_save(doc, method=None):
 	"""工作流状态变化时写入对应审批人、时间；驳回时清理下游留痕。"""
-	if doc.is_new():
-		return
 	if frappe.flags.in_install or frappe.flags.in_migrate:
+		return
+	# 修订（Amend）生成的新草稿会从被取消的父单复制字段，workflow_state 常为「已批准」——须拉回草稿起点
+	if doc.is_new() and doc.amended_from:
+		doc.workflow_state = INITIAL_STATE
+		_clear_all_pr_approval_trail(doc)
+		return
+	if doc.is_new():
 		return
 	prev_wf = frappe.db.get_value("Payment Request", doc.name, "workflow_state")
 	new_wf = doc.get("workflow_state")

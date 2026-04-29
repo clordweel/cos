@@ -88,6 +88,48 @@ def sync_cancelled_payment_requests_workflow_state():
 	return len(names)
 
 
+def repair_amended_draft_payment_request_workflow_state():
+	"""修订产生的草稿（docstatus=0 且 amended_from 非空）若误带终审/取消状态，拉回 COS PR Draft 并清空审批留痕（须 System Manager）。
+
+	bench --site <站点> execute cos.cos_accounts.utils.payment_request_workflow_sync.repair_amended_draft_payment_request_workflow_state
+	"""
+	frappe.only_for("System Manager")
+	trail_fields = (
+		"custom_pr_applicant_confirmed_by",
+		"custom_pr_applicant_confirmed_on",
+		"custom_pr_finance_approved_by",
+		"custom_pr_finance_approved_on",
+		"custom_pr_boss_approved_by",
+		"custom_pr_boss_approved_on",
+	)
+	pr = DocType("Payment Request")
+	q = (
+		frappe.qb.from_(pr)
+		.select(pr.name)
+		.where(
+			(pr.docstatus == 0)
+			& (pr.amended_from.isnotnull())
+			& (pr.amended_from != "")
+			& (
+				pr.workflow_state.isin(
+					[
+						"COS PR Approved",
+						"COS PR Cancelled",
+					]
+				)
+			)
+		)
+	)
+	names = [r[0] for r in q.run()]
+	clear_payload = {f: None for f in trail_fields}
+	clear_payload["workflow_state"] = INITIAL_STATE
+	for name in names:
+		frappe.db.set_value("Payment Request", name, clear_payload, update_modified=False)
+	if names:
+		frappe.db.commit()
+	return len(names)
+
+
 def normalize_payment_request_workflow_state_values():
 	"""对齐旧状态值，避免前端因 state 不匹配被判定为只读。"""
 	pr = DocType("Payment Request")
