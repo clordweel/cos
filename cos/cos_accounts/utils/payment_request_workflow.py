@@ -11,6 +11,12 @@
 驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
 回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
 
+**与工作流引擎的先后次序（Frappe ``frappe/model/document.py`` ``insert``）**：
+``run_before_save_methods``（含 ``before_validate`` → DocType ``validate`` → ``before_save``）
+先于 ``_validate()`` → ``validate_workflow()``（``frappe/model/workflow.py``）执行。
+修订单若仍带父单的 ``COS PR Approved``，会在 ``validate_workflow`` 中与默认「草稿」逻辑冲突；
+因此在 ``before_validate`` / DocType ``validate`` 钩子 / ``before_save`` 初段统一拉回 ``COS PR Draft``。
+
 上线验证（dev→prod 按 migration 规范）：
 
 1. migrate 后抽样新建 PR：Draft → 工作流至 COS PR Approved。
@@ -19,7 +25,7 @@
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
 4. 取消后 ``workflow_state`` 写入 ``COS PR Cancelled``（界面「已取消」）；存量已取消单可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_cancelled_payment_requests_workflow_state``。
-5. **修订（Amend）** 产生的新草稿会复制父单 ``workflow_state``（常为「已批准」）；首次保存时在 ``before_save`` 拉回 ``COS PR Draft`` 并清空审批留痕。存量修订草稿可 bench execute
+5. **修订（Amend）** 产生的新草稿会复制父单 ``workflow_state``；在 ``before_validate`` / ``validate`` / ``before_save`` 拉回 ``COS PR Draft``。存量修订草稿可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.repair_amended_draft_payment_request_workflow_state``。
 
 ``before_submit`` 仍要求 ``workflow_state == COS PR Approved``（与界面是否展示「提交」无关）。
@@ -93,6 +99,28 @@ def _clear_all_pr_approval_trail(doc) -> None:
 		doc.set(f, None)
 
 
+def _reset_amended_payment_request_to_draft(doc) -> bool:
+	"""修订产生的新单（``amended_from``）入库前强制拉回 ``COS PR Draft``，避免 ``validate_workflow`` 带着复制来的终态与引擎打架。"""
+	if not doc.is_new() or not doc.get("amended_from"):
+		return False
+	doc.set("workflow_state", INITIAL_STATE)
+	_clear_all_pr_approval_trail(doc)
+	return True
+
+
+def payment_request_before_validate(doc, method=None):
+	if frappe.flags.in_install or frappe.flags.in_migrate:
+		return
+	_reset_amended_payment_request_to_draft(doc)
+
+
+def payment_request_validate(doc, method=None):
+	"""紧接 ERPNext ``Payment Request.validate`` 之后再防守一次（避免控制器或其它扩展写回 workflow_state）。"""
+	if frappe.flags.in_install or frappe.flags.in_migrate:
+		return
+	_reset_amended_payment_request_to_draft(doc)
+
+
 def get_final_workflow_state_for_payment_request():
 	"""若站点存在针对 Payment Request 的活动工作流，则返回终审状态名，否则 None（不拦截提交）。"""
 	if not frappe.db.get_value(
@@ -129,10 +157,7 @@ def payment_request_before_save(doc, method=None):
 	"""工作流状态变化时写入对应审批人、时间；驳回时清理下游留痕。"""
 	if frappe.flags.in_install or frappe.flags.in_migrate:
 		return
-	# 修订（Amend）生成的新草稿会从被取消的父单复制字段，workflow_state 常为「已批准」——须拉回草稿起点
-	if doc.is_new() and doc.amended_from:
-		doc.workflow_state = INITIAL_STATE
-		_clear_all_pr_approval_trail(doc)
+	if _reset_amended_payment_request_to_draft(doc):
 		return
 	if doc.is_new():
 		return

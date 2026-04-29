@@ -291,6 +291,8 @@ doc_events = {
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },
     "Payment Request": {
+        "before_validate": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_validate",
+        "validate": "cos.cos_accounts.utils.payment_request_workflow.payment_request_validate",
         "before_save": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_save",
         "before_submit": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_submit",
         "on_cancel": "cos.cos_accounts.utils.payment_request_workflow.payment_request_on_cancel",
