@@ -16,6 +16,55 @@ def rmb_upper_amount(amount):
 	return get_rmb_upper(amount)
 
 
+def purchase_order_contract_payable_display(doc):
+	"""采购合同/工业 A4：价税合计与大写。
+
+	根因：部分单据在「价税分项展示」下 net_total 正确、taxes 税额正确，但 rounded_total /
+	grand_total 却被保存或打印成与 net_total 相同（含税合计未体现税额）。此时应用
+	net_total + Σ(正 tax_amount) 复原应付含税总额；大写随之重算（CNY 走 get_rmb_upper）。"""
+	from frappe.utils import money_in_words
+
+	if not doc:
+		return frappe._dict(amount=0.0, in_words="")
+
+	net = flt(getattr(doc, "net_total", None) or doc.get("net_total"))
+	gt = flt(getattr(doc, "grand_total", None) or doc.get("grand_total"))
+	disable_rnd = doc.get("disable_rounded_total")
+	rd = doc.get("rounded_total")
+	rt = flt(rd) if rd is not None else None
+
+	tax_positive = flt(
+		sum(
+			flt(x.get("tax_amount") or 0)
+			for x in (doc.get("taxes") or [])
+			if flt(x.get("tax_amount") or 0) > 0
+		),
+	)
+
+	computed = flt(net + tax_positive, 2)
+
+	if disable_rnd:
+		display = gt
+	else:
+		display = flt(rt) if (rd is not None and flt(rt) != 0) else gt
+
+	if tax_positive > 0.005 and (
+		abs(flt(display) - net) < 0.02 or display + 0.02 < computed
+	):
+		display = computed
+
+	cur = (doc.get("currency") or "CNY").strip().upper()
+	try:
+		if cur in ("CNY", "RMB"):
+			words = get_rmb_upper(display)
+		else:
+			words = money_in_words(display, doc.get("currency") or "CNY")
+	except Exception:
+		words = doc.get("in_words") or ""
+
+	return frappe._dict(amount=flt(display, 2), in_words=words)
+
+
 def payment_request_ref_item_pricing(ref_doc, item):
 	"""关联订单/发票行：含税单价、含税金额、税率%（税额按表头税费与行净额占比分摊）。
 

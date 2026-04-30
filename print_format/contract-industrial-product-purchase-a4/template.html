@@ -111,7 +111,8 @@
 			</tbody>
 		</table>
 
-		{# 采购税费：未含税净价用 net_total；价内税时 total≈grand；价税合计优先 rounded_total #}
+		{# 采购税费：净额用 net_total。价税合计：若 rounded/grand 与 net 异常同值但 taxes 有价外税行，则由 purchase_order_contract_payable_display 用净额+税额复原 #}
+		{% set payable = purchase_order_contract_payable_display(doc) %}
 		<div class="taxes-summary-wrap">
 			<table class="taxes-summary-table table table-bordered table-condensed">
 				<tbody>
@@ -129,11 +130,11 @@
 					{%- endfor -%}
 					<tr class="taxes-grand-row">
 						<td class="text-right"><strong>价税合计（{{ doc.currency or "CNY" }}）</strong></td>
-						<td class="text-right"><strong>{% if not doc.get('disable_rounded_total') %}{{ doc.get_formatted("rounded_total") }}{% else %}{{ doc.get_formatted("grand_total") }}{% endif %}</strong></td>
+						<td class="text-right"><strong>{{ frappe.format_value(payable.amount, {"fieldtype": "Currency", "options": doc.currency}) }}</strong></td>
 					</tr>
 					<tr class="taxes-in-words-row">
 						<td class="text-right">大写金额</td>
-						<td class="text-right taxes-in-words-cell">{{ doc.in_words or '' }}</td>
+						<td class="text-right taxes-in-words-cell">{{ payable.in_words }}</td>
 					</tr>
 				</tbody>
 			</table>
