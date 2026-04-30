@@ -295,6 +295,7 @@ doc_events = {
         "before_validate": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_validate",
         "validate": "cos.cos_accounts.utils.payment_request_workflow.payment_request_validate",
         "before_save": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_save",
+        "on_update": "cos.cos_accounts.utils.payment_request_workflow.payment_request_on_update",
         "before_submit": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_submit",
         "on_cancel": "cos.cos_accounts.utils.payment_request_workflow.payment_request_on_cancel",
     },

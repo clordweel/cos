@@ -6,7 +6,7 @@
 - 草稿 / 待业务确认：`allow_edit` 与对应 transition 为 **All**（见 workflow fixture）
 - **Accounts User**（会计）：待财务阶段可编辑；可「财务核准」或「退回业务确认」
 - **Expense Approver**（费用审批人）：待终审阶段可编辑；可「终审核准」或「退回财务复核」
-- **已批准**（`COS PR Approved`）：`allow_edit` 为 **All**；Desk **提交** 由 Client Script 显式挂载（Frappe 工具栏在有 Workflow 时 `can_submit` 恒假，见 `frappe/form/toolbar.js`）。须具备 DocPerm **submit**（如 `All`/`Logto User` 的 `if_owner`）。
+- **已批准**（`COS PR Approved`）：`allow_edit` 为 **All**；终审通过保存入库后由服务端 ``payment_request_on_update`` **自动提交**（仍需 DocPerm **submit**，通常为终审人或单据所有者权限）。Desk **提交** 另可由 Client Script 显式挂载（Frappe 有 Workflow 时工具栏 `can_submit` 恒假），用于自动提交失败后的补救。
 
 驳回：见 ``COS PR Applicant Reject`` / ``COS PR Finance Reject`` / ``COS PR Director Reject``，
 回落节点时由 ``payment_request_before_save`` 清理下游审批留痕字段。
@@ -19,7 +19,7 @@
 
 上线验证（dev→prod 按 migration 规范）：
 
-1. migrate 后抽样新建 PR：Draft → 工作流至 COS PR Approved。
+1. migrate 后抽样新建 PR：Draft → 工作流至 COS PR Approved；终审保存后应自动变为已提交（docstatus=1）。
 2. 终态中文标签为 **已批准**；打印「收付款申请 - 标准」签字区显示确认人/时间。
 3. 存量未提交单：可 bench execute
    ``cos.cos_accounts.utils.payment_request_workflow_sync.sync_draft_payment_requests_to_initial_state``。
@@ -151,6 +151,32 @@ def payment_request_before_submit(doc, method=None):
 				_(cur) if cur else _("Not set"),
 			)
 		)
+
+
+def payment_request_on_update(doc, method=None):
+	"""终审工作流保存至终态后自动 ERPNext 提交（仍需 submit 权限与单据校验通过）。
+
+	若提交失败，整笔 HTTP 事务通常回滚，终审动作不落库；见 PR ``submit`` 与 ``before_submit`` 报错。
+	"""
+	if frappe.flags.in_install or frappe.flags.in_migrate:
+		return
+	if getattr(frappe.local, "_cos_pr_auto_submit_in_progress", False):
+		return
+	if doc.docstatus != 0:
+		return
+	final = get_final_workflow_state_for_payment_request()
+	if final is None:
+		return
+	if doc.get("workflow_state") != final:
+		return
+	frappe.local._cos_pr_auto_submit_in_progress = True
+	try:
+		doc.reload()
+		if doc.docstatus != 0 or doc.get("workflow_state") != final:
+			return
+		doc.submit()
+	finally:
+		frappe.local._cos_pr_auto_submit_in_progress = False
 
 
 def payment_request_before_save(doc, method=None):
