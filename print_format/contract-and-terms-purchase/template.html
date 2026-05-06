@@ -202,6 +202,9 @@
 {% set terms_content = doc.terms %}
 {%- set terms_content = terms_content.replace("[[ grand_total ]]", "{:,.2f}".format(doc.grand_total or 0)) -%}
 {%- set terms_content = terms_content.replace("[[ in_words ]]", doc.in_words or "") -%}
+{%- set _cos_terms_net = contract_terms_net_total_amount(doc) -%}
+{%- set terms_content = terms_content.replace("[[ net_total ]]", "{:,.2f}".format(_cos_terms_net)) -%}
+{%- set terms_content = terms_content.replace("[[ net_in_words ]]", rmb_upper_amount(_cos_terms_net)) -%}
 {%- if "<p>[[ ITEMS_TABLE ]]</p>" in terms_content or "<p>[[ PAYMENT_SCHEDULE_TABLE ]]</p>" in terms_content or "<p>[[
     COMMUNICATION_TABLE ]]</p>" in terms_content -%}
 {%- set parts = terms_content.split("<p>[[ ITEMS_TABLE ]]</p>") -%}

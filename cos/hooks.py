@@ -177,6 +177,7 @@ jinja = {
 		"cos.cos_accounts.utils.jinja_print.purchase_order_tax_included_in_basic_rate",
 		"cos.cos_accounts.utils.jinja_print.purchase_order_contract_line_print_amounts",
 		"cos.cos_accounts.utils.jinja_print.purchase_order_contract_goods_subtotal_excl_tax",
+		"cos.cos_accounts.utils.jinja_print.contract_terms_net_total_amount",
 		"cos.cos_accounts.utils.jinja_print.purchase_order_contract_payable_display",
 		"cos.cos_accounts.utils.jinja_print.payment_request_ref_amount_breakdown",
 	],

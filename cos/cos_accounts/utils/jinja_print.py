@@ -98,6 +98,16 @@ def purchase_order_contract_goods_subtotal_excl_tax(doc):
 	return flt(getattr(doc, "total", None) or doc.get("total") or 0, 2)
 
 
+def contract_terms_net_total_amount(doc):
+	"""条款占位符「[[ net_total ]]」：不含税价款。采购单与单价含税打印口径对齐，其余单据用 net_total。"""
+	if not doc:
+		return 0.0
+	dt = getattr(doc, "doctype", None) or doc.get("doctype")
+	if dt == "Purchase Order":
+		return flt(purchase_order_contract_goods_subtotal_excl_tax(doc), 2)
+	return flt(getattr(doc, "net_total", None) or doc.get("net_total") or 0, 2)
+
+
 def purchase_order_contract_payable_display(doc):
 	"""采购合同/工业 A4：价税合计与大写。
 
