@@ -16,6 +16,88 @@ def rmb_upper_amount(amount):
 	return get_rmb_upper(amount)
 
 
+def purchase_order_tax_included_in_basic_rate(doc):
+	"""采购单是否处于「税额计入基本价 / 打印单价含税」模式。
+
+	优先读 PO 的 taxes 子表（与界面一致）； taxes 未带出时回查税费模板子表。"""
+	if not doc:
+		return False
+	cached = getattr(doc, "_cos_cached_tax_included_in_basic_rate", None)
+	if cached is not None:
+		return bool(cached)
+	for row in doc.get("taxes") or []:
+		if frappe.utils.cint(row.get("included_in_print_rate")):
+			setattr(doc, "_cos_cached_tax_included_in_basic_rate", True)
+			return True
+	tpl = doc.get("taxes_and_charges")
+	if not tpl:
+		setattr(doc, "_cos_cached_tax_included_in_basic_rate", False)
+		return False
+	try:
+		flags = frappe.get_all(
+			"Purchase Taxes and Charges",
+			filters={"parent": tpl, "parenttype": "Purchase Taxes and Charges Template"},
+			pluck="included_in_print_rate",
+		)
+	except Exception:
+		flags = []
+	if not flags:
+		try:
+			flags = frappe.get_all(
+				"Purchase Taxes and Charges",
+				filters={"parent": tpl},
+				pluck="included_in_print_rate",
+				limit=20,
+			)
+		except Exception:
+			flags = []
+	out = any(frappe.utils.cint(x) for x in (flags or []))
+	setattr(doc, "_cos_cached_tax_included_in_basic_rate", bool(out))
+	return bool(out)
+
+
+def purchase_order_contract_line_print_amounts(doc, item):
+	"""采购合同明细：单价、金额。含税模式下与「货款小计（不含税）」对齐，取 net_rate / net_amount。"""
+	if not doc or not item:
+		return frappe._dict(rate=0.0, amount=0.0)
+	if not purchase_order_tax_included_in_basic_rate(doc):
+		return frappe._dict(
+			rate=flt(flt(item.get("rate") or 0), 2),
+			amount=flt(flt(item.get("amount") or 0), 2),
+		)
+	qty = flt(item.get("qty") or 0)
+	nr = flt(item.get("net_rate") or 0)
+	na = flt(item.get("net_amount") or 0)
+	if (abs(nr) < 1e-12) and qty and na:
+		nr = flt(flt(na) / flt(qty), 6)
+	if (abs(na) < 1e-12) and nr and qty:
+		na = flt(flt(nr) * flt(qty), 2)
+	if abs(na) < 1e-12 and abs(nr) < 1e-12:
+		return frappe._dict(
+			rate=flt(flt(item.get("rate") or 0), 2),
+			amount=flt(flt(item.get("amount") or 0), 2),
+		)
+	return frappe._dict(rate=flt(nr, 2), amount=flt(na, 2))
+
+
+def purchase_order_contract_goods_subtotal_excl_tax(doc):
+	"""货款小计（不含税）：含税模式用 net_total，否则 total。"""
+	if not doc:
+		return 0.0
+	if purchase_order_tax_included_in_basic_rate(doc):
+		n = flt(getattr(doc, "net_total", None) or doc.get("net_total") or 0)
+		if n:
+			return flt(n, 2)
+		items = doc.get("items") or []
+		s = flt(
+			sum(flt(i.get("net_amount") or 0) for i in items),
+			2,
+		)
+		if s:
+			return s
+	return flt(getattr(doc, "total", None) or doc.get("total") or 0, 2)
+
+
 def purchase_order_contract_payable_display(doc):
 	"""采购合同/工业 A4：价税合计与大写。
 
