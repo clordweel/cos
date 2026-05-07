@@ -528,6 +528,7 @@ fixtures = [
                     "UOM",
                     "Material Request Item",
                     "Purchase Order Item",
+                    "Purchase Order",
                     "Purchase Receipt Item",
                     "Purchase Invoice Item",
                     "Supplier Quotation Item",
