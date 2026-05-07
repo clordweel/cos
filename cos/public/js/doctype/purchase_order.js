@@ -34,6 +34,17 @@ frappe.ui.form.on("Purchase Order", {
 			frm.set_value("custom_advance_employee", frappe.boot.user.employee);
 		}
 	},
+	custom_shipping_contact_person: function (frm) {
+		const link = frm.doc.custom_shipping_contact_person;
+		if (!link) {
+			frm.set_value("custom_shipping_contact_phone", "");
+			return;
+		}
+		frappe.db.get_value("Contact", link, ["phone", "mobile_no"]).then((r) => {
+			const msg = r.message || {};
+			frm.set_value("custom_shipping_contact_phone", (msg.phone || msg.mobile_no || "").trim());
+		});
+	},
 });
 
 // 物料明细：选择物料后，从 Item 主采购链接即时带出采购平台、SKU、链接

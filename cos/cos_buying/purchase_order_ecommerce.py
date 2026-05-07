@@ -14,10 +14,25 @@ def on_purchase_order_before_save(doc, method=None):
     - 若已选 custom_platform：按平台匹配带出 SKU、链接。
     - 若未选 custom_platform：使用主采购链接（is_primary=1），若无则取第一条，带出平台、SKU、链接。
     """
+    _fill_shipping_contact_phone_if_empty(doc)
     for item in doc.items or []:
         if not item.item_code:
             continue
         _fill_from_item_sources(item)
+
+
+def _fill_shipping_contact_phone_if_empty(doc):
+    """送货联系人电话：选了联系人且本字段仍为空时，从 Contact.phone / mobile_no 补全（导入/API 等无前端脚本场景）。"""
+    if not doc.get("custom_shipping_contact_person"):
+        return
+    if (doc.get("custom_shipping_contact_phone") or "").strip():
+        return
+    phone, mobile = frappe.db.get_value(
+        "Contact",
+        doc.custom_shipping_contact_person,
+        ["phone", "mobile_no"],
+    ) or (None, None)
+    doc.custom_shipping_contact_phone = (phone or mobile or "").strip()
 
 
 def _fill_from_item_sources(item):
