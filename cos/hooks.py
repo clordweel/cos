@@ -253,19 +253,30 @@ doc_events = {
         "validate": "cos.cos_share.utils.address.update_address_display",
     },
     # 当发票被税务登记引用时，取消/删除需联动处理（避免链接校验拦截）
-    # 员工垫付：提交后手动创建 JE 应付转员工，取消时自动取消已关联 JE
+    # 员工垫付：采购发票并联「员工垫付采购报销」三级工作流；终审提交后自动 JE，或手调 create_payable_transfer_je；取消 PI 会先取消关联 JE
     "Purchase Invoice": {
         "validate": [
             "cos.cos_accounts.utils.purchase_invoice_general_tax.on_purchase_invoice_validate_general_tax",
             "cos.cos_accounts.utils.employee_advance_payable_transfer.on_purchase_invoice_validate",
         ],
-        "before_cancel": "cos.cos_accounts.utils.employee_advance_payable_transfer.purchase_invoice_before_cancel",
+        "before_cancel": [
+            "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.purchase_invoice_guard_cancel_if_eapr_submitted",
+            "cos.cos_accounts.utils.employee_advance_payable_transfer.purchase_invoice_before_cancel",
+        ],
         "on_trash": "cos.cos_accounts.utils.tax_registry_reference.invoice_on_trash",
     },
     # 付给员工 PE 提交/取消时，更新 PI 的 custom_employee_reimbursed
     "Payment Entry": {
         "on_submit": "cos.cos_accounts.utils.employee_advance_payable_transfer.payment_entry_on_submit",
         "on_cancel": "cos.cos_accounts.utils.employee_advance_payable_transfer.payment_entry_on_cancel",
+    },
+    "Employee Advance PI Reimbursement": {
+        "before_validate": "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.eapr_before_validate",
+        "validate": "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.eapr_validate",
+        "before_save": "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.eapr_before_save",
+        "before_submit": "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.eapr_before_submit",
+        "on_update": "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.eapr_on_update",
+        "on_cancel": "cos.cos_accounts.utils.employee_advance_pi_reimbursement_workflow.eapr_on_cancel",
     },
     "Delivery Note": {
         "on_submit": "cos.cos_accounts.utils.delivery_note_auto_invoice.on_delivery_note_submit",
@@ -444,6 +455,12 @@ fixtures = [
                     "COS PR Pending Director",
                     "COS PR Approved",
                     "COS PR Cancelled",
+                    "COS EAPR Draft",
+                    "COS EAPR Pending Applicant",
+                    "COS EAPR Pending Finance",
+                    "COS EAPR Pending Director",
+                    "COS EAPR Approved",
+                    "COS EAPR Cancelled",
                 ],
             ]
         ],
@@ -462,6 +479,13 @@ fixtures = [
                     "COS PR Applicant Reject",
                     "COS PR Finance Reject",
                     "COS PR Director Reject",
+                    "COS EAPR Submit for Review",
+                    "COS EAPR Applicant Confirm",
+                    "COS EAPR Finance Approve",
+                    "COS EAPR Director Approve",
+                    "COS EAPR Applicant Reject",
+                    "COS EAPR Finance Reject",
+                    "COS EAPR Director Reject",
                 ],
             ]
         ],
@@ -565,7 +589,16 @@ fixtures = [
     },
     {
         "dt": "Workflow",
-        "filters": [["name", "=", "COS Payment Request Approval"]],
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "COS Payment Request Approval",
+                    "COS Employee Advance PI Reimbursement Approval",
+                ],
+            ]
+        ],
     },
     {
         "dt": "Translation",
@@ -601,6 +634,17 @@ fixtures = [
         "dt": "Custom DocPerm",
         "filters": [
             ["parent", "=", "Payment Request"],
+            [
+                "role",
+                "in",
+                ["All", "Logto User", "Purchase User", "Accounts User", "Expense Approver"],
+            ],
+        ],
+    },
+    {
+        "dt": "Custom DocPerm",
+        "filters": [
+            ["parent", "=", "Employee Advance PI Reimbursement"],
             [
                 "role",
                 "in",

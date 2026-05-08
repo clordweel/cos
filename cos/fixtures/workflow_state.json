@@ -58,5 +58,65 @@
   "owner": "Administrator",
   "style": "Danger",
   "workflow_state_name": "COS PR Cancelled"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Draft",
+  "owner": "Administrator",
+  "style": "Info",
+  "workflow_state_name": "COS EAPR Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Pending Applicant",
+  "owner": "Administrator",
+  "style": "Warning",
+  "workflow_state_name": "COS EAPR Pending Applicant"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Pending Finance",
+  "owner": "Administrator",
+  "style": "Warning",
+  "workflow_state_name": "COS EAPR Pending Finance"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Pending Director",
+  "owner": "Administrator",
+  "style": "Warning",
+  "workflow_state_name": "COS EAPR Pending Director"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Approved",
+  "owner": "Administrator",
+  "style": "Success",
+  "workflow_state_name": "COS EAPR Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Cancelled",
+  "owner": "Administrator",
+  "style": "Danger",
+  "workflow_state_name": "COS EAPR Cancelled"
  }
 ]

@@ -54,5 +54,61 @@
   "name": "COS PR Director Reject",
   "owner": "Administrator",
   "workflow_action_name": "COS PR Director Reject"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Submit for Review",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Submit for Review"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Applicant Confirm",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Applicant Confirm"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Finance Approve",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Finance Approve"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Director Approve",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Director Approve"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Applicant Reject",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Applicant Reject"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Finance Reject",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Finance Reject"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-05-08 12:00:00.000000",
+  "name": "COS EAPR Director Reject",
+  "owner": "Administrator",
+  "workflow_action_name": "COS EAPR Director Reject"
  }
 ]

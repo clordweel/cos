@@ -1,7 +1,7 @@
 # Copyright (c) 2026, bit and contributors
 # License: MIT. See LICENSE
 
-"""员工垫付采购：PI 提交后手动创建 JE（应付转员工），取消时自动取消已关联 JE。"""
+"""员工垫付采购：PI 提交后由「员工垫付采购报销」终审通过并提交后自动 JE，或手调 create_payable_transfer_je；取消 PI 时自动取消关联 JE。"""
 
 from __future__ import annotations
 
