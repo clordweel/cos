@@ -12,6 +12,58 @@ function add_create_tax_registry_button(frm) {
 	);
 }
 
+function add_create_employee_advance_pi_reimbursement_button(frm) {
+	if (frm.doc.doctype !== "Purchase Invoice" || frm.is_new() || frm.doc.docstatus !== 1) return;
+	if (!frm.doc.custom_is_employee_advance || !frm.doc.custom_advance_employee) return;
+
+	frm.add_custom_button(
+		__("员工垫付采购报销"),
+		() => open_or_create_eapr_from_pi(frm),
+		__("Create")
+	);
+}
+
+async function open_or_create_eapr_from_pi(frm) {
+	try {
+		await frappe.model.with_doctype("Employee Advance PI Reimbursement");
+		const rows = await frappe.db.get_list("Employee Advance PI Reimbursement", {
+			filters: {
+				purchase_invoice: frm.doc.name,
+				docstatus: ["<", 2],
+			},
+			fields: ["name"],
+			order_by: "modified desc",
+			limit: 15,
+		});
+
+		if (rows.length === 1) {
+			frappe.set_route("Form", "Employee Advance PI Reimbursement", rows[0].name);
+			return;
+		}
+		if (rows.length > 1) {
+			const lines = rows.map((r) =>
+				frappe.utils.get_form_link("Employee Advance PI Reimbursement", r.name, true)
+			);
+			frappe.msgprint({
+				title: __("多笔并联报销单"),
+				message:
+					__("请点击下列链接打开其中一笔（均为未取消单据）：") + "<br><br>" + lines.join("<br>"),
+			});
+			return;
+		}
+
+		const d = frappe.model.get_new_doc("Employee Advance PI Reimbursement");
+		d.company = frm.doc.company;
+		d.purchase_invoice = frm.doc.name;
+		frappe.set_route("Form", "Employee Advance PI Reimbursement", d.name);
+	} catch (e) {
+		frappe.show_alert({
+			message: __("无法打开「员工垫付采购报销」，请确认站点已 migrate 且您具备列表/创建权限"),
+			indicator: "red",
+		});
+	}
+}
+
 async function create_tax_registry_from_invoice(frm) {
 	// 若发票已被税务登记引用，则直接提示并打开引用单据（不干预发票流程）
 	if (frm.doc.custom_tax_registry_reference) {
@@ -96,6 +148,7 @@ frappe.ui.form.on("Purchase Invoice", {
 		});
 		apply_advance_employee_readonly_pi(frm);
 		add_create_tax_registry_button(frm);
+		add_create_employee_advance_pi_reimbursement_button(frm);
 		add_reimbursement_approval_url_button(frm);
 		add_reset_reimbursement_approval_button(frm);
 		add_create_payable_transfer_je_button(frm);
