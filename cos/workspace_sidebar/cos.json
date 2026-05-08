@@ -32,6 +32,18 @@
   {
    "child": 0,
    "collapsible": 1,
+   "icon": "bank-note",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "\u5458\u5de5\u57ab\u4ed8\u91c7\u8d2d\u62a5\u9500",
+   "link_to": "Employee Advance PI Reimbursement",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
    "icon": "box",
    "indent": 0,
    "keep_closed": 0,
@@ -185,7 +197,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-01-30 08:00:09.412758",
+ "modified": "2026-05-08 16:30:00.000000",
  "modified_by": "Administrator",
  "module": "COS Share",
  "name": "COS",

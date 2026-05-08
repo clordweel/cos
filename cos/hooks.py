@@ -521,6 +521,7 @@ fixtures = [
         "dt": "Letter Head",
         "filters": [["name", "in", ["COS 通用打印页头"]]],
     },
+    {"dt": "Workspace Sidebar", "filters": [["name", "in", ["COS"]]]},
     {"dt": "Address Template", "filters": [["name", "in", ["China"]]]},
     {
         "dt": "Terms and Conditions",
