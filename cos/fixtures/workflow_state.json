@@ -114,9 +114,69 @@
   "doctype": "Workflow State",
   "icon": "",
   "modified": "2026-05-08 12:00:00.000000",
-  "name": "COS EAPR Cancelled",
-  "owner": "Administrator",
-  "style": "Danger",
-  "workflow_state_name": "COS EAPR Cancelled"
+ "name": "COS EAPR Cancelled",
+ "owner": "Administrator",
+ "style": "Danger",
+ "workflow_state_name": "COS EAPR Cancelled"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow State",
+ "icon": "",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Draft",
+ "owner": "Administrator",
+ "style": "Info",
+ "workflow_state_name": "COS EA Draft"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow State",
+ "icon": "",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Pending Applicant",
+ "owner": "Administrator",
+ "style": "Warning",
+ "workflow_state_name": "COS EA Pending Applicant"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow State",
+ "icon": "",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Pending Finance",
+ "owner": "Administrator",
+ "style": "Warning",
+ "workflow_state_name": "COS EA Pending Finance"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow State",
+ "icon": "",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Pending Director",
+ "owner": "Administrator",
+ "style": "Warning",
+ "workflow_state_name": "COS EA Pending Director"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow State",
+ "icon": "",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Approved",
+ "owner": "Administrator",
+ "style": "Success",
+ "workflow_state_name": "COS EA Approved"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow State",
+ "icon": "",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Cancelled",
+ "owner": "Administrator",
+ "style": "Danger",
+ "workflow_state_name": "COS EA Cancelled"
  }
 ]

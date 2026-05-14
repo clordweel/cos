@@ -107,8 +107,64 @@
   "docstatus": 0,
   "doctype": "Workflow Action Master",
   "modified": "2026-05-08 12:00:00.000000",
-  "name": "COS EAPR Director Reject",
-  "owner": "Administrator",
-  "workflow_action_name": "COS EAPR Director Reject"
+ "name": "COS EAPR Director Reject",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EAPR Director Reject"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Submit for Review",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Submit for Review"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Applicant Confirm",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Applicant Confirm"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Finance Approve",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Finance Approve"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Director Approve",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Director Approve"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Applicant Reject",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Applicant Reject"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Finance Reject",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Finance Reject"
+ },
+ {
+ "docstatus": 0,
+ "doctype": "Workflow Action Master",
+ "modified": "2026-05-14 20:00:00.000000",
+ "name": "COS EA Director Reject",
+ "owner": "Administrator",
+ "workflow_action_name": "COS EA Director Reject"
  }
 ]
