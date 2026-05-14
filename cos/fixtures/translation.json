@@ -235,11 +235,11 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "zh",
-  "modified": "2026-05-14 12:00:00.000000",
+  "modified": "2026-05-14 18:00:00.000000",
   "name": "coseatr02",
   "owner": "Administrator",
   "source_text": "COS EA Pending Applicant",
-  "translated_text": "待业务确认"
+  "translated_text": "待部门确认"
  },
  {
   "contributed": 0,
@@ -290,11 +290,11 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "zh",
-  "modified": "2026-05-14 12:00:00.000000",
+  "modified": "2026-05-14 18:00:00.000000",
   "name": "coseatr07",
   "owner": "Administrator",
   "source_text": "COS EA Applicant Confirm",
-  "translated_text": "业务部门确认"
+  "translated_text": "部门确认"
  },
  {
   "contributed": 0,
@@ -338,7 +338,7 @@
   "name": "coseatr11",
   "owner": "Administrator",
   "source_text": "COS EA Finance Reject",
-  "translated_text": "退回业务确认"
+  "translated_text": "退回部门确认"
  },
  {
   "contributed": 0,
