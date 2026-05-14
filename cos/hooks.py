@@ -314,6 +314,14 @@ doc_events = {
         "before_submit": "cos.cos_accounts.utils.payment_request_workflow.payment_request_before_submit",
         "on_cancel": "cos.cos_accounts.utils.payment_request_workflow.payment_request_on_cancel",
     },
+    "Employee Advance": {
+        "before_validate": "cos.cos_accounts.utils.employee_advance_workflow.employee_advance_before_validate",
+        "validate": "cos.cos_accounts.utils.employee_advance_workflow.employee_advance_validate",
+        "before_save": "cos.cos_accounts.utils.employee_advance_workflow.employee_advance_before_save",
+        "on_update": "cos.cos_accounts.utils.employee_advance_workflow.employee_advance_on_update",
+        "before_submit": "cos.cos_accounts.utils.employee_advance_workflow.employee_advance_before_submit",
+        "on_cancel": "cos.cos_accounts.utils.employee_advance_workflow.employee_advance_on_cancel",
+    },
 }
 
 # Scheduled Tasks
@@ -461,6 +469,12 @@ fixtures = [
                     "COS EAPR Pending Director",
                     "COS EAPR Approved",
                     "COS EAPR Cancelled",
+                    "COS EA Draft",
+                    "COS EA Pending Applicant",
+                    "COS EA Pending Finance",
+                    "COS EA Pending Director",
+                    "COS EA Approved",
+                    "COS EA Cancelled",
                 ],
             ]
         ],
@@ -486,6 +500,13 @@ fixtures = [
                     "COS EAPR Applicant Reject",
                     "COS EAPR Finance Reject",
                     "COS EAPR Director Reject",
+                    "COS EA Submit for Review",
+                    "COS EA Applicant Confirm",
+                    "COS EA Finance Approve",
+                    "COS EA Director Approve",
+                    "COS EA Applicant Reject",
+                    "COS EA Finance Reject",
+                    "COS EA Director Reject",
                 ],
             ]
         ],
@@ -564,6 +585,7 @@ fixtures = [
                     "Sales Invoice",
                     "Sales Invoice Item",
                     "Purchase Receipt",
+                    "Employee Advance",
                     "Stock Entry Detail",
                     "BOM Item",
                     "BOM Explosion Item",
@@ -597,6 +619,7 @@ fixtures = [
                 [
                     "COS Payment Request Approval",
                     "COS Employee Advance PI Reimbursement Approval",
+                    "COS Employee Advance Approval",
                 ],
             ]
         ],
@@ -626,6 +649,21 @@ fixtures = [
                     "cosprytr19",
                     "cosprytr20",
                     "cosprytr21",
+                    "coseatr01",
+                    "coseatr02",
+                    "coseatr03",
+                    "coseatr04",
+                    "coseatr05",
+                    "coseatr06",
+                    "coseatr07",
+                    "coseatr08",
+                    "coseatr09",
+                    "coseatr10",
+                    "coseatr11",
+                    "coseatr12",
+                    "coseatr13",
+                    "coseatr14",
+                    "coseatr15",
                 ],
             ]
         ],
@@ -650,6 +688,17 @@ fixtures = [
                 "role",
                 "in",
                 ["All", "Logto User", "Purchase User", "Accounts User", "Expense Approver"],
+            ],
+        ],
+    },
+    {
+        "dt": "Custom DocPerm",
+        "filters": [
+            ["parent", "=", "Employee Advance"],
+            [
+                "role",
+                "in",
+                ["All", "Logto User", "Employee", "Accounts User", "Expense Approver"],
             ],
         ],
     },
@@ -682,6 +731,17 @@ fixtures = [
                     "千/件",
                 ],
             ]
+        ],
+    },
+    {
+        "dt": "Custom DocPerm",
+        "filters": [
+            ["parent", "=", "Employee Advance"],
+            [
+                "role",
+                "in",
+                ["All", "Logto User", "Employee", "Accounts User", "Expense Approver"],
+            ],
         ],
     },
     # 按 DocType「Fixture 导出模块键」筛选，避免写死 program_id/name；新小程序填同一键即可随导出迁移

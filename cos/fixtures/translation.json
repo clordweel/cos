@@ -218,5 +218,170 @@
   "owner": "Administrator",
   "source_text": "Cancelled",
   "translated_text": "已取消"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr01",
+  "owner": "Administrator",
+  "source_text": "COS EA Draft",
+  "translated_text": "草稿"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr02",
+  "owner": "Administrator",
+  "source_text": "COS EA Pending Applicant",
+  "translated_text": "待业务确认"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr03",
+  "owner": "Administrator",
+  "source_text": "COS EA Pending Finance",
+  "translated_text": "待财务核准"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr04",
+  "owner": "Administrator",
+  "source_text": "COS EA Pending Director",
+  "translated_text": "待终审批复"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr05",
+  "owner": "Administrator",
+  "source_text": "COS EA Approved",
+  "translated_text": "已批准"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr06",
+  "owner": "Administrator",
+  "source_text": "COS EA Submit for Review",
+  "translated_text": "提交审批"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr07",
+  "owner": "Administrator",
+  "source_text": "COS EA Applicant Confirm",
+  "translated_text": "业务部门确认"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr08",
+  "owner": "Administrator",
+  "source_text": "COS EA Finance Approve",
+  "translated_text": "财务核准"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr09",
+  "owner": "Administrator",
+  "source_text": "COS EA Director Approve",
+  "translated_text": "终审核准"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr10",
+  "owner": "Administrator",
+  "source_text": "COS EA Applicant Reject",
+  "translated_text": "退回草稿"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr11",
+  "owner": "Administrator",
+  "source_text": "COS EA Finance Reject",
+  "translated_text": "退回业务确认"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr12",
+  "owner": "Administrator",
+  "source_text": "COS EA Director Reject",
+  "translated_text": "退回财务复核"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr13",
+  "owner": "Administrator",
+  "source_text": "COS Employee Advance Approval",
+  "translated_text": "员工预支审批"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr14",
+  "owner": "Administrator",
+  "source_text": "Employee Advance cannot be submitted until workflow reaches {0}. Current state: {1}",
+  "translated_text": "员工预支须完成审批（工作流须到达「{0}」）后才可提交。当前状态：{1}"
+ },
+ {
+  "contributed": 0,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "zh",
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "coseatr15",
+  "owner": "Administrator",
+  "source_text": "COS EA Cancelled",
+  "translated_text": "已取消"
  }
 ]

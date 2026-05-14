@@ -334,5 +334,173 @@
   ],
   "workflow_name": "COS Employee Advance PI Reimbursement Approval",
   "workflow_state_field": "workflow_state"
+ },
+ {
+  "docstatus": 0,
+  "document_type": "Employee Advance",
+  "doctype": "Workflow",
+  "enable_action_confirmation": 0,
+  "is_active": 1,
+  "modified": "2026-05-14 12:00:00.000000",
+  "name": "COS Employee Advance Approval",
+  "override_status": 0,
+  "owner": "Administrator",
+  "send_email_alert": 0,
+  "states": [
+   {
+    "allow_edit": "All",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS EA Draft"
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS EA Pending Applicant"
+   },
+   {
+    "allow_edit": "Accounts User",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS EA Pending Finance"
+   },
+   {
+    "allow_edit": "Expense Approver",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS EA Pending Director"
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "0",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS EA Approved"
+   },
+   {
+    "allow_edit": "All",
+    "doc_status": "2",
+    "doctype": "Workflow Document State",
+    "is_optional_state": 0,
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "send_email": 0,
+    "state": "COS EA Cancelled"
+   }
+  ],
+  "transitions": [
+   {
+    "action": "COS EA Submit for Review",
+    "allowed": "All",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Pending Applicant",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Draft"
+   },
+   {
+    "action": "COS EA Applicant Confirm",
+    "allowed": "All",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Pending Finance",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Pending Applicant"
+   },
+   {
+    "action": "COS EA Finance Approve",
+    "allowed": "Accounts User",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Pending Director",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Pending Finance"
+   },
+   {
+    "action": "COS EA Director Approve",
+    "allowed": "Expense Approver",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Approved",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Pending Director"
+   },
+   {
+    "action": "COS EA Applicant Reject",
+    "allowed": "All",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Draft",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Pending Applicant"
+   },
+   {
+    "action": "COS EA Finance Reject",
+    "allowed": "Accounts User",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Pending Applicant",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Pending Finance"
+   },
+   {
+    "action": "COS EA Director Reject",
+    "allowed": "Expense Approver",
+    "allow_self_approval": 1,
+    "doctype": "Workflow Transition",
+    "next_state": "COS EA Pending Finance",
+    "parent": "COS Employee Advance Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "COS EA Pending Director"
+   }
+  ],
+  "workflow_name": "COS Employee Advance Approval",
+  "workflow_state_field": "workflow_state"
  }
 ]
