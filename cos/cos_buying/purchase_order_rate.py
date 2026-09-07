@@ -12,6 +12,21 @@ from erpnext.controllers.accounts_controller import (
 	update_child_qty_rate as erpnext_update_child_qty_rate,
 )
 
+# ERPNext status_updater 会写入 To Pay，但标准 PO.status options 未包含该项，提交后改明细会卡 Select 校验。
+PO_STATUS_OPTIONS = (
+	"\nDraft\nOn Hold\nTo Pay\nTo Receive and Bill\nTo Bill\nTo Receive\nCompleted\nCancelled\nClosed\nDelivered"
+)
+
+
+def ensure_po_status_allows_to_pay() -> None:
+	df = frappe.get_meta("Purchase Order").get_field("status")
+	if not df:
+		return
+	opts = [o for o in (df.options or "").split("\n") if o]
+	if "To Pay" in opts:
+		return
+	df.options = PO_STATUS_OPTIONS
+
 
 def payable_total(doc) -> float:
 	if not cint(getattr(doc, "disable_rounded_total", 0)):
@@ -46,6 +61,7 @@ def update_child_qty_rate(parent_doctype, trans_items, parent_doctype_name, chil
 		doc = frappe.get_doc(parent_doctype, parent_doctype_name)
 		doc.check_permission("write")
 		assert_po_item_rates_editable(doc)
+		ensure_po_status_allows_to_pay()
 	return erpnext_update_child_qty_rate(
 		parent_doctype, trans_items, parent_doctype_name, child_docname=child_docname
 	)
