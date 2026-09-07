@@ -13,6 +13,132 @@ function _apply_advance_employee_readonly(frm) {
 	});
 }
 
+function _po_payable_total(frm) {
+	if (!cint(frm.doc.disable_rounded_total) && flt(frm.doc.rounded_total)) {
+		return flt(frm.doc.rounded_total);
+	}
+	return flt(frm.doc.grand_total);
+}
+
+function _po_is_fully_paid(frm) {
+	const total = _po_payable_total(frm);
+	if (total <= 0) return false;
+	return flt(frm.doc.advance_paid) >= total;
+}
+
+function _can_edit_po_item_rates(frm) {
+	if (!frm.doc.name || frm.doc.__islocal) return false;
+	if (frm.doc.docstatus !== 1) return false;
+	if (!frm.has_perm("write")) return false;
+	if (["Closed", "Cancelled"].includes(frm.doc.status)) return false;
+	if (_po_is_fully_paid(frm)) return false;
+	return true;
+}
+
+function _show_update_po_item_rates_dialog(frm) {
+	const child_meta = frappe.get_meta("Purchase Order Item");
+	const rate_field = (child_meta.fields || []).find((f) => f.fieldname === "rate");
+	const rate_fieldtype = rate_field && rate_field.fieldtype === "Float" ? "Float" : "Currency";
+	const get_precision = (fieldname) => {
+		const df = (child_meta.fields || []).find((f) => f.fieldname === fieldname);
+		return df ? df.precision : undefined;
+	};
+
+	const data = (frm.doc.items || []).map((d) => ({
+		docname: d.name,
+		item_code: d.item_code,
+		item_name: d.item_name,
+		qty: d.qty,
+		uom: d.uom,
+		rate: d.rate,
+		schedule_date: d.schedule_date,
+		conversion_factor: d.conversion_factor,
+		description: d.description,
+	}));
+
+	const dialog = new frappe.ui.Dialog({
+		title: __("修改单价"),
+		size: "extra-large",
+		fields: [
+			{
+				fieldname: "trans_items",
+				fieldtype: "Table",
+				label: __("Items"),
+				cannot_add_rows: true,
+				cannot_delete_rows: true,
+				in_place_edit: false,
+				reqd: 1,
+				data: data,
+				get_data: () => data,
+				fields: [
+					{ fieldtype: "Data", fieldname: "docname", read_only: 1, hidden: 1 },
+					{
+						fieldtype: "Link",
+						fieldname: "item_code",
+						options: "Item",
+						label: __("Item Code"),
+						in_list_view: 1,
+						read_only: 1,
+					},
+					{
+						fieldtype: "Data",
+						fieldname: "item_name",
+						label: __("Item Name"),
+						in_list_view: 1,
+						read_only: 1,
+					},
+					{
+						fieldtype: "Float",
+						fieldname: "qty",
+						label: __("Qty"),
+						in_list_view: 1,
+						read_only: 1,
+						precision: get_precision("qty"),
+					},
+					{
+						fieldtype: "Data",
+						fieldname: "uom",
+						label: __("UOM"),
+						in_list_view: 1,
+						read_only: 1,
+					},
+					{
+						fieldtype: rate_fieldtype,
+						fieldname: "rate",
+						options: rate_fieldtype === "Currency" ? "currency" : undefined,
+						label: __("Rate"),
+						in_list_view: 1,
+						read_only: 0,
+						reqd: 1,
+						precision: get_precision("rate"),
+					},
+				],
+			},
+		],
+		primary_action_label: __("Update"),
+		primary_action: function () {
+			const trans_items = this.get_values()["trans_items"].filter((item) => !!item.item_code);
+			frappe.call({
+				method: "erpnext.controllers.accounts_controller.update_child_qty_rate",
+				freeze: true,
+				args: {
+					parent_doctype: frm.doc.doctype,
+					trans_items: trans_items,
+					parent_doctype_name: frm.doc.name,
+					child_docname: "items",
+				},
+				callback: function (r) {
+					if (!r.exc) {
+						frm.reload_doc();
+					}
+				},
+			});
+			this.hide();
+		},
+	});
+	dialog.show();
+}
+
 frappe.ui.form.on("Purchase Order", {
 	refresh: function (frm) {
 		// 垫付员工：强制使用自定义查询以忽略 User Permission，采购经理可选取任意员工
@@ -20,6 +146,11 @@ frappe.ui.form.on("Purchase Order", {
 			return { query: "cos.cos_accounts.queries.advance_employee_query" };
 		});
 		_apply_advance_employee_readonly(frm);
+		if (_can_edit_po_item_rates(frm)) {
+			frm.add_custom_button(__("修改单价"), function () {
+				_show_update_po_item_rates_dialog(frm);
+			});
+		}
 		if (!frm.doc.name || frm.doc.__islocal) return;
 		frm.add_custom_button(__("添加运单"), function () {
 			frappe.new_doc("Order Shipment", { purchase_order: frm.doc.name });

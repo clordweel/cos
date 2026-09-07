@@ -368,6 +368,7 @@ override_whitelisted_methods = {
     "erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_invoice": "cos.cos_accounts.overrides.purchase_invoice_from_po.make_purchase_invoice",
     "erpnext.stock.doctype.material_request.material_request.make_purchase_order": "cos.cos_buying.purchase_order_ecommerce.make_purchase_order",
     "erpnext.stock.doctype.material_request.material_request.make_purchase_order_based_on_supplier": "cos.cos_buying.purchase_order_ecommerce.make_purchase_order_based_on_supplier",
+    "erpnext.controllers.accounts_controller.update_child_qty_rate": "cos.cos_buying.purchase_order_rate.update_child_qty_rate",
 }
 #
 # each overriding function accepts a `data` argument;
